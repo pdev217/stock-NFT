@@ -1,0 +1,25 @@
+.wrapper {
+    position: relative;
+    border: 1px solid #6478fb;
+    width: 240px;
+    height: 150px;
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.errorImage {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}
+
+.text {
+    color: white;
+    position: absolute;
+    margin: 0;
+    bottom: 22px;
+    left: 22px;
+    font-size: 17px;
+    font-family: sans-serif;
+    font-weight: bold;
+}

@@ -1,0 +1,21 @@
+.span {
+    font-family: sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.up {
+    font-family: sans-serif;
+    color: rgb(95, 255, 149);
+    width: fit-content;
+}
+
+.down {
+    color: rgb(222, 7, 43);
+    width: fit-content;
+}
+
+.noDifference {
+    color: rgb(95, 255, 149);
+    width: fit-content;
+}
