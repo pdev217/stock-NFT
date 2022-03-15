@@ -3,16 +3,19 @@ import Image from "next/image";
 import styles from "./HorizontalNFTCard.module.css";
 import { Tag } from "../Tag/Tag";
 import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
+import { SmallChart } from "../SmallChart/SmallChart";
+import { PriceDifference } from "../PriceDifference/PriceDifference";
 
 export const HorizontalNFTCard = ({
   author,
   availible,
-  chart,
+  chartData,
   lastUpdate,
   price,
   priceDifference,
   tag,
-  title
+  title,
+  src,
 }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
@@ -36,15 +39,17 @@ export const HorizontalNFTCard = ({
         <p className={styles.availible}>{availible} Availible</p>
         <Tag text={tag} />
         <PriceWithIcon price={price} color="yellow" size="sm" />
-        <div className={styles.chart}>{chart}</div>
-        <div className={styles.authorAndViews}>
-          <p className={styles.author}>@{author}</p>
-          <p className={styles.views}>IC {views} Today</p>
+        <SmallChart data={chartData} />
+        <div className={styles.priceDiffAndLastUpdate}>
+          <PriceDifference
+            direction={priceDifference.direction}
+            percent={priceDifference.difference}
+          />
+          <p className={styles.lastUpdate}>
+            {lastUpdate}
+          </p>
         </div>
-        <div className={styles.codeAndTag}>
-          <p className={styles.code}>{code}</p>
-          <Tag text={tag} />
-        </div>
+        <p className={styles.author}>@{author}</p>
       </div>
     </div>
   );
