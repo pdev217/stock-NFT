@@ -36,7 +36,7 @@ export const PopularNFTCard = ({
       <div className={styles.infoWrapper}>
         <p className={styles.title}>{title}</p>
         <div className={styles.priceInfo}>
-          <PriceWithIcon price={price} color="red" size="sm" />
+          <PriceWithIcon price={price} color="red" size="m" />
           <PriceDifference
             direction={priceDifference.direction}
             percent={priceDifference.percent}

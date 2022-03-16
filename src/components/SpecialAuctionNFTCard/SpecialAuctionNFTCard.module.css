@@ -1,0 +1,128 @@
+.wrapper {
+    display: flex;
+    background: rgb(40, 40, 41);
+    width: 420px;
+    height: 395px;
+    border-radius: 22px;
+    border: 1px solid #6478fb;
+    overflow: hidden;
+}
+
+.imageWrapper {
+    height: 240px;
+    width: 252px;
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.errorImage {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}
+
+.leftSideInfo {
+    padding-left: 22px;
+    padding-top: 19px;
+}
+
+.NFTName {
+    color: white;
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+.time {
+    font-family: sans-serif;
+    margin-top: 9px;
+    font-size: 24px;
+    font-weight: 800;
+    color: rgb(255, 54, 84);
+}
+
+.authorCodeTag {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 9px;
+}
+
+.infoWrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 28px;
+}
+
+.priceInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.author {
+    color: white;
+    font-family: sans-serif;
+    font-size: 13px;
+    margin: 0;
+}
+
+.code {
+    color: rgb(137, 141, 150);
+    font-family: sans-serif;
+    font-size: 13px;
+    margin: 3px 0 0;
+    font-style: italic;
+}
+
+.rightSide {
+    padding-top: 18px;
+    padding-left: 24px;
+    padding-right: 27px;
+    padding-bottom: 24px;
+    width: 117px;
+    display: flex;
+    flex-direction: column;
+}
+
+.currentPriceTitle {
+    margin: 0 0 7px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+.views {
+    color: rgb(137, 141, 150);
+    font-style: italic;
+    font-family: sans-serif;
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+.historyTitle {
+    margin: 3px 0 13px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+.prevPrice {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid rgb(55, 56, 58);
+}
+
+.updatePrevPrice {
+    margin: 0;
+    font-size: 12px;
+    font-family: sans-serif;
+    font-style: italic;
+    color: rgb(137, 141, 150);
+}
+
+.button {
+    align-self: flex-end;
+    margin-top: auto;
+}

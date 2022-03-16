@@ -5,6 +5,7 @@ import { Tag } from "../Tag/Tag";
 import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
 import { SmallChart } from "../SmallChart/SmallChart";
 import { PriceDifference } from "../PriceDifference/PriceDifference";
+import { Ribbon } from "../Ribbon/Ribbon";
 
 export const HorizontalNFTCard = ({
   author,
@@ -13,6 +14,7 @@ export const HorizontalNFTCard = ({
   lastUpdate,
   price,
   priceDifference,
+  rewards,
   tag,
   title,
   src,
@@ -22,6 +24,7 @@ export const HorizontalNFTCard = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.imageWrapper}>
+        <Ribbon type={rewards} />
         {isImageAbsent ? (
           <div className={styles.errorImage}></div>
         ) : (
@@ -37,19 +40,17 @@ export const HorizontalNFTCard = ({
       <div className={styles.infoWrapper}>
         <p className={styles.title}>{title}</p>
         <p className={styles.availible}>{availible} Availible</p>
-        <Tag text={tag} />
-        <PriceWithIcon price={price} color="yellow" size="sm" />
-        <SmallChart data={chartData} />
+        <Tag text={tag} className={styles.tag} />
+        <PriceWithIcon price={price} color="yellow" size="m" />
+        <SmallChart data={chartData} className={styles.chart} />
         <div className={styles.priceDiffAndLastUpdate}>
           <PriceDifference
             direction={priceDifference.direction}
             percent={priceDifference.difference}
           />
-          <p className={styles.lastUpdate}>
-            {lastUpdate}
-          </p>
+          <p className={styles.lastUpdate}>{lastUpdate}</p>
         </div>
-        <p className={styles.author}>@{author}</p>
+        <p className={styles.author}>@{author} IC</p>
       </div>
     </div>
   );

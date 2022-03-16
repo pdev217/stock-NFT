@@ -1,13 +1,12 @@
 import React from "react";
-import { HorizontalNFTCard } from "./HorizontalNFTCard";
+import { SpecialAuctionNFTCard } from "./SpecialAuctionNFTCard";
 
 export default {
-  title: "HorizontalNFTCard",
-  component: HorizontalNFTCard,
+  title: "SpecialAuctionNFTCard",
+  component: SpecialAuctionNFTCard,
 };
 
-const Template = (args) => <HorizontalNFTCard {...args} />;
-const data = [
+const chartData = [
   { name: "Page A", price: 500,},
   { name: "Page A", price: 510,},
   { name: "Page A", price: 300,},
@@ -26,19 +25,31 @@ const data = [
   { name: "Page A", price: 344,},
 ];
 
+const Template = (args) => <SpecialAuctionNFTCard {...args} />;
+
 export const Normal = Template.bind({});
 Normal.args = {
-  author: "MLB",
-  availible: 247,
-  chartData: data,
-  lastUpdate: "24 Hrs",
-  price: 147.38,
-  priceDifference: {
-    difference: 12.43,
-    direction: "up"
-  },
-  tag: "Athletes",
-  title: "Maikel Franco",
-  src: "/p.png",
-  rewards: "rare"
+  NFTName: " Remnant 003 #376/500",
+  time: '01:09:14:53',
+  author: '@Sparktanks',
+  code: '0xuhv_76rbkln',
+  currPrice: 147.38,
+  prevPrices: [
+    {
+      price: 147.38,
+      updated: '7.1 Hrs'
+    },
+    {
+      price: 147.38,
+      updated: '7.5 Hrs'
+    },
+    {
+      price: 147.38,
+      updated: '8.0 Hrs'
+    },
+  ],
+  chartData,
+  views: 1562,
+  src: '/p.png',
+  tag: "Art & Theater",
 };

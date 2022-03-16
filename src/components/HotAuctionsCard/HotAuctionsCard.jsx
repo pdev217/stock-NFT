@@ -35,7 +35,7 @@ export const HotAuctionsCard = ({
       <div className={styles.infoWrapper}>
         <p className={styles.title}>{title}</p>
         <div className={styles.priceAndTime}>
-          <PriceWithIcon price={price} color="yellow" size="sm" />
+          <PriceWithIcon price={price} color="yellow" size="m" />
           <span className={styles.time}>{time}</span>
         </div>
         <div className={styles.authorAndViews}>

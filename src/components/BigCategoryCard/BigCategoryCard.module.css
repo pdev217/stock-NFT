@@ -1,0 +1,46 @@
+.wrapper {
+    position: relative;
+    height: 485px;
+    width: 808px;
+    border-radius: 27px;
+    overflow: hidden;
+    border: 1px solid #6478fb;
+    z-index: 5;
+    display: flex;
+    align-items: flex-end;
+}
+
+.errorImage {
+    position: absolute;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.infoWrapper {
+    width: 100%;
+    padding: 0 40px 34px;
+    position: inherit;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.categoryName {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 11px;
+}
+
+.title {
+    color: white;
+    font-size: 38px;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin: 0;
+}
