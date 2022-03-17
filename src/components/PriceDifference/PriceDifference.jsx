@@ -2,25 +2,41 @@ import styles from "./PriceDifference.module.css";
 import cn from "classnames";
 
 export const PriceDifference = ({ direction, percent, className }) => {
-  console.log('---className', className)
+  const icon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="12.794"
+      fill={direction === "down" ? "#FF3856" : "#64FF8E"}
+      height="7.764"
+      viewBox="0 0 12.794 7.764"
+    >
+      <path
+        id="Icon_awesome-chevron-up"
+        data-name="Icon awesome-chevron-up"
+        d="M7.06,3.824l5.694,5.694a.7.7,0,0,1,0,.994l-.664.664a.7.7,0,0,1-.993,0L6.563,6.665,2.029,11.177a.7.7,0,0,1-.993,0l-.664-.664a.7.7,0,0,1,0-.994L6.065,3.824A.7.7,0,0,1,7.06,3.824Z"
+        transform="translate(-0.166 -3.618)"
+      />
+    </svg>
+  );
+
   switch (direction) {
     case "up":
       return (
-        <span
-          className={cn(styles.span, className, styles.up)}
-        >{`> ${percent}%`}</span>
+        <div className={cn(styles.wrapper, className, styles.up)}>
+          <div className={styles.icon}>{icon}</div> <div>{percent}%</div>
+        </div>
       );
     case "down":
       return (
-        <span
-          className={cn(styles.span, className, styles.down)}
-        >{`< ${percent}%`}</span>
+        <div className={cn(styles.wrapper, className, styles.down)}>
+          <div className={styles.icon}>{icon}</div> <div>{percent}%</div>
+        </div>
       );
     default:
       return (
-        <span
-          className={cn(styles.span, className, styles.noDifference)}
-        >{`${percent}%`}</span>
+        <div className={cn(styles.wrapper, className, styles.noDifference)}>
+          <div className={styles.icon}>{icon}</div> <div>{percent}%</div>
+        </div>
       );
   }
 };

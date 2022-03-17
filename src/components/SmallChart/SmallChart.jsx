@@ -9,7 +9,7 @@ import {
 export const SmallChart = ({ data, className }) => {
   return (
     <div className={className}>
-      <ResponsiveContainer width="100%" height={45}>
+      <ResponsiveContainer width="100%" height={41}>
         <LineChart
           data={data}
           margin={{ top: 0, right: 0, left: 0, bottom: 0 }}

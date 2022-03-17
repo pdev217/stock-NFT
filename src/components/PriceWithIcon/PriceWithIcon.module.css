@@ -1,5 +1,6 @@
 .span {
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.8px;
 }
 
 .red {
@@ -7,7 +8,7 @@
 }
 
 .primary {
-    color: #6478fb;
+    color: #617BFF;
 }
 
 .yellow {
@@ -19,7 +20,7 @@
 }
 
 .m {
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .sm {

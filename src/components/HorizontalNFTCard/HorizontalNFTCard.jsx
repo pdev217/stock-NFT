@@ -41,7 +41,7 @@ export const HorizontalNFTCard = ({
         <p className={styles.title}>{title}</p>
         <p className={styles.availible}>{availible} Availible</p>
         <Tag text={tag} className={styles.tag} />
-        <PriceWithIcon price={price} color="yellow" size="m" />
+        <PriceWithIcon price={price} color="primary" size="m" />
         <SmallChart data={chartData} className={styles.chart} />
         <div className={styles.priceDiffAndLastUpdate}>
           <PriceDifference

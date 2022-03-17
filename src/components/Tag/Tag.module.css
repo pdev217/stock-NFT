@@ -1,16 +1,19 @@
 .tag {
     width: fit-content;
     height: 21px;
-    color: #000000;
     margin-right: 10px;
     padding: 0 10px;
-    font-family: sans-serif;
-    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    line-height: 25px;
+    font-size: 10px;
     display: flex;
     align-items: center;
     background: #898D96 0% 0% no-repeat padding-box;
     border-radius: 30px;
     opacity: 1;
+    letter-spacing: 0.5px;
+    color: #000000;
+    opacity: 0.45;
 }
 
 .tag p {
