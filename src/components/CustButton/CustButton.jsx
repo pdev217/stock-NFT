@@ -8,13 +8,15 @@ export const CustButton = ({ text, onClick, color, className }) => {
         <div className={className}>
           <Button
             sx={{
-              height: "50px",
+              height: "49px",
               textTransform: "none",
-              backgroundColor: "#6478fb",
+              background: "#617BFF 0% 0% no-repeat padding-box;",
               color: "#fff",
               boxShadow: "none",
-              borderRadius: "25px",
-              fontSize: "17px",
+              borderRadius: "30px",
+              fontSize: "16px",
+              lineHeight: "33px",
+              letterSpacing: "0.8px",
               paddingRight: "40px",
               paddingLeft: "40px",
               ":hover": {
@@ -33,13 +35,15 @@ export const CustButton = ({ text, onClick, color, className }) => {
         <div className={className}>
           <Button
             sx={{
-              height: "50px",
+              height: "49px",
               textTransform: "none",
-              backgroundColor: "rgb(222, 7, 43)",
+              background: "#DD0D2D 0% 0% no-repeat padding-box",
               color: "#fff",
               boxShadow: "none",
-              borderRadius: "25px",
-              fontSize: "17px",
+              borderRadius: "30px",
+              fontSize: "16px",
+              lineHeight: "33px",
+              letterSpacing: "0.8px",
               paddingRight: "40px",
               paddingLeft: "40px",
               ":hover": {
