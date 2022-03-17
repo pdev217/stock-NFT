@@ -1,24 +1,44 @@
 .header {
     display: grid;
-    grid-template-columns: 20% 1fr 20%;
+    grid-template-columns: auto 1fr auto;
+    padding-left: 39px;
+    background: #000000 0% 0% no-repeat padding-box;
+    height: 140px;
 }
 
-.routing {
+.navigationCategories {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    color: white
 }
 
-.routingCategories {
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    grid-gap: 10px;
-}
-
-.routingCategories span {
-    margin-right: 10px;
-}
-
-.routingCategory {
+.category {
     display: flex;
+}
+
+.category:last-child {
+    margin-right: 0;
+}
+
+.categoryName {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    line-height: 33px;
+    font-size: 18px;
+    letter-spacing: 0.9px;
+    color: #FFFFFF;
+    margin-left: 12px;
+    margin-right: 60px;
+}
+
+.searchButton {
+    border: 1px solid #617BFF;
+    border-radius: 8px;
+    width: 553px;
+    height: 49px;
+    margin: auto;
+
+    /* hardcoding. to fix. searchButton is positionned incorrect */
+    position: relative;
+    right: 22px;
 }

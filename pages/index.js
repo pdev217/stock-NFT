@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Header } from "../layout/Header/Header";
 import { PopularNFTCard } from "../src/components/PopularNFTCard/PopularNFTCard";
+import { Ribbon } from "../src/components/Ribbon/Ribbon";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -14,15 +15,7 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
       </Head>
-      <PopularNFTCard
-        author="ascacs"
-        code="ascasc"
-        price={12123}
-        priceDifference={{ direction: "up", percent: 11.11 }}
-        src="/p.png"
-        tag="asd"
-        title="ononb"
-      />
+      <Header />
     </div>
   );
 }

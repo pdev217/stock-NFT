@@ -23,5 +23,5 @@ Down.args = {
 export const No = Template.bind({});
 No.args = {
   direction: "no",
-  percent: 34
+  percent: 0
 };

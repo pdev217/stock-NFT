@@ -14,6 +14,12 @@
     padding-bottom: 3px;
 }
 
+.iconReversed {
+    margin-right: 7px;
+    padding-bottom: 3px;
+    transform: rotate(180deg);
+}
+
 .up {
     color: #64FF8E;
 }
