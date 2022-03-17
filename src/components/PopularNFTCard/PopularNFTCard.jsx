@@ -5,6 +5,7 @@ import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
 import { PriceDifference } from "../PriceDifference/PriceDifference";
 import { Tag } from "../Tag/Tag";
 import { Ribbon } from "../Ribbon/Ribbon";
+import { Author } from "../Author/Author";
 
 export const PopularNFTCard = ({
   author,
@@ -17,6 +18,8 @@ export const PopularNFTCard = ({
   rewards,
 }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
+  const NFTId = `${code.substring(0, 6)}...${code.substring(code.length - 6)}`;
+
   return (
     <div className={styles.wrapper}>
       <Ribbon type={rewards} />
@@ -42,9 +45,9 @@ export const PopularNFTCard = ({
             percent={priceDifference.percent}
           />
         </div>
-        <p className={styles.author}>@{author} IC</p>
+        <Author author={author} color="lightblue" isConfirmed/>
         <div className={styles.codeAndTag}>
-          <p className={styles.code}>{code}</p>
+          <p className={styles.code}>{NFTId}</p>
           <Tag text={tag} />
         </div>
       </div>

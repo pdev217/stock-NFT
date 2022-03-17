@@ -6,6 +6,7 @@ import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
 import { SmallChart } from "../SmallChart/SmallChart";
 import { PriceDifference } from "../PriceDifference/PriceDifference";
 import { Ribbon } from "../Ribbon/Ribbon";
+import { Author } from "../Author/Author";
 
 export const HorizontalNFTCard = ({
   author,
@@ -47,10 +48,16 @@ export const HorizontalNFTCard = ({
           <PriceDifference
             direction={priceDifference.direction}
             percent={priceDifference.difference}
+            className={styles.priceDifferenceInfo}
           />
           <p className={styles.lastUpdate}>{lastUpdate}</p>
         </div>
-        <p className={styles.author}>@{author} IC</p>
+        <Author
+          author={author}
+          color="lightblue"
+          isConfirmed
+          className={styles.author}
+        />
       </div>
     </div>
   );
