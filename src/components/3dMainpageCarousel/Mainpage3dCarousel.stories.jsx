@@ -27,7 +27,8 @@ const chartData = [
 
 const NFTCards = [
   {
-    NFTName: "Remnant 003 #376/500",
+    id:"qwd1d",
+    NFTName: "1111",
     time: "01:09:14:53",
     author: "@Sparktanks",
     code: "0xuhv_76rbkln",
@@ -52,7 +53,8 @@ const NFTCards = [
     tag: "Art & Theater",
   },
   {
-    NFTName: "Remnant 003 #376/500",
+    id:"2f121c",
+    NFTName: "2222",
     time: "01:09:14:53",
     author: "@Sparktanks",
     code: "0xuhv_76rbkln",
@@ -77,7 +79,8 @@ const NFTCards = [
     tag: "Art & Theater",
   },
   {
-    NFTName: "Remnant 003 #376/500",
+    id:"12f24h",
+    NFTName: "3333",
     time: "01:09:14:53",
     author: "@Sparktanks",
     code: "0xuhv_76rbkln",
