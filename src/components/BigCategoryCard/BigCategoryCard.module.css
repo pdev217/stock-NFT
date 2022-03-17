@@ -1,13 +1,15 @@
 .wrapper {
     position: relative;
-    height: 485px;
-    width: 808px;
-    border-radius: 27px;
+    height: 497px;
+    width: 809px;
     overflow: hidden;
-    border: 1px solid #6478fb;
     z-index: 5;
     display: flex;
     align-items: flex-end;
+    background: transparent linear-gradient(180deg, #00000000 0%, #00000000 56%, #000000 100%) 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 20px #00000084;
+    border: 1px solid #617BFF;
+    border-radius: 30px;
 }
 
 .errorImage {
@@ -20,12 +22,15 @@
 
 .infoWrapper {
     width: 100%;
-    padding: 0 40px 34px;
+    padding-left: 48px;
+    padding-right: 40PX;
+    padding-bottom: 28PX;
     position: inherit;
     z-index: 10;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    opacity: 1;
 }
 
 .categoryName {
@@ -35,12 +40,23 @@
     font-family: sans-serif;
     text-transform: uppercase;
     margin-bottom: 11px;
+    color: #fff;
+    text-align: left;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 23px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.9px;
 }
 
 .title {
     color: white;
-    font-size: 38px;
+    font-size: 45px;
+    letter-spacing: 68px;
     font-weight: bold;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
 }

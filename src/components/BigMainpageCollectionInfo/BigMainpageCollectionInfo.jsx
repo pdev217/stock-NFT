@@ -28,7 +28,7 @@ export const BigMainpageCollectionInfo = ({
       <div className={styles.infoWrapper}>
         <p className={styles.title}>{title}</p>
         <p className={styles.upperCaseText}>{upperCaseText}</p>
-        <p className={styles.discounted}>
+        <p className={styles.discount}>
           Get <PriceWithIcon price={discount} color="primary" size="m" /> for
           purchasing!
         </p>

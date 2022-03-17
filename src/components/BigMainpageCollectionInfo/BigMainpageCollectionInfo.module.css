@@ -1,11 +1,14 @@
 .wrapper {
-    height: 620px;
-    width: 780px;
-    border: 1px solid #6478fb;
-    border-radius: 27px;
+    height: 622px;
+    width: 781px;
     position: relative;
     z-index: 5;
     overflow: hidden;
+    background: transparent linear-gradient(180deg, #00000000 0%, #00000000 43%, #0000009A 67%, #000000 100%) 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 50px #000000;
+    border: 1px solid #617BFF;
+    border-radius: 30px;
+    opacity: 0.84;
 }
 
 .errorImage {
@@ -18,8 +21,8 @@
 
 .infoWrapper {
     position: absolute;
-    top: 325px;
-    left: 455px;
+    top: 323px;
+    left: 453px;
     width: 260px;
     z-index: 10;
     color: white;
@@ -28,21 +31,36 @@
 
 .title {
     margin: 0;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: bold;
-    font-family: sans-serif;
-    line-height: 39px;
+    font-family: 'Poppins', sans-serif;
+    line-height: 42px;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    text-shadow: 0px 2px 10px #000000D1;
+    opacity: 1;
 }
 
 .upperCaseText {
     font-size: 16px;
     font-family: sans-serif;
     text-transform: uppercase;
-    margin-bottom: 13px;
+    margin: 0;
+    line-height: 33px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.8px;
+    color: #FFFFFF;
+    text-shadow: 0px 2px 10px #000000D1;
+    opacity: 1;
 }
 
-.discounted {
+.discount {
     margin-top: 0;
     font-size: 16px;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
+    line-height: 33px;
+    letter-spacing: 0.8px;
+    color: #FFFFFF;
+    text-shadow: 0px 2px 10px #000000D1;
+    opacity: 1;
 }
