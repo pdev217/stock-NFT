@@ -1,0 +1,48 @@
+.wrapper {
+    height: 620px;
+    width: 780px;
+    border: 1px solid #6478fb;
+    border-radius: 27px;
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.errorImage {
+    position: absolute;
+    background-color: black;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+}
+
+.infoWrapper {
+    position: absolute;
+    top: 325px;
+    left: 455px;
+    width: 260px;
+    z-index: 10;
+    color: white;
+    position: inherit;
+}
+
+.title {
+    margin: 0;
+    font-size: 26px;
+    font-weight: bold;
+    font-family: sans-serif;
+    line-height: 39px;
+}
+
+.upperCaseText {
+    font-size: 16px;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 13px;
+}
+
+.discounted {
+    margin-top: 0;
+    font-size: 16px;
+    font-family: sans-serif;
+}

@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./HotAuctionsCard.module.css";
 import { Tag } from "../Tag/Tag";
 import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
+import { Views } from "../Views/Views";
 
 export const HotAuctionsCard = ({
   author,
@@ -40,7 +41,7 @@ export const HotAuctionsCard = ({
         </div>
         <div className={styles.authorAndViews}>
           <p className={styles.author}>@{author}</p>
-          <p className={styles.views}>IC {views} Today</p>
+          <Views quantity={views} className={styles.views} />
         </div>
         <div className={styles.codeAndTag}>
           <p className={styles.code}>{code}</p>

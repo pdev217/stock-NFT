@@ -5,8 +5,11 @@ import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
 import { Tag } from "../Tag/Tag";
 import { SmallChart } from "../SmallChart/SmallChart";
 import { CustButton } from "../CustButton/CustButton";
+import { Views } from "../Views/Views";
+import cn from "classnames";
 
 export const SpecialAuctionNFTCard = ({
+  className,
   NFTName,
   time,
   author,
@@ -21,7 +24,7 @@ export const SpecialAuctionNFTCard = ({
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cn(styles.wrapper, className)}>
       <div className={styles.leftSide}>
         <div className={styles.imageWrapper}>
           {isImageAbsent ? (
@@ -56,7 +59,7 @@ export const SpecialAuctionNFTCard = ({
           size="l"
           className={styles.priceWithIconBig}
         />
-        <p className={styles.views}>IC {views} Today</p>
+        <Views quantity={views} className={styles.views} />
         <p className={styles.historyTitle}>HISTORY</p>
         <SmallChart data={chartData} className={styles.chart} />
         <div className={styles.prevPrices}>
