@@ -31,7 +31,7 @@ export const Normal = Template.bind({});
 Normal.args = {
   NFTName: " Remnant 003 #376/500",
   time: '01:09:14:53',
-  author: '@Sparktanks',
+  username: '@Sparktanks',
   code: '0xuhv_76rbkln',
   currPrice: 147.38,
   prevPrices: [

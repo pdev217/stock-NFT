@@ -5,10 +5,10 @@ import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
 import { PriceDifference } from "../PriceDifference/PriceDifference";
 import { Tag } from "../Tag/Tag";
 import { Ribbon } from "../Ribbon/Ribbon";
-import { Author } from "../Author/Author";
+import { Username } from "../Username/Username";
 
 export const PopularNFTCard = ({
-  author,
+  username,
   code,
   price,
   priceDifference,
@@ -45,7 +45,7 @@ export const PopularNFTCard = ({
             percent={priceDifference.percent}
           />
         </div>
-        <Author author={author} color="lightblue" isConfirmed/>
+        <Username username={username} color="lightblue" isConfirmed/>
         <div className={styles.codeAndTag}>
           <p className={styles.code}>{NFTId}</p>
           <Tag text={tag} />

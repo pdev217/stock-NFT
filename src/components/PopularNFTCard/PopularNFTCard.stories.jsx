@@ -19,7 +19,7 @@ Normal.args = {
     direction: "up",
     percent: 15.3
   },
-  author: "CoolMan",
+  username: "CoolMan",
   code: "uv7597gug865d",
   tag: "Art & Theater",
   rewards: "common"
@@ -34,7 +34,7 @@ Down.args = {
     direction: "down",
     percent: 15.3
   },
-  author: "CoolMan",
+  username: "CoolMan",
   code: "uv7597gug865d",
   tag: "3d Art",
   rewards: "rare"

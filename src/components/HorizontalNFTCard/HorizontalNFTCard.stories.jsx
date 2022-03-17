@@ -28,7 +28,7 @@ const data = [
 
 export const Normal = Template.bind({});
 Normal.args = {
-  author: "MLB",
+  username: "MLB",
   availible: 247,
   chartData: data,
   lastUpdate: "24 Hrs",

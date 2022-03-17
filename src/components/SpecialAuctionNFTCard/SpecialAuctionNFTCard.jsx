@@ -12,7 +12,7 @@ export const SpecialAuctionNFTCard = ({
   className,
   NFTName,
   time,
-  author,
+  username,
   code,
   currPrice,
   prevPrices,
@@ -42,9 +42,9 @@ export const SpecialAuctionNFTCard = ({
         <div className={styles.leftSideInfo}>
           <p className={styles.NFTName}>{NFTName}</p>
           <p className={styles.time}>{time}</p>
-          <div className={styles.authorCodeTag}>
-            <div className={styles.authorCode}>
-              <p className={styles.author}>{author}</p>
+          <div className={styles.usernameCodeTag}>
+            <div className={styles.usernameCode}>
+              <p className={styles.username}>{username}</p>
               <p className={styles.code}>{code}</p>
             </div>
             <Tag text={tag} className={styles.tag} />

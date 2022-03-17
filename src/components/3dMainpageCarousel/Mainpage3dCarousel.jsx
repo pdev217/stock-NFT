@@ -32,7 +32,7 @@ export const Mainpage3dCarousel = ({ NFTCards }) => {
           className={styles.prevCard}
           NFTName={NFTCards[prevImgIndex].NFTName}
           time={NFTCards[prevImgIndex].time}
-          author={NFTCards[prevImgIndex].author}
+          username={NFTCards[prevImgIndex].username}
           code={NFTCards[prevImgIndex].code}
           currPrice={NFTCards[prevImgIndex].currPrice}
           prevPrices={NFTCards[prevImgIndex].prevPrices}
@@ -46,7 +46,7 @@ export const Mainpage3dCarousel = ({ NFTCards }) => {
           className={styles.currCard}
           NFTName={NFTCards[activeIndex].NFTName}
           time={NFTCards[activeIndex].time}
-          author={NFTCards[activeIndex].author}
+          username={NFTCards[activeIndex].username}
           code={NFTCards[activeIndex].code}
           currPrice={NFTCards[activeIndex].currPrice}
           prevPrices={NFTCards[activeIndex].prevPrices}
@@ -60,7 +60,7 @@ export const Mainpage3dCarousel = ({ NFTCards }) => {
           className={styles.nextCard}
           NFTName={NFTCards[nextImgIndex].NFTName}
           time={NFTCards[nextImgIndex].time}
-          author={NFTCards[nextImgIndex].author}
+          username={NFTCards[nextImgIndex].username}
           code={NFTCards[nextImgIndex].code}
           currPrice={NFTCards[nextImgIndex].currPrice}
           prevPrices={NFTCards[nextImgIndex].prevPrices}

@@ -10,7 +10,7 @@ const Template = (args) => <HotAuctionsCard {...args} />;
 
 export const Normal = Template.bind({});
 Normal.args = {
-  author: "Spranktanks",
+  username: "Spranktanks",
   code: "sd1123123123sd",
   price: 137.37,
   src: "/p.png",

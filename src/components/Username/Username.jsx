@@ -1,4 +1,4 @@
-import styles from "./Author.module.css";
+import styles from "./Username.module.css";
 import cn from "classnames";
 
 const icon = (
@@ -20,13 +20,13 @@ const icon = (
   </div>
 );
 
-export const Author = ({ author, className, isConfirmed, color }) => (
-  <div className={cn(styles.author, className, {
+export const Username = ({ username, className, isConfirmed, color }) => (
+  <div className={cn(styles.username, className, {
     [styles.lightblue]: color === "lightblue",
-    [styles.white]: color === "wite",
+    [styles.white]: color === "white",
   })}>
     <p>
-      @{author} 
+      @{username} 
     </p>
     {isConfirmed && icon}
   </div>

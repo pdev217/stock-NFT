@@ -6,7 +6,7 @@ import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
 import { Views } from "../Views/Views";
 
 export const HotAuctionsCard = ({
-  author,
+  username,
   code,
   price,
   src,
@@ -39,8 +39,8 @@ export const HotAuctionsCard = ({
           <PriceWithIcon price={price} color="yellow" size="m" />
           <span className={styles.time}>{time}</span>
         </div>
-        <div className={styles.authorAndViews}>
-          <p className={styles.author}>@{author}</p>
+        <div className={styles.usernameAndViews}>
+          <p className={styles.username}>@{username}</p>
           <Views quantity={views} className={styles.views} />
         </div>
         <div className={styles.codeAndTag}>

@@ -30,7 +30,7 @@ const NFTCards = [
     id:"qwd1d",
     NFTName: "1111",
     time: "01:09:14:53",
-    author: "@Sparktanks",
+    username: "@Sparktanks",
     code: "0xuhv_76rbkln",
     currPrice: 147.38,
     prevPrices: [
@@ -56,7 +56,7 @@ const NFTCards = [
     id:"2f121c",
     NFTName: "2222",
     time: "01:09:14:53",
-    author: "@Sparktanks",
+    username: "@Sparktanks",
     code: "0xuhv_76rbkln",
     currPrice: 147.38,
     prevPrices: [
@@ -82,7 +82,7 @@ const NFTCards = [
     id:"12f24h",
     NFTName: "3333",
     time: "01:09:14:53",
-    author: "@Sparktanks",
+    username: "@Sparktanks",
     code: "0xuhv_76rbkln",
     currPrice: 147.38,
     prevPrices: [

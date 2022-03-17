@@ -41,7 +41,7 @@
     color: rgb(255, 54, 84);
 }
 
-.authorCodeTag {
+.usernameCodeTag {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -60,7 +60,7 @@
     justify-content: space-between;
 }
 
-.author {
+.username {
     color: white;
     font-family: sans-serif;
     font-size: 13px;
