@@ -1,11 +1,12 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    background: rgb(40, 40, 41);
     width: 275px;
     height: fit-content;
-    border-radius: 22px;
-    border: 1px solid #6478fb;
+    background: #282829 0% 0% no-repeat padding-box;
+border: 1px solid #617BFF;
+border-radius: 30px;
+opacity: 1;
     overflow: hidden;
 }
 
