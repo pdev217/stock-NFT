@@ -2,9 +2,9 @@ import { useState } from "react";
 import Image from "next/image";
 import styles from "./HorizontalNFTCard.module.css";
 import { Tag } from "../Tag/Tag";
-import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
+import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { SmallChart } from "../SmallChart/SmallChart";
-import { PriceDifference } from "../PriceDifference/PriceDifference";
+import { AmountDifference } from "../AmountDifference/AmountDifference";
 import { Ribbon } from "../Ribbon/Ribbon";
 import { Username } from "../Username/Username";
 
@@ -14,7 +14,7 @@ export const HorizontalNFTCard = ({
   chartData,
   lastUpdate,
   price,
-  priceDifference,
+  AmountDifference,
   rewards,
   tag,
   title,
@@ -42,10 +42,10 @@ export const HorizontalNFTCard = ({
         <p className={styles.title}>{title}</p>
         <p className={styles.availible}>{availible} Availible</p>
         <Tag text={tag} className={styles.tag} />
-        <PriceWithIcon price={price} color="primary" size="m" />
+        <AmountWithIcon amount={price} color="primary" size="m" />
         <SmallChart data={chartData} className={styles.chart} />
         <div className={styles.priceDiffAndLastUpdate}>
-          <PriceDifference
+          <AmountDifference
             direction={priceDifference.direction}
             percent={priceDifference.difference}
             className={styles.priceDifferenceInfo}

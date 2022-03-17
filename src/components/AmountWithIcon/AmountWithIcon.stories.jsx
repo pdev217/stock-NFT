@@ -1,30 +1,30 @@
 import React from "react";
-import { PriceWithIcon } from "./PriceWithIcon";
+import { AmountWithIcon } from "./AmountWithIcon";
 
 export default {
-  title: "PriceWithIcon",
-  component: PriceWithIcon,
+  title: "AmountWithIcon",
+  component: AmountWithIcon,
 };
 
-const Template = (args) => <PriceWithIcon {...args} />;
+const Template = (args) => <AmountWithIcon {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  price: 432.65,
+  amount: 432.65,
   color: "primary",
   size: "m"
 };
 
 export const Red = Template.bind({});
 Red.args = {
-  price: 432.65,
+  amount: 432.65,
   color: "red",
   size: "m"
 };
 
 export const Small = Template.bind({});
 Small.args = {
-  price: 432.65,
+  amount: 432.65,
   color: "primary",
   size: "sm"
 };

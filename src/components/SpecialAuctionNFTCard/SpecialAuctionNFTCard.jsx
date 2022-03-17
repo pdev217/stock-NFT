@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "./SpecialAuctionNFTCard.module.css";
-import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
+import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { Tag } from "../Tag/Tag";
 import { SmallChart } from "../SmallChart/SmallChart";
 import { CustButton } from "../CustButton/CustButton";
@@ -53,11 +53,11 @@ export const SpecialAuctionNFTCard = ({
       </div>
       <div className={styles.rightSide}>
         <p className={styles.currentPriceTitle}>CURRENT PRICE</p>
-        <PriceWithIcon
-          price={currPrice}
+        <AmountWithIcon
+          amount={currPrice}
           color="primary"
           size="l"
-          className={styles.priceWithIconBig}
+          className={styles.amountWithIconBig}
         />
         <Views quantity={views} className={styles.views} />
         <p className={styles.historyTitle}>HISTORY</p>
@@ -66,11 +66,11 @@ export const SpecialAuctionNFTCard = ({
           {prevPrices.length > 0 &&
             prevPrices.map((price) => (
               <div key={price.id} className={styles.prevPrice}>
-                <PriceWithIcon
-                  price={price.price}
+                <AmountWithIcon
+                  amount={price.price}
                   color="primary"
                   size="sm"
-                  className={styles.priceWithIconSmall}
+                  className={styles.amountWithIconSmall}
                 />
                 <p className={styles.updatePrevPrice}>{price.updated}</p>
               </div>

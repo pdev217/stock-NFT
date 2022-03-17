@@ -1,7 +1,7 @@
-import styles from "./PriceDifference.module.css";
+import styles from "./AmountDifference.module.css";
 import cn from "classnames";
 
-export const PriceDifference = ({ direction, percent, className }) => {
+export const AmountDifference = ({ direction, percent, className }) => {
   const icon = (
     <svg
       xmlns="http://www.w3.org/2000/svg"

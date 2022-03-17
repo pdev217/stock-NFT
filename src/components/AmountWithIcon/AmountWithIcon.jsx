@@ -1,8 +1,11 @@
-import styles from "./PriceWithIcon.module.css";
+import styles from "./AmountWithIcon.module.css";
 import cn from "classnames";
 
-export const PriceWithIcon = ({ price, color, size, className }) => {
-  console.log('---className', className)
+export const AmountWithIcon = ({ amount, color, size, className }) => {
+  const numberWithCommas = (number) => {
+    return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }  
+
   return (
     <span
       className={cn(styles.span, className, {
@@ -14,7 +17,7 @@ export const PriceWithIcon = ({ price, color, size, className }) => {
         [styles.yellow]: color === "yellow",
       })}
     >
-      IC ${price}
+      IC ${numberWithCommas(amount)}
     </span>
   );
 };

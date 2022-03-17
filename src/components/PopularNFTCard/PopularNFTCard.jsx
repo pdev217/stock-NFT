@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "./PopularNFTCard.module.css";
-import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
-import { PriceDifference } from "../PriceDifference/PriceDifference";
+import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
+import { AmountDifference } from "../AmountDifference/AmountDifference";
 import { Tag } from "../Tag/Tag";
 import { Ribbon } from "../Ribbon/Ribbon";
 import { Username } from "../Username/Username";
@@ -39,8 +39,8 @@ export const PopularNFTCard = ({
       <div className={styles.infoWrapper}>
         <p className={styles.title}>{title}</p>
         <div className={styles.priceInfo}>
-          <PriceWithIcon price={price} color="red" size="m" />
-          <PriceDifference
+          <AmountWithIcon amount={price} color="red" size="m" />
+          <AmountDifference
             direction={priceDifference.direction}
             percent={priceDifference.percent}
           />

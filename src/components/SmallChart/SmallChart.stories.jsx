@@ -19,6 +19,7 @@ const data = [
   { name: "Page A", price: 250,},
   { name: "Page A", price: 675,},
   { name: "Page A", price: 344,},
+  
 ];
 
 export const Chart = Template.bind({});

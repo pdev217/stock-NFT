@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "./BigMainpageCollectionInfo.module.css";
-import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
+import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { CustButton } from "../CustButton/CustButton";
 
 export const BigMainpageCollectionInfo = ({
@@ -29,7 +29,7 @@ export const BigMainpageCollectionInfo = ({
         <p className={styles.title}>{title}</p>
         <p className={styles.upperCaseText}>{upperCaseText}</p>
         <p className={styles.discount}>
-          Get <PriceWithIcon price={discount} color="primary" size="m" /> for
+          Get <AmountWithIcon amount={discount} color="primary" size="m" /> for
           purchasing!
         </p>
         <CustButton text="Collect Now" color="primary" />

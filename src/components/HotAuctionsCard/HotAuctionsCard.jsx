@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import styles from "./HotAuctionsCard.module.css";
 import { Tag } from "../Tag/Tag";
-import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
+import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { Views } from "../Views/Views";
 
 export const HotAuctionsCard = ({
@@ -36,7 +36,7 @@ export const HotAuctionsCard = ({
       <div className={styles.infoWrapper}>
         <p className={styles.title}>{title}</p>
         <div className={styles.priceAndTime}>
-          <PriceWithIcon price={price} color="yellow" size="m" />
+          <AmountWithIcon amount={price} color="yellow" size="m" />
           <span className={styles.time}>{time}</span>
         </div>
         <div className={styles.usernameAndViews}>

@@ -1,12 +1,12 @@
 import React from "react";
-import { PriceDifference } from "./PriceDifference";
+import { AmountDifference } from "./AmountDifference";
 
 export default {
-  title: "PriceDifference",
-  component: PriceDifference,
+  title: "AmountDifference",
+  component: AmountDifference,
 };
 
-const Template = (args) => <PriceDifference {...args} />;
+const Template = (args) => <AmountDifference {...args} />;
 
 export const Up = Template.bind({});
 Up.args = {
