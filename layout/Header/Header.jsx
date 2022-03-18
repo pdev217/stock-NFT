@@ -1,8 +1,11 @@
+import { useState } from "react";
+import cn from "classnames";
 import Image from "next/image";
 import { Username } from "../../src/components/Username/Username";
 import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
 import { AmountDifference } from "../../src/components/AmountDifference/AmountDifference";
 import { SmallChart } from "../../src/components/SmallChart/SmallChart";
+import { ProfilePopup } from "../../src/components/ProfilePopup/ProfilePopup";
 import { routingCategories } from "./Header.utils";
 import styles from "./Header.module.css";
 
@@ -20,7 +23,22 @@ const fakeChartData = [
   { name: "Page A", price: 560 },
 ];
 
+const fakeCategories = [
+  { categoryName: "Profile", href: "#", src: "/profile-without-circle.svg", id: '1' },
+  { categoryName: "Favourites", href: "#", src: "/favourites-icon.svg", id: '2' },
+  { categoryName: "Watchlist", href: "#", src: "/eye-icon.svg", id: '3' },
+  { categoryName: "My collections", href: "#", src: "/collections-icon.svg", id: '4' },
+  { categoryName: "Settings", href: "#", src: "/settings-icon.svg", id: '5' },
+];
+
 export const Header = ({ isAuthorised }) => {
+  const [isProfilePopupOpened, setIsProfilePopupOpened] = useState(false);
+  const [isWalletPopupOpened, setIsWalletPopupOpened] = useState(false);
+
+  const togglePopup = () => {
+    setIsProfilePopupOpened(!isProfilePopupOpened);
+  }
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -92,7 +110,7 @@ export const Header = ({ isAuthorised }) => {
         </div>
       ) : (
           <div className={styles.unAuthUserData}>
-            <div className={styles.profile}>
+            <div className={styles.profile} onClick={togglePopup}>
               <div className={styles.profileIcon}>
                 <Image
                   src="/profile-icon.svg"
@@ -101,6 +119,9 @@ export const Header = ({ isAuthorised }) => {
                 />
               </div>
               <div className={styles.profileText}>Profile</div>
+              <ProfilePopup categories={fakeCategories} className={cn(styles.profilePopup,{
+                [styles.popupActive]: isProfilePopupOpened
+              })} />
             </div>
             <div className={styles.wallet}>
               <div className={styles.walletIcon}>
