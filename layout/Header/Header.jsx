@@ -1,5 +1,7 @@
 import { useState } from "react";
 import cn from "classnames";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleIsOpened } from "../../src/redux/slices/walletPopupSlice";
 import Image from "next/image";
 import { Username } from "../../src/components/Username/Username";
 import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
@@ -24,20 +26,45 @@ const fakeChartData = [
 ];
 
 const fakeCategories = [
-  { categoryName: "Profile", href: "#", src: "/profile-without-circle.svg", id: '1' },
-  { categoryName: "Favourites", href: "#", src: "/favourites-icon.svg", id: '2' },
-  { categoryName: "Watchlist", href: "#", src: "/eye-icon.svg", id: '3' },
-  { categoryName: "My collections", href: "#", src: "/collections-icon.svg", id: '4' },
-  { categoryName: "Settings", href: "#", src: "/settings-icon.svg", id: '5' },
+  {
+    categoryName: "Profile",
+    href: "#",
+    src: "/profile-without-circle.svg",
+    id: "1",
+  },
+  {
+    categoryName: "Favourites",
+    href: "#",
+    src: "/favourites-icon.svg",
+    id: "2",
+  },
+  { categoryName: "Watchlist", href: "#", src: "/eye-icon.svg", id: "3" },
+  {
+    categoryName: "My collections",
+    href: "#",
+    src: "/collections-icon.svg",
+    id: "4",
+  },
+  { categoryName: "Settings", href: "#", src: "/settings-icon.svg", id: "5" },
 ];
 
 export const Header = ({ isAuthorised }) => {
-  const [isProfilePopupOpened, setIsProfilePopupOpened] = useState(false);
+  const dispatch = useDispatch();
+  const isProfilePopupOpened = useSelector(
+    (state) => state.profilePopup.profilePopup.isOpened
+  );
+  //const [isProfilePopupOpened, setIsProfilePopupOpened] = useState(false);
   const [isWalletPopupOpened, setIsWalletPopupOpened] = useState(false);
 
   const togglePopup = () => {
-    setIsProfilePopupOpened(!isProfilePopupOpened);
-  }
+    dispatch(
+      toggleIsOpened({
+        profilePopup: {
+          isOpened: !isProfilePopupOpened,
+        },
+      })
+    );
+  };
 
   return (
     <header className={styles.header}>
@@ -109,31 +136,26 @@ export const Header = ({ isAuthorised }) => {
           </div>
         </div>
       ) : (
-          <div className={styles.unAuthUserData}>
-            <div className={styles.profile} onClick={togglePopup}>
-              <div className={styles.profileIcon}>
-                <Image
-                  src="/profile-icon.svg"
-                  layout="fill"
-                  alt="profile-icon"
-                />
-              </div>
-              <div className={styles.profileText}>Profile</div>
-              <ProfilePopup categories={fakeCategories} className={cn(styles.profilePopup,{
-                [styles.popupActive]: isProfilePopupOpened
-              })} />
+        <div className={styles.unAuthUserData}>
+          <div className={styles.profile} onClick={togglePopup}>
+            <div className={styles.profileIcon}>
+              <Image src="/profile-icon.svg" layout="fill" alt="profile-icon" />
             </div>
-            <div className={styles.wallet}>
-              <div className={styles.walletIcon}>
-                <Image
-                  src="/wallet-icon.svg"
-                  layout="fill"
-                  alt="profile-icon"
-                />
-              </div>
-              <div className={styles.walletText}>Wallet</div>
-            </div>
+            <div className={styles.profileText}>Profile</div>
+            <ProfilePopup
+              categories={fakeCategories}
+              className={cn(styles.profilePopup, {
+                [styles.popupActive]: isProfilePopupOpened,
+              })}
+            />
           </div>
+          <div className={styles.wallet}>
+            <div className={styles.walletIcon}>
+              <Image src="/wallet-icon.svg" layout="fill" alt="profile-icon" />
+            </div>
+            <div className={styles.walletText}>Wallet</div>
+          </div>
+        </div>
       )}
     </header>
   );

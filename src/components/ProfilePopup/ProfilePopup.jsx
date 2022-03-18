@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./ProfilePopup.module.css";
 
-export const ProfilePopup = ({ categories }) => (
-  <>
+export const ProfilePopup = ({ categories, className }) => (
+  <div className={cn(className, styles.wrapper)}> 
     {categories.map(({ categoryName, src, href, id, className }) => (
-      <div key={id} className={cn(styles.category, className)}>
+      <div key={id} className={styles.category}>
         <Link href={href} passHref>
           <>
             <div className={styles.icon}>
@@ -17,5 +17,5 @@ export const ProfilePopup = ({ categories }) => (
         </Link>
       </div>
     ))}
-  </>
+  </div>
 );

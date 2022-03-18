@@ -1,3 +1,8 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .category {
   background: #1d1d1d 0% 0% no-repeat padding-box;
   width: 200px;
@@ -6,6 +11,7 @@
   padding: 16px 0 16px 16px;
   box-sizing: border-box;
   display: flex;
+  align-items: center;
   border-bottom: 1px solid #282829;
 }
 

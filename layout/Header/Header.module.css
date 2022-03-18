@@ -134,6 +134,7 @@
 .profile,
 .wallet {
   display: flex;
+  position: relative;
   align-items: center;
   cursor: pointer;
 }
@@ -162,4 +163,17 @@
 
 .profileText {
   margin-right: 30px;
+}
+
+
+.profilePopup {
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 38px;
+  right: 30px;
+}
+
+.popupActive {
+  height: fit-content;
 }
