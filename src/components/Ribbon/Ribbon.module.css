@@ -12,7 +12,7 @@
     font-weight: bold;
 }
 
-.ribbon:after {
+.ribbon::after {
     content: "";
     width: 0;
     height: 0;
@@ -24,7 +24,7 @@
     border-right: 17px solid tranaparent;
 }
   
-.ribbon:before {
+.ribbon::before {
     content: "";
     width: 0;
     height: 0;
@@ -39,53 +39,53 @@
 }
 
 .rare {
-    background: rgb(255, 129, 77);
+    background: rgb(255 129 77);
 }
 
-.rare:after {
-    border-top: 2px solid rgb(255, 129, 77);
-    border-left: 20px solid rgb(255, 129, 77);
+.rare::after {
+    border-top: 2px solid rgb(255 129 77);
+    border-left: 20px solid rgb(255 129 77);
 }
 
-.rare:before {
-    border-bottom: 18px solid rgb(255, 129, 77);
+.rare::before {
+    border-bottom: 18px solid rgb(255 129 77);
 }
 
 .common {
-    background: rgb(137, 141, 150);
+    background: rgb(137 141 150);
 }
 
-.common:after {
-    border-top: 2px solid rgb(137, 141, 150);
-    border-left: 20px solid rgb(137, 141, 150);
+.common::after {
+    border-top: 2px solid rgb(137 141 150);
+    border-left: 20px solid rgb(137 141 150);
 }
 
-.common:before {
-    border-bottom: 18px solid rgb(137, 141, 150);
+.common::before {
+    border-bottom: 18px solid rgb(137 141 150);
 }
 
 .uncmn {
-    background: rgb(63, 130, 251);
+    background: rgb(63 130 251);
 }
 
-.uncmn:after {
-    border-top: 2px solid rgb(63, 130, 251);
-    border-left: 20px solid rgb(63, 130, 251);
+.uncmn::after {
+    border-top: 2px solid rgb(63 130 251);
+    border-left: 20px solid rgb(63 130 251);
 }
 
-.uncmn:before {
-    border-bottom: 18px solid rgb(63, 130, 251);
+.uncmn::before {
+    border-bottom: 18px solid rgb(63 130 251);
 }
 
 .uRare {
-    background: rgb(181, 65, 250);
+    background: rgb(181 65 250);
 }
 
-.uRare:after {
-    border-top: 2px solid rgb(181, 65, 250);
-    border-left: 20px solid rgb(181, 65, 250);
+.uRare::after {
+    border-top: 2px solid rgb(181 65 250);
+    border-left: 20px solid rgb(181 65 250);
 }
 
-.uRare:before {
-    border-bottom: 18px solid rgb(181, 65, 250);
+.uRare::before {
+    border-bottom: 18px solid rgb(181 65 250);
 }

@@ -1,13 +1,13 @@
 .footer {
-
+    display: flex;
 }
 
-.contentWrapper {
+/* .contentWrapper {
     display: grid;
-    grid-template-columns: [start] 5.15% [aboutStart] 320px [aboutEnd] 8.07% [categoriesStart] auto [categoriesEnd] 3.6% [getAlertStart] [getAlertEnd] 6.25% [end];
-}
+    grid-template-columns: [start] 5.15% [aboutstart] 320px [aboutend] 8.07% [categoriesstart] auto [categoriesend] 3.6% [getalertstart] [getalertend] 6.25% [end];
+} */
 
-.image {
+.logo {
     margin-left: 6.25%;
     margin-top: 44px;
     width: 225px;
@@ -15,16 +15,80 @@
     position: relative;
 }
 
+.aboutStoke {
+    width: 320px;
+    margin-left: 5.15%;
+    margin-top: 100px;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+}
 
+.categoriesAndWalletIconsWrapper {
+    margin-left: 8.07%;
+    margin-top: 96px;
+}
 
+.categories {
+    display: grid;
+    grid-template-columns: 120px 120px 120px;
+    column-gap: 97px;
+    row-gap: 39px;
+}
 
+.category {
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.02px;
+    color: #FFFFFF;
+}
+
+.icons {
+    margin-top: 64px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 97px;
+}
 
 .walletIcon {
     position: relative;
     height: 31px;
     width: 31px;
+    margin-right: 25px;
 }
 
+.andMore {
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.02px;
+    color: #FFFFFF;
+}
+
+.getAlertsAndSignUpWrapper {
+    margin-top: 96px;
+    margin-left: 3.6%;
+    margin-bottom: 6.25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.getAlerts {
+    display: flex;
+    align-items: center;
+}
+
+.getAlertsText {
+    letter-spacing: 0px;
+    font-weight: 600;
+    font-size: 22px;
+    font-family: 'Poppins', sans-serif;
+    color: #FFFFFF;
+    margin-left: 12px;
+}
 
 .alertIcon {
     position: relative;

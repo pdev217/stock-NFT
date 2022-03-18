@@ -3,7 +3,7 @@
     height: 21px;
     margin-right: 10px;
     padding: 0 10px;
-    font-family: 'Poppins', sans-serif;
+    font-family: Poppins, sans-serif;
     line-height: 25px;
     font-size: 10px;
     display: flex;
@@ -12,7 +12,7 @@
     border-radius: 30px;
     opacity: 1;
     letter-spacing: 0.5px;
-    color: #000000;
+    color: #000;
     opacity: 0.45;
 }
 

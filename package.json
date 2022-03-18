@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "stylelint": "stylelint \"**/*.css\" --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",
@@ -34,6 +35,9 @@
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
     "eslint-plugin-storybook": "^0.5.7",
-    "node-sass": "^7.0.1"
+    "node-sass": "^7.0.1",
+    "stylelint": "^14.6.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^25.0.0"
   }
 }

@@ -4,7 +4,7 @@
     height: 285px;
     overflow: hidden;
     background: #282829 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 20px #000000C9;
+    box-shadow: 0 3px 20px #000000C9;
     border: 1px solid #617BFF;
     border-radius: 30px;
     opacity: 1;
@@ -24,24 +24,24 @@
 }
 
 .title {
-    font-family: 'Poppins', sans-serif;
+    font-family: Poppins, sans-serif;
     font-size: 18px;
     margin-top: 0;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     letter-spacing: 0.9px;
-    color: #FFFFFF;
+    color: #FFF;
     opacity: 1;
 }
 
 .availible {
     font-style: italic;
-    font-family: 'Poppins', sans-serif;
+    font-family: Poppins, sans-serif;
     font-size: 12px;
     margin: 0;
     margin-bottom: 14px;
     text-align: left;
     letter-spacing: 0.6px;
-    color: #FFFFFF;
+    color: #FFF;
     opacity: 1;
 }
 
@@ -63,8 +63,8 @@
 .lastUpdate {
     margin: 0;
     margin-left: 10px;
-    color: #FFFFFF;
-    font-family: 'Poppins', sans-serif;
+    color: #FFF;
+    font-family: Poppins, sans-serif;
     font-size: 12px;
     line-height: 33px;
     font-style: italic;
@@ -94,7 +94,7 @@
 .time {
     width: fit-content;
     margin: 0;
-    color: rgb(255, 24, 84);
+    color: rgb(255 24 84);
     font-weight: 900;
     font-family: sans-serif;
     font-size: 17px;
@@ -108,7 +108,7 @@
 }
 
 .username {
-    color: rgb(0, 234, 244);
+    color: rgb(0 234 244);
     font-family: sans-serif;
     font-size: 12px;
     margin-top: 5px;
