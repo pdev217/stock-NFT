@@ -5,7 +5,8 @@ import { Tag } from "../Tag/Tag";
 import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { SmallChart } from "../SmallChart/SmallChart";
 import { AmountDifference } from "../AmountDifference/AmountDifference";
-import { Ribbon } from "../Ribbon/Ribbon";
+// later I'll do the ribbon component
+// import { Ribbon } from "../Ribbon/Ribbon";
 import { Username } from "../Username/Username";
 import styles from "./HorizontalNFTCard.module.css";
 
@@ -27,7 +28,7 @@ export const HorizontalNFTCard = ({
   return (
     <div className={cn(styles.wrapper, className)}>
       <div className={styles.imageWrapper}>
-        <Ribbon type={rewards} />
+        {/* <Ribbon type={rewards} /> */}
         {isImageAbsent ? (
           <div className={styles.errorImage}></div>
         ) : (

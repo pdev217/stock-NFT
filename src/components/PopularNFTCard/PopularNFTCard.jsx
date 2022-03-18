@@ -3,7 +3,8 @@ import Image from "next/image";
 import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { AmountDifference } from "../AmountDifference/AmountDifference";
 import { Tag } from "../Tag/Tag";
-import { Ribbon } from "../Ribbon/Ribbon";
+// later I'll do the ribbon component
+//import { Ribbon } from "../Ribbon/Ribbon";
 import { Username } from "../Username/Username";
 import styles from "./PopularNFTCard.module.css";
 
@@ -22,7 +23,7 @@ export const PopularNFTCard = ({
 
   return (
     <div className={styles.wrapper}>
-      <Ribbon type={rewards} />
+      {/* <Ribbon type={rewards} /> */}
       <div className={styles.imageWrapper}>
         {isImageAbsent ? (
           <div className={styles.errorImage}></div>
