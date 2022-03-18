@@ -7,14 +7,16 @@ import { SmallChart } from "../SmallChart/SmallChart";
 import { AmountDifference } from "../AmountDifference/AmountDifference";
 import { Ribbon } from "../Ribbon/Ribbon";
 import { Username } from "../Username/Username";
+import cn from "classnames";
 
 export const HorizontalNFTCard = ({
+  className,
   username,
   availible,
   chartData,
   lastUpdate,
   price,
-  AmountDifference,
+  priceDifference,
   rewards,
   tag,
   title,
@@ -23,7 +25,7 @@ export const HorizontalNFTCard = ({
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cn(styles.wrapper, className)}>
       <div className={styles.imageWrapper}>
         <Ribbon type={rewards} />
         {isImageAbsent ? (

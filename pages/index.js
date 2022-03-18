@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Header } from "../layout/Header/Header";
+import { HottestNFTCollectibles } from "../page-components/MainPage/HottestNFTCollectibles/HottestNFTCollectibles";
 import { PopularNFTCard } from "../src/components/PopularNFTCard/PopularNFTCard";
 import { Ribbon } from "../src/components/Ribbon/Ribbon";
 import styles from "../styles/Home.module.css";
@@ -16,6 +17,7 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
       </Head>
       <Header />
+      <HottestNFTCollectibles />
     </div>
   );
 }

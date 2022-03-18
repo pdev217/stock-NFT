@@ -3,27 +3,31 @@ import Image from "next/image";
 import styles from "./BigMainpageCollectionInfo.module.css";
 import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { CustButton } from "../CustButton/CustButton";
+import cn from 'classnames';
 
 export const BigMainpageCollectionInfo = ({
   title,
   upperCaseText,
   discount,
   src,
+  className
 }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cn(styles.wrapper, className)}>
       {isImageAbsent ? (
         <div className={styles.errorImage}></div>
       ) : (
+        <>
         <Image
           alt={title}
-          className={styles.image}
           layout="fill"
           onError={(e) => e && setIsImageAbsent(true)}
           src={src}
         />
+        <div className={styles.forGradient} />
+        </>
       )}
       <div className={styles.infoWrapper}>
         <p className={styles.title}>{title}</p>

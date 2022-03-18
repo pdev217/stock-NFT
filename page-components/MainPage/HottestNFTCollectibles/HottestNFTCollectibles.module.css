@@ -1,0 +1,17 @@
+.wrapper {
+    width: 100%;
+    height: 723px;
+    position: relative;
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.bigMainpageCollectionInfo {
+    margin-top: 45px;
+    margin-left: 119px;
+}
+
+.horizontalNFTCard {
+    position: absolute;
+}
