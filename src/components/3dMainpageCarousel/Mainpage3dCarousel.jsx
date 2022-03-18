@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, } from "react";
 import { CustButton } from "../CustButton/CustButton";
 import { SpecialAuctionNFTCard } from "../SpecialAuctionNFTCard/SpecialAuctionNFTCard";
 import styles from "./Mainpage3dCarousel.module.css";

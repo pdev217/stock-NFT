@@ -1,9 +1,8 @@
 import Image from "next/image";
-import styles from "./Footer.module.css";
-import { categories } from "./Footer.utils";
-import { icons } from "./Footer.utils";
 import Link from "next/link";
 import { CustButton } from "../../src/components/CustButton/CustButton";
+import { icons, categories } from "./Footer.utils";
+import styles from "./Footer.module.css";
 
 export const Footer = () => {
   return (
@@ -17,9 +16,9 @@ export const Footer = () => {
       </p>
       <div className={styles.categoriesAndWalletIconsWrapper}>
         <div className={styles.categories}>
-          {categories.map((category) => (
-            <div key={category.id} className={styles.category}>
-              <Link href={category.href}>{category.name}</Link>
+          {categories.map(({ id, name, href }) => (
+            <div key={id} className={styles.category}>
+              <Link href={href}>{name}</Link>
             </div>
           ))}
         </div>

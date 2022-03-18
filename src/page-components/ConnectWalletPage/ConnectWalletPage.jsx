@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styles from "./ConnectWalletPage.module.css";
-import Link from "next/link";
-import { wallets } from "./ConnectWalletPage.utils";
-import Image from "next/image";
 import cn from "classnames";
+import Link from "next/link";
+import Image from "next/image";
+import { wallets } from "./ConnectWalletPage.utils";
+import styles from "./ConnectWalletPage.module.css";
 
 export const ConnectWalletPage = () => {
   const [choosenWallet, setChoosenWallet] = useState(-1);

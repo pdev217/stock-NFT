@@ -1,7 +1,7 @@
 import { useState } from "react";
-import styles from "./BigCategoryCard.module.css";
 import Image from "next/image";
 import { CustButton } from "../CustButton/CustButton";
+import styles from "./BigCategoryCard.module.css";
 
 export const BigCategoryCard = ({ src, categoryName, title }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);

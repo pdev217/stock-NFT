@@ -1,15 +1,6 @@
-import { Footer } from "../../layout/Footer/Footer";
-import { Header } from "../../layout/Header/Header";
-import { ConnectWalletPage } from "../../page-components/ConnectWalletPage/ConnectWalletPage";
+import { ConnectWalletPage } from "../../src/page-components/ConnectWalletPage/ConnectWalletPage";
+import { withLayout } from "../../layout/Layout";
 
-const ConnectWallet = () => {
-  return (
-    <>
-      <Header />
-      <ConnectWalletPage />
-      <Footer />
-    </>
-  );
-};
+const ConnectWallet = () => <ConnectWalletPage />;
 
-export default ConnectWallet;
+export default withLayout(ConnectWallet);

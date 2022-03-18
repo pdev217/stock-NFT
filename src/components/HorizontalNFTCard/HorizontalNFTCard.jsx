@@ -1,13 +1,13 @@
 import { useState } from "react";
+import cn from "classnames";
 import Image from "next/image";
-import styles from "./HorizontalNFTCard.module.css";
 import { Tag } from "../Tag/Tag";
 import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { SmallChart } from "../SmallChart/SmallChart";
 import { AmountDifference } from "../AmountDifference/AmountDifference";
 import { Ribbon } from "../Ribbon/Ribbon";
 import { Username } from "../Username/Username";
-import cn from "classnames";
+import styles from "./HorizontalNFTCard.module.css";
 
 export const HorizontalNFTCard = ({
   className,

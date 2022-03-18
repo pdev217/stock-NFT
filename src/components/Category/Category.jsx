@@ -1,7 +1,7 @@
 import { useState } from "react";
-import styles from "./Category.module.css";
-import Image from "next/image";
 import cn from "classnames"
+import Image from "next/image";
+import styles from "./Category.module.css";
 
 export const Category = ({ src, title }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);

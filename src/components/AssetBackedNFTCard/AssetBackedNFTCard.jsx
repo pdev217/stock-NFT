@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
-import styles from "./AssetBackedNFTCard.module.css";
 import { Tag } from "../Tag/Tag";
+import styles from "./AssetBackedNFTCard.module.css";
 
 export const AssetBackedNFTCard = ({ src, title, text, tags }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);

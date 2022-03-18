@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Image from "next/image";
-import styles from "./HotAuctionsCard.module.css";
 import { Tag } from "../Tag/Tag";
 import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { Views } from "../Views/Views";
+import styles from "./HotAuctionsCard.module.css";
 
 export const HotAuctionsCard = ({
   username,

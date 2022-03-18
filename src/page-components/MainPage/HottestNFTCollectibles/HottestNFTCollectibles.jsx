@@ -1,8 +1,7 @@
-import styles from "./HottestNFTCollectibles.module.css";
 import Image from "next/image";
-// components
-import { BigMainpageCollectionInfo } from "../../../src/components/BigMainpageCollectionInfo/BigMainpageCollectionInfo";
-import { HorizontalNFTCard } from "../../../src/components/HorizontalNFTCard/HorizontalNFTCard";
+import { BigMainpageCollectionInfo } from "../../../components/BigMainpageCollectionInfo/BigMainpageCollectionInfo";
+import { HorizontalNFTCard } from "../../../components/HorizontalNFTCard/HorizontalNFTCard";
+import styles from "./HottestNFTCollectibles.module.css";
 
 const fakeChartData = [
   { name: "Page A", price: 500 },

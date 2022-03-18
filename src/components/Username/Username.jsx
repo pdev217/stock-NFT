@@ -1,5 +1,5 @@
-import styles from "./Username.module.css";
 import cn from "classnames";
+import styles from "./Username.module.css";
 
 const icon = (
   <div className={styles.icon}>

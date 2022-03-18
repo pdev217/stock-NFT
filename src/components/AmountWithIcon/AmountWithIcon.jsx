@@ -1,5 +1,5 @@
-import styles from "./AmountWithIcon.module.css";
 import cn from "classnames";
+import styles from "./AmountWithIcon.module.css";
 
 export const AmountWithIcon = ({ amount, color, size, className }) => {
   const numberWithCommas = (number) => {

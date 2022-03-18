@@ -1,9 +1,11 @@
-import styles from "./Ribbon.module.css";
 import cn from "classnames";
-import {CommonIcon, URareIcon, RareIcon, UncmnIcon} from "./Icons";
+import { CommonIcon, URareIcon, RareIcon, UncmnIcon } from "./Icons";
+import styles from "./Ribbon.module.css";
 
 export const Ribbon = ({ type }) => {
-  return <></>
+  return <></>;
+  // I'll do it later
+
   // switch (type) {
   //   case "u-rare":
   //     return <URareIcon />;

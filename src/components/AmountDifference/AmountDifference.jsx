@@ -1,5 +1,5 @@
-import styles from "./AmountDifference.module.css";
 import cn from "classnames";
+import styles from "./AmountDifference.module.css";
 
 export const AmountDifference = ({ direction, percent, className }) => {
   const icon = (

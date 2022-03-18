@@ -1,12 +1,12 @@
 import { useState } from "react";
+import cn from "classnames";
 import Image from "next/image";
-import styles from "./SpecialAuctionNFTCard.module.css";
 import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { Tag } from "../Tag/Tag";
 import { SmallChart } from "../SmallChart/SmallChart";
 import { CustButton } from "../CustButton/CustButton";
 import { Views } from "../Views/Views";
-import cn from "classnames";
+import styles from "./SpecialAuctionNFTCard.module.css";
 
 export const SpecialAuctionNFTCard = ({
   className,
