@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import profilePopupReducer from './slices/walletPopupSlice';
+import profilePopupReducer from './slices/profilePopupSlice';
+import walletPopupReducer from './slices/walletPopupSlice';
 
 export const store = configureStore({
    reducer: {
-     profilePopup: profilePopupReducer
+     profilePopup: profilePopupReducer,
+     walletPopup: walletPopupReducer
   }
 });

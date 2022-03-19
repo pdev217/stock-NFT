@@ -1,21 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    profilePopup: {
+    walletPopup: {
         isOpened: false
     }
 };
 
-export const profilePopup = createSlice({
-    name: 'profilePopup',
+export const walletPopup = createSlice({
+    name: 'walletPopup',
     initialState,
     reducers: {
         toggleIsOpened: (state, action) => {
-            state.profilePopup.isOpened = action.payload.profilePopup.isOpened;
+            state.walletPopup.isOpened = action.payload.walletPopup.isOpened;
         }
     }
 });
 
-export const { toggleIsOpened } = profilePopup.actions;
+export const { toggleIsOpened } = walletPopup.actions;
 
-export default profilePopup.reducer;
+export default walletPopup.reducer;

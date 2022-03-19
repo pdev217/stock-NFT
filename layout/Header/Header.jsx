@@ -1,7 +1,7 @@
 import { useState } from "react";
 import cn from "classnames";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleIsOpened } from "../../src/redux/slices/walletPopupSlice";
+import { toggleIsOpened } from "../../src/redux/slices/profilePopupSlice";
 import Image from "next/image";
 import { Username } from "../../src/components/Username/Username";
 import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
@@ -53,8 +53,6 @@ export const Header = ({ isAuthorised }) => {
   const isProfilePopupOpened = useSelector(
     (state) => state.profilePopup.profilePopup.isOpened
   );
-  //const [isProfilePopupOpened, setIsProfilePopupOpened] = useState(false);
-  const [isWalletPopupOpened, setIsWalletPopupOpened] = useState(false);
 
   const togglePopup = () => {
     dispatch(
