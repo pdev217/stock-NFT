@@ -1,11 +1,9 @@
-import { useState } from "react";
 import Link from "next/link";
 import { ChooseWalletBox } from "../../components/ChooseWalletBox/ChooseWalletBox";
 import { wallets } from "./ConnectWalletPage.utils";
 import styles from "./ConnectWalletPage.module.css";
 
 export const ConnectWalletPage = () => {
-  const [choosenWallet, setChoosenWallet] = useState(-1);
   return (
     <div className={styles.wrapper}>
       <div className={styles.centralInfo}>
@@ -19,9 +17,7 @@ export const ConnectWalletPage = () => {
         </p>
         <div className={styles.chooseWalletWrapper}>
           <ChooseWalletBox
-            choosenWallet={choosenWallet}
             wallets={wallets}
-            setChoosenWallet={setChoosenWallet}
           />
         </div>
       </div>

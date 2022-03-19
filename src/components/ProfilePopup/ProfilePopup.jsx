@@ -7,13 +7,13 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { close } from "../../redux/slices/profilePopupSlice";
 import styles from "./ProfilePopup.module.css";
 
-export const ProfilePopup = ({ categories, className }) => {
+export const ProfilePopup = ({ categories, className, isAuthorised }) => {
   const dispatch = useDispatch();
   const ref = useRef();
 
   const closePopup = () => {
-    dispatch(close())
-  }
+    dispatch(close());
+  };
 
   useOnClickOutside(ref, closePopup);
 
@@ -31,6 +31,22 @@ export const ProfilePopup = ({ categories, className }) => {
           </Link>
         </div>
       ))}
+      {isAuthorised && (
+        <div className={styles.category}>
+          <Link href="#" passHref>
+            <>
+              <div className={styles.icon}>
+                <Image
+                  src="/signout-icon.svg"
+                  alt="signout-icon"
+                  layout="fill"
+                />
+              </div>
+              <div className={styles.text}>Log Out</div>
+            </>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

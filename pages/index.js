@@ -14,7 +14,6 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
       </Head>
       <Header />
-      <HottestNFTCollectibles />
     </div>
   );
 }

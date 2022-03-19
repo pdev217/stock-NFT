@@ -28,6 +28,7 @@
 }
 
 .walletLink {
+  cursor: pointer;
   font-weight: 600;
   color: #fc3aaa;
 }

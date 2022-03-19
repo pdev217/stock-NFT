@@ -150,6 +150,12 @@
   position: relative;
 }
 
+.authorisedIcon {
+  height: 29px;
+  width: 29px;
+  position: relative;
+}
+
 .profileText,
 .walletText {
   font: normal normal 600 18px/33px Poppins;

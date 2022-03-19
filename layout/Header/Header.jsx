@@ -55,10 +55,6 @@ export const Header = ({ isAuthorised }) => {
     (state) => state.profilePopup.profilePopup.isOpened
   );
 
-  const isWalletPopupOpened = useSelector(
-    (state) => state.walletPopup.walletPopup.isOpened
-  );
-
   const openProfilePopup = () => {
     dispatch(openProfilePopupReducer());
   };
@@ -91,73 +87,32 @@ export const Header = ({ isAuthorised }) => {
           <div>Search All NFTs</div>
         </div>
       </div>
-      {isAuthorised ? (
-        <div className={styles.userInfo}>
-          <div className={styles.userAvatarAndName}>
-            <div className={styles.avatarWrapper}>
-              <Image
-                src="/empty-avatar.png"
-                height={29}
-                width={29}
-                alt="avatar"
-              />
-            </div>
-            <div className={styles.clickableUserInfo}>
-              <Username
-                username="test-user"
-                color="white"
-                isConfirmed={false}
-                className={styles.username}
-              />
-              <Image
-                src="/delta-down-icon.svg"
-                height={9}
-                width={15}
-                alt="avatar"
-              />
-            </div>
-          </div>
-          <div className={styles.userWorth}>
-            <div className={styles.amountNumbers}>
-              <AmountWithIcon
-                amount={82828.28}
-                color="primary"
-                size="m"
-                className={styles.amountData}
-              />
-              <AmountDifference
-                direction="up"
-                percent={12.47}
-                className={styles.amountData}
-              />
-            </div>
-            <div className={styles.chart}>
-              <SmallChart data={fakeChartData} />
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className={styles.unAuthUserData}>
-          <div className={styles.profile} onClick={openProfilePopup}>
-            <div className={styles.profileIcon}>
-              <Image src="/profile-icon.svg" layout="fill" alt="profile-icon" />
-            </div>
-            <div className={styles.profileText}>Profile</div>
-            <ProfilePopup
-              categories={fakeCategories}
-              className={cn(styles.profilePopup, {
-                [styles.popupActive]: isProfilePopupOpened,
-              })}
+
+      <div className={styles.unAuthUserData}>
+        <div className={styles.profile} onClick={openProfilePopup}>
+          <div className={isAuthorised ? styles.authorisedIcon : styles.profileIcon}>
+            <Image
+              src={isAuthorised ? "/some-man.png" : "/profile-icon.svg"}
+              layout="fill"
+              alt={isAuthorised ? "user-avatar" : "profile-icon"}
             />
           </div>
-          <div className={styles.wallet} onClick={openWalletPopup}>
-            <div className={styles.walletIcon}>
-              <Image src="/wallet-icon.svg" layout="fill" alt="profile-icon" />
-            </div>
-            <div className={styles.walletText}>Wallet</div>
-          </div>
+          <div className={styles.profileText}>Profile</div>
+          <ProfilePopup
+            categories={fakeCategories}
+            className={cn(styles.profilePopup, {
+              [styles.popupActive]: isProfilePopupOpened,
+            })}
+            isAuthorised={isAuthorised}
+          />
         </div>
-      )}
+        <div className={styles.wallet} onClick={openWalletPopup}>
+          <div className={styles.walletIcon}>
+            <Image src="/wallet-icon.svg" layout="fill" alt="profile-icon" />
+          </div>
+          <div className={styles.walletText}>Wallet</div>
+        </div>
+      </div>
     </header>
   );
 };
