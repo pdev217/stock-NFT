@@ -10,12 +10,15 @@ export const walletPopup = createSlice({
     name: 'walletPopup',
     initialState,
     reducers: {
-        toggleIsOpened: (state, action) => {
-            state.walletPopup.isOpened = action.payload.walletPopup.isOpened;
-        }
+        open: (state) => {
+            state.walletPopup.isOpened = true;
+        },
+        close: (state) => {
+            state.walletPopup.isOpened = false;
+        },
     }
 });
 
-export const { toggleIsOpened } = walletPopup.actions;
+export const { open, close } = walletPopup.actions;
 
 export default walletPopup.reducer;

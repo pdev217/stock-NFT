@@ -8,15 +8,31 @@ export default {
 
 const Template = (args) => <WalletPopup {...args} />;
 
-const data = [
-  { categoryName: "Profile", href: "#", src: "/profile-without-circle.svg", id: '1' },
-  { categoryName: "Favourites", href: "#", src: "/favourites-icon.svg", id: '2' },
-  { categoryName: "Watchlist", href: "#", src: "/eye-icon.svg", id: '3' },
-  { categoryName: "My collections", href: "#", src: "/collections-icon.svg", id: '4' },
-  { categoryName: "Settings", href: "#", src: "/settings-icon.svg", id: '5' },
-];
+const wallets = [
+  {
+      id: '§12§12',
+      name: 'Metamask',
+      src: '/metamask-fox-wallet.svg',
+  },
+  {
+      id: 'wqv25b',
+      name: 'Coinbase',
+      src: '/coinbase-wallet.svg',
+  },
+  {
+      id: '34b3b6',
+      name: 'WalletConnect',
+      src: '/walletconnect-wallet.svg',
+  },
+  {
+      id: 'ev5w4vu',
+      name: 'Formatic',
+      src: '/formatic-wallet.svg',
+  },
+]
 
-export const Chart = Template.bind({});
-Chart.args = {
-  categories: data,
+export const Normal = Template.bind({});
+Normal.args = {
+  wallets,
+  isAuthorised: false
 };

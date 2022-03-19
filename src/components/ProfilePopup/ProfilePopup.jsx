@@ -12,7 +12,7 @@ export const ProfilePopup = ({ categories, className }) => {
   const ref = useRef();
 
   const closePopup = () => {
-    dispatch(closePopup())
+    dispatch(close())
   }
 
   useOnClickOutside(ref, closePopup);

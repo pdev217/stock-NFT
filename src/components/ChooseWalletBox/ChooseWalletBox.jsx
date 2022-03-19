@@ -2,8 +2,13 @@ import cn from "classnames";
 import Image from "next/image";
 import styles from "./ChooseWalletBox.module.css";
 
-export const ChooseWalletBox = ({ choosenWallet, wallets, setChoosenWallet }) => (
-  <div>
+export const ChooseWalletBox = ({
+  choosenWallet,
+  className,
+  setChoosenWallet,
+  wallets,
+}) => (
+  <div className={className}>
     {wallets.map((wallet, index) => (
       <div
         key={wallet.id}

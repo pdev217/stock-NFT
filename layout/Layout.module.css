@@ -1,3 +1,31 @@
-.childrenWrapper {
-    height: 140px;
+.pusherDown {
+  height: 140px;
+}
+
+.withoutHeader {
+  position: relative;
+}
+
+.shadowBackground {
+  display: none;
+  position: absolute;
+  background: #000000cc 0% 0% no-repeat padding-box;
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+
+.shadowBackgroundActive {
+  display: block;
+}
+
+.walletPopup {
+  display: none;
+  position: absolute;
+  height: 100%;
+  right: 0;
+}
+
+.walletPopupIsActive {
+  display: block;
 }
