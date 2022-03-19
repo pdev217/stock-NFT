@@ -1,13 +1,11 @@
 import { useState } from "react";
-import cn from "classnames";
 import Link from "next/link";
-import Image from "next/image";
+import { ChooseWalletBox } from "../../components/ChooseWalletBox/ChooseWalletBox";
 import { wallets } from "./ConnectWalletPage.utils";
 import styles from "./ConnectWalletPage.module.css";
 
 export const ConnectWalletPage = () => {
   const [choosenWallet, setChoosenWallet] = useState(-1);
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.centralInfo}>
@@ -20,29 +18,11 @@ export const ConnectWalletPage = () => {
           providers or create a new one.
         </p>
         <div className={styles.chooseWalletWrapper}>
-          {wallets.map((wallet, index) => (
-            <div
-              key={wallet.id}
-              className={cn(styles.wallet, {
-                [styles.choosenWallet]: choosenWallet === index,
-              })}
-              onClick={() => setChoosenWallet(index)}
-            >
-              <Image
-                src={wallet.src}
-                alt={wallet.name}
-                height={31}
-                width={31}
-              />
-              <p className={styles.walletName}>{wallet.name}</p>
-              {wallet.name === "Metamask" && (
-                <p className={styles.popular}>Popular</p>
-              )}
-            </div>
-          ))}
-          <div className={styles.moreOptionsWrapper}>
-            <p className={styles.moreOptionsText}>Show more options</p>
-          </div>
+          <ChooseWalletBox
+            choosenWallet={choosenWallet}
+            wallets={wallets}
+            setChoosenWallet={setChoosenWallet}
+          />
         </div>
       </div>
     </div>

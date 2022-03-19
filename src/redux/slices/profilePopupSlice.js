@@ -10,12 +10,15 @@ export const profilePopup = createSlice({
     name: 'profilePopup',
     initialState,
     reducers: {
-        toggleIsOpened: (state, action) => {
-            state.profilePopup.isOpened = action.payload.profilePopup.isOpened;
-        }
+        open: (state) => {
+            state.profilePopup.isOpened = true;
+        },
+        close: (state) => {
+            state.profilePopup.isOpened = false;
+        },
     }
 });
 
-export const { toggleIsOpened } = profilePopup.actions;
+export const { open, close } = profilePopup.actions;
 
 export default profilePopup.reducer;

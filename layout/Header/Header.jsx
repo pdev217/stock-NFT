@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useRef } from "react";
 import cn from "classnames";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleIsOpened } from "../../src/redux/slices/profilePopupSlice";
+import { open as openProfilePopupReducer } from "../../src/redux/slices/profilePopupSlice";
+import { toggleIsOpened as toggleWalletPopupIsOpened } from "../../src/redux/slices/walletPopupSlice";
 import Image from "next/image";
 import { Username } from "../../src/components/Username/Username";
 import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
@@ -54,9 +55,13 @@ export const Header = ({ isAuthorised }) => {
     (state) => state.profilePopup.profilePopup.isOpened
   );
 
-  const togglePopup = () => {
+  const openProfilePopup = () => {
+    dispatch(openProfilePopupReducer());
+  };
+
+  const openWalletPopup = () => {
     dispatch(
-      toggleIsOpened({
+      toggleWalletPopupIsOpened({
         profilePopup: {
           isOpened: !isProfilePopupOpened,
         },
@@ -135,7 +140,7 @@ export const Header = ({ isAuthorised }) => {
         </div>
       ) : (
         <div className={styles.unAuthUserData}>
-          <div className={styles.profile} onClick={togglePopup}>
+          <div className={styles.profile} onClick={openProfilePopup}>
             <div className={styles.profileIcon}>
               <Image src="/profile-icon.svg" layout="fill" alt="profile-icon" />
             </div>
@@ -147,7 +152,7 @@ export const Header = ({ isAuthorised }) => {
               })}
             />
           </div>
-          <div className={styles.wallet}>
+          <div className={styles.wallet} onClick={openWalletPopup}>
             <div className={styles.walletIcon}>
               <Image src="/wallet-icon.svg" layout="fill" alt="profile-icon" />
             </div>
@@ -159,7 +164,7 @@ export const Header = ({ isAuthorised }) => {
   );
 };
 
-// We have 2 variants headers and i don't know which to implement
+// We have 2 variants of header and I don't know which one to implement
 {
   /* <header className={styles.header}>
       <div className={styles.logo}>
