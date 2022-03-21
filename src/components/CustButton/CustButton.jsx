@@ -1,7 +1,6 @@
 import Button from "@mui/material/Button";
 
 export const CustButton = ({ text, onClick, color, className }) => {
-  console.log(className)
   switch (color) {
     case "primary":
       return (

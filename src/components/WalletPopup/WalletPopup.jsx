@@ -25,7 +25,6 @@ export const WalletPopup = ({ className, isAuthorized }) => {
   const openMyWalletOptionsPopup = () => {
     dispatch(open());
   };
-  console.log(isMyWalletOptionsPopupOpened);
 
   useOnClickOutside(ref, closePopup);
 

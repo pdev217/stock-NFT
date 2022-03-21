@@ -16,7 +16,6 @@ export const HotAuctionsCard = ({
   views
 }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
-  console.log(time)
 
   return (
     <div className={styles.wrapper}>
