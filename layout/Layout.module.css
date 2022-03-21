@@ -29,3 +29,10 @@
 .walletPopupIsActive {
   display: block;
 }
+
+.errorSnackbar {
+  position: absolute;
+  bottom: 239px;
+  right: 40px;
+  z-index: 100;
+}

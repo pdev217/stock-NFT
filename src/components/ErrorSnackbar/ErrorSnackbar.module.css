@@ -2,6 +2,7 @@
   background: #fb3a50 0% 0% no-repeat padding-box;
   border-radius: 16px;
   display: flex;
+  align-items: center;
   font: normal normal medium 18px/33px Poppins;
   font-size: 18px;
   font-family: 'Poppins', sans-serif;
@@ -12,6 +13,12 @@
   min-width: 400px;
 }
 
+.icon {
+    cursor: pointer;
+}
+
 .text {
     margin-left: 8px;
+    position: relative;
+    bottom: 3px;
 }

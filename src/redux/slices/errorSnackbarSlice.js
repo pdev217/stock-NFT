@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    text: '',
-    isOpened: false
+    text: ' test test test test test test',
+    isOpened: true
 };
 
 export const errorSnackbar = createSlice({

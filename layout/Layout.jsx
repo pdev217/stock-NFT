@@ -6,6 +6,7 @@ import { Header } from "./Header/Header";
 import { Footer } from "./Footer/Footer";
 import styles from "./Layout.module.css";
 import { WalletPopup } from "../src/components/WalletPopup/WalletPopup";
+import { ErrorSnackbar } from "../src/components/ErrorSnackbar/ErrorSnackbar";
 const fakeWallets = [
   {
     id: "§12§12",
@@ -34,10 +35,13 @@ const Layout = ({ children }) => {
     (state) => state.walletPopup.walletPopup.isOpened
   );
 
-  const isAuthorized = useSelector(
-    (state) => { 
-      return state.authorization.authorization.isAuthorized}
+  const isErrorSnackbarOpened = useSelector(
+    (state) => state.errorSnackbar.isOpened
   );
+
+  const isAuthorized = useSelector((state) => {
+    return state.authorization.authorization.isAuthorized;
+  });
 
   return (
     <>
@@ -59,6 +63,9 @@ const Layout = ({ children }) => {
             isAuthorized={isAuthorized}
           />
         </div>
+        {isErrorSnackbarOpened && (
+          <ErrorSnackbar className={styles.errorSnackbar} />
+        )}
       </div>
     </>
   );
@@ -68,11 +75,11 @@ export const withReduxProvider = (Component) => {
   return function withReduxProviderComponent(props) {
     return (
       <Provider store={store}>
-          <Component {...props} />
+        <Component {...props} />
       </Provider>
     );
   };
-}
+};
 
 export const withLayout = (Component) => {
   return function withLayoutComponent(props) {
