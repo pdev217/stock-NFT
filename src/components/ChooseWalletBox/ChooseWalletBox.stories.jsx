@@ -1,4 +1,6 @@
 import React from "react";
+import { Provider } from "react-redux";
+import { store } from "../../redux/store";
 import { ChooseWalletBox } from "./ChooseWalletBox";
 
 export default {
@@ -34,9 +36,11 @@ const wallets = [
 ];
 
 const Template = (args) => (
-  <div style={{ background: "black" }}>
-    <ChooseWalletBox {...args} />
-  </div>
+  <Provider store={store}>
+    <div style={{ background: "black" }}>
+      <ChooseWalletBox {...args} />
+    </div>
+  </Provider>
 );
 
 export const Normal = Template.bind({});
@@ -44,5 +48,7 @@ export const Normal = Template.bind({});
 Normal.args = {
   choosenWallet: 0,
   wallets,
-  setChoosenWallet: () => {console.log('wallet choosen')}
+  setChoosenWallet: () => {
+    console.log("wallet choosen");
+  },
 };

@@ -38,7 +38,6 @@ const Layout = ({ children }) => {
     (state) => { 
       return state.authorization.authorization.isAuthorized}
   );
-  console.log('---isAuthorized', isAuthorized)
 
   return (
     <>
@@ -64,6 +63,16 @@ const Layout = ({ children }) => {
     </>
   );
 };
+
+export const withReduxProvider = (Component) => {
+  return function withReduxProviderComponent(props) {
+    return (
+      <Provider store={store}>
+          <Component {...props} />
+      </Provider>
+    );
+  };
+}
 
 export const withLayout = (Component) => {
   return function withLayoutComponent(props) {

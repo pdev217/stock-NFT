@@ -14,25 +14,21 @@ export const ChooseWalletBox = ({ className }) => {
       id: "1",
       name: "Metamask",
       src: "/metamask-fox-wallet.svg",
-      connect: connectMetamask,
     },
     {
       id: "2",
       name: "Coinbase",
       src: "/coinbase-wallet.svg",
-      connect: connectCoinbase,
     },
     {
       id: "3",
       name: "WalletConnect",
       src: "/walletconnect-wallet.svg",
-      connect: connectWalletConnect,
     },
     {
       id: "4",
       name: "Formatic",
       src: "/formatic-wallet.svg",
-      isActive: false,
     },
   ];
 
