@@ -1,0 +1,17 @@
+.wrapper {
+  background: #fb3a50 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  display: flex;
+  font: normal normal medium 18px/33px Poppins;
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.02px;
+  color: #FFFFFF;
+  padding: 26px 24px;
+  width: fit-content;
+  min-width: 400px;
+}
+
+.text {
+    margin-left: 8px;
+}
