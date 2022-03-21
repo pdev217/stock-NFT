@@ -34,5 +34,5 @@ const wallets = [
 export const Normal = Template.bind({});
 Normal.args = {
   wallets,
-  isAuthorised: false
+  isAuthorized: false
 };

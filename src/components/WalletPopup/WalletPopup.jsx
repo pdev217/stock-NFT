@@ -1,16 +1,20 @@
 import { useRef } from "react";
 import cn from "classnames";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { close } from "../../redux/slices/walletPopupSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@mui/material";
-import { CustButton } from "../CustButton/CustButton";
+import { open } from "../../redux/slices/myWalletOptionsPopupSlice";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { ChooseWalletBox } from "../ChooseWalletBox/ChooseWalletBox";
 import styles from "./WalletPopup.module.css";
+import { MyWalletOptionsPopup } from "../MyWalletOptionsPopup/MyWalletOptionsPopup";
 
-export const WalletPopup = ({ className, isAuthorised, wallets }) => {
+export const WalletPopup = ({ className, isAuthorized }) => {
+  const isMyWalletOptionsPopupOpened = useSelector(
+    (state) => state.myWalletOptionsPopup.myWalletOptionsPopup.isOpened
+  );
   const dispatch = useDispatch();
   const ref = useRef();
 
@@ -18,15 +22,23 @@ export const WalletPopup = ({ className, isAuthorised, wallets }) => {
     dispatch(close());
   };
 
+  const openMyWalletOptionsPopup = () => {
+    dispatch(open());
+  };
+  console.log(isMyWalletOptionsPopupOpened);
+
   useOnClickOutside(ref, closePopup);
 
   return (
     <>
-      {isAuthorised ? (
+      {isAuthorized ? (
         <div ref={ref} className={cn(className, styles.wrapper)}>
-          <div className={cn(styles.title, {
-            [styles.authTitle]: isAuthorised
-          })}>
+          <div
+            className={cn(styles.title, {
+              [styles.authTitle]: isAuthorized,
+            })}
+            onClick={openMyWalletOptionsPopup}
+          >
             <Image
               src="/some-man.png"
               height={39}
@@ -41,6 +53,13 @@ export const WalletPopup = ({ className, isAuthorised, wallets }) => {
                 alt="delta-down"
               />
             </div>
+            {isMyWalletOptionsPopupOpened && (
+              <MyWalletOptionsPopup
+                className={styles.myWalletOptionsPopup}
+                walletName="Metamask"
+                src="/metamask-fox-wallet.svg"
+              />
+            )}
           </div>
           <div className={styles.authContentWrapper}>
             <div className={styles.userBalance}>
@@ -93,7 +112,6 @@ export const WalletPopup = ({ className, isAuthorised, wallets }) => {
           <ChooseWalletBox
             className={styles.chooseWalletBox}
             choosenWallet={-1}
-            wallets={wallets}
           />
         </div>
       )}

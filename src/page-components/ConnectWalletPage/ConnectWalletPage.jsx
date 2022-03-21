@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ChooseWalletBox } from "../../components/ChooseWalletBox/ChooseWalletBox";
-import { wallets } from "./ConnectWalletPage.utils";
 import styles from "./ConnectWalletPage.module.css";
 
 export const ConnectWalletPage = () => {
@@ -16,9 +15,7 @@ export const ConnectWalletPage = () => {
           providers or create a new one.
         </p>
         <div className={styles.chooseWalletWrapper}>
-          <ChooseWalletBox
-            wallets={wallets}
-          />
+          <ChooseWalletBox />
         </div>
       </div>
     </div>

@@ -7,9 +7,9 @@ export const injected = new InjectedConnector({
 });
 
 export const CoinbaseWallet = new WalletLinkConnector({
-    url: `https://mainnet.infura.io/v3/263fc8dedbbe4c6d9c2d1100b5928b24`,
-    appName: "web3-react-demo"
-  });
+  url: `https://mainnet.infura.io/v3/263fc8dedbbe4c6d9c2d1100b5928b24`,
+  appName: "web3-react-demo",
+});
 
 export const WalletConnect = new WalletConnectConnector({
   infuraId: `https://mainnet.infura.io/v3/263fc8dedbbe4c6d9c2d1100b5928b24`,

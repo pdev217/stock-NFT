@@ -49,7 +49,7 @@ const fakeCategories = [
   { categoryName: "Settings", href: "#", src: "/settings-icon.svg", id: "5" },
 ];
 
-export const Header = ({ isAuthorised }) => {
+export const Header = ({ isAuthorized }) => {
   const dispatch = useDispatch();
   const isProfilePopupOpened = useSelector(
     (state) => state.profilePopup.profilePopup.isOpened
@@ -90,11 +90,11 @@ export const Header = ({ isAuthorised }) => {
 
       <div className={styles.unAuthUserData}>
         <div className={styles.profile} onClick={openProfilePopup}>
-          <div className={isAuthorised ? styles.authorisedIcon : styles.profileIcon}>
+          <div className={isAuthorized ? styles.authorisedIcon : styles.profileIcon}>
             <Image
-              src={isAuthorised ? "/some-man.png" : "/profile-icon.svg"}
+              src={isAuthorized ? "/some-man.png" : "/profile-icon.svg"}
               layout="fill"
-              alt={isAuthorised ? "user-avatar" : "profile-icon"}
+              alt={isAuthorized ? "user-avatar" : "profile-icon"}
             />
           </div>
           <div className={styles.profileText}>Profile</div>
@@ -103,7 +103,7 @@ export const Header = ({ isAuthorised }) => {
             className={cn(styles.profilePopup, {
               [styles.popupActive]: isProfilePopupOpened,
             })}
-            isAuthorised={isAuthorised}
+            isAuthorized={isAuthorized}
           />
         </div>
         <div className={styles.wallet} onClick={openWalletPopup}>

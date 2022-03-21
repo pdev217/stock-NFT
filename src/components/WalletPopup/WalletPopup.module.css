@@ -5,7 +5,7 @@
 
 .title {
   box-sizing: border-box;
-  padding: 27px 0 27px 24px;
+  padding: 20px 0 20px 24px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #282829;
@@ -58,8 +58,11 @@
 .userBalance {
   height: 146px;
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  margin-top: 40px;
 }
 
 .balanceTitle {
@@ -82,4 +85,9 @@
   height: 8px;
   width: 16px;
   position: relative;
+}
+
+.myWalletOptionsPopup {
+  position: absolute;
+  top: 89px;
 }

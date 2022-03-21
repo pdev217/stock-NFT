@@ -1,15 +1,23 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useWeb3React } from "@web3-react/core";
 import cn from "classnames";
 import Image from "next/image";
 import Link from "next/link";
+import { logout } from "../../redux/slices/authorizationSlice";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { close } from "../../redux/slices/profilePopupSlice";
 import styles from "./ProfilePopup.module.css";
 
-export const ProfilePopup = ({ categories, className, isAuthorised }) => {
+export const ProfilePopup = ({ categories, className, isAuthorized }) => {
+  const { deactivate } = useWeb3React();
   const dispatch = useDispatch();
   const ref = useRef();
+
+  const handleLogout = () => {
+    deactivate();
+    dispatch(logout())
+  }
 
   const closePopup = () => {
     dispatch(close());
@@ -31,8 +39,8 @@ export const ProfilePopup = ({ categories, className, isAuthorised }) => {
           </Link>
         </div>
       ))}
-      {isAuthorised && (
-        <div className={styles.category}>
+      {isAuthorized && (
+        <div className={styles.category} onClick={handleLogout}>
           <Link href="#" passHref>
             <>
               <div className={styles.icon}>

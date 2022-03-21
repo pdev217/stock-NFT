@@ -34,9 +34,15 @@ const Layout = ({ children }) => {
     (state) => state.walletPopup.walletPopup.isOpened
   );
 
+  const isAuthorized = useSelector(
+    (state) => { 
+      return state.authorization.authorization.isAuthorized}
+  );
+  console.log('---isAuthorized', isAuthorized)
+
   return (
     <>
-      <Header isAuthorised={true} />
+      <Header isAuthorized={isAuthorized} />
       <div className={styles.pusherDown}></div>
       <div className={styles.withoutHeader}>
         <div>{children}</div>
@@ -51,7 +57,7 @@ const Layout = ({ children }) => {
               [styles.walletPopupIsActive]: isWalletPopupOpened,
             })}
             wallets={fakeWallets}
-            isAuthorised={true}
+            isAuthorized={isAuthorized}
           />
         </div>
       </div>
