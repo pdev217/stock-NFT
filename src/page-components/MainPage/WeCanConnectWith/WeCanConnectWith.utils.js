@@ -1,7 +1,7 @@
 export const wallets = [
   {
     name: "Metamask",
-    src: "/metamsk-fox-wallet.svg",
+    src: "/metamask-fox-wallet.svg",
     height: 59,
     width: 64,
     id: "1",
