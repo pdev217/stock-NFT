@@ -11,13 +11,16 @@ export const BigCategoryCard = ({ src, categoryName, title }) => {
       {isImageAbsent ? (
         <div className={styles.errorImage}></div>
       ) : (
-        <Image
-          alt={title}
-          className={styles.image}
-          layout="fill"
-          onError={(e) => e && setIsImageAbsent(true)}
-          src={src}
-        />
+        <>
+          <Image
+            alt={title}
+            className={styles.image}
+            layout="fill"
+            onError={(e) => e && setIsImageAbsent(true)}
+            src={src}
+          />
+          <div className={styles.forGradient} />
+        </>
       )}
       <div className={styles.infoWrapper}>
         <div className={styles.info}>

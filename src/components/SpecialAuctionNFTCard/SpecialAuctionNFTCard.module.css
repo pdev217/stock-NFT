@@ -29,12 +29,12 @@
 .NFTName {
     color: white;
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
 }
 
 .time {
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin-top: 9px;
     font-size: 24px;
     font-weight: 800;
@@ -62,14 +62,14 @@
 
 .username {
     color: white;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     margin: 0;
 }
 
 .code {
     color: rgb(137 141 150);
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     margin: 3px 0 0;
     font-style: italic;
@@ -88,14 +88,14 @@
 .currentPriceTitle {
     margin: 0 0 7px;
     color: white;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
 }
 
 .views {
     color: rgb(137 141 150);
     font-style: italic;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     margin-top: 7px;
 }
@@ -103,7 +103,7 @@
 .historyTitle {
     margin: 3px 0 13px;
     color: white;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
 }
 
@@ -117,7 +117,7 @@
 .updatePrevPrice {
     margin: 0;
     font-size: 12px;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-style: italic;
     color: rgb(137 141 150);
 }

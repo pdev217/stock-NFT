@@ -22,7 +22,7 @@
 
 .walletPopup {
   display: none;
-  position: absolute;
+  position: fixed;
   min-height: calc(100vh - 140px);
   height: fit-content;
   right: 0;
