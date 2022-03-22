@@ -1,23 +1,11 @@
 import Image from "next/image";
 import { BigMainpageCollectionInfo } from "../../../components/BigMainpageCollectionInfo/BigMainpageCollectionInfo";
 import { HorizontalNFTCard } from "../../../components/HorizontalNFTCard/HorizontalNFTCard";
+import { Category } from "../../../components/Category/Category";
+import { fakeChartData, fakeCategories } from "./HottestNFTCollectibles.utils";
 import styles from "./HottestNFTCollectibles.module.css";
 
-const fakeChartData = [
-  { name: "Page A", price: 500 },
-  { name: "Page A", price: 510 },
-  { name: "Page A", price: 300 },
-  { name: "Page A", price: 530 },
-  { name: "Page A", price: 200 },
-  { name: "Page A", price: 250 },
-  { name: "Page A", price: 675 },
-  { name: "Page A", price: 344 },
-  { name: "Page A", price: 300 },
-  { name: "Page A", price: 530 },
-  { name: "Page A", price: 560 },
-];
-
-export const HottestNFTCollectibles = () => {
+export const HottestNFTCollectibles = ({ categories = fakeCategories }) => {
   return (
     <div className={styles.wrapper}>
       <Image
@@ -26,13 +14,6 @@ export const HottestNFTCollectibles = () => {
         alt="background-with-smoke"
       />
       <div className={styles.leftSide}>
-        <BigMainpageCollectionInfo
-          className={styles.bigMainpageCollectionInfo}
-          title={"Rookie Maikel Franco Limited Bobblehead!"}
-          upperCaseText={"ONLY 1,000 MINTED!"}
-          discount={150}
-          src="/test-big-collection-image.png"
-        />
         <HorizontalNFTCard
           className={styles.horizontalNFTCard}
           username={"MLB"}
@@ -47,8 +28,27 @@ export const HottestNFTCollectibles = () => {
           rewards={"rare"}
           tag="Athletes"
           title={"Maikel Franco"}
-          src="/"
+          src="/some-man.png"
         />
+        <BigMainpageCollectionInfo
+          className={styles.bigMainpageCollectionInfo}
+          title={"Rookie Maikel Franco Limited Bobblehead!"}
+          upperCaseText={"ONLY 1,000 MINTED!"}
+          discount={150}
+          src="/test-big-collection-image.png"
+        />
+      </div>
+      <div className={styles.rightSide}>
+        <div className={styles.rightSideTitle}>
+          Hottest NFT Collectibles From Your Top Music Artists, Athletes, and
+          Artists From All Over the World!
+        </div>
+        <div className={styles.browseText}>Browse Collections</div>
+        <div className={styles.categoriesBox}>
+          {categories.map(({ id, title, src }) => (
+            <Category key={id} title={title} src={src} />
+          ))}
+        </div>
       </div>
     </div>
   );

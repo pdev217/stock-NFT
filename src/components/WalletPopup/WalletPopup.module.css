@@ -1,6 +1,7 @@
 .wrapper {
   background: #212020 0% 0% no-repeat padding-box;
   width: 640px;
+  z-index: 100;
 }
 
 .title {

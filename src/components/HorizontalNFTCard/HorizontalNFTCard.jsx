@@ -53,7 +53,7 @@ export const HorizontalNFTCard = ({
             percent={priceDifference.difference}
             className={styles.priceDifferenceInfo}
           />
-          <p className={styles.lastUpdate}>{lastUpdate}</p>
+          <p className={styles.lastUpdate}>{lastUpdate} Hrs</p>
         </div>
         <Username
           username={username}

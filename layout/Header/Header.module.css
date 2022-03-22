@@ -1,6 +1,6 @@
 .header {
   position: fixed;
-  z-index: 100;
+  z-index: 10000;
   width: 100%;
   display: grid;
   grid-template-columns: auto 1fr auto;

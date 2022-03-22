@@ -15,6 +15,8 @@
     width: 246px;
     border-radius: 30px;
     overflow: hidden;
+    position: relative;
+    background-color: black;
 }
 
 .errorImage {
@@ -46,13 +48,13 @@
 }
 
 .tag {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 .chart {
     width: 100%;
     margin-top: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .priceDiffAndLastUpdate {

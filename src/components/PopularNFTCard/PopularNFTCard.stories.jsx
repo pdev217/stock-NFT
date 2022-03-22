@@ -20,7 +20,7 @@ Normal.args = {
     percent: 15.3
   },
   username: "CoolMan",
-  code: "uv7597gug865d",
+  account: "uv7597gug865d",
   tag: "Art & Theater",
   rewards: "common"
 };
@@ -35,7 +35,7 @@ Down.args = {
     percent: 15.3
   },
   username: "CoolMan",
-  code: "uv7597gug865d",
+  account: "uv7597gug865d",
   tag: "3d Art",
   rewards: "rare"
 };

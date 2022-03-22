@@ -7,28 +7,6 @@ import { Footer } from "./Footer/Footer";
 import styles from "./Layout.module.css";
 import { WalletPopup } from "../src/components/WalletPopup/WalletPopup";
 import { ErrorSnackbar } from "../src/components/ErrorSnackbar/ErrorSnackbar";
-const fakeWallets = [
-  {
-    id: "§12§12",
-    name: "Metamask",
-    src: "/metamask-fox-wallet.svg",
-  },
-  {
-    id: "wqv25b",
-    name: "Coinbase",
-    src: "/coinbase-wallet.svg",
-  },
-  {
-    id: "34b3b6",
-    name: "WalletConnect",
-    src: "/walletconnect-wallet.svg",
-  },
-  {
-    id: "ev5w4vu",
-    name: "Formatic",
-    src: "/formatic-wallet.svg",
-  },
-];
 
 const Layout = ({ children }) => {
   const isWalletPopupOpened = useSelector(
@@ -59,7 +37,6 @@ const Layout = ({ children }) => {
             className={cn(styles.walletPopup, {
               [styles.walletPopupIsActive]: isWalletPopupOpened,
             })}
-            wallets={fakeWallets}
             isAuthorized={isAuthorized}
           />
         </div>

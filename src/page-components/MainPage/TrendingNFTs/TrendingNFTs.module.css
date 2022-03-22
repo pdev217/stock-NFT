@@ -1,0 +1,24 @@
+.wrapper {
+}
+
+.titleAndbuttonWrapper {
+  margin: 80px calc(18px + 5.2%) 32px;
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 0px;
+}
+
+.sliderWrapper {
+    margin-left: 5.2%;
+    width: calc(100vw - 5.2%);
+    overflow: hidden;
+    display: flex;
+}
+
+.card {
+    margin: 0 1.1%;
+}

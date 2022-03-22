@@ -1,4 +1,5 @@
 import { useState } from "react";
+import cn from "classnames";
 import Image from "next/image";
 import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { AmountDifference } from "../AmountDifference/AmountDifference";
@@ -9,8 +10,9 @@ import { Username } from "../Username/Username";
 import styles from "./PopularNFTCard.module.css";
 
 export const PopularNFTCard = ({
+  className,
   username,
-  code,
+  account,
   price,
   priceDifference,
   src,
@@ -19,10 +21,12 @@ export const PopularNFTCard = ({
   rewards,
 }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
-  const NFTId = `${code.substring(0, 6)}...${code.substring(code.length - 6)}`;
+  const accountUpdated = `${account.substring(0, 6)}...${account.substring(
+    account.length - 6
+  )}`;
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cn(styles.wrapper, className)}>
       {/* <Ribbon type={rewards} /> */}
       <div className={styles.imageWrapper}>
         {isImageAbsent ? (
@@ -46,9 +50,9 @@ export const PopularNFTCard = ({
             percent={priceDifference.percent}
           />
         </div>
-        <Username username={username} color="lightblue" isConfirmed/>
+        <Username username={username} color="lightblue" isConfirmed />
         <div className={styles.codeAndTag}>
-          <p className={styles.code}>{NFTId}</p>
+          <p className={styles.code}>{accountUpdated}</p>
           <Tag text={tag} />
         </div>
       </div>

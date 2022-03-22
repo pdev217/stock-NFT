@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { Header } from "../layout/Header/Header";
 import { withLayout } from "../layout/Layout";
+import { MainPage } from "../src/page-components/MainPage";
 
 function Home() {
   return (
@@ -12,7 +12,7 @@ function Home() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
       </Head>
-      <Header />
+      <MainPage />
     </>
   );
 }
