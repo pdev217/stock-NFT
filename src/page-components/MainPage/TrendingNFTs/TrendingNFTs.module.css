@@ -13,12 +13,20 @@
 }
 
 .sliderWrapper {
-    margin-left: 5.2%;
-    width: calc(100vw - 5.2%);
-    overflow: hidden;
+    width: 100vw;
+    overflow-y: scroll;
     display: flex;
+    margin-bottom: 76.5px;
 }
 
 .card {
     margin: 0 1.1%;
+}
+
+.card:first-child {
+    margin-left: 5.2%;
+}
+
+.card:last-child {
+    margin-right: 6.3%;
 }
