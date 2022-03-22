@@ -13,20 +13,26 @@
 }
 
 .sliderWrapper {
-    width: 100vw;
-    overflow-y: scroll;
-    display: flex;
-    margin-bottom: 76.5px;
+  width: 100vw;
+  overflow-y: scroll;
+  display: flex;
+  margin-bottom: 76.5px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sliderWrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .card {
-    margin: 0 1.1%;
+  margin: 0 1.1%;
 }
 
 .card:first-child {
-    margin-left: 5.2%;
+  margin-left: 5.2%;
 }
 
 .card:last-child {
-    margin-right: 6.3%;
+  margin-right: 6.3%;
 }
