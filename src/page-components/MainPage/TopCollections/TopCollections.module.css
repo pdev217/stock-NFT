@@ -1,0 +1,109 @@
+.topPartWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 154px;
+}
+
+.title {
+  text-align: left;
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 0px;
+  color: #ffffff;
+  margin-right: 1.5%;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  width: 34.3%;
+  margin-right: 0.83%;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.centralFilter {
+  margin: 0 4%;
+}
+
+.collectorsWrapper {
+  display: flex;
+  padding: 0 6.2%;
+  margin-top: 86px;
+}
+
+.collectorsColumn {
+  width: 33.33%;
+  padding: 0 3%;
+  border-right: 1px solid white;
+}
+
+.centralColumn {
+  width: calc(33% + 56px);
+}
+
+.collectorsColumn:first-child {
+  padding-left: 0;
+}
+
+.collectorsColumn:last-child {
+  padding-right: 0;
+  border: 0;
+}
+
+.collector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  margin-bottom: 42px;
+  margin-top: 5px;
+}
+
+.imageWrapper {
+  position: relative;
+  height: 76px;
+  width: 76px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.number {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.9px;
+  color: #ffffff;
+}
+
+.username {
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 800;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+
+.amountWithIcon {
+  line-height: 28px;
+}
+
+.account,
+.NFTs {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-style: italic;
+  letter-spacing: 0.8px;
+  line-height: 28px;
+  color: #898d96;
+}
+
+.amountDifference {
+  position: relative;
+  top: 14px;
+}

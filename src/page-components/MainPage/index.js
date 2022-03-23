@@ -7,6 +7,7 @@ import { MostPopularNFTs } from "./MostPopulatNFTs/MostPopulatNFTs";
 import { AssetBackedNFTs } from "./AssetBackedNFTs/AssetBackedNFTs";
 import { MakeYourOwnCollection } from "./MakeYourOwnCollection/MakeYourOwnCollection";
 import { VideoAboutNFT } from "./VideoAboutNFT/VideoAboutNFT";
+import { TopCollections } from "./TopCollections/TopCollections";
 
 export const MainPage = () => {
   return (
@@ -20,6 +21,7 @@ export const MainPage = () => {
       <AssetBackedNFTs />
       <MakeYourOwnCollection />
       <VideoAboutNFT />
+      <TopCollections />
     </>
   );
 };

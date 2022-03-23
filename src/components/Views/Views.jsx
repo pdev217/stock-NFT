@@ -1,9 +1,5 @@
-export const Views = ({ quantity, className }) => {
-  const numberWithCommas = (number) => {
-    return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  }
+import { numberWithSymbol } from "../../helpers/numberWithSymbol";
 
-  return (
-    <p className={className}>IC {numberWithCommas(quantity)} Today</p>
-  );
-};
+export const Views = ({ quantity, className }) => (
+  <p className={className}>IC {numberWithSymbol(quantity, ",")} Today</p>
+);
