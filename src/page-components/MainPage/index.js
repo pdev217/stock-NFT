@@ -5,6 +5,7 @@ import { WeCanConnectWith } from "./WeCanConnectWith/WeCanConnectWith";
 import { SpecialAuctionNFTs } from "./SpecialAuctionNFTs/SpecialAuctionNFTs";
 import { MostPopularNFTs } from "./MostPopulatNFTs/MostPopulatNFTs";
 import { AssetBackedNFTs } from "./AssetBackedNFTs/AssetBackedNFTs";
+import { MakeYourOwnCollection } from "./MakeYourOwnCollection/MakeYourOwnCollection";
 
 export const MainPage = () => {
   return (
@@ -16,6 +17,7 @@ export const MainPage = () => {
       <SpecialAuctionNFTs />
       <MostPopularNFTs />
       <AssetBackedNFTs />
+      <MakeYourOwnCollection />
     </>
   );
 };

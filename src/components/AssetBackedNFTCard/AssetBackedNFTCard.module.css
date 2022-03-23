@@ -1,8 +1,8 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  width: 275px;
-  min-width: 275px;
+  width: 246px;
+  min-width: 246px;
   height: fit-content;
   background: #282829 0% 0% no-repeat padding-box;
   border: 1px solid #617bff;
@@ -12,8 +12,8 @@
 }
 
 .imageWrapper {
-  height: 257px;
-  width: 275px;
+  height: 231px;
+  width: 246px;
   overflow: hidden;
   border-radius: 30px;
   position: relative;
