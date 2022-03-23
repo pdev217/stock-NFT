@@ -1,5 +1,5 @@
 .wrapper {
-    padding: 140px 0;
+    padding: 140px 0 0;
 }
 
 .titleFilterButtonWrapper {
@@ -10,10 +10,25 @@
     padding: 0 calc(18px + 5.2%);
 }
 
+.topElement {
+    width: 343px;
+    display: flex;
+    justify-content: center;
+}
+
+.topElement:first-child {
+    justify-content: flex-start;
+}
+
+.topElement:last-child {
+    justify-content: flex-end;
+}
+
 .title {
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
     font-size: 36px;
     letter-spacing: 0px;
     color: #FFFFFF;
+    margin: 0;
 }

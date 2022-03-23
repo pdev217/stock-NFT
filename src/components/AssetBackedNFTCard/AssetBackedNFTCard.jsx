@@ -1,13 +1,14 @@
 import { useState } from "react";
+import cn from "classnames";
 import Image from "next/image";
 import { Tag } from "../Tag/Tag";
 import styles from "./AssetBackedNFTCard.module.css";
 
-export const AssetBackedNFTCard = ({ src, title, text, tags }) => {
+export const AssetBackedNFTCard = ({ src, title, text, tags, className }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cn(styles.wrapper, className)}>
       <div className={styles.imageWrapper}>
         {isImageAbsent ? (
           <div className={styles.errorImage}></div>
