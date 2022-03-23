@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  margin-top: 151px;
+  padding: 0 6.2%;
+}
+
+.textWrapper {
+  margin-top: 104px;
+  margin-left: 9.3%;
+  width: 24.9%;
+}
+
+.title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: 36px;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+
+.text {
+  margin-top: 39px;
+  font-family: "Nimbus Sans", sans-serif;
+  font-size: 18px;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+
+.button {
+  margin-top: 75px;
+  display: flex;
+  justify-content: center;
+}
