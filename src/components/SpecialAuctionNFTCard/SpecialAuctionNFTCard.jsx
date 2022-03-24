@@ -20,11 +20,12 @@ export const SpecialAuctionNFTCard = ({
   views,
   src,
   tag,
+  styling
 }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   return (
-    <div className={cn(styles.wrapper, className)}>
+    <div className={cn(styles.wrapper, className)} style={{...styling}}>
       <div className={styles.leftSide}>
         <div className={styles.imageWrapper}>
           {isImageAbsent ? (
