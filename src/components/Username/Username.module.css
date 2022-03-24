@@ -9,7 +9,7 @@
 }
 
 .username p {
-    margin: 0;
+    margin: 0 5px 0 0;
 }
 
 .icon {
@@ -23,4 +23,8 @@
 
 .white {
     color: #FFF;
+}
+
+.big {
+    font-size: 18px;
 }

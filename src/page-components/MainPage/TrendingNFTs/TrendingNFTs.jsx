@@ -11,7 +11,7 @@ export const TrendingNFTs = () => {
         <div>Trending NFTs</div>
         <CustButton color="primary" text="Browse All" />
       </div>
-      <ScrollableList NFTs={fakeNFTs} Component={PopularNFTCard}/>
+      <ScrollableList items={fakeNFTs} Component={PopularNFTCard} />
     </div>
   );
 };

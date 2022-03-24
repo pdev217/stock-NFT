@@ -20,10 +20,11 @@ const icon = (
   </div>
 );
 
-export const Username = ({ username, className, isConfirmed, color }) => (
+export const Username = ({ username, className, isConfirmed, color, isBig }) => (
   <div className={cn(styles.username, className, {
     [styles.lightblue]: color === "lightblue",
     [styles.white]: color === "white",
+    [styles.big]: isBig
   })}>
     <p>
       @{username} 

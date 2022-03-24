@@ -9,6 +9,7 @@ import { MakeYourOwnCollection } from "./MakeYourOwnCollection/MakeYourOwnCollec
 import { VideoAboutNFT } from "./VideoAboutNFT/VideoAboutNFT";
 import { TopCollections } from "./TopCollections/TopCollections";
 import { JoinOurCreatoes } from "./JoinOurCreators/JoinOurCreatoes";
+import { PopularCreators } from "./PopularCreators/PopularCreators";
 
 export const MainPage = () => {
   return (
@@ -24,6 +25,7 @@ export const MainPage = () => {
       <VideoAboutNFT />
       <TopCollections />
       <JoinOurCreatoes />
+      <PopularCreators />
     </>
   );
 };

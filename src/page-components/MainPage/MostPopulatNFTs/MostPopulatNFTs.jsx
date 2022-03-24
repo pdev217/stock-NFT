@@ -24,7 +24,7 @@ export const MostPopularNFTs = () => {
           />
         </div>
       </div>
-      <ScrollableList Component={PopularNFTCard} NFTs={fakeNFTs} />
+      <ScrollableList Component={PopularNFTCard} items={fakeNFTs} />
     </div>
   );
 };

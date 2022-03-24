@@ -135,7 +135,7 @@ export const AssetBackedNFTs = () => {
           </div>
         </div>
       </div>
-      <ScrollableList NFTs={fakeNFTs} Component={AssetBackedNFTCard} />
+      <ScrollableList items={fakeNFTs} Component={AssetBackedNFTCard} />
     </div>
   );
 };

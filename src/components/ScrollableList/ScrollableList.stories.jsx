@@ -168,5 +168,5 @@ const fakeNFTs = [
 
 export const Normal = Template.bind({});
 Normal.args = {
-  NFTs: fakeNFTs,
+  items: fakeNFTs,
 };

@@ -15,7 +15,6 @@ export const AssetBackedNFTCard = ({ src, title, text, tags, className }) => {
         ) : (
           <Image
             alt={title}
-            className={styles.image}
             layout="fill"
             onError={(e) => e && setIsImageAbsent(true)}
             src={src}

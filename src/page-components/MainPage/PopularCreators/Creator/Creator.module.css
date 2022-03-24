@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  min-width: 179px;
+}
+
+.errorImage {
+  height: 179px;
+  width: 179px;
+  background-color: black;
+  border: 1px solid #617bff;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.account {
+  text-align: center;
+  font-size: 12px;
+  font-family: "Poppins", sans-serif;
+  font-style: italic;
+  letter-spacing: 0.6px;
+  color: #898d96;
+  margin-bottom: 25px;
+}
