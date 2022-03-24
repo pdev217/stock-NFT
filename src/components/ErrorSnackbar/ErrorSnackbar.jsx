@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
-import cn from 'classnames';
+import { useEffect } from "react";
+import cn from "classnames";
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import { close } from "../../redux/slices/errorSnackbarSlice";
 import styles from "./ErrorSnackbar.module.css";
 
-export const ErrorSnackbar = ({className}) => {
+export const ErrorSnackbar = ({ className }) => {
   const dispatch = useDispatch();
   const text = useSelector((state) => state.errorSnackbar.text);
 
@@ -15,7 +15,7 @@ export const ErrorSnackbar = ({className}) => {
 
   useEffect(() => {
     setTimeout(() => closeSnackbar(), 5000);
-  }, [])
+  }, []);
 
   return (
     <div className={cn(styles.wrapper, className)}>

@@ -10,17 +10,9 @@ const Template = (args) => (
     <SmallChart {...args} />
 );
 
-const data = [
-  { name: "Page A", price: 500,},
-  { name: "Page A", price: 510,},
-  { name: "Page A", price: 300,},
-  { name: "Page A", price: 530,},
-  { name: "Page A", price: 200,},
-  { name: "Page A", price: 250,},
-  { name: "Page A", price: 675,},
-  { name: "Page A", price: 344,},
-  
-];
+export const fakeChartData = new Array(15).fill({}, 0).map(() => {
+  return { name: "Page A", price: Math.random() * 100 };
+});
 
 export const Chart = Template.bind({});
 Chart.args = {

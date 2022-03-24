@@ -14,7 +14,5 @@ const Template = (args) => (
   </Provider>
 );
 
-export const Chart = Template.bind({});
-Chart.args = {
-
-};
+export const Normal = Template.bind({});
+Normal.args = {};

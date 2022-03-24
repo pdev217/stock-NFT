@@ -9,16 +9,9 @@ export const Category = ({ src, title }) => {
   return (
     <div className={styles.wrapper}>
       {isImageAbsent ? (
-        <div
-          className={cn(styles.errorImage, styles.image)}
-        ></div>
+        <div className={cn(styles.errorImage, styles.image)}></div>
       ) : (
-        <Image
-          src={src}
-          alt={title}
-          layout="fill"
-          onError={() => setIsImageAbsent(true)}
-        />
+        <Image src={src} alt={title} layout="fill" onError={() => setIsImageAbsent(true)} />
       )}
       <p className={styles.text}>{title}</p>
     </div>

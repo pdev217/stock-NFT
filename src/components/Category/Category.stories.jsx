@@ -11,5 +11,5 @@ const Template = (args) => <Category {...args} />;
 export const SimpleCategory = Template.bind({});
 SimpleCategory.args = {
   src: "/p.png",
-  title: "Music Artists"
+  title: "Music Artists",
 };

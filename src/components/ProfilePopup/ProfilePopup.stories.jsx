@@ -37,7 +37,7 @@ const data = [
   { categoryName: "Settings", href: "#", src: "/settings-icon.svg", id: "5" },
 ];
 
-export const Chart = Template.bind({});
-Chart.args = {
+export const Normal = Template.bind({});
+Normal.args = {
   categories: data,
 };

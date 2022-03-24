@@ -1,58 +1,63 @@
 import { v4 } from "uuid";
 
-export const categories = [
+const categoriesArray = [
   {
     name: "Auctions",
     href: "",
-    id: v4(),
   },
   {
     name: "For Creators",
     href: "",
-    id: v4(),
   },
   {
     name: "Account",
     href: "",
-    id: v4(),
   },
   {
     name: "Quick Links",
     href: "",
-    id: v4(),
   },
   {
     name: "Quick Links",
     href: "",
-    id: v4(),
   },
   {
     name: "Quick Links",
     href: "",
-    id: v4(),
   },
   {
     name: "Quick Links",
     href: "",
-    id: v4(),
   },
   {
     name: "Quick Links",
     href: "",
-    id: v4(),
   },
   {
     name: "Quick Links",
     href: "",
-    id: v4(),
   },
 ];
 
-export const icons = [
-  { src: "/metamask-fox-wallet.svg", id: v4(), alt: "metamask-icon" },
-  { src: "/coinbase-wallet.svg", id: v4(), alt: "coinbase-icon" },
-  { src: "/walletconnect-wallet.svg", id: v4(), alt: "walletConnect-icon" },
-  { src: "/formatic-wallet.svg", id: v4(), alt: "formatic-icon" },
-  { src: "/autherium-wallet.svg", id: v4(), alt: "autherium-icon" },
-  { src: "/torus-wallet.svg", id: v4(), alt: "torus-icon" },
+export const categories = categoriesArray.map((elem, index) => {
+  return {
+    ...elem,
+    id: index
+  }
+})
+
+const iconsArray = [
+  { src: "/metamask-fox-wallet.svg", alt: "metamask-icon" },
+  { src: "/coinbase-wallet.svg", alt: "coinbase-icon" },
+  { src: "/walletconnect-wallet.svg", alt: "walletConnect-icon" },
+  { src: "/formatic-wallet.svg", alt: "formatic-icon" },
+  { src: "/autherium-wallet.svg", alt: "autherium-icon" },
+  { src: "/torus-wallet.svg", alt: "torus-icon" },
 ];
+
+export const icons = iconsArray.map((elem, index) => {
+  return {
+    ...elem,
+    id: index
+  }
+})

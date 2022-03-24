@@ -16,8 +16,8 @@ export const ProfilePopup = ({ categories, className, isAuthorized }) => {
 
   const handleLogout = () => {
     deactivate();
-    dispatch(logout())
-  }
+    dispatch(logout());
+  };
 
   const closePopup = () => {
     dispatch(close());
@@ -42,15 +42,11 @@ export const ProfilePopup = ({ categories, className, isAuthorized }) => {
       {isAuthorized && (
         <div className={styles.category} onClick={handleLogout}>
           <Link href="#" passHref>
-            <>
-              <div className={styles.icon}>
-                <Image
-                  src="/signout-icon.svg"
-                  alt="signout-icon"
-                  layout="fill"
-                />
-              </div>
-              <div className={styles.text}>Log Out</div>
+          <>
+            <div className={styles.icon}>
+              <Image src="/signout-icon.svg" alt="signout-icon" layout="fill" />
+            </div>
+            <div className={styles.text}>Log Out</div>
             </>
           </Link>
         </div>

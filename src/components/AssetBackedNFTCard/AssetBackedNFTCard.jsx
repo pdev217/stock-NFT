@@ -13,12 +13,7 @@ export const AssetBackedNFTCard = ({ src, title, text, tags, className }) => {
         {isImageAbsent ? (
           <div className={styles.errorImage}></div>
         ) : (
-          <Image
-            alt={title}
-            layout="fill"
-            onError={(e) => e && setIsImageAbsent(true)}
-            src={src}
-          />
+          <Image alt={title} layout="fill" onError={(e) => e && setIsImageAbsent(true)} src={src} />
         )}
       </div>{" "}
       <div className={styles.infoWrapper}>

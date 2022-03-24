@@ -7,38 +7,25 @@ export default {
 };
 
 const Template = (args) => <HorizontalNFTCard {...args} />;
-const data = [
-  { name: "Page A", price: 500,},
-  { name: "Page A", price: 510,},
-  { name: "Page A", price: 300,},
-  { name: "Page A", price: 530,},
-  { name: "Page A", price: 200,},
-  { name: "Page A", price: 250,},
-  { name: "Page A", price: 675,},
-  { name: "Page A", price: 344,},
-  { name: "Page A", price: 500,},
-  { name: "Page A", price: 510,},
-  { name: "Page A", price: 300,},
-  { name: "Page A", price: 530,},
-  { name: "Page A", price: 200,},
-  { name: "Page A", price: 250,},
-  { name: "Page A", price: 675,},
-  { name: "Page A", price: 344,},
-];
+
+export const chartData = new Array(15).fill({}, 0).map(() => {
+  return { name: "Page A", price: Math.random() * 100 };
+});
+
 
 export const Normal = Template.bind({});
 Normal.args = {
   username: "MLB",
   availible: 247,
-  chartData: data,
+  chartData,
   lastUpdate: "24 Hrs",
   price: 147.38,
   priceDifference: {
     difference: 12.43,
-    direction: "up"
+    direction: "up",
   },
   tag: "Athletes",
   title: "Maikel Franco",
   src: "/p.png",
-  rewards: "rare"
+  rewards: "rare",
 };

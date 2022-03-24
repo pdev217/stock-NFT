@@ -59,13 +59,13 @@
   font-weight: bold;
   font-size: 18px;
   font-family: "Poppins", sans-serif;
-  letter-spacing: 0.02px;
+  letter-spacing: 002px;
   color: #ffffff;
 }
 
 .getAlertsAndSignUpWrapper {
   margin-top: 96px;
-  margin-left: 3.6%;
+  margin-left: 3.5%;
   margin-bottom: 6.25%;
   margin-right: 6.25%;
   display: flex;

@@ -55,12 +55,7 @@ export const HorizontalNFTCard = ({
           />
           <p className={styles.lastUpdate}>{lastUpdate} Hrs</p>
         </div>
-        <Username
-          username={username}
-          color="lightblue"
-          isConfirmed
-          className={styles.username}
-        />
+        <Username username={username} color="lightblue" isConfirmed className={styles.username} />
       </div>
     </div>
   );
