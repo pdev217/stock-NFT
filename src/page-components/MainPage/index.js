@@ -8,6 +8,7 @@ import { AssetBackedNFTs } from "./AssetBackedNFTs/AssetBackedNFTs";
 import { MakeYourOwnCollection } from "./MakeYourOwnCollection/MakeYourOwnCollection";
 import { VideoAboutNFT } from "./VideoAboutNFT/VideoAboutNFT";
 import { TopCollections } from "./TopCollections/TopCollections";
+import { JoinOurCreatoes } from "./JoinOurCreators/JoinOurCreatoes";
 
 export const MainPage = () => {
   return (
@@ -22,6 +23,7 @@ export const MainPage = () => {
       <MakeYourOwnCollection />
       <VideoAboutNFT />
       <TopCollections />
+      <JoinOurCreatoes />
     </>
   );
 };

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import cn from "classnames"
+import { useRef, useState } from "react";
+import cn from "classnames";
 import Image from "next/image";
 import styles from "./Category.module.css";
 
@@ -9,7 +9,9 @@ export const Category = ({ src, title }) => {
   return (
     <div className={styles.wrapper}>
       {isImageAbsent ? (
-        <div className={cn(styles.errorImage, styles.image)}></div>
+        <div
+          className={cn(styles.errorImage, styles.image)}
+        ></div>
       ) : (
         <Image
           src={src}
