@@ -1,3 +1,5 @@
+import { Mainpage3dCarousel } from "../../../components/3dMainpageCarousel/Mainpage3dCarousel";
+import { NFTCards } from "./SpecialAuctionNFTs.utils";
 import styles from "./SpecialAuctionNFTs.module.css";
 
 // Title for this division is located in the Collections division 
@@ -6,7 +8,7 @@ import styles from "./SpecialAuctionNFTs.module.css";
 export const SpecialAuctionNFTs = ({}) => {
   return (
     <div className={styles.wrapper}>
-      <h1 style={{ color: "white", textAlign: "center" }}>3d Carousel</h1>
+      <Mainpage3dCarousel NFTCards={NFTCards} />
     </div>
   );
 };

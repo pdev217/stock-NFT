@@ -12,6 +12,7 @@ export const Mainpage3dCarousel = ({ NFTCards }) => {
 
     setTranslation((prev) => prev + difference * 100);
     setactiveI(i);
+    console.log('activeI', activeI)
   };
 
   const getRotation = (i) => {
@@ -19,12 +20,12 @@ export const Mainpage3dCarousel = ({ NFTCards }) => {
 
     if (i < activeI) {
       const difference = activeI - i;
-      return `rotateY(${degree * difference}deg)`;
+      return `rotateY(${degree * (difference)}deg)`;
     }
 
     if (i > activeI) {
       const difference = i - activeI;
-      return `rotateY(-${degree * difference}deg)`;
+      return `rotateY(-${degree * (difference)}deg)`;
     }
 
     return "";
@@ -42,12 +43,13 @@ export const Mainpage3dCarousel = ({ NFTCards }) => {
     return NFTCards.length;
   };
 
+
   return (
     <div className={styles.wrapper}>
       {NFTCards.map((card, i) => (
         <SpecialAuctionNFTCard
           styling={{
-            transform: `perspective(500px) translateX(${translation}%) ${getRotation(i)}`,
+            transform: `perspective(500px) translateZ(${getZIndex(i) * 20}px) translateX(${translation}%) ${getRotation(i)}`,
             transition: "0.3s",
             zIndex: `${Math.abs(getZIndex(i))}`,
           }}

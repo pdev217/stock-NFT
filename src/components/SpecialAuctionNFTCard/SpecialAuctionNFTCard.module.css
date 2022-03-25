@@ -1,17 +1,24 @@
 .wrapper {
     display: flex;
     background: rgb(40 40 41);
-    width: 420px;
-    height: 395px;
+    width: 21.87%;
+    aspect-ratio: 1 / 0.91;
     border-radius: 22px;
     border: 1px solid #6478fb;
     overflow: hidden;
     position: relative;
 }
 
+/* 420 395 */
+
+.leftSide {
+    height: 100%;
+    width: 60%;
+}
+
 .imageWrapper {
-    height: 240px;
-    width: 252px;
+    width: 100%;
+    aspect-ratio: 1 / 0.95;
     border-radius: 22px;
     overflow: hidden;
 }
@@ -23,8 +30,8 @@
 }
 
 .leftSideInfo {
-    padding-left: 22px;
-    padding-top: 19px;
+    padding-left: 10.5%;
+    padding-top: 4.8%;
 }
 
 .NFTName {
@@ -36,7 +43,8 @@
 
 .time {
     font-family: 'Poppins', sans-serif;
-    margin-top: 9px;
+    margin-top: 5%;
+    margin-bottom: 9.4%;
     font-size: 24px;
     font-weight: 800;
     color: rgb(255 54 84);
@@ -46,14 +54,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-top: 9px;
-}
-
-.infoWrapper {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    padding-top: 28px;
+    margin-top: 7%;
 }
 
 .priceInfo {
@@ -77,17 +78,17 @@
 }
 
 .rightSide {
-    padding-top: 18px;
-    padding-left: 24px;
-    padding-right: 27px;
-    padding-bottom: 24px;
-    width: 167px;
+    padding-top: 4.5%;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-bottom: 4.5%;
+    width: 32%;
     display: flex;
     flex-direction: column;
 }
 
 .currentPriceTitle {
-    margin: 0 0 7px;
+    margin: 0 0 5%;
     color: white;
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
@@ -98,11 +99,11 @@
     font-style: italic;
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
-    margin-top: 7px;
+    margin-top: 5%;
 }
 
 .historyTitle {
-    margin: 3px 0 13px;
+    margin: 2% 0 9.7%;
     color: white;
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
@@ -111,7 +112,7 @@
 .prevPrice {
     display: flex;
     justify-content: space-between;
-    padding: 13px 0;
+    padding: 9.7% 0;
     border-bottom: 1px solid rgb(55 56 58);
 }
 
