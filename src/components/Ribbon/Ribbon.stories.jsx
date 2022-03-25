@@ -6,24 +6,13 @@ export default {
   component: Ribbon,
 };
 
-const Template = (args) => <Ribbon {...args} />;
+const Template = (args) => (
+    <div style={{ background: "black" }}>
+      <Ribbon {...args} />
+    </div>
+);
 
-export const URare = Template.bind({});
-URare.args = {
-  type: "u-rare"
-};
-
-export const Uncmn = Template.bind({});
-Uncmn.args = {
-    type: "uncmn"
-};
-
-export const Common = Template.bind({});
-Common.args = {
-    type: "common"
-};
-
-export const Rare = Template.bind({});
-Rare.args = {
-    type: "rare"
+export const Flag = Template.bind({});
+Flag.args = {
+  
 };

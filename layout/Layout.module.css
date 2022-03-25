@@ -1,0 +1,41 @@
+.pusherDown {
+  height: 140px;
+}
+
+.withoutHeader {
+  position: relative;
+}
+
+.shadowBackground {
+  display: none;
+  position: absolute;
+  background: #000000cc 0% 0% no-repeat padding-box;
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+
+.shadowBackgroundActive {
+  display: block;
+  z-index: 100;
+}
+
+.walletPopup {
+  display: none;
+  position: fixed;
+  min-height: calc(100vh - 140px);
+  height: fit-content;
+  right: 0;
+}
+
+.walletPopupIsActive {
+  display: block;
+}
+
+.errorSnackbar {
+  position: absolute;
+  top: 50px;
+  right: 50%;
+  transform: translate(50%);
+  z-index: 100;
+}

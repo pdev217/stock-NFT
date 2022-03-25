@@ -1,0 +1,30 @@
+.wrapper {
+  padding: 0 5.2%;
+}
+
+.title {
+  font: normal normal 800 22px/33px Poppins;
+  letter-spacing: 0px;
+  color: #ffffff;
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.wallets {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.item {
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+  width: 165px;
+  letter-spacing: 0.9px;
+  color: #ffffff;
+}

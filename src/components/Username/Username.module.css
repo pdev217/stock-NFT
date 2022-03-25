@@ -1,0 +1,30 @@
+.username {
+  font-size: 12px;
+  line-height: 23px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  opacity: 1;
+  display: flex;
+}
+
+.username p {
+  margin: 0 5px 0 0;
+}
+
+.icon {
+  position: relative;
+  top: 3px;
+}
+
+.lightblue {
+  color: #00eaf4;
+}
+
+.white {
+  color: #fff;
+}
+
+.big {
+  font-size: 18px;
+}

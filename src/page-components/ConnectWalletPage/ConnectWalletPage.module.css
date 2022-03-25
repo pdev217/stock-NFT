@@ -1,0 +1,79 @@
+.wrapper {
+  width: 100%;
+  min-height: 669px;
+  height: calc(100vh - 619px);
+  background: #000 0% 0% no-repeat padding-box;
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0;
+  color: #fff;
+  opacity: 1;
+}
+
+.prompt {
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.02px;
+  color: #898d96;
+  margin-bottom: 40px;
+}
+
+.chooseWalletWrapper {
+  width: 760px;
+}
+
+.walletLink {
+  cursor: pointer;
+  font-weight: 600;
+  color: #fc3aaa;
+}
+
+.wallet {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 22px 24px;
+  border: 1px solid #282829;
+}
+
+.choosenWallet {
+  background: #282829;
+}
+
+.wallet:first-child {
+  border-radius: 16px 16px 0 0;
+}
+
+.walletName,
+.moreOptionsText {
+  font-size: 22px;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  margin: 0 0 0 16px;
+  letter-spacing: 0;
+  color: #fff;
+}
+
+.popular {
+  margin: 0 0 0 auto;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.02px;
+  color: #898d96;
+}
+
+.moreOptionsWrapper {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #898d96;
+  border-radius: 0 0 16px 16px;
+  height: 81px;
+}

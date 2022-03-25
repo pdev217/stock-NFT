@@ -1,94 +1,117 @@
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    background: rgb(40, 40, 41);
-    width: 300px;
-    height: 335px;
-    border-radius: 22px;
-    border: 1px solid white;
-    overflow: hidden;
+  display: flex;
+  width: 449px;
+  height: 285px;
+  overflow: hidden;
+  background: #282829 0% 0% no-repeat padding-box;
+  box-shadow: 0 3px 20px #000000c9;
+  border: 1px solid #617bff;
+  border-radius: 30px;
+  opacity: 1;
 }
 
 .imageWrapper {
-    height: 200px;
-    border-radius: 22px;
-    overflow: hidden;
+  height: 100%;
+  width: 246px;
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+  background-color: black;
 }
 
 .errorImage {
-    background-color: black;
-    height: 100%;
-    width: 100%;
+  background-color: black;
+  height: 100%;
+  width: 100%;
 }
 
 .title {
-    color: white;
-    font-family: sans-serif;
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 11px;
+  font-family: Poppins, sans-serif;
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 0;
+  letter-spacing: 0.9px;
+  color: #fff;
+  opacity: 1;
+}
+
+.availible {
+  font-style: italic;
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+  margin: 0;
+  margin-bottom: 14px;
+  text-align: left;
+  letter-spacing: 0.6px;
+  color: #fff;
+  opacity: 1;
+}
+
+.tag {
+  margin-bottom: 18px;
+}
+
+.chart {
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.priceDiffAndLastUpdate {
+  display: flex;
+  align-items: flex-end;
+}
+
+.lastUpdate {
+  margin: 0;
+  margin-left: 10px;
+  color: #fff;
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+  line-height: 33px;
+  font-style: italic;
+  letter-spacing: 0.6px;
 }
 
 .infoWrapper {
-    padding-left: 20px;
-    padding-right: 22px;
-    padding-bottom: 15px;
-    padding-top: 17px;
+  padding-left: 26px;
+  padding-right: 22px;
+  padding-bottom: 15px;
+  padding-top: 20px;
+  width: 223px;
 }
 
 .priceAndTime {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.priceInfo {
-    display: flex;
-    justify-content: space-between;
+.priceDifferenceInfo {
+  display: flex;
+  justify-content: space-between;
+  line-height: 33px;
 }
 
 .time {
-    width: fit-content;
-    margin: 0;
-    color: rgb(255, 24, 84);
-    font-weight: 900;
-    font-family: sans-serif;
-    font-size: 17px;
+  width: fit-content;
+  margin: 0;
+  color: rgb(255 24 84);
+  font-weight: 900;
+  font-family: sans-serif;
+  font-size: 17px;
 }
 
-.authorAndViews {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    margin-bottom: 4px;
+.usernameAndViews {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 4px;
 }
 
-.author {
-    color: white;
-    font-family: sans-serif;
-    font-size: 12px;
-    margin: 0;
-}
-
-.views {
-    color: white;
-    margin: 0;
-    font-family: sans-serif;
-    font-size: 12px;
-    color: rgb(137, 141, 150);
-    font-style: italic;
-}
-
-.codeAndTag {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 7px;
-}
-
-.code {
-    color: rgb(137, 141, 150);
-    font-family: sans-serif;
-    font-size: 14px;
-    margin: 0;
-    font-style: italic;
+.username {
+  color: rgb(0 234 244);
+  font-family: sans-serif;
+  font-size: 12px;
+  margin-top: 5px;
 }

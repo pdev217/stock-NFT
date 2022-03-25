@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+}
+
+.prevCard {
+  transform: perspective(500px) rotateY(25deg);  
+  transition: 0.5s;
+
+}
+
+.nextCard {
+  transform: perspective(500px) rotateY(-25deg);  
+  transition: 0.5s;
+}

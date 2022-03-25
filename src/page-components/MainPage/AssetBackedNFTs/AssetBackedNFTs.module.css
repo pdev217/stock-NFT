@@ -1,0 +1,121 @@
+.wrapper {
+  margin-top: 140px;
+}
+
+.titleSwitherButtonWrapper {
+  display: flex;
+  padding: 0 6.2%;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 36px;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.switcher {
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.8px;
+  color: #ffffff;
+  display: flex;
+}
+
+.toCenter {
+  margin-left: calc(50% - 363px - 359px);
+}
+
+.section {
+  border: 1px solid #ffffff;
+  padding: 14px 49px 12px 50px;
+  border-right: 1px solid #ffffff;
+}
+
+.section:first-child {
+  border-radius: 30px 0 0 30px;
+}
+
+.section:last-child {
+  border-radius: 0 30px 30px 0;
+}
+
+.active {
+  background: #617bff 0% 0% no-repeat padding-box;
+  border: 1px solid #617bff;
+}
+
+.button {
+  margin-left: auto;
+}
+
+.aboutABNFTs {
+  display: flex;
+  padding: 0 12%;
+  margin-bottom: 126px;
+}
+
+.categories {
+  margin-top: 98px;
+  display: flex;
+  width: 777px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bigIcon {
+  display: flex;
+  justify-content: center;
+  width: 185px;
+}
+
+.textsUnderIcons {
+  margin-top: 32px;
+  font-weight: 800;
+  font-size: 22px;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0px;
+  color: #ffffff;
+  display: flex;
+  width: 777px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.textUnderIcon {
+  width: 185px;
+  text-align: center;
+}
+
+.aboutTextWrapper {
+    margin-left: 8.9%;
+}
+
+.aboutTitle {
+  font-weight: 800;
+  font-size: 28px;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0px;
+  color: #ffffff;
+  margin-top: 120px;
+}
+
+.aboutText {
+  font-size: 18px;
+  line-height: 33px;
+  font-family: "Nimbus Sans", sans-serif;
+  letter-spacing: 0px;
+  color: #ffffff;
+  height: 90px;
+  width: 100%;
+  overflow: scroll;
+  margin-top: 25px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.aboutText::-webkit-scrollbar {
+  display: none;
+}

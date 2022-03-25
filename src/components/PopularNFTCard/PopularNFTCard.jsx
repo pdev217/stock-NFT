@@ -1,14 +1,18 @@
 import { useState } from "react";
+import cn from "classnames";
 import Image from "next/image";
-import styles from "./PopularNFTCard.module.css";
-import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
-import { PriceDifference } from "../PriceDifference/PriceDifference";
+import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
+import { AmountDifference } from "../AmountDifference/AmountDifference";
 import { Tag } from "../Tag/Tag";
-import { Ribbon } from "../Ribbon/Ribbon";
+// later I'll do the ribbon component
+//import { Ribbon } from "../Ribbon/Ribbon";
+import { Username } from "../Username/Username";
+import styles from "./PopularNFTCard.module.css";
 
 export const PopularNFTCard = ({
-  author,
-  code,
+  className,
+  username,
+  account,
   price,
   priceDifference,
   src,
@@ -17,9 +21,13 @@ export const PopularNFTCard = ({
   rewards,
 }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
+  const accountUpdated = `${account.substring(0, 6)}...${account.substring(
+    account.length - 6
+  )}`;
+
   return (
-    <div className={styles.wrapper}>
-      <Ribbon type={rewards} />
+    <div className={cn(styles.wrapper, className)}>
+      {/* <Ribbon type={rewards} /> */}
       <div className={styles.imageWrapper}>
         {isImageAbsent ? (
           <div className={styles.errorImage}></div>
@@ -36,15 +44,15 @@ export const PopularNFTCard = ({
       <div className={styles.infoWrapper}>
         <p className={styles.title}>{title}</p>
         <div className={styles.priceInfo}>
-          <PriceWithIcon price={price} color="red" size="sm" />
-          <PriceDifference
+          <AmountWithIcon amount={price} color="red" size="m" />
+          <AmountDifference
             direction={priceDifference.direction}
             percent={priceDifference.percent}
           />
         </div>
-        <p className={styles.author}>@{author} IC</p>
+        <Username username={username} color="lightblue" isConfirmed />
         <div className={styles.codeAndTag}>
-          <p className={styles.code}>{code}</p>
+          <p className={styles.code}>{accountUpdated}</p>
           <Tag text={tag} />
         </div>
       </div>

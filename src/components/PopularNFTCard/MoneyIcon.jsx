@@ -1,1 +1,0 @@
-export const MoneyIcon = () => <span>IC</span>

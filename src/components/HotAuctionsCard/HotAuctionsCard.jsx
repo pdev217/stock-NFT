@@ -1,11 +1,12 @@
 import { useState } from "react";
 import Image from "next/image";
-import styles from "./HotAuctionsCard.module.css";
 import { Tag } from "../Tag/Tag";
-import { PriceWithIcon } from "../PriceWithIcon/PriceWithIcon";
+import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
+import { Views } from "../Views/Views";
+import styles from "./HotAuctionsCard.module.css";
 
 export const HotAuctionsCard = ({
-  author,
+  username,
   code,
   price,
   src,
@@ -15,7 +16,6 @@ export const HotAuctionsCard = ({
   views
 }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
-  console.log(time)
 
   return (
     <div className={styles.wrapper}>
@@ -35,12 +35,12 @@ export const HotAuctionsCard = ({
       <div className={styles.infoWrapper}>
         <p className={styles.title}>{title}</p>
         <div className={styles.priceAndTime}>
-          <PriceWithIcon price={price} color="yellow" size="sm" />
+          <AmountWithIcon amount={price} color="yellow" size="m" />
           <span className={styles.time}>{time}</span>
         </div>
-        <div className={styles.authorAndViews}>
-          <p className={styles.author}>@{author}</p>
-          <p className={styles.views}>IC {views} Today</p>
+        <div className={styles.usernameAndViews}>
+          <p className={styles.username}>@{username}</p>
+          <Views quantity={views} className={styles.views} />
         </div>
         <div className={styles.codeAndTag}>
           <p className={styles.code}>{code}</p>

@@ -1,7 +1,7 @@
-import { useState } from "react";
-import styles from "./Category.module.css";
+import { useRef, useState } from "react";
+import cn from "classnames";
 import Image from "next/image";
-import cn from "classnames"
+import styles from "./Category.module.css";
 
 export const Category = ({ src, title }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
@@ -11,12 +11,7 @@ export const Category = ({ src, title }) => {
       {isImageAbsent ? (
         <div className={cn(styles.errorImage, styles.image)}></div>
       ) : (
-        <Image
-          src={src}
-          alt={title}
-          layout="fill"
-          onError={() => setIsImageAbsent(true)}
-        />
+        <Image src={src} alt={title} layout="fill" onError={() => setIsImageAbsent(true)} />
       )}
       <p className={styles.text}>{title}</p>
     </div>
