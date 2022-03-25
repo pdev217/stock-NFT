@@ -6,6 +6,7 @@
     border-radius: 22px;
     border: 1px solid #6478fb;
     overflow: hidden;
+    position: relative;
 }
 
 .imageWrapper {

@@ -1,58 +1,70 @@
 import { useState } from "react";
 import cn from "classnames";
-import { CustButton } from "../CustButton/CustButton";
 import { SpecialAuctionNFTCard } from "../SpecialAuctionNFTCard/SpecialAuctionNFTCard";
 import styles from "./Mainpage3dCarousel.module.css";
 
 export const Mainpage3dCarousel = ({ NFTCards }) => {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeI, setactiveI] = useState(2);
   const [translation, setTranslation] = useState(0);
 
-  const goNext = () => {
-    setTranslation((prev) => prev + 100);
+  const handleClick = (i) => {
+    const difference = activeI - i;
+
+    setTranslation((prev) => prev + difference * 100);
+    setactiveI(i);
   };
 
-  const goPrev = () => {
-    setTranslation((prev) => prev - 100);
+  const getRotation = (i) => {
+    const degree = 20;
+
+    if (i < activeI) {
+      const difference = activeI - i;
+      return `rotateY(${degree * difference}deg)`;
+    }
+
+    if (i > activeI) {
+      const difference = i - activeI;
+      return `rotateY(-${degree * difference}deg)`;
+    }
+
+    return "";
   };
 
-  const prevImgIndex = activeIndex ? activeIndex - 1 : NFTCards.length - 1;
-  const nextImgIndex = activeIndex === NFTCards.length - 1 ? 0 : activeIndex + 1;
+  const getZIndex = (i) => {
+    if (i > activeI) {
+      return NFTCards.length - (i - activeI);
+    }
+
+    if (i < activeI) {
+      return NFTCards.length - (activeI - i);
+    }
+
+    return NFTCards.length;
+  };
 
   return (
-    <>
-      <div className={styles.wrapper}>
+    <div className={styles.wrapper}>
+      {NFTCards.map((card, i) => (
         <SpecialAuctionNFTCard
-          styling={{ transform: `translateX(${translation}%)`, transition: "0.3s" }}
-          NFTName={NFTCards[prevImgIndex].NFTName}
-          time={NFTCards[prevImgIndex].time}
-          username={NFTCards[prevImgIndex].username}
-          code={NFTCards[prevImgIndex].code}
-          currPrice={NFTCards[prevImgIndex].currPrice}
-          prevPrices={NFTCards[prevImgIndex].prevPrices}
-          chartData={NFTCards[prevImgIndex].chartData}
-          views={NFTCards[prevImgIndex].views}
-          src={NFTCards[prevImgIndex].src}
-          tag={NFTCards[prevImgIndex].tag}
-          key={NFTCards[prevImgIndex].id}
+          styling={{
+            transform: `perspective(500px) translateX(${translation}%) ${getRotation(i)}`,
+            transition: "0.3s",
+            zIndex: `${Math.abs(getZIndex(i))}`,
+          }}
+          onClick={() => handleClick(i)}
+          NFTName={card.NFTName}
+          time={card.time}
+          username={card.username}
+          code={card.code}
+          currPrice={card.currPrice}
+          prevPrices={card.prevPrices}
+          chartData={card.chartData}
+          views={card.views}
+          src={card.src}
+          tag={card.tag}
+          key={card.id}
         />
-        <SpecialAuctionNFTCard
-          styling={{ transform: `translateX(${translation}%) rotateY(50deg) perspective(500px)`, transition: "0.3s",  }}
-          NFTName={NFTCards[prevImgIndex].NFTName}
-          time={NFTCards[prevImgIndex].time}
-          username={NFTCards[prevImgIndex].username}
-          code={NFTCards[prevImgIndex].code}
-          currPrice={NFTCards[prevImgIndex].currPrice}
-          prevPrices={NFTCards[prevImgIndex].prevPrices}
-          chartData={NFTCards[prevImgIndex].chartData}
-          views={NFTCards[prevImgIndex].views}
-          src={NFTCards[prevImgIndex].src}
-          tag={NFTCards[prevImgIndex].tag}
-          key={NFTCards[prevImgIndex].id}
-        />
-      </div>
-      <CustButton color="primary" text="prev" onClick={goPrev} />
-      <CustButton color="primary" text="next" onClick={goNext} />
-    </>
+      ))}
+    </div>
   );
 };

@@ -12,3 +12,15 @@
   transform: perspective(500px) rotateY(-25deg);  
   transition: 0.5s;
 }
+
+.active {
+
+}
+
+.next {
+  transform: rotateY(25deg) perspective(500px);
+}
+
+.prev {
+
+}

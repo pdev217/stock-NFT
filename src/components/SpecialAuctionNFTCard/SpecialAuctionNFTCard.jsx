@@ -9,6 +9,7 @@ import { Views } from "../Views/Views";
 import styles from "./SpecialAuctionNFTCard.module.css";
 
 export const SpecialAuctionNFTCard = ({
+  onClick,
   className,
   NFTName,
   time,
@@ -25,7 +26,7 @@ export const SpecialAuctionNFTCard = ({
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   return (
-    <div className={cn(styles.wrapper, className)} style={{...styling}}>
+    <div onClick={onClick} className={cn(styles.wrapper, className)} style={{...styling}}>
       <div className={styles.leftSide}>
         <div className={styles.imageWrapper}>
           {isImageAbsent ? (
