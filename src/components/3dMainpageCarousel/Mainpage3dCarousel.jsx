@@ -5,7 +5,7 @@ import { SpecialAuctionNFTCard } from "../SpecialAuctionNFTCard/SpecialAuctionNF
 import styles from "./Mainpage3dCarousel.module.css";
 
 export const Mainpage3dCarousel = ({ NFTCards }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0)
   const [translation, setTranslation] = useState(0);
 
   const goNext = () => {
