@@ -1,6 +1,5 @@
 .wrapper {
   width: 100%;
-  min-height: 669px;
   height: calc(100vh - 619px);
   background: #000 0% 0% no-repeat padding-box;
   display: flex;

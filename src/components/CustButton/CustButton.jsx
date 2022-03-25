@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 
 export const CustButton = ({ text, onClick, color, className }) => {
   const styles = {
-    height: "49px",
+    height: "fit-content",
     textTransform: "none",
     background: "#617BFF 0% 0% no-repeat padding-box;",
     color: "#fff",

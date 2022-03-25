@@ -11,8 +11,8 @@ export const Footer = () => {
         <Image src="/footer-logo.png" alt="stoke-logo" layout="fill" />
       </div>
       <p className={styles.aboutStoke}>
-        About Stoke ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-        nonumy eirmod tempor invidunt ut labore et
+        About Stoke ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+        ut labore et
       </p>
       <div className={styles.categoriesAndWalletIconsWrapper}>
         <div className={styles.categories}>
@@ -28,21 +28,17 @@ export const Footer = () => {
               <Image src={icon.src} alt={icon.alt} layout="fill" />
             </div>
           ))}
-          <p className={styles.andMore}>... and more!</p>
+          <p className={styles.andMore}>...and more!</p>
         </div>
       </div>
       <div className={styles.getAlertsAndSignUpWrapper}>
         <div className={styles.getAlerts}>
           <div className={styles.alertIcon}>
-            <Image
-              src="/add-alert-icon.svg"
-              alt="add-alert-icon"
-              layout="fill"
-            />
+            <Image src="/add-alert-icon.svg" alt="add-alert-icon" layout="fill" />
           </div>
           <p className={styles.getAlertsText}>Get New Drop Alerts</p>
         </div>
-        <CustButton color="primary" text="Sign Up" />
+        <CustButton color="primary" text="Sign Up" className={styles.button} />
       </div>
     </footer>
   );

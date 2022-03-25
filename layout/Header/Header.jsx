@@ -51,8 +51,7 @@ export const Header = () => {
           <div>Search All NFTs</div>
         </div>
       </div>
-
-      <div className={styles.unAuthUserData}>
+      <div className={styles.userData}>
         <div className={styles.profile} onClick={openProfilePopup}>
           <div className={isAuthorized ? styles.authorisedIcon : styles.profileIcon}>
             <Image
