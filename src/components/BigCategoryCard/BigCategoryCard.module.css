@@ -1,7 +1,7 @@
 .wrapper {
     position: relative;
-    height: 497px;
-    width: 809px;
+    width: 48.12%;
+    aspect-ratio: 1 / 0.616;
     overflow: hidden;
     z-index: 5;
     display: flex;

@@ -158,9 +158,6 @@ export const ChooseWalletBox = ({ className }) => {
           {name === "Metamask" && <p className={styles.popular}>Popular</p>}
         </button>
       ))}
-      <div className={styles.moreOptionsWrapper}>
-        <p className={styles.moreOptionsText}>Show more options</p>
-      </div>
     </div>
   );
 };

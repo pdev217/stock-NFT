@@ -1,13 +1,13 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import cn from "classnames";
 import Image from "next/image";
 import styles from "./Category.module.css";
 
-export const Category = ({ src, title }) => {
+export const Category = ({ src, title, className }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cn(styles.wrapper, className)}>
       {isImageAbsent ? (
         <div className={cn(styles.errorImage, styles.image)}></div>
       ) : (

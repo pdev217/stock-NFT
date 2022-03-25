@@ -1,13 +1,14 @@
 import { useState } from "react";
+import cn from "classnames";
 import Image from "next/image";
 import { CustButton } from "../CustButton/CustButton";
 import styles from "./BigCategoryCard.module.css";
 
-export const BigCategoryCard = ({ src, categoryName, title }) => {
+export const BigCategoryCard = ({ src, categoryName, title, className }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cn(styles.wrapper, className)}>
       {isImageAbsent ? (
         <div className={styles.errorImage}></div>
       ) : (

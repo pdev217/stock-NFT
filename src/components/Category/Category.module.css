@@ -1,7 +1,7 @@
 .wrapper {
     position: relative;
     width: 239px;
-    height: 148px;
+    aspect-ratio: 1 / 0.619;
     overflow: hidden;
     background: transparent linear-gradient(180deg, #0000 0%, #0000 56%, #000 100%) 0% 0% no-repeat padding-box;
     box-shadow: 0 3px 20px #00000084;

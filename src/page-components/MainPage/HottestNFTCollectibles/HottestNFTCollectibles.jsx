@@ -8,11 +8,7 @@ import styles from "./HottestNFTCollectibles.module.css";
 export const HottestNFTCollectibles = ({ categories = fakeCategories }) => {
   return (
     <div className={styles.wrapper}>
-      <Image
-        layout="fill"
-        src="/mainpage-smoke-background.png"
-        alt="background-with-smoke"
-      />
+      <Image layout="fill" src="/mainpage-smoke-background.png" alt="background-with-smoke" />
       <div className={styles.leftSide}>
         <HorizontalNFTCard
           className={styles.horizontalNFTCard}
@@ -40,13 +36,12 @@ export const HottestNFTCollectibles = ({ categories = fakeCategories }) => {
       </div>
       <div className={styles.rightSide}>
         <div className={styles.rightSideTitle}>
-          Hottest NFT Collectibles From Your Top Music Artists, Athletes, and
-          Artists From All Over the World!
+          Hottest NFT Collectibles From Your Top Music Artists, Athletes, and Artists From All Over the World!
         </div>
         <div className={styles.browseText}>Browse Collections</div>
         <div className={styles.categoriesBox}>
           {categories.map(({ id, title, src }) => (
-            <Category key={id} title={title} src={src} />
+            <Category key={id} title={title} src={src} className={styles.category} />
           ))}
         </div>
       </div>
