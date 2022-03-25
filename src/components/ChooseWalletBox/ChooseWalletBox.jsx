@@ -19,7 +19,7 @@ export const ChooseWalletBox = ({ className }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [connected, setConnected] = useState(false);
-  const { isAuthorized } = useSelector((state) => state.authorization.authorization);
+  const { isAuthorized } = useSelector((state) => state.authorization.authorization.isAuthorized);
 
   const getProviderOptions = () => {
     const infuraId = process.env.INFURA_ID;
@@ -56,7 +56,7 @@ export const ChooseWalletBox = ({ className }) => {
     let provider;
     if (walletProvider == "injected") {
       if (!window.ethereum) {
-        dispatch(open("Please install Metamask Chrome extension")); 
+        dispatch(open("Please install Metamask Chrome extension"));
         setConnected(false);
       } else {
         if (window.ethereum.providers) {

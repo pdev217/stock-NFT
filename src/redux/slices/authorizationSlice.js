@@ -16,9 +16,10 @@ export const authorization = createSlice({
         },
         logout: (state) => {
             state.authorization.isAuthorized = false;
+            state.authorization.account = '';
         },
         setAccount: (state, action) => {
-            console.log("setaccount")
+            console.log("setAccount")
             state.authorization.account = action.payload;
         },
     }

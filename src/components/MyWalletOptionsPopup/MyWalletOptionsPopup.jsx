@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import cn from "classnames";
 import Image from "next/image";
 import { close } from "../../redux/slices/myWalletOptionsPopupSlice";
+import { logout } from "../../redux/slices/authorizationSlice";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import styles from "./MyWalletOptionsPopup.module.css";
 
@@ -14,6 +15,10 @@ export const MyWalletOptionsPopup = ({ className, walletName, src }) => {
     dispatch(close());
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   useOnClickOutside(ref, closePopup);
 
   return (
@@ -22,22 +27,14 @@ export const MyWalletOptionsPopup = ({ className, walletName, src }) => {
         <Image src={src} height={19} width={19} alt={walletName} />
         <div className={styles.text}>{walletName}</div>
       </div>
-      <div className={styles.option} >
-        <Image
-          src="/signout-icon.svg"
-          height={19}
-          width={19}
-          alt="signout-icon"
-        />
-        <div className={styles.text}>Log Out</div>
+      <div className={styles.option}>
+        <Image src="/signout-icon.svg" height={19} width={19} alt="signout-icon" />
+        <div className={styles.text} onClick={handleLogout}>
+          Log Out
+        </div>
       </div>
       <div className={styles.option}>
-        <Image
-          src="/signout-icon.svg"
-          height={19}
-          width={19}
-          alt="refresh-funds-icon"
-        />
+        <Image src="/signout-icon.svg" height={19} width={19} alt="refresh-funds-icon" />
         <div className={styles.text}>Refresh Funds</div>
       </div>
     </div>

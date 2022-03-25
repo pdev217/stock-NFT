@@ -17,13 +17,9 @@ const Layout = ({ children }) => {
     (state) => state.errorSnackbar.isOpened
   );
 
-  const isAuthorized = useSelector((state) => {
-    return state.authorization.authorization.isAuthorized;
-  });
-
   return (
     <>
-      <Header isAuthorized={isAuthorized} />
+      <Header />
       <div className={styles.pusherDown}></div>
       <div className={styles.withoutHeader}>
         <div>{children}</div>
@@ -37,7 +33,6 @@ const Layout = ({ children }) => {
             className={cn(styles.walletPopup, {
               [styles.walletPopupIsActive]: isWalletPopupOpened,
             })}
-            isAuthorized={isAuthorized}
           />
         </div>
         {isErrorSnackbarOpened && (

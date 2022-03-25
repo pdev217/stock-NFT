@@ -1,6 +1,5 @@
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
-import { useWeb3React } from "@web3-react/core";
+import { useDispatch, useSelector } from "react-redux";
 import cn from "classnames";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,13 +8,15 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { close } from "../../redux/slices/profilePopupSlice";
 import styles from "./ProfilePopup.module.css";
 
-export const ProfilePopup = ({ categories, className, isAuthorized }) => {
-  const { deactivate } = useWeb3React();
+export const ProfilePopup = ({ categories, className }) => {
   const dispatch = useDispatch();
   const ref = useRef();
 
+  const isAuthorized = useSelector((state) => {
+    return state.authorization.authorization.isAuthorized;
+  });
+
   const handleLogout = () => {
-    deactivate();
     dispatch(logout());
   };
 
@@ -41,14 +42,10 @@ export const ProfilePopup = ({ categories, className, isAuthorized }) => {
       ))}
       {isAuthorized && (
         <div className={styles.category} onClick={handleLogout}>
-          <Link href="#" passHref>
-          <>
-            <div className={styles.icon}>
-              <Image src="/signout-icon.svg" alt="signout-icon" layout="fill" />
-            </div>
-            <div className={styles.text}>Log Out</div>
-            </>
-          </Link>
+          <div className={styles.icon}>
+            <Image src="/signout-icon.svg" alt="signout-icon" layout="fill" />
+          </div>
+          <div className={styles.text}>Log Out</div>
         </div>
       )}
     </div>

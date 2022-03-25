@@ -1,49 +1,27 @@
-import { useRef } from "react";
 import cn from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { open as openProfilePopupReducer } from "../../src/redux/slices/profilePopupSlice";
 import { open as openWalletPopupReducer } from "../../src/redux/slices/walletPopupSlice";
 import Image from "next/image";
-import { Username } from "../../src/components/Username/Username";
-import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
-import { AmountDifference } from "../../src/components/AmountDifference/AmountDifference";
-import { SmallChart } from "../../src/components/SmallChart/SmallChart";
+// import { Username } from "../../src/components/Username/Username";
+// import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
+// import { AmountDifference } from "../../src/components/AmountDifference/AmountDifference";
+// import { SmallChart } from "../../src/components/SmallChart/SmallChart";
 import { ProfilePopup } from "../../src/components/ProfilePopup/ProfilePopup";
-import { routingCategories } from "./Header.utils";
+import { routingCategories, fakeProfilePopupCategories } from "./Header.utils";
 import styles from "./Header.module.css";
 
 export const fakeChartData = new Array(15).fill({}, 0, 14).map(() => {
   return { name: "Page A", price: Math.random() * 100 };
 });
 
-const fakeCategories = [
-  {
-    categoryName: "Profile",
-    href: "#",
-    src: "/profile-without-circle.svg",
-    id: "1",
-  },
-  {
-    categoryName: "Favourites",
-    href: "#",
-    src: "/favourites-icon.svg",
-    id: "2",
-  },
-  { categoryName: "Watchlist", href: "#", src: "/eye-icon.svg", id: "3" },
-  {
-    categoryName: "My collections",
-    href: "#",
-    src: "/collections-icon.svg",
-    id: "4",
-  },
-  { categoryName: "Settings", href: "#", src: "/settings-icon.svg", id: "5" },
-];
+const isAuthorized = useSelector((state) => {
+  return state.authorization.authorization.isAuthorized;
+});
 
-export const Header = ({ isAuthorized }) => {
+export const Header = () => {
   const dispatch = useDispatch();
-  const isProfilePopupOpened = useSelector(
-    (state) => state.profilePopup.profilePopup.isOpened
-  );
+  const isProfilePopupOpened = useSelector((state) => state.profilePopup.profilePopup.isOpened);
 
   const openProfilePopup = () => {
     dispatch(openProfilePopupReducer());
@@ -68,12 +46,7 @@ export const Header = ({ isAuthorized }) => {
           ))}
         </div>
         <div className={styles.searchButton}>
-          <Image
-            src="/search-icon.svg"
-            height={18}
-            width={16}
-            alt="search-icon"
-          />
+          <Image src="/search-icon.svg" height={18} width={16} alt="search-icon" />
           <div>Search All NFTs</div>
         </div>
       </div>
@@ -89,11 +62,10 @@ export const Header = ({ isAuthorized }) => {
           </div>
           <div className={styles.profileText}>Profile</div>
           <ProfilePopup
-            categories={fakeCategories}
+            categories={fakeProfilePopupCategories}
             className={cn(styles.profilePopup, {
               [styles.popupActive]: isProfilePopupOpened,
             })}
-            isAuthorized={isAuthorized}
           />
         </div>
         <div className={styles.wallet} onClick={openWalletPopup}>

@@ -11,10 +11,15 @@ import { ChooseWalletBox } from "../ChooseWalletBox/ChooseWalletBox";
 import { MyWalletOptionsPopup } from "../MyWalletOptionsPopup/MyWalletOptionsPopup";
 import styles from "./WalletPopup.module.css";
 
-export const WalletPopup = ({ className, isAuthorized }) => {
+export const WalletPopup = ({ className }) => {
   const isMyWalletOptionsPopupOpened = useSelector(
     (state) => state.myWalletOptionsPopup.myWalletOptionsPopup.isOpened
   );
+
+  const isAuthorized = useSelector((state) => {
+    return state.authorization.authorization.isAuthorized;
+  });
+
   const dispatch = useDispatch();
   const ref = useRef();
 
