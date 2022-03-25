@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { open as openProfilePopupReducer } from "../../src/redux/slices/profilePopupSlice";
 import { open as openWalletPopupReducer } from "../../src/redux/slices/walletPopupSlice";
 import Image from "next/image";
+// these are components for the second variant of header. I don't know exactly which one to implement
 // import { Username } from "../../src/components/Username/Username";
 // import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
 // import { AmountDifference } from "../../src/components/AmountDifference/AmountDifference";
@@ -11,17 +12,17 @@ import { ProfilePopup } from "../../src/components/ProfilePopup/ProfilePopup";
 import { routingCategories, fakeProfilePopupCategories } from "./Header.utils";
 import styles from "./Header.module.css";
 
-export const fakeChartData = new Array(15).fill({}, 0, 14).map(() => {
+const fakeChartData = new Array(15).fill({}, 0, 14).map(() => {
   return { name: "Page A", price: Math.random() * 100 };
-});
-
-const isAuthorized = useSelector((state) => {
-  return state.authorization.authorization.isAuthorized;
 });
 
 export const Header = () => {
   const dispatch = useDispatch();
   const isProfilePopupOpened = useSelector((state) => state.profilePopup.profilePopup.isOpened);
+
+  const isAuthorized = useSelector((state) => {
+    return state.authorization.authorization.isAuthorized;
+  });
 
   const openProfilePopup = () => {
     dispatch(openProfilePopupReducer());
