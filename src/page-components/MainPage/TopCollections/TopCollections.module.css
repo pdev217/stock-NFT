@@ -20,6 +20,7 @@
   align-items: center;
   width: 34.3%;
   margin-right: 0.83%;
+  height: fit-content;
 }
 
 .cursorPointer {

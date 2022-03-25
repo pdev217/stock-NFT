@@ -4,7 +4,7 @@ const chartData = new Array(15).fill({}, 0).map(() => {
 
 export const NFTCards = [
   {
-    id: "qwd1d",
+    id: "1",
     NFTName: "1111",
     time: "01:09:14:53",
     username: "@Sparktanks",
@@ -30,7 +30,7 @@ export const NFTCards = [
     tag: "Art & Theater",
   },
   {
-    id: "2f121c",
+    id: "2",
     NFTName: "2222",
     time: "01:09:14:53",
     username: "@Sparktanks",
@@ -56,7 +56,7 @@ export const NFTCards = [
     tag: "Art & Theater",
   },
   {
-    id: "12f24h",
+    id: "3",
     NFTName: "3333",
     time: "01:09:14:53",
     username: "@Sparktanks",
@@ -82,7 +82,7 @@ export const NFTCards = [
     tag: "Art & Theater",
   },
   {
-    id: "qwd1d",
+    id: "4",
     NFTName: "1111",
     time: "01:09:14:53",
     username: "@Sparktanks",
@@ -108,7 +108,7 @@ export const NFTCards = [
     tag: "Art & Theater",
   },
   {
-    id: "qwd1d",
+    id: "5",
     NFTName: "1111",
     time: "01:09:14:53",
     username: "@Sparktanks",
