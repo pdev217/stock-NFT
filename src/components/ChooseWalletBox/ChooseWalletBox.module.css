@@ -1,13 +1,20 @@
 .wallet {
-  cursor: pointer;
   display: flex;
   align-items: center;
   padding: 22px 24px;
   border: 1px solid #282829;
+  width: 100%;
+  background-color: transparent;
+  cursor: pointer;
 }
 
-.choosenWallet {
+.wallet:hover {
   background: #282829;
+}
+
+.wallet[disabled] {
+  cursor: default;
+  opacity: 0.33;
 }
 
 .wallet:first-child {

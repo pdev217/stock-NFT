@@ -18,6 +18,7 @@ export const authorization = createSlice({
             state.authorization.isAuthorized = false;
         },
         setAccount: (state, action) => {
+            console.log("setaccount")
             state.authorization.account = action.payload;
         },
     }
