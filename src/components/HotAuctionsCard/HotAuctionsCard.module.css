@@ -1,6 +1,6 @@
 .wrapper {
 	display: flex;
-	overflow: hidden;
+	overflow: scroll;
 	flex-direction: column;
 
 	width: 300px;

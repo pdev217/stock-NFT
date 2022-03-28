@@ -1,3 +1,12 @@
 .wrapper {
-	overflow: hidden;
+	overflow-x: scroll;
+	overflow-y: visible;
+	position: relative;
+	z-index: 5;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.wrapper::-webkit-scrollbar {
+	display: none;
 }

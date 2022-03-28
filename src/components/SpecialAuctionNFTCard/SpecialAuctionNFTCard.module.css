@@ -5,6 +5,8 @@
 	overflow: hidden;
 
 	width: 21.87%;
+	min-width: 400px;
+	z-index: 10;
 
 	border: 1px solid #6478FB;
 	border-radius: 22px;
@@ -50,8 +52,8 @@
 }
 
 .time {
-	margin-top: 5%;
-	margin-bottom: 9.4%;
+	margin-top: 2%;
+	margin-bottom: 3.4%;
 
 	color: rgb(255 54 84);
 
@@ -65,7 +67,7 @@
 	align-items: flex-end;
 	justify-content: space-between;
 
-	margin-top: 7%;
+	margin-top: 3%;
 }
 
 .priceInfo {
@@ -97,14 +99,14 @@
 	flex-direction: column;
 
 	width: 40%;
-	padding-top: 4.5%;
+	padding-top: 3.5%;
 	padding-right: 4%;
-	padding-bottom: 4.5%;
+	padding-bottom: 3.5%;
 	padding-left: 4%;
 }
 
 .currentPriceTitle {
-	margin: 0 0 5%;
+	margin: 0 0 3%;
 
 	color: white;
 
@@ -113,7 +115,7 @@
 }
 
 .views {
-	margin-top: 5%;
+	margin-top: 3%;
 
 	color: rgb(137 141 150);
 
@@ -123,7 +125,7 @@
 }
 
 .historyTitle {
-	margin: 2% 0 9.7%;
+	margin: 2% 0 7.7%;
 
 	color: white;
 

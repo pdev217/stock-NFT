@@ -1,6 +1,18 @@
 .wrapper {
 	display: flex;
 
-	width: 1920px;
+	width: fit-content;
+	overflow-x: scroll;
+	overflow-y: visible;
 	margin-top: 50px;
+	margin: 0 calc(50% - 190px);
+	position: relative;
+	z-index: 9;
 }
+.empty {
+	height: 25px;
+	position: relative;
+	z-index: 8;
+
+}
+
