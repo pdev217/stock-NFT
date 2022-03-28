@@ -4,7 +4,7 @@
 	margin-top: 163px;
 	padding: 0 6.2%;
 
-	color: #FFFFFF;
+	color: var(--white);
 }
 
 .leftSide {
@@ -55,10 +55,10 @@
 	margin-left: 7.49%;
 	padding: 66px 85px 88px;
 
-	border: 1px solid #FFFFFF;
+	border: 1px solid var(--white);
 	border-radius: 30px;
 	background: transparent
-		radial-gradient(closest-side at 50% 50%, var(--dark-grey) 0%, #000000 100%) 0% 0%
+		radial-gradient(closest-side at 50% 50%, var(--dark-grey) 0%, var(--black)0 100%) 0% 0%
 		no-repeat padding-box;
 }
 
@@ -71,7 +71,7 @@
 
 	letter-spacing: 0px;
 
-	color: #FFFFFF;
+	color: var(--white);
 
 	font-family: "Poppins", sans-serif;
 	font-size: 45px;

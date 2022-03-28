@@ -8,7 +8,7 @@
 
 	letter-spacing: 0.02px;
 
-	color: #FFFFFF;
+	color: var(--white);
 	border-radius: 16px;
 	background: #FB3A50 0% 0% no-repeat padding-box;
 

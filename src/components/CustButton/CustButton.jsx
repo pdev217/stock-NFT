@@ -5,7 +5,7 @@ export const CustButton = ({ text, onClick, color, className }) => {
     height: "fit-content",
     textTransform: "none",
     background: "#617BFF 0% 0% no-repeat padding-box;",
-    color: "#fff",
+    color: "var(--white)",
     boxShadow: "none",
     borderRadius: "30px",
     fontSize: "16px",

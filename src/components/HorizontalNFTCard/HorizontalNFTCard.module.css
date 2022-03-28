@@ -21,14 +21,14 @@
 	height: 100%;
 
 	border-radius: 30px;
-	background-color: black;
+	background-color: var(--black);
 }
 
 .errorImage {
 	width: 100%;
 	height: 100%;
 
-	background-color: black;
+	background-color: var(--black);
 }
 
 .title {
@@ -38,7 +38,7 @@
 	letter-spacing: 0.9px;
 
 	opacity: 1;
-	color: #FFF;
+	color: var(--white);
 
 	font-family: Poppins, sans-serif;
 	font-size: 18px;
@@ -52,7 +52,7 @@
 	letter-spacing: 0.6px;
 
 	opacity: 1;
-	color: #FFF;
+	color: var(--white);
 
 	font-family: Poppins, sans-serif;
 	font-size: 12px;
@@ -80,7 +80,7 @@
 
 	letter-spacing: 0.6px;
 
-	color: #FFF;
+	color: var(--white);
 
 	font-family: Poppins, sans-serif;
 	font-size: 12px;

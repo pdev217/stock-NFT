@@ -27,7 +27,7 @@
 	margin: 0 6.2%;
 	margin-top: 61px;
 
-	color: white;
+	color: var(--white);
 }
 
 .rightSideTitle {

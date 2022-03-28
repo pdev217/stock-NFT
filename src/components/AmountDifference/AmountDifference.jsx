@@ -22,7 +22,7 @@ export const AmountDifference = ({ direction, percent, className }) => {
   switch (direction) {
     case "up":
       return (
-        <div className={cn(styles.wrapper, className, styles.up)}>
+        <div className={cn(styles.wrapper, className)}>
           <div className={styles.icon}>{icon}</div> <div>{percent}%</div>
         </div>
       );
@@ -34,7 +34,7 @@ export const AmountDifference = ({ direction, percent, className }) => {
       );
     default:
       return (
-        <div className={cn(styles.wrapper, className, styles.noDifference)}>
+        <div className={cn(styles.wrapper, className)}>
           <div className={styles.icon}>{icon}</div> <div>{percent}%</div>
         </div>
       );

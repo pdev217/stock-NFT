@@ -39,7 +39,7 @@
 
 	letter-spacing: 0.02px;
 
-	color: #FFFFFF;
+	color: var(--white);
 
 	font-family: "Poppins", sans-serif;
 	font-size: 18px;

@@ -117,7 +117,7 @@ export const Header = () => {
           <div className={styles.clickableUserInfo}>
             <Username
               username="test-user"
-              color="white"
+              color="var(--white)"
               isConfirmed={false}
               className={styles.username}
             />

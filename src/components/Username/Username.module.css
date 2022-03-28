@@ -21,11 +21,11 @@
 }
 
 .lightblue {
-	color: #00EAF4;
+	color: var(--azur);
 }
 
-.white {
-	color: #FFF;
+.var(--white) {
+	color: var(--white);
 }
 
 .big {

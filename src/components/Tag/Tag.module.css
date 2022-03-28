@@ -11,9 +11,9 @@
 
 	opacity: 1;
 	opacity: 0.45;
-	color: #000;
+	color: var(--black);
 	border-radius: 30px;
-	background: #898D96 0% 0% no-repeat padding-box;
+	background: var(--light-grey) 0% 0% no-repeat padding-box;
 
 	font-family: Poppins, sans-serif;
 	font-size: 10px;

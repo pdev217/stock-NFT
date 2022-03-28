@@ -66,7 +66,7 @@ export const WalletPopup = ({ className }) => {
             width: "100%",
             textTransform: "none",
             background: "#617BFF 0% 0% no-repeat padding-box;",
-            color: "#fff",
+            color: "var(--white)",
             boxShadow: "none",
             borderRadius: "0px 0px 16px 16px",
             fontSize: "22px",

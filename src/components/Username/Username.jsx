@@ -19,7 +19,7 @@ export const Username = ({ username, className, isConfirmed, color, isBig }) => 
   <div
     className={cn(styles.username, className, {
       [styles.lightblue]: color === "lightblue",
-      [styles.white]: color === "white",
+      [styles.white]: color === "var(--white)",
       [styles.big]: isBig,
     })}
   >

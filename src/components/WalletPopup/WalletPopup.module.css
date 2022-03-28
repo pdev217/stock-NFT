@@ -26,7 +26,7 @@
 
 	letter-spacing: 0px;
 
-	color: #FFFFFF;
+	color: var(--white);
 
 	font-family: "Poppins", sans-serif;
 	font-size: 22px;
@@ -38,7 +38,7 @@
 
 	letter-spacing: 0.02px;
 
-	color: #898D96;
+	color: var(--light-grey);
 
 	font-family: "Poppins", sans-serif;
 	font-size: 18px;
@@ -85,7 +85,7 @@
 
 	letter-spacing: 0.02px;
 
-	color: #898D96;
+	color: var(--light-grey);
 
 	font-family: "Poppins", sans-serif;
 	font-size: 18px;
@@ -94,7 +94,7 @@
 .balanceNumber {
 	letter-spacing: 0px;
 
-	color: #FFFFFF;
+	color: var(--white);
 
 	font-family: "Poppins", sans-serif;
 	font-size: 22px;

@@ -8,7 +8,7 @@ export default {
 };
 
 const Template = (args) => (
-    <div style={{ background: "black" }}>
+    <div style={{ background: "var(--black)" }}>
       <Filter {...args} />
     </div>
 );

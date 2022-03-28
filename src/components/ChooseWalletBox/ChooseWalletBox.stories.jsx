@@ -34,7 +34,7 @@ const wallets = [
 ];
 
 const Template = (args) => (
-  <div style={{ background: "black" }}>
+  <div style={{ background: "var(--black)" }}>
     <ChooseWalletBox {...args} />
   </div>
 );
