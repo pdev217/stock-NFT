@@ -7,7 +7,7 @@ export default {
 };
 
 const Template = (args) => (
-  <div style={{ background: "var(--black)" }}>
+  <div style={{ background: "black" }}>
     <Creator {...args} />
   </div>
 );
