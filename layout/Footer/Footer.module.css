@@ -1,98 +1,113 @@
 .footer {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .logo {
-  margin-left: 6.24%;
-  margin-top: 44px;
-  width: 225px;
-  min-width: 225px;
-  height: 252px;
-  position: relative;
+	position: relative;
+
+	width: 225px;
+	min-width: 225px;
+	height: 252px;
+	margin-top: 44px;
+	margin-left: 6.24%;
 }
 
 .aboutStoke {
-  width: 16.66%;
-  margin-left: 5.14%;
-  margin-top: 100px;
-  font-size: 18px;
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 0px;
-  color: #ffffff;
+	width: 16.66%;
+	margin-top: 100px;
+	margin-left: 5.14%;
+
+	letter-spacing: 0px;
+
+	color: #FFFFFF;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 18px;
 }
 
 .categoriesAndWalletIconsWrapper {
-  width: 28.85%;
-  margin-left: 8.07%;
-  margin-top: 96px;
+	width: 28.85%;
+	margin-top: 96px;
+	margin-left: 8.07%;
 }
 
 .categories {
-  display: grid;
-  grid-template-columns: 21.69% 21.69% 21.69%;
-  column-gap: 17%;
-  row-gap: 39px;
+	display: grid;
+	grid-template-columns: 21.69% 21.69% 21.69%;
+	column-gap: 17%;
+	row-gap: 39px;
 }
 
 .category {
-  font-weight: bold;
-  font-size: 18px;
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 0.02px;
-  color: #ffffff;
+	letter-spacing: 0.02px;
+
+	color: #FFFFFF;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 18px;
+	font-weight: bold;
 }
 
 .icons {
-  margin-top: 64px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 97px;
+	display: flex;
+	align-items: center;
+
+	margin-top: 64px;
+	margin-bottom: 97px;
 }
 
 .walletIcon {
-  position: relative;
-  height: 31px;
-  width: 31px;
-  min-width: 25px;
-  margin-right: 25px;
+	position: relative;
+
+	width: 31px;
+	min-width: 25px;
+	height: 31px;
+	margin-right: 25px;
 }
 
 .andMore {
-  font-weight: bold;
-  font-size: 18px;
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 002px;
-  color: #ffffff;
+	letter-spacing: 002px;
+
+	color: #FFFFFF;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 18px;
+	font-weight: bold;
 }
 
 .getAlertsAndSignUpWrapper {
-  margin-top: 96px;
-  margin-left: 3.5%;
-  margin-bottom: 6.25%;
-  margin-right: 6.25%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	margin-top: 96px;
+	margin-right: 6.25%;
+	margin-bottom: 6.25%;
+	margin-left: 3.5%;
 }
 
 .getAlerts {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .getAlertsText {
-  letter-spacing: 0px;
-  font-weight: 600;
-  font-size: 22px;
-  font-family: "Poppins", sans-serif;
-  color: #ffffff;
-  margin-left: 12px;
+	margin-left: 12px;
+
+	letter-spacing: 0px;
+
+	color: #FFFFFF;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 22px;
+	font-weight: 600;
 }
 
 .alertIcon {
-  position: relative;
-  height: 25px;
-  width: 25px;
-  min-width: 20px;
+	position: relative;
+
+	width: 25px;
+	min-width: 20px;
+	height: 25px;
 }

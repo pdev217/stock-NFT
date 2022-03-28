@@ -1,67 +1,78 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 246px;
-  min-width: 246px;
-  height: fit-content;
-  background: #282829 0% 0% no-repeat padding-box;
-  border: 1px solid #617bff;
-  border-radius: 30px;
-  opacity: 1;
-  overflow: hidden;
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+
+	width: 246px;
+	min-width: 246px;
+	height: fit-content;
+
+	opacity: 1;
+	border: 1px solid #617BFF;
+	border-radius: 30px;
+	background: #282829 0% 0% no-repeat padding-box;
 }
 
 .imageWrapper {
-  height: 231px;
-  width: 246px;
-  overflow: hidden;
-  border-radius: 30px;
-  position: relative;
+	position: relative;
+
+	overflow: hidden;
+
+	width: 246px;
+	height: 231px;
+
+	border-radius: 30px;
 }
 
 .errorImage {
-  background-color: black;
-  height: 100%;
-  width: 100%;
+	width: 100%;
+	height: 100%;
+
+	background-color: black;
 }
 
 .infoWrapper {
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  padding-top: 28px;
+	padding-top: 28px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	padding-left: 20px;
 }
 
 .title {
-  color: white;
-  font-family: sans-serif;
-  font-size: 20px;
-  margin-top: 0;
-  margin-bottom: 10px;
+	margin-top: 0;
+	margin-bottom: 10px;
+
+	color: white;
+
+	font-family: sans-serif;
+	font-size: 20px;
 }
 
 .text {
-  color: white;
-  font-family: sans-serif;
-  line-height: 28px;
-  font-size: 14px;
+	color: white;
+
+	font-family: sans-serif;
+	font-size: 14px;
+	line-height: 28px;
 }
 
 .tagsContainer {
-  display: flex;
+	display: flex;
 }
 
 .tag {
-  width: fit-content;
-  background-color: rgb(137 141 150);
-  color: rgb(40 40 41);
-  margin-right: 10px;
-  font-family: sans-serif;
-  font-size: 10px;
-  padding: 3px 6px;
-  border-radius: 8px;
+	width: fit-content;
+	margin-right: 10px;
+	padding: 3px 6px;
+
+	color: rgb(40 40 41);
+	border-radius: 8px;
+	background-color: rgb(137 141 150);
+
+	font-family: sans-serif;
+	font-size: 10px;
 }
 
 .tag:last-child {
-  margin-right: 0;
+	margin-right: 0;
 }

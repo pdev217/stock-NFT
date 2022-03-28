@@ -1,53 +1,61 @@
 .wrapper {
-  width: 100%;
-  height: 723px;
-  position: relative;
-  z-index: 1;
-  display: flex;
-  padding-left: 6.2%;
+	position: relative;
+	z-index: 1;
+
+	display: flex;
+
+	width: 100%;
+	height: 723px;
+	padding-left: 6.2%;
 }
 .leftSide {
-  position: relative;
-  margin-top: 45px;
+	position: relative;
+
+	margin-top: 45px;
 }
 
 .horizontalNFTCard {
-  position: absolute;
-  z-index: 6;
-  top: 287px;
-  left: -53px;
+	position: absolute;
+	z-index: 6;
+	top: 287px;
+	left: -53px;
 }
 
 .rightSide {
-  margin: 0 6.2%;
-  color: white;
-  position: relative;
-  margin-top: 61px;
+	position: relative;
+
+	margin: 0 6.2%;
+	margin-top: 61px;
+
+	color: white;
 }
 
 .rightSideTitle {
-  font-family: "Poppins", sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  letter-spacing: 0px;
+	letter-spacing: 0px;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 36px;
+	font-weight: 800;
 }
 
 .browseText {
-  margin-top: 54px;
-  margin-bottom: 31px;
-  font-size: 16px;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;
-  letter-spacing: 0.9px;
+	margin-top: 54px;
+	margin-bottom: 31px;
+
+	letter-spacing: 0.9px;
+
+	font-family: 'Poppins', sans-serif;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .categoriesBox {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    column-gap: 4.09%;
-    row-gap: 27px;
+	display: grid;
+	grid-template-columns: auto auto auto;
+	column-gap: 4.09%;
+	row-gap: 27px;
 }
 
 .category {
-  width: 100%;
+	width: 100%;
 }

@@ -1,26 +1,31 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: fit-content;
-  min-width: 179px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	width: fit-content;
+	min-width: 179px;
 }
 
 .errorImage {
-  height: 179px;
-  width: 179px;
-  background-color: black;
-  border: 1px solid #617bff;
-  border-radius: 50%;
-  margin-bottom: 16px;
+	width: 179px;
+	height: 179px;
+	margin-bottom: 16px;
+
+	border: 1px solid #617BFF;
+	border-radius: 50%;
+	background-color: black;
 }
 
 .account {
-  text-align: center;
-  font-size: 12px;
-  font-family: "Poppins", sans-serif;
-  font-style: italic;
-  letter-spacing: 0.6px;
-  color: #898d96;
-  margin-bottom: 25px;
+	margin-bottom: 25px;
+
+	text-align: center;
+	letter-spacing: 0.6px;
+
+	color: #898D96;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 12px;
+	font-style: italic;
 }

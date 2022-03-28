@@ -1,130 +1,157 @@
 .wrapper {
-    display: flex;
-    background: rgb(40 40 41);
-    width: 21.87%;
-    aspect-ratio: 1 / 0.91;
-    border-radius: 22px;
-    border: 1px solid #6478fb;
-    overflow: hidden;
-    position: relative;
+	position: relative;
+
+	display: flex;
+	overflow: hidden;
+
+	width: 21.87%;
+
+	border: 1px solid #6478FB;
+	border-radius: 22px;
+	background: rgb(40 40 41);
+	aspect-ratio: 1 / 0.91;
 }
 
 /* 420 395 */
 
 .leftSide {
-    height: 100%;
-    width: 60%;
+	width: 60%;
+	height: 100%;
 }
 
 .imageWrapper {
-    width: 100%;
-    aspect-ratio: 1 / 0.95;
-    border-radius: 22px;
-    overflow: hidden;
+	overflow: hidden;
+
+	width: 100%;
+
+	border-radius: 22px;
+	aspect-ratio: 1 / 0.95;
 }
 
 .errorImage {
-    background-color: black;
-    height: 100%;
-    width: 100%;
+	width: 100%;
+	height: 100%;
+
+	background-color: black;
 }
 
 .leftSideInfo {
-    padding-left: 10.5%;
-    padding-top: 4.8%;
+	padding-top: 4.8%;
+	padding-left: 10.5%;
 }
 
 .NFTName {
-    color: white;
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
+	margin: 0;
+
+	color: white;
+
+	font-family: 'Poppins', sans-serif;
+	font-size: 16px;
 }
 
 .time {
-    font-family: 'Poppins', sans-serif;
-    margin-top: 5%;
-    margin-bottom: 9.4%;
-    font-size: 24px;
-    font-weight: 800;
-    color: rgb(255 54 84);
+	margin-top: 5%;
+	margin-bottom: 9.4%;
+
+	color: rgb(255 54 84);
+
+	font-family: 'Poppins', sans-serif;
+	font-size: 24px;
+	font-weight: 800;
 }
 
 .usernameCodeTag {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 7%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+
+	margin-top: 7%;
 }
 
 .priceInfo {
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .username {
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    margin: 0;
+	margin: 0;
+
+	color: white;
+
+	font-family: 'Poppins', sans-serif;
+	font-size: 13px;
 }
 
 .code {
-    color: rgb(137 141 150);
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    margin: 3px 0 0;
-    font-style: italic;
+	margin: 3px 0 0;
+
+	color: rgb(137 141 150);
+
+	font-family: 'Poppins', sans-serif;
+	font-size: 13px;
+	font-style: italic;
 }
 
 .rightSide {
-    padding-top: 4.5%;
-    padding-left: 4%;
-    padding-right: 4%;
-    padding-bottom: 4.5%;
-    width: 40%;
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
+
+	width: 40%;
+	padding-top: 4.5%;
+	padding-right: 4%;
+	padding-bottom: 4.5%;
+	padding-left: 4%;
 }
 
 .currentPriceTitle {
-    margin: 0 0 5%;
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    font-size: 12px;
+	margin: 0 0 5%;
+
+	color: white;
+
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
 }
 
 .views {
-    color: rgb(137 141 150);
-    font-style: italic;
-    font-family: 'Poppins', sans-serif;
-    font-size: 12px;
-    margin-top: 5%;
+	margin-top: 5%;
+
+	color: rgb(137 141 150);
+
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
+	font-style: italic;
 }
 
 .historyTitle {
-    margin: 2% 0 9.7%;
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    font-size: 12px;
+	margin: 2% 0 9.7%;
+
+	color: white;
+
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
 }
 
 .prevPrice {
-    display: flex;
-    justify-content: space-between;
-    padding: 9.7% 0;
-    border-bottom: 1px solid rgb(55 56 58);
+	display: flex;
+	justify-content: space-between;
+
+	padding: 9.7% 0;
+
+	border-bottom: 1px solid rgb(55 56 58);
 }
 
 .updatePrevPrice {
-    margin: 0;
-    font-size: 12px;
-    font-family: 'Poppins', sans-serif;
-    font-style: italic;
-    color: rgb(137 141 150);
+	margin: 0;
+
+	color: rgb(137 141 150);
+
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
+	font-style: italic;
 }
 
 .button {
-    align-self: flex-end;
-    margin-top: auto;
+	align-self: flex-end;
+
+	margin-top: auto;
 }

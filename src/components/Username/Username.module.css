@@ -1,30 +1,33 @@
 .username {
-  font-size: 12px;
-  line-height: 23px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  opacity: 1;
-  display: flex;
+	display: flex;
+
+	letter-spacing: 0.6px;
+
+	opacity: 1;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 23px;
 }
 
 .username p {
-  margin: 0 5px 0 0;
+	margin: 0 5px 0 0;
 }
 
 .icon {
-  position: relative;
-  top: 3px;
+	position: relative;
+	top: 3px;
 }
 
 .lightblue {
-  color: #00eaf4;
+	color: #00EAF4;
 }
 
 .white {
-  color: #fff;
+	color: #FFF;
 }
 
 .big {
-  font-size: 18px;
+	font-size: 18px;
 }

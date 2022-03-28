@@ -1,94 +1,111 @@
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    background: rgb(40 40 41);
-    width: 300px;
-    height: 335px;
-    border-radius: 22px;
-    border: 1px solid white;
-    overflow: hidden;
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+
+	width: 300px;
+	height: 335px;
+
+	border: 1px solid white;
+	border-radius: 22px;
+	background: rgb(40 40 41);
 }
 
 .imageWrapper {
-    height: 200px;
-    border-radius: 22px;
-    overflow: hidden;
+	overflow: hidden;
+
+	height: 200px;
+
+	border-radius: 22px;
 }
 
 .errorImage {
-    background-color: black;
-    height: 100%;
-    width: 100%;
+	width: 100%;
+	height: 100%;
+
+	background-color: black;
 }
 
 .title {
-    color: white;
-    font-family: sans-serif;
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 11px;
+	margin-top: 0;
+	margin-bottom: 11px;
+
+	color: white;
+
+	font-family: sans-serif;
+	font-size: 18px;
 }
 
 .infoWrapper {
-    padding-left: 20px;
-    padding-right: 22px;
-    padding-bottom: 15px;
-    padding-top: 17px;
+	padding-top: 17px;
+	padding-right: 22px;
+	padding-bottom: 15px;
+	padding-left: 20px;
 }
 
 .priceAndTime {
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .priceInfo {
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .time {
-    width: fit-content;
-    margin: 0;
-    color: rgb(255 24 84);
-    font-weight: 900;
-    font-family: sans-serif;
-    font-size: 17px;
+	width: fit-content;
+	margin: 0;
+
+	color: rgb(255 24 84);
+
+	font-family: sans-serif;
+	font-size: 17px;
+	font-weight: 900;
 }
 
 .usernameAndViews {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    margin-bottom: 4px;
+	display: flex;
+	justify-content: space-between;
+
+	margin-top: 10px;
+	margin-bottom: 4px;
 }
 
 .username {
-    color: white;
-    font-family: sans-serif;
-    font-size: 12px;
-    margin: 0;
+	margin: 0;
+
+	color: white;
+
+	font-family: sans-serif;
+	font-size: 12px;
 }
 
 .views {
-    color: white;
-    margin: 0;
-    font-family: sans-serif;
-    font-size: 12px;
-    color: rgb(137 141 150);
-    font-style: italic;
+	margin: 0;
+
+	color: white;
+	color: rgb(137 141 150);
+
+	font-family: sans-serif;
+	font-size: 12px;
+	font-style: italic;
 }
 
 .codeAndTag {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 7px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+
+	margin-top: 7px;
 }
 
 .code {
-    color: rgb(137 141 150);
-    font-family: sans-serif;
-    font-size: 14px;
-    margin: 0;
-    font-style: italic;
+	margin: 0;
+
+	color: rgb(137 141 150);
+
+	font-family: sans-serif;
+	font-size: 14px;
+	font-style: italic;
 }

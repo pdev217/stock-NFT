@@ -1,61 +1,71 @@
 .wrapper {
-  margin-top: 173px;
+	margin-top: 173px;
 }
 
 .title {
-  font-size: 36px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 800;
-  letter-spacing: 0px;
-  color: #ffffff;
-  text-align: center;
+	text-align: center;
+	letter-spacing: 0px;
+
+	color: #FFFFFF;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 36px;
+	font-weight: 800;
 }
 
 .categoriesWrapper {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 6.2%;
-  margin-top: 100px;
+	display: flex;
+	justify-content: space-between;
+
+	margin-top: 100px;
+	padding: 0 6.2%;
 }
 
 .category {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 18.7%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	width: 18.7%;
 }
 
 .imageWrapper {
-  height: 70px;
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
+
+	height: 70px;
 }
 
 .categoryTitleTextWrapper {
-  height: 170px;
-  overflow: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  margin-top: 60px;
+	overflow: scroll;
+
+	height: 170px;
+	margin-top: 60px;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 .categoryTitleTextWrapper::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 .categoryTitle {
-  text-align: center;
-  letter-spacing: 0px;
-  font-size: 28px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 800;
-  color: #ffffff;
+	text-align: center;
+	letter-spacing: 0px;
+
+	color: #FFFFFF;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 28px;
+	font-weight: 800;
 }
 
 .categoryText {
-  text-align: center;
-  font-size: 18px;
-  font-family: "Nimbus Sans", sans-serif;
-  letter-spacing: 0px;
-  color: #ffffff;
+	text-align: center;
+	letter-spacing: 0px;
+
+	color: #FFFFFF;
+
+	font-family: "Nimbus Sans", sans-serif;
+	font-size: 18px;
 }

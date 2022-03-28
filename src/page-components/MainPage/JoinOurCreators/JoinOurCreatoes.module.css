@@ -1,83 +1,95 @@
 .wrapper {
-  padding: 0 6.2%;
-  margin-top: 163px;
-  color: #ffffff;
-  display: flex;
+	display: flex;
+
+	margin-top: 163px;
+	padding: 0 6.2%;
+
+	color: #FFFFFF;
 }
 
 .leftSide {
-  width: 115%;
+	width: 115%;
 }
 
 .leftSideTextButtonWrapper {
-  margin-top: 42px;
-  display: flex;
+	display: flex;
+
+	margin-top: 42px;
 }
 
 .leftSideTextWrapper {
-  margin-right: 6.25%;
-  width: 67%;
+	width: 67%;
+	margin-right: 6.25%;
 }
 
 .leftSideTitle {
-  text-align: right;
-  font-family: "Poppins", sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  letter-spacing: 0px;
+	text-align: right;
+	letter-spacing: 0px;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 36px;
+	font-weight: 800;
 }
 
 .leftSideText {
-  margin-top: 39px;
-  text-align: right;
-  font-family: "Nimbus Sans", sans-serif;
-  line-height: 33px;
-  font-size: 18px;
-  letter-spacing: 0px;
+	margin-top: 39px;
+
+	text-align: right;
+	letter-spacing: 0px;
+
+	font-family: "Nimbus Sans", sans-serif;
+	font-size: 18px;
+	line-height: 33px;
 }
 
 .leftSideButton {
-  margin-top: 22px;
+	margin-top: 22px;
 }
 
 .deltaIcon {
-  margin-top: 25px;
+	margin-top: 25px;
 }
 
 .rightSide {
-  background: transparent
-    radial-gradient(closest-side at 50% 50%, #282829 0%, #000000 100%) 0% 0%
-    no-repeat padding-box;
-  border: 1px solid #ffffff;
-  border-radius: 30px;
-  padding: 66px 85px 88px;
-  margin-left: 7.49%;
-  margin-top: 60px;
+	margin-top: 60px;
+	margin-left: 7.49%;
+	padding: 66px 85px 88px;
+
+	border: 1px solid #FFFFFF;
+	border-radius: 30px;
+	background: transparent
+		radial-gradient(closest-side at 50% 50%, #282829 0%, #000000 100%) 0% 0%
+		no-repeat padding-box;
 }
 
 .bellIcon {
-  margin-bottom: 27px;
+	margin-bottom: 27px;
 }
 
 .rightSideTitle {
-  font-family: "Poppins", sans-serif;
-  font-size: 45px;
-  font-weight: 800;
-  letter-spacing: 0px;
-  color: #ffffff;
-  margin-bottom: 53px;
+	margin-bottom: 53px;
+
+	letter-spacing: 0px;
+
+	color: #FFFFFF;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 45px;
+	font-weight: 800;
 }
 
 .rightSideText {
-  font: normal normal normal 18px/33px Nimbus Sans;
-  font-family: "Nimbus Sans", sans-serif;
-  line-height: 33px;
-  font-size: 18px;
-  letter-spacing: 0px;
-  margin-bottom: 63px;
+	margin-bottom: 63px;
+
+	letter-spacing: 0px;
+
+	font: normal normal normal 18px/33px Nimbus Sans;
+	font-family: "Nimbus Sans", sans-serif;
+	font-size: 18px;
+	line-height: 33px;
 }
 
 .rightSideButton {
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
 }
