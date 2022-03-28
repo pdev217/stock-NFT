@@ -34,7 +34,7 @@ export const AssetBackedNFTs = () => {
         </div>
       </div>
       <div className={styles.aboutABNFTs}>
-        <div>
+        <div className={styles.categoriesTextWrapper}>
           <div className={styles.categories}>
             <div className={styles.bigIcon}>
               <Image src="/!!!!fakeImage.png" height={79} width={79} alt="big-icon" />

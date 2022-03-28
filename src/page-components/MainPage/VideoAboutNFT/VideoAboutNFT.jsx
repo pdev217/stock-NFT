@@ -5,7 +5,11 @@ import styles from "./VideoAboutNFT.module.css";
 export const VideoAboutNFT = () => {
   return (
     <div className={styles.wrapper}>
-      <Image src="/!!!!fakeNFTVideo.png" width={1105} height={607} alt="video-bout-nft" />
+      <div className={styles.videoImage}>
+        <div className={styles.image}>
+          <Image src="/!!!!fakeNFTVideo.png" layout="fill" alt="video-bout-nft" />
+        </div>
+      </div>
       <div className={styles.textWrapper}>
         <div className={styles.title}>
           <span>Leading the Charge in the NFT Revolution</span>

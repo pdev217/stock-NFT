@@ -25,9 +25,9 @@ export const TopCollections = () => (
       </div>
     </div>
     <div className={styles.collectorsWrapper}>
-      <Column start={0} end={5} array={fakeCollectors} />
-      <Column start={5} end={10} array={fakeCollectors} className={styles.centralColumn} />
-      <Column start={10} end={15} array={fakeCollectors} />
+      <Column start={0} end={5} array={fakeCollectors} className={cn(styles.column)}/>
+      <Column start={5} end={10} array={fakeCollectors} className={cn(styles.column, styles.centralColumn)} />
+      <Column start={10} end={15} array={fakeCollectors} className={cn(styles.column, styles.endColumn)}/>
     </div>
   </div>
 );

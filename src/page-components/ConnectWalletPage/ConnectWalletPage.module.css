@@ -5,6 +5,7 @@
 
 	width: 100%;
 	height: calc(100vh - 619px);
+	margin: 30px 0;
 
 	background: var(--black) 0% 0% no-repeat padding-box;
 }

@@ -82,3 +82,9 @@
 	font-size: 45px;
 	font-weight: bold;
 }
+
+@media screen and (max-width: 1375px) {
+	.title {
+		font-size: 35px;
+	}
+}
