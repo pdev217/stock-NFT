@@ -19,7 +19,7 @@ export const ChooseWalletBox = ({ className }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [connected, setConnected] = useState(false);
-  const { isAuthorized } = useSelector((state) => state.authorization.authorization.isAuthorized);
+  const { isAuthorized } = useSelector((state) => state.authorization.authorization);
 
   const getProviderOptions = () => {
     const infuraId = process.env.INFURA_ID;
