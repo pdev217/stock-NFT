@@ -31,7 +31,7 @@ export const HottestNFTCollectibles = ({ categories = fakeCategories }) => {
           title={"Rookie Maikel Franco Limited Bobblehead!"}
           upperCaseText={"ONLY 1,000 MINTED!"}
           discount={150}
-          src="/test-big-collection-image.png"
+          src="/!!!!fakeImage.png"
         />
       </div>
       <div className={styles.rightSide}>

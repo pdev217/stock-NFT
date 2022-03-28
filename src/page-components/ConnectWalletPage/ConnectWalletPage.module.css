@@ -51,11 +51,11 @@
 
 	cursor: pointer;
 
-	border: 1px solid #282829;
+	border: 1px solid var(--dark-grey);
 }
 
 .choosenWallet {
-	background: #282829;
+	background: var(--dark-grey);
 }
 
 .wallet:first-child {

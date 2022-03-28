@@ -1,18 +1,14 @@
 .wrapper {
-	display: flex;
-
-	width: fit-content;
-	overflow-x: scroll;
-	overflow-y: visible;
-	margin-top: 50px;
-	margin: 0 calc(50% - 190px);
 	position: relative;
 	z-index: 9;
-}
-.empty {
-	height: 25px;
-	position: relative;
-	z-index: 8;
 
+	display: flex;
+	overflow-x: scroll;
+	overflow-y: visible;
+	justify-content: center;
+
+	width: fit-content;
+	margin: 50px calc(50% - 215px) 0;
+	padding: 25px 25px;
 }
 

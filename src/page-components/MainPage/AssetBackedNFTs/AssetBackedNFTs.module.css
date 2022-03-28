@@ -51,8 +51,8 @@
 }
 
 .active {
-	border: 1px solid #617BFF;
-	background: #617BFF 0% 0% no-repeat padding-box;
+	border: 1px solid var(--primary);
+	background: var(--primary) 0% 0% no-repeat padding-box;
 }
 
 .button {

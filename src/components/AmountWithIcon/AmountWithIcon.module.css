@@ -9,7 +9,7 @@
 }
 
 .primary {
-	color: #617BFF;
+	color: var(--primary);
 }
 
 .yellow {

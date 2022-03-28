@@ -1,40 +1,42 @@
 import { useState, useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import cn from "classnames";
 import Image from "next/image";
+import { setActive } from "../../redux/slices/carouselSlice";
+import { useWindowWidth } from "../../hooks/useWindowWidth";
 import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { Tag } from "../Tag/Tag";
 import { SmallChart } from "../SmallChart/SmallChart";
 import { CustButton } from "../CustButton/CustButton";
-import { useWindowWidth } from "../../hooks/useWindowWidth";
 import { Views } from "../Views/Views";
 import styles from "./SpecialAuctionNFTCard.module.css";
 
 export const SpecialAuctionNFTCard = ({
-  onClick,
-  className,
   NFTName,
-  time,
-  username,
+  chartData,
+  className,
   code,
   currPrice,
+  onClick,
   prevPrices,
-  chartData,
-  views,
   src,
   tag,
-  styling,
+  time,
+  username,
+  views,
+  index,
 }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
   const [rotation, setRotation] = useState(0);
+  const dispatch = useDispatch();
+
   const ref = useRef();
   const windowWidth = useWindowWidth();
   const windowCenter = windowWidth / 2;
-  console.log("windowCenter", windowCenter);
 
   useEffect(() => {
       const { width } = ref.current.getBoundingClientRect();
       const {parentNode} = ref.current.parentNode
-      console.log('parentNode',parentNode);
 
       const handleScroll = () => {
         const { x } = ref.current.getBoundingClientRect();
@@ -46,7 +48,13 @@ export const SpecialAuctionNFTCard = ({
         const baseDegree = 20;
         const degree = (distance / width) * baseDegree;
         setRotation(degree);
+
+        if (Math.abs(distance) < 180) {
+          dispatch(setActive(index))
+        }
       };
+      handleScroll();
+
       parentNode.addEventListener("scroll", handleScroll);
   }, []);
 
@@ -56,8 +64,8 @@ export const SpecialAuctionNFTCard = ({
       onClick={onClick}
       className={cn(styles.wrapper, className)}
       style={{
-        transform: `perspective(500px) translateZ(${-Math.abs(rotation * 2)}px) rotateY(${rotation}deg)`,
-        transition: "0.3s",
+        transform: `perspective(500px) translateX(${rotation * 2}px) translateZ(${-Math.abs(rotation * 2)}px) rotateY(${rotation}deg)`,
+        transition: "0.5s",
       }}
     >
       <div className={styles.leftSide}>

@@ -6,9 +6,9 @@
 	height: 285px;
 
 	opacity: 1;
-	border: 1px solid #617BFF;
+	border: 1px solid var(--primary);
 	border-radius: 30px;
-	background: #282829 0% 0% no-repeat padding-box;
+	background: var(--dark-grey) 0% 0% no-repeat padding-box;
 	box-shadow: 0 3px 20px #000000C9;
 }
 

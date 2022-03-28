@@ -48,7 +48,6 @@
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
     "eslint-plugin-storybook": "^0.5.7",
-    "node-sass": "^7.0.1",
     "storybook-css-modules-preset": "^1.1.1",
     "stylelint": "^13.13.1",
     "stylelint-order": "^4.1.0",

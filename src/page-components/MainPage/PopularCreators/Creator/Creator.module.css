@@ -12,7 +12,7 @@
 	height: 179px;
 	margin-bottom: 16px;
 
-	border: 1px solid #617BFF;
+	border: 1px solid var(--primary);
 	border-radius: 50%;
 	background-color: black;
 }

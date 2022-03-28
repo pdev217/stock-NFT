@@ -1,12 +1,12 @@
 .wrapper {
 	position: relative;
+	z-index: 10;
 
 	display: flex;
 	overflow: hidden;
 
 	width: 21.87%;
 	min-width: 400px;
-	z-index: 10;
 
 	border: 1px solid #6478FB;
 	border-radius: 22px;

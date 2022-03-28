@@ -1,12 +1,36 @@
 .wrapper {
-	overflow-x: scroll;
-	overflow-y: visible;
-	position: relative;
-	z-index: 5;
-	-ms-overflow-style: none;
-	scrollbar-width: none;
+  position: relative;
+  z-index: 5;
+
+  overflow-x: scroll;
+  overflow-y: visible;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .wrapper::-webkit-scrollbar {
-	display: none;
+  display: none;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.dot {
+  border-radius: 50%;
+  height: 14px;
+  width: 14px;
+  margin-right: 16px;
+  background-color: var(--dark-grey);
+}
+
+.dot:last-child {
+	margin: 0;
+}
+
+.active {
+  background-color: var(--primary);
 }

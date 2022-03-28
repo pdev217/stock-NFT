@@ -7,12 +7,12 @@
 
 	cursor: pointer;
 
-	border: 1px solid #282829;
+	border: 1px solid var(--dark-grey) ;
 	background-color: transparent;
 }
 
 .wallet:hover {
-	background: #282829;
+	background: var(--dark-grey);
 }
 
 .wallet[disabled] {

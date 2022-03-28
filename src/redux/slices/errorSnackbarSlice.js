@@ -1,23 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    text: '',
-    isOpened: false
+  text: "",
+  isOpened: false,
 };
 
 export const errorSnackbar = createSlice({
-    name: 'errorSnackbar',
-    initialState,
-    reducers: {
-        open: (state, action) => {
-            state.isOpened = true;
-            state.text = action.payload;
-        },
-        close: (state) => {
-            state.isOpened = false;
-            state.text = '';
-        },
-    }
+  name: "errorSnackbar",
+  initialState,
+  reducers: {
+    open: (state, action) => {
+      state.isOpened = true;
+      state.text = action.payload;
+    },
+    close: (state) => {
+      state.isOpened = false;
+      state.text = "";
+    },
+  },
 });
 
 export const { open, close } = errorSnackbar.actions;

@@ -4,6 +4,7 @@ import walletPopupReducer from "./slices/walletPopupSlice";
 import authorizationReducer from "./slices/authorizationSlice";
 import myWalletOptionsPopupReducer from "./slices/myWalletOptionsPopupSlice";
 import errorSnackbarReducer from "./slices/errorSnackbarSlice";
+import carouselReducer from './slices/carouselSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     walletPopup: walletPopupReducer,
     authorization: authorizationReducer,
     myWalletOptionsPopup: myWalletOptionsPopupReducer,
-    errorSnackbar: errorSnackbarReducer
+    errorSnackbar: errorSnackbarReducer,
+    carousel: carouselReducer,
   },
 });

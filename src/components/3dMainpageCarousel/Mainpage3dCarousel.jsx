@@ -3,14 +3,12 @@ import cn from "classnames";
 import { useWindowWidth } from "../../hooks/useWindowWidth";
 import { SpecialAuctionNFTCard } from "../SpecialAuctionNFTCard/SpecialAuctionNFTCard";
 import styles from "./Mainpage3dCarousel.module.css";
-import { useEffect } from "react";
 
 // this component is still in process
 
 export const Mainpage3dCarousel = ({ NFTCards }) => {
   return (
     <>
-    <div className={styles.empty}></div>
       <div className={styles.wrapper}>
         {NFTCards.map((card, i) => (
           <SpecialAuctionNFTCard
@@ -25,11 +23,10 @@ export const Mainpage3dCarousel = ({ NFTCards }) => {
             views={card.views}
             src={card.src}
             tag={card.tag}
+            index={i}
           />
         ))}
       </div>
-      <div className={styles.empty}></div>
-
     </>
   );
 

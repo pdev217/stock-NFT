@@ -58,7 +58,7 @@
 	border: 1px solid #FFFFFF;
 	border-radius: 30px;
 	background: transparent
-		radial-gradient(closest-side at 50% 50%, #282829 0%, #000000 100%) 0% 0%
+		radial-gradient(closest-side at 50% 50%, var(--dark-grey) 0%, #000000 100%) 0% 0%
 		no-repeat padding-box;
 }
 
