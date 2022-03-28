@@ -4,30 +4,15 @@ import Image from "next/image";
 import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { AmountDifference } from "../AmountDifference/AmountDifference";
 import { Tag } from "../Tag/Tag";
-// later I'll do the ribbon component
-//import { Ribbon } from "../Ribbon/Ribbon";
 import { Username } from "../Username/Username";
 import styles from "./PopularNFTCard.module.css";
 
-export const PopularNFTCard = ({
-  className,
-  username,
-  account,
-  price,
-  priceDifference,
-  src,
-  tag,
-  title,
-  rewards,
-}) => {
+export const PopularNFTCard = ({ className, username, account, price, priceDifference, src, tag, title }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
-  const accountUpdated = `${account.substring(0, 6)}...${account.substring(
-    account.length - 6
-  )}`;
+  const accountUpdated = `${account.substring(0, 6)}...${account.substring(account.length - 6)}`;
 
   return (
     <div className={cn(styles.wrapper, className)}>
-      {/* <Ribbon type={rewards} /> */}
       <div className={styles.imageWrapper}>
         {isImageAbsent ? (
           <div className={styles.errorImage}></div>
@@ -45,10 +30,7 @@ export const PopularNFTCard = ({
         <p className={styles.title}>{title}</p>
         <div className={styles.priceInfo}>
           <AmountWithIcon amount={price} color="red" size="m" />
-          <AmountDifference
-            direction={priceDifference.direction}
-            percent={priceDifference.percent}
-          />
+          <AmountDifference direction={priceDifference.direction} percent={priceDifference.percent} />
         </div>
         <Username username={username} color="lightblue" isConfirmed />
         <div className={styles.codeAndTag}>

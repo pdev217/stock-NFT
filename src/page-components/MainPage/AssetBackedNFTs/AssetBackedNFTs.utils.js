@@ -57,7 +57,6 @@ export const fakeNFTs = [
   },
 ];
 
-
 export const switcherSections = [
   {
     text: "Oil/Gas Real Estate",
@@ -72,4 +71,3 @@ export const switcherSections = [
     id: "3",
   },
 ];
-

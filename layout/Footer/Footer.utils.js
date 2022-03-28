@@ -42,9 +42,9 @@ const categoriesArray = [
 export const categories = categoriesArray.map((elem, index) => {
   return {
     ...elem,
-    id: index
-  }
-})
+    id: index,
+  };
+});
 
 const iconsArray = [
   { src: "/metamask-fox-wallet.svg", alt: "metamask-icon" },
@@ -58,6 +58,6 @@ const iconsArray = [
 export const icons = iconsArray.map((elem, index) => {
   return {
     ...elem,
-    id: index
-  }
-})
+    id: index,
+  };
+});

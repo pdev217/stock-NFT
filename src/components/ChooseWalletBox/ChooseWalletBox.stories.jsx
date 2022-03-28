@@ -44,5 +44,7 @@ export const Normal = Template.bind({});
 Normal.args = {
   choosenWallet: 0,
   wallets,
-  setChoosenWallet: () => {console.log('wallet choosen')}
+  setChoosenWallet: () => {
+    console.log("wallet choosen");
+  },
 };

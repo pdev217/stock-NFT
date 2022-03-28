@@ -7,21 +7,13 @@ export const JoinOurCreatoes = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.leftSide}>
-        <Image
-          src="/circle-pictures-image.png"
-          width={1016}
-          height={438}
-          alt="circle-pictures-image"
-        />
+        <Image src="/circle-pictures-image.png" width={1016} height={438} alt="circle-pictures-image" />
         <div className={styles.leftSideTextButtonWrapper}>
           <div className={styles.leftSideTextWrapper}>
-            <div className={styles.leftSideTitle}>
-              Join Our Network of Creators!
-            </div>
+            <div className={styles.leftSideTitle}>Join Our Network of Creators!</div>
             <div className={styles.leftSideText}>
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-              nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-              erat, sed diam voluptua. At vero eos et accusam et justo duo
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+              ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
               dolores et ea rebum. Stet clita kasd gubergren, no sea
             </div>
           </div>
@@ -62,17 +54,11 @@ export const JoinOurCreatoes = () => {
       </div>
       <div className={styles.rightSide}>
         <div className={styles.bellIcon}>
-          <Image
-            src="/add-alert-icon.svg"
-            height={58}
-            width={50}
-            alt="add-alert-icon"
-          />
+          <Image src="/add-alert-icon.svg" height={58} width={50} alt="add-alert-icon" />
         </div>
         <div className={styles.rightSideTitle}>Sign Up for New Drop Alerts</div>
         <div className={styles.rightSideText}>
-          No account or wallet needed! We’ll let you know when new hot new NFTs
-          hit the store!
+          No account or wallet needed! We’ll let you know when new hot new NFTs hit the store!
         </div>
         <div className={styles.rightSideButton}>
           <CustButton color="primary" text="Get Email or SMS Alerts" />

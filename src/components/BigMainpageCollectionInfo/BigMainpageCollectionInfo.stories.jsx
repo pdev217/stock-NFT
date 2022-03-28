@@ -14,5 +14,5 @@ Example.args = {
   title: "Rookie Michel Franco Limited Bobblehead!",
   upperCaseText: "only 1,000 minted!",
   discount: 150,
-  src: '/p.png,'
+  src: "/p.png,",
 };

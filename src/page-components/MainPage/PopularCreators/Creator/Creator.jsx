@@ -25,17 +25,10 @@ export const Creator = ({ username, src, account, isConfirmed, className }) => {
       </div>
 
       <div className={styles.username}>
-        <Username
-          username={username}
-          isConfirmed={isConfirmed}
-          color="lightblue"
-          isBig
-        />
+        <Username username={username} isConfirmed={isConfirmed} color="lightblue" isBig />
       </div>
       <div className={styles.account}>
-        <span>{`${account.substring(0, 6)}...${account.substring(
-          account.length - 6
-        )}`}</span>
+        <span>{`${account.substring(0, 6)}...${account.substring(account.length - 6)}`}</span>
       </div>
       <div className={styles.button}>
         <CustButton color="primary" text="Follow" />

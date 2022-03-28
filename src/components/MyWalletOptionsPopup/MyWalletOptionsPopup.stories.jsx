@@ -8,7 +8,11 @@ export default {
   component: MyWalletOptionsPopup,
 };
 
-const Template = (args) => <Provider store={store}><MyWalletOptionsPopup {...args} /></Provider>;
+const Template = (args) => (
+  <Provider store={store}>
+    <MyWalletOptionsPopup {...args} />
+  </Provider>
+);
 
 export const Normal = Template.bind({});
-Normal.args = { walletName: "Metamask", src: '/metamask-fox-wallet.svg' };
+Normal.args = { walletName: "Metamask", src: "/metamask-fox-wallet.svg" };

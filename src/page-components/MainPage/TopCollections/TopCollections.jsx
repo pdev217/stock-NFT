@@ -12,39 +12,21 @@ export const TopCollections = () => (
         <span>Top Collections</span>
       </div>
       <div className={styles.filters}>
-        <Filter
-          src="/flag-icon.svg"
-          text="United States"
-          className={styles.cursorPointer}
-        />
+        <Filter src="/flag-icon.svg" text="United States" className={styles.cursorPointer} />
         <Filter
           src="/location-arrow-icon.svg"
           text="Michigan"
           className={cn(styles.centralFilter, styles.cursorPointer)}
         />
-        <Filter
-          src="/location-searching-icon.svg"
-          text="25 Miles"
-          className={styles.cursorPointer}
-        />
+        <Filter src="/location-searching-icon.svg" text="25 Miles" className={styles.cursorPointer} />
       </div>
       <div className={styles.cursorPointer}>
-        <Image
-          src="/cross-grey-contained.svg"
-          height={24}
-          width={24}
-          alt="cross-icon"
-        />
+        <Image src="/cross-grey-contained.svg" height={24} width={24} alt="cross-icon" />
       </div>
     </div>
     <div className={styles.collectorsWrapper}>
       <Column start={0} end={5} array={fakeCollectors} />
-      <Column
-        start={5}
-        end={10}
-        array={fakeCollectors}
-        className={styles.centralColumn}
-      />
+      <Column start={5} end={10} array={fakeCollectors} className={styles.centralColumn} />
       <Column start={10} end={15} array={fakeCollectors} />
     </div>
   </div>

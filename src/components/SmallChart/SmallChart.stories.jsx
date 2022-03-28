@@ -6,9 +6,7 @@ export default {
   component: SmallChart,
 };
 
-const Template = (args) => (
-    <SmallChart {...args} />
-);
+const Template = (args) => <SmallChart {...args} />;
 
 export const fakeChartData = new Array(15).fill({}, 0).map(() => {
   return { name: "Page A", price: Math.random() * 100 };

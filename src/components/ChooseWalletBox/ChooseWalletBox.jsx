@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, setAccount } from "../../redux/slices/authorizationSlice";
-import { open } from "../../redux/slices/errorSnackbarSlice";
-import { useRouter } from "next/router";
 import cn from "classnames";
 import Image from "next/image";
+import { login, setAccount } from "../../redux/slices/authorizationSlice";
+import { useRouter } from "next/router";
+import { open } from "../../redux/slices/errorSnackbarSlice";
 //web3
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 import WalletLink from "walletlink";
 import WalletConnect from "@walletconnect/web3-provider";
-//style
-import styles from "./ChooseWalletBox.module.css";
 //axios
 import axios from "axios";
+//style
+import styles from "./ChooseWalletBox.module.css";
 
 export const ChooseWalletBox = ({ className }) => {
   const dispatch = useDispatch();

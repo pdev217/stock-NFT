@@ -5,9 +5,7 @@ export default {
   component: ScrollableList,
 };
 
-const Template = (args) => (
-    <ScrollableList {...args} />
-);
+const Template = (args) => <ScrollableList {...args} />;
 
 const fakeNFTs = [
   {

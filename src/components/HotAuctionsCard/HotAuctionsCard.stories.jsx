@@ -15,7 +15,7 @@ Normal.args = {
   price: 137.37,
   src: "/p.png",
   tag: "Art & Theater",
-  time: '12:12:12:45',
+  time: "12:12:12:45",
   title: "Remnant 003 #376/500",
-  views: 1433
+  views: 1433,
 };

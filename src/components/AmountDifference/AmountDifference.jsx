@@ -29,8 +29,7 @@ export const AmountDifference = ({ direction, percent, className }) => {
     case "down":
       return (
         <div className={cn(styles.wrapper, className, styles.down)}>
-          <div className={styles.iconReversed}>{icon}</div>{" "}
-          <div>{percent}%</div>
+          <div className={styles.iconReversed}>{icon}</div> <div>{percent}%</div>
         </div>
       );
     default:

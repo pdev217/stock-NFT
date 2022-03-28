@@ -35,27 +35,27 @@ export const SpecialAuctionNFTCard = ({
   const windowCenter = windowWidth / 2;
 
   useEffect(() => {
-      const { width } = ref.current.getBoundingClientRect();
-      const {parentNode} = ref.current.parentNode
+    const { width } = ref.current.getBoundingClientRect();
+    const { parentNode } = ref.current.parentNode;
 
-      const handleScroll = () => {
-        const { x } = ref.current.getBoundingClientRect();
+    const handleScroll = () => {
+      const { x } = ref.current.getBoundingClientRect();
 
-        const viewportCenter = windowCenter === 0 ? window.innerWidth / 2 : windowCenter;
-        const elementCenterPosition = x + width / 2;
-        const distance = viewportCenter - elementCenterPosition;
+      const viewportCenter = windowCenter === 0 ? window.innerWidth / 2 : windowCenter;
+      const elementCenterPosition = x + width / 2;
+      const distance = viewportCenter - elementCenterPosition;
 
-        const baseDegree = 20;
-        const degree = (distance / width) * baseDegree;
-        setRotation(degree);
+      const baseDegree = 20;
+      const degree = (distance / width) * baseDegree;
+      setRotation(degree);
 
-        if (Math.abs(distance) < 180) {
-          dispatch(setActive(index))
-        }
-      };
-      handleScroll();
+      if (Math.abs(distance) < 180) {
+        dispatch(setActive(index));
+      }
+    };
+    handleScroll();
 
-      parentNode.addEventListener("scroll", handleScroll);
+    parentNode.addEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -64,7 +64,9 @@ export const SpecialAuctionNFTCard = ({
       onClick={onClick}
       className={cn(styles.wrapper, className)}
       style={{
-        transform: `perspective(500px) translateX(${rotation * 2}px) translateZ(${-Math.abs(rotation * 2)}px) rotateY(${rotation}deg)`,
+        transform: `perspective(500px) translateX(${rotation * 2}px) translateZ(${-Math.abs(
+          rotation * 2
+        )}px) rotateY(${rotation}deg)`,
         transition: "0.5s",
       }}
     >

@@ -5,16 +5,7 @@ import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { Views } from "../Views/Views";
 import styles from "./HotAuctionsCard.module.css";
 
-export const HotAuctionsCard = ({
-  username,
-  code,
-  price,
-  src,
-  tag,
-  time,
-  title,
-  views
-}) => {
+export const HotAuctionsCard = ({ username, code, price, src, tag, time, title, views }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   return (

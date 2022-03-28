@@ -10,6 +10,6 @@ export const useOnClickOutside = (ref, callback) => {
   useEffect(() => {
     document.addEventListener("mouseup", handleMouseUp);
 
-    return () => document.removeEventListener('mouseup', handleMouseUp);
+    return () => document.removeEventListener("mouseup", handleMouseUp);
   });
 };

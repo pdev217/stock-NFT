@@ -12,7 +12,6 @@ export const chartData = new Array(15).fill({}, 0).map(() => {
   return { name: "Page A", price: Math.random() * 100 };
 });
 
-
 export const Normal = Template.bind({});
 Normal.args = {
   username: "MLB",

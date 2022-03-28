@@ -3,12 +3,7 @@ import styles from "./Username.module.css";
 
 const icon = (
   <div className={styles.icon}>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
       <path
         id="Icon_metro-user-check"
         data-name="Icon metro-user-check"
@@ -21,14 +16,14 @@ const icon = (
 );
 
 export const Username = ({ username, className, isConfirmed, color, isBig }) => (
-  <div className={cn(styles.username, className, {
-    [styles.lightblue]: color === "lightblue",
-    [styles.white]: color === "white",
-    [styles.big]: isBig
-  })}>
-    <p>
-      @{username} 
-    </p>
+  <div
+    className={cn(styles.username, className, {
+      [styles.lightblue]: color === "lightblue",
+      [styles.white]: color === "white",
+      [styles.big]: isBig,
+    })}
+  >
+    <p>@{username}</p>
     {isConfirmed && icon}
   </div>
 );

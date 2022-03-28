@@ -9,13 +9,9 @@ import { WalletPopup } from "../src/components/WalletPopup/WalletPopup";
 import { ErrorSnackbar } from "../src/components/ErrorSnackbar/ErrorSnackbar";
 
 const Layout = ({ children }) => {
-  const isWalletPopupOpened = useSelector(
-    (state) => state.walletPopup.walletPopup.isOpened
-  );
+  const isWalletPopupOpened = useSelector((state) => state.walletPopup.walletPopup.isOpened);
 
-  const isErrorSnackbarOpened = useSelector(
-    (state) => state.errorSnackbar.isOpened
-  );
+  const isErrorSnackbarOpened = useSelector((state) => state.errorSnackbar.isOpened);
 
   return (
     <>
@@ -35,9 +31,7 @@ const Layout = ({ children }) => {
             })}
           />
         </div>
-        {isErrorSnackbarOpened && (
-          <ErrorSnackbar className={styles.errorSnackbar} />
-        )}
+        {isErrorSnackbarOpened && <ErrorSnackbar className={styles.errorSnackbar} />}
       </div>
     </>
   );

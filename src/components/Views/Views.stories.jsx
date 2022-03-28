@@ -11,5 +11,5 @@ const Template = (args) => <Views {...args} />;
 export const Normal = Template.bind({});
 Normal.args = {
   quantity: 1234,
-  className: ""
+  className: "",
 };

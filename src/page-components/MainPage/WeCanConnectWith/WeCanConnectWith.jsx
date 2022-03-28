@@ -14,7 +14,7 @@ export const WeCanConnectWith = () => {
           </div>
         ))}
         <div className={styles.item}>
-          <Image src='/and-more-icon.svg' alt='and-more-icon' height={44} width={59} />
+          <Image src="/and-more-icon.svg" alt="and-more-icon" height={44} width={59} />
           <p className={styles.walletName}>And More!</p>
         </div>
       </div>

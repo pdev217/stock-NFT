@@ -14,7 +14,7 @@ export const AmountWithIcon = ({ amount, color, size, className }) => {
         [styles.yellow]: color === "yellow",
       })}
     >
-      IC ${numberWithSymbol(amount, ',')}
+      IC ${numberWithSymbol(amount, ",")}
     </span>
   );
 };

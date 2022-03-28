@@ -1,8 +1,8 @@
-import React from 'react';
-import { CustButton } from './CustButton';
+import React from "react";
+import { CustButton } from "./CustButton";
 
 export default {
-  title: 'CustButton',
+  title: "CustButton",
   component: CustButton,
 };
 

@@ -12,19 +12,19 @@ export const Primary = Template.bind({});
 Primary.args = {
   amount: 432.65,
   color: "primary",
-  size: "m"
+  size: "m",
 };
 
 export const Red = Template.bind({});
 Red.args = {
   amount: 432.65,
   color: "red",
-  size: "m"
+  size: "m",
 };
 
 export const Small = Template.bind({});
 Small.args = {
   amount: 432.65,
   color: "primary",
-  size: "sm"
+  size: "sm",
 };

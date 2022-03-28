@@ -1,17 +1,11 @@
 import { useState } from "react";
+import cn from "classnames";
 import Image from "next/image";
-import styles from "./BigMainpageCollectionInfo.module.css";
 import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
 import { CustButton } from "../CustButton/CustButton";
-import cn from 'classnames';
+import styles from "./BigMainpageCollectionInfo.module.css";
 
-export const BigMainpageCollectionInfo = ({
-  title,
-  upperCaseText,
-  discount,
-  src,
-  className
-}) => {
+export const BigMainpageCollectionInfo = ({ title, upperCaseText, discount, src, className }) => {
   const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   return (
@@ -20,21 +14,15 @@ export const BigMainpageCollectionInfo = ({
         <div className={styles.errorImage}></div>
       ) : (
         <>
-        <Image
-          alt={title}
-          layout="fill"
-          onError={(e) => e && setIsImageAbsent(true)}
-          src={src}
-        />
-        <div className={styles.forGradient} />
+          <Image alt={title} layout="fill" onError={(e) => e && setIsImageAbsent(true)} src={src} />
+          <div className={styles.forGradient} />
         </>
       )}
       <div className={styles.infoWrapper}>
         <p className={styles.title}>{title}</p>
         <p className={styles.upperCaseText}>{upperCaseText}</p>
         <p className={styles.discount}>
-          Get <AmountWithIcon amount={discount} color="primary" size="m" /> for
-          purchasing!
+          Get <AmountWithIcon amount={discount} color="primary" size="m" /> for purchasing!
         </p>
         <CustButton text="Collect Now" color="primary" />
       </div>

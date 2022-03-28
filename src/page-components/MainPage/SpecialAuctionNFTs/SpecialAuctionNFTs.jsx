@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
-import cn from 'classnames';
+import { useSelector } from "react-redux";
+import cn from "classnames";
 import { Mainpage3dCarousel } from "../../../components/3dMainpageCarousel/Mainpage3dCarousel";
 import { NFTCards } from "./SpecialAuctionNFTs.utils";
 import styles from "./SpecialAuctionNFTs.module.css";
@@ -8,7 +8,7 @@ import styles from "./SpecialAuctionNFTs.module.css";
 // because the background of Collections covers this title
 
 export const SpecialAuctionNFTs = ({}) => {
-  const active = useSelector((state) => state.carousel.active)
+  const active = useSelector((state) => state.carousel.active);
   return (
     <>
       <div className={styles.wrapper}>
@@ -16,9 +16,12 @@ export const SpecialAuctionNFTs = ({}) => {
       </div>
       <div className={styles.dots}>
         {NFTCards.map(({ id }, index) => (
-          <div key={id} className={cn(styles.dot, {
-            [styles.active]: active === index
-          })} />
+          <div
+            key={id}
+            className={cn(styles.dot, {
+              [styles.active]: active === index,
+            })}
+          />
         ))}
       </div>
     </>

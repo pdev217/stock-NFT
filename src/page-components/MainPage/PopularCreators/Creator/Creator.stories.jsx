@@ -18,5 +18,5 @@ Normal.args = {
   src: "/some-man.png",
   account: "6t987gouhb75d864iyubpoi",
   isConfirmed: true,
-  isBig: true
+  isBig: true,
 };
