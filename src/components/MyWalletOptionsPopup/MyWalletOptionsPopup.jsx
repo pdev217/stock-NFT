@@ -3,22 +3,28 @@ import { useDispatch } from "react-redux";
 import cn from "classnames";
 import Image from "next/image";
 import { close } from "../../redux/slices/myWalletOptionsPopupSlice";
-import { logout } from "../../redux/slices/authorizationSlice";
+import { logout, setAccount } from "../../redux/slices/authorizationSlice";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
+import { useWeb3React } from "@web3-react/core";
+import { useRouter } from "next/router";
 import styles from "./MyWalletOptionsPopup.module.css";
 
 export const MyWalletOptionsPopup = ({ className, walletName, src }) => {
   const dispatch = useDispatch();
   const ref = useRef();
+  const router = useRouter();
+  const { deactivate } = useWeb3React();
 
   const closePopup = () => {
     dispatch(close());
   };
 
   const handleLogout = () => {
+    deactivate();
     dispatch(logout());
+    dispatch(setAccount(null));
+    router.push('/connect-wallet')
   };
-
   useOnClickOutside(ref, closePopup);
 
   return (
