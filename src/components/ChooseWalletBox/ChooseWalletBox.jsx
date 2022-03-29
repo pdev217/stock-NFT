@@ -27,7 +27,7 @@ export const ChooseWalletBox = ({ className }) => {
   const onConnect = (connector, id) => {
     setConnected(true)
     if(id === "1") {
-      if(!window.ethereum) {
+      if(!window.ethereum || !window.ethereum?.isMetaMask ) {
         console.log(id)
           dispatch(open("Please install Metamask Chrome extension")); 
           setConnected(false)
