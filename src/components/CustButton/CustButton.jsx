@@ -36,7 +36,7 @@ export const CustButton = ({ text, onClick, color, className }) => {
               background: "#DD0D2D 0% 0% no-repeat padding-box",
               ":hover": {
                 backgroundColor: "rgb(202, 10, 23)",
-              },
+              }
             }}
             onClick={onClick}
             variant="contained"
