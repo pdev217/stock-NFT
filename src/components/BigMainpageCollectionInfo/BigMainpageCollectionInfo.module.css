@@ -38,10 +38,10 @@
   position: absolute;
   position: inherit;
   z-index: 10;
-  top: 35%;
-  left: 66%;
+  top: 45%;
+  left: 60%;
 
-  width: 185px;
+  width: 35%;
 
   color: var(--white);
 }
@@ -60,8 +60,16 @@
   font-weight: bold;
   line-height: 42px;
 }
+@media screen and (max-width: 1500px) {
+  .infoWrapper {
+    top: 40%;
+    left: 66%;
+  
+    width: 185px;
+  }
+}
 
-@media screen and (max-width: 1375px) {
+@media screen and (max-width: 1500px) {
   .title {
     font-size: 24px;
     line-height: 35px;
@@ -69,6 +77,12 @@
 
   .infoWrapper {
     text-align: right;
+  }
+
+  .infoWrapper {
+    top: 40%;
+    left: 66%;
+  
   }
 }
 

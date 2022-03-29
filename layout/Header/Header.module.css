@@ -214,3 +214,19 @@
 .popupActive {
   height: fit-content;
 }
+
+
+@media screen and (max-width: 1400px) {
+  .category {
+    margin-right: 4%;
+  }
+  
+  .categoryName {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+
+  .searchButton {
+    right: 0;
+  }
+}

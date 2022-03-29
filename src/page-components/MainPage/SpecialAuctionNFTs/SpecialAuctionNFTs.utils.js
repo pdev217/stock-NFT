@@ -26,7 +26,7 @@ export const NFTCards = [
     ],
     chartData,
     views: 1562,
-    src: "/p.png",
+    src: "/!!!!fakeImage.png",
     tag: "Art & Theater",
   },
   {
@@ -52,7 +52,7 @@ export const NFTCards = [
     ],
     chartData,
     views: 1562,
-    src: "/p.png",
+    src: "/!!!!fakeImage.png",
     tag: "Art & Theater",
   },
   {
@@ -78,7 +78,7 @@ export const NFTCards = [
     ],
     chartData,
     views: 1562,
-    src: "/p.png",
+    src: "/!!!!fakeImage.png",
     tag: "Art & Theater",
   },
   {
@@ -104,7 +104,7 @@ export const NFTCards = [
     ],
     chartData,
     views: 1562,
-    src: "/p.png",
+    src: "/!!!!fakeImage.png",
     tag: "Art & Theater",
   },
   {
@@ -130,7 +130,7 @@ export const NFTCards = [
     ],
     chartData,
     views: 1562,
-    src: "/p.png",
+    src: "/!!!!fakeImage.png",
     tag: "Art & Theater",
   },
 ];

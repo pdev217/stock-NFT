@@ -31,3 +31,10 @@
 	font-size: 36px;
 	font-weight: 800;
 }
+
+
+@media screen and (max-width: 1500px) {
+	.autcionTitleAndButtonwrapper {
+		margin-top: 120px;
+	}
+}

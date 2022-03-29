@@ -24,14 +24,14 @@ export const HottestNFTCollectibles = ({ categories = fakeCategories }) => {
           rewards={"rare"}
           tag="Athletes"
           title={"Maikel Franco"}
-          src="/!!!!fakeImage.png"
+          src="/testImages/baseballist-3d.png"
         />
         <BigMainpageCollectionInfo
           className={styles.bigMainpageCollectionInfo}
           title={"Rookie Maikel Franco Limited Bobblehead!"}
           upperCaseText={"ONLY 1,000 MINTED!"}
           discount={150}
-          src="/!!!!fakeImage.png"
+          src="/testImages/baseballist-big.png"
         />
       </div>
       <div className={styles.rightSide}>

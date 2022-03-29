@@ -1,38 +1,38 @@
 export const fakeNFTs = [
   {
-    src: "/!!!!fakeImage.png",
-    title: "Greta Van Fleet @ Wings Event Center",
-    price: 310.05,
+    src: "/testImages/football.png",
+    title: "Connor van den Berg 2020-21",
+    price: 120.59,
     priceDifference: {
-      direction: "up",
+      direction: "down",
       percent: 15.3,
     },
-    username: "Diamond Hands Ltd.",
+    username: "UEFA",
     account: "uv7597gug865d",
-    tag: "Art & Theater",
+    tag: "3d Art",
     rewards: "common",
     id: "1",
   },
   {
-    src: "/!!!!fakeImage.png",
-    title: "Greta Van Fleet @ Wings Event Center",
-    price: 310.05,
+    src: "/testImages/hand.png",
+    title: "Diamond Hand Black",
+    price: 1017.05,
     priceDifference: {
       direction: "up",
-      percent: 15.3,
+      percent: 25.00,
     },
     username: "Diamond Hands Ltd.",
-    account: "uv7597gug865d",
-    tag: "Art & Theater",
+    account: "080ukhbiuyg87g09u0lklkn",
+    tag: "3d Art",
     rewards: "common",
     id: "2",
   },
   {
-    src: "/!!!!fakeImage.png",
+    src: "/testImages/rock.png",
     title: "Greta Van Fleet @ Wings Event Center",
     price: 310.05,
     priceDifference: {
-      direction: "up",
+      direction: "down",
       percent: 15.3,
     },
     username: "Diamond Hands Ltd.",
@@ -42,26 +42,26 @@ export const fakeNFTs = [
     id: "3",
   },
   {
-    src: "/!!!!fakeImage.png",
-    title: "Greta Van Fleet @ Wings Event Center",
+    src: "/testImages/football.png",
+    title: "Connor van den Berg 2020-21",
     price: 310.05,
     priceDifference: {
       direction: "up",
       percent: 15.3,
     },
-    username: "Diamond Hands Ltd.",
-    account: "uv7597gug865d",
+    username: "UEFA",
+    account: "9yhviutf875foubpi",
     tag: "Art & Theater",
     rewards: "common",
     id: "4",
   },
   {
-    src: "/!!!!fakeImage.png",
-    title: "Greta Van Fleet @ Wings Event Center",
-    price: 310.05,
+    src: "/testImages/hand.png",
+    title: "Diamond Hand Black",
+    price: 10000.01,
     priceDifference: {
       direction: "up",
-      percent: 15.3,
+      percent: 0.00,
     },
     username: "Diamond Hands Ltd.",
     account: "uv7597gug865d",
@@ -70,7 +70,7 @@ export const fakeNFTs = [
     id: "5",
   },
   {
-    src: "/!!!!fakeImage.png",
+    src: "/testImages/rock.png",
     title: "Greta Van Fleet @ Wings Event Center",
     price: 310.05,
     priceDifference: {
@@ -84,7 +84,7 @@ export const fakeNFTs = [
     id: "6",
   },
   {
-    src: "/!!!!fakeImage.png",
+    src: "/testImages/football.png",
     title: "Greta Van Fleet @ Wings Event Center",
     price: 310.05,
     priceDifference: {
@@ -98,7 +98,7 @@ export const fakeNFTs = [
     id: "7",
   },
   {
-    src: "/!!!!fakeImage.png",
+    src: "/testImages/hand.png",
     title: "Greta Van Fleet @ Wings Event Center",
     price: 310.05,
     priceDifference: {
@@ -112,7 +112,7 @@ export const fakeNFTs = [
     id: "8",
   },
   {
-    src: "/!!!!fakeImage.png",
+    src: "/testImages/rock.png",
     title: "Greta Van Fleet @ Wings Event Center",
     price: 310.05,
     priceDifference: {
@@ -126,7 +126,7 @@ export const fakeNFTs = [
     id: "9",
   },
   {
-    src: "/!!!!fakeImage.png",
+    src: "/testImages/football.png",
     title: "Greta Van Fleet @ Wings Event Center",
     price: 310.05,
     priceDifference: {
@@ -140,7 +140,7 @@ export const fakeNFTs = [
     id: "10",
   },
   {
-    src: "/!!!!fakeImage.png",
+    src: "/testImages/hand.png",
     title: "Greta Van Fleet @ Wings Event Center",
     price: 310.05,
     priceDifference: {

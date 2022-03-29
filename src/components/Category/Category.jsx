@@ -11,7 +11,10 @@ export const Category = ({ src, title, className }) => {
       {isImageAbsent ? (
         <div className={cn(styles.errorImage, styles.image)}></div>
       ) : (
-        <Image src={src} alt={title} layout="fill" onError={() => setIsImageAbsent(true)} />
+        <>
+          <Image src={src} alt={title} layout="fill" onError={() => setIsImageAbsent(true)} />
+          <div className={styles.forGradient} />
+        </>
       )}
       <p className={styles.text}>{title}</p>
     </div>

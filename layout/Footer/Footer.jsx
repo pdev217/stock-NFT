@@ -7,8 +7,10 @@ import styles from "./Footer.module.css";
 export const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <div className={styles.logo}>
-        <Image src="/footer-logo.png" alt="stoke-logo" layout="fill" />
+      <div className={styles.logoWrapper}>
+        <div className={styles.logo}>
+          <Image src="/footer-logo.png" alt="stoke-logo" layout="fill" />
+        </div>
       </div>
       <p className={styles.aboutStoke}>
         About Stoke ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
@@ -28,7 +30,7 @@ export const Footer = () => {
               <Image src={icon.src} alt={icon.alt} layout="fill" />
             </div>
           ))}
-          <p className={styles.andMore}>...and more!</p>
+          <p className={styles.andMore}>...and&nbsp;more!</p>
         </div>
       </div>
       <div className={styles.getAlertsAndSignUpWrapper}>
