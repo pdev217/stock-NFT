@@ -9,6 +9,7 @@
 .collections {
 	display: flex;
 	justify-content: space-between;
+	margin-bottom: 215px;
 }
 
 .autcionTitleAndButtonwrapper {
@@ -34,7 +35,7 @@
 
 
 @media screen and (max-width: 1500px) {
-	.autcionTitleAndButtonwrapper {
-		margin-top: 120px;
+	.collections {
+		margin-bottom: 120px;
 	}
 }

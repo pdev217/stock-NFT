@@ -18,7 +18,6 @@ export const MainPage = () => {
       <TrendingNFTs />
       <WeCanConnectWith />
       <Collections />
-      <SpecialAuctionNFTs />
       <MostPopularNFTs />
       <AssetBackedNFTs />
       <MakeYourOwnCollection />
