@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import cn from "classnames";
 import Image from "next/image";
 import { close } from "../../redux/slices/myWalletOptionsPopupSlice";
+import { open as openLogout } from "../../redux/slices/logoutModalSlice";
 import { logout } from "../../redux/slices/authorizationSlice";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import styles from "./MyWalletOptionsPopup.module.css";
@@ -16,7 +17,7 @@ export const MyWalletOptionsPopup = ({ className, walletName, src }) => {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(openLogout());
   };
 
   useOnClickOutside(ref, closePopup);
