@@ -27,18 +27,15 @@ export const ChooseWalletBox = ({ className }) => {
   const onConnect = (connector, id) => {
     setConnected(true)
     if(id === "1") {
-      if(!window.ethereum) {
+      if(!window.ethereum || !window.ethereum?.isMetaMask ) {
         console.log(id)
           dispatch(open("Please install Metamask Chrome extension")); 
           setConnected(false)
       }else {
         activate(connector)
-        .then(() => {
-          setConnected(false)
-        })
         .catch((err) => {
-          console.log(err)
           setConnected(false)
+          console.log(err)
         })
       }
     }else {
@@ -54,8 +51,12 @@ export const ChooseWalletBox = ({ className }) => {
   }
 
   useEffect(() => {
-    if(account && i%2 == 0) {
-      signMessage();
+    if(router.pathname === '/connect-wallet') {
+      if(account && i%2 === 0) {
+        signMessage();
+      }
+    }else {
+      signMessage()
     }
     i++
   }, [account])
@@ -68,8 +69,8 @@ export const ChooseWalletBox = ({ className }) => {
       handleAuthenticate(signature)
     })
     .catch((error) => {
-      console.log('Failure!' + (error && error.message ? `\n\n${error.message}` : ''))
       setConnected(false)
+      console.log('Failure!' + (error && error.message ? `\n\n${error.message}` : ''))
     })
   }
 
