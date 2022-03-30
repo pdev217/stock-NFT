@@ -1,8 +1,12 @@
 import { useEffect } from "react";
+//classnames
 import cn from "classnames";
+//next
 import Image from "next/image";
+//redux
 import { useSelector, useDispatch } from "react-redux";
 import { close } from "../../redux/slices/errorSnackbarSlice";
+//styles
 import styles from "./ErrorSnackbar.module.css";
 
 export const ErrorSnackbar = ({ className }) => {

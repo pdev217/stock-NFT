@@ -1,10 +1,13 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+//redux
 import { useDispatch, useSelector } from "react-redux";
-import { login, setAccount } from "../../redux/slices/authorizationSlice";
+import { login } from "../../redux/slices/authorizationSlice";
 import { open } from "../../redux/slices/errorSnackbarSlice";
-import { useRouter } from "next/router";
-import cn from "classnames";
+//next
 import Image from "next/image";
+import { useRouter } from "next/router";
+//classnames
+import cn from "classnames";
 //style
 import styles from "./ChooseWalletBox.module.css";
 //axios
@@ -14,7 +17,7 @@ import { useWeb3React } from "@web3-react/core";
 //connectors
 import { injected, coinbaseWallet, walletConnect } from "../../connectors";
 
-let i = 0
+let i = 0;
 
 export const ChooseWalletBox = ({ className }) => {
   const dispatch = useDispatch();
@@ -25,53 +28,55 @@ export const ChooseWalletBox = ({ className }) => {
   const { activate, account, active, library } = useWeb3React();
 
   const onConnect = (connector, id) => {
-    setConnected(true)
-    if(id === "1") {
-      if(!window.ethereum || !window.ethereum?.isMetaMask ) {
-        console.log(id)
-          dispatch(open("Please install Metamask Chrome extension")); 
-          setConnected(false)
-      }else {
-        activate(connector)
-        .catch((err) => {
-          setConnected(false)
-          console.log(err)
-        })
+    setConnected(true);
+    if (id === "1") {
+      if (!window.ethereum || !window.ethereum?.isMetaMask) {
+        console.log(id);
+        dispatch(open("Please install Metamask Chrome extension"));
+        setConnected(false);
+      } else {
+        activate(connector).catch((err) => {
+          setConnected(false);
+          console.log(err);
+        });
       }
-    }else {
+    } else {
       activate(connector)
-      .then(() => {
-        setConnected(false)
-      })
-      .catch((err) => {
-        console.log(err)
-        setConnected(false)
-      })
+        .then(() => {
+          setConnected(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setConnected(false);
+        });
     }
-  }
+  };
 
   useEffect(() => {
-    if(router.pathname === '/connect-wallet') {
-      if(account && i%2 === 0) {
+    if (router.pathname === "/connect-wallet") {
+      if (account && i % 2 === 0) {
         signMessage();
       }
-    }else {
-      signMessage()
+    } else {
+      signMessage();
     }
-    i++
-  }, [account])
-  
+    i++;
+  }, [account]);
+
   async function signMessage() {
     const response = await axios.post(`${process.env.BACKEND_URL}/users/${account}`);
     const nonce = response.data.nonce;
     const msg = `I am signing my one-time nonce: ${nonce}`;
-    library?.getSigner(account).signMessage(msg).then((signature) => {
-      handleAuthenticate(signature)
-    })
-    .catch((error) => {
-      setConnected(false)
-      console.log('Failure!' + (error && error.message ? `\n\n${error.message}` : ''))
-    })
+    library
+      ?.getSigner(account)
+      .signMessage(msg)
+      .then((signature) => {
+        handleAuthenticate(signature);
+      })
+      .catch((error) => {
+        setConnected(false);
+        console.log("Failure!" + (error && error.message ? `\n\n${error.message}` : ""));
+      });
   }
 
   const handleAuthenticate = async (signature) => {
@@ -94,19 +99,19 @@ export const ChooseWalletBox = ({ className }) => {
       id: "1",
       name: "Metamask",
       src: "/metamask-fox-wallet.svg",
-      connector: injected
+      connector: injected,
     },
     {
       id: "2",
       name: "Coinbase",
       src: "/coinbase-wallet.svg",
-      connector: coinbaseWallet
+      connector: coinbaseWallet,
     },
     {
       id: "3",
       name: "WalletConnect",
       src: "/walletconnect-wallet.svg",
-      connector: walletConnect
+      connector: walletConnect,
     },
   ];
 

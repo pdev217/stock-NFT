@@ -1,12 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
+//web3
 import { useWeb3React } from "@web3-react/core";
+//next
 import { useRouter } from "next/router";
+//redux
 import { close } from "../../redux/slices/logoutModalSlice";
 import { logout, setAccount } from "../../redux/slices/authorizationSlice";
+//mui
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+//components
 import { CustButton } from "../CustButton/CustButton";
+//styles
 import { style } from "./LogoutWindow.utils";
 
 export const LogoutWindow = () => {
