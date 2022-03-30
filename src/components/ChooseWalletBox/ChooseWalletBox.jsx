@@ -64,6 +64,7 @@ export const ChooseWalletBox = ({ className }) => {
   }, [account]);
 
   async function signMessage() {
+    try {
     const response = await axios.post(`${process.env.BACKEND_URL}/users/${account}`);
     const nonce = response.data.nonce;
     const msg = `I am signing my one-time nonce: ${nonce}`;
@@ -77,6 +78,9 @@ export const ChooseWalletBox = ({ className }) => {
         setConnected(false);
         console.log("Failure!" + (error && error.message ? `\n\n${error.message}` : ""));
       });
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const handleAuthenticate = async (signature) => {

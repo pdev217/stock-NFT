@@ -27,5 +27,5 @@
 }
 
 .down {
-	color: #FF3856;
+	color: var(--red);
 }

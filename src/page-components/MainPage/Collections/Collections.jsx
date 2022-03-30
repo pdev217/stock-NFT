@@ -21,10 +21,10 @@ export const Collections = () => {
       </div>
       {/* This is the title for SpecialAuctionNFTs division. It's located here because
       it must have background of the Collections division */}
-      {/* <div className={styles.autcionTitleAndButtonwrapper}>
+      <div className={styles.autcionTitleAndButtonwrapper}>
         <p className={styles.auctionTitle}>Special Auction NFTs</p>
         <CustButton text="Browse All" color="primary" />
-      </div> */}
+      </div>
     </div>
   );
 };
