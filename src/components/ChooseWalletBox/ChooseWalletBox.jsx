@@ -1,65 +1,76 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { open } from "../../redux/slices/errorSnackbarSlice";
 import { useDispatch, useSelector } from "react-redux";
 import cn from "classnames";
 import Image from "next/image";
 //style
 import styles from "./ChooseWalletBox.module.css";
-//web3/react
+//@web3/react
 import { useWeb3React } from "@web3-react/core";
 //connectors
 import { injected, coinbaseWallet, walletConnect } from "../../connectors";
-//redux
-import { setSelect } from "../../redux/slices/selectWalletSlice";
 import axios from 'axios'
+//redux
+import { login } from "../../redux/slices/authorizationSlice";
+//web3
+import Web3 from "web3";
 
 export const ChooseWalletBox = ({ className }) => {
-  const [flag, setFlag] = useState(false);
   const dispatch = useDispatch();
-  const { isSelect } = useSelector(state => state.selectWallet)
 
   const { activate, active, account, library } = useWeb3React();
+  const [isSelect, setIsSelect] = useState();
 
   const onConnect = async (connector, id) => {
-    dispatch(setSelect(true));
+    setIsSelect(true)
     if(id === "1") {
       if(!window.ethereum || !window.ethereum?.isMetaMask ) {
           dispatch(open("Please install Metamask Chrome extension")); 
-          dispatch(setSelect(false));
+          setIsSelect(false)
       }else {
         activate(connector)
         .catch((err) => {
-          dispatch(setSelect(false));
+          setIsSelect(false)
         })
       }
     }else {
       activate(connector)
       .then(() => dispatch(setSelect(false)))
       .catch((err) => {
-        dispatch(setSelect(false));
+        setIsSelect(false)
       })
     }
   }
 
-  async function signMessage() {
-    setFlag(true);
-    console.log("Account", account)
-    const response = await axios.post(`${process.env.BACKEND_URL}/users/${account}`);
-    const nonce = response.data.nonce;
-    const msg = `I am signing my one-time nonce: ${nonce}`;
-    console.log(library?.getSigner())
-    library?.getSigner(account).signMessage(msg).then((signature) => {
-      handleAuthenticate(signature)
-    })
-    .catch((error) => {
-      dispatch(setSelect(false))
-      console.log('Failure!' + (error && error.message ? `\n\n${error.message}` : ''))
-    })
+  const connect = async (connector, id) => {
+    await onConnect(connector, id)
+    signMessage()
   }
 
-  const connect = async (connector, id) => {
-    onConnect(connector, id)
+  const web3 = new Web3(Web3.givenProvider);
+
+  async function signMessage() {
+    const accounts = await web3.eth.getAccounts()
+    const response = await axios.post(`${process.env.BACKEND_URL}/users/${accounts[0]}`);
+    const nonce = response.data.nonce;
+    const msg = `I am signing my one-time nonce: ${nonce}`;
+
+    const signature = await web3.eth.personal.sign(
+      web3.utils.utf8ToHex(msg),
+      address,
+    )
+
+    handleAuthenticate(signature, accounts[0])
   }
+
+  const handleAuthenticate = async (signature, address) => {
+    const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
+      publicAddress: address,
+      signature,
+    });
+    localStorage.setItem("accessToken", tokenRes.data);
+    dispatch(login());
+  };
 
   const wallets = [
     {
@@ -82,15 +93,6 @@ export const ChooseWalletBox = ({ className }) => {
     },
   ];
 
-  useEffect(() => {
-    if(active && !flag)
-      signMessage();
-  },[])
-
-  useEffect(() => {
-    if(active && !flag)
-      signMessage();
-  },[account])
   return (
     <div className={className}>
       {wallets.map(({ id, src, name, connector }) => (
