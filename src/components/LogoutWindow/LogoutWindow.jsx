@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { CustButton } from "../CustButton/CustButton";
-import { style } from './LogoutWindow.utils'
+import { style } from "./LogoutWindow.utils";
 
 export const LogoutWindow = () => {
   const { isOpened } = useSelector((state) => state.logoutModal);
@@ -35,7 +35,12 @@ export const LogoutWindow = () => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography
+          sx={{ fontFamily: "Poppins, sans-serif" }}
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+        >
           Do you really want to log out?
         </Typography>
         <div style={{ display: "flex", justifyContent: "space-around", marginTop: "20px" }}>
