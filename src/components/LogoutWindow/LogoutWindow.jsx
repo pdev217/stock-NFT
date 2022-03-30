@@ -1,33 +1,29 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useWeb3React } from "@web3-react/core";
+import { useRouter } from "next/router";
 import { close } from "../../redux/slices/logoutModalSlice";
+import { logout, setAccount } from "../../redux/slices/authorizationSlice";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { CustButton } from "../CustButton/CustButton";
+import { style } from './LogoutWindow.utils'
 
 export const LogoutWindow = () => {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "#282829",
-    border: "2px solid #898D96",
-    borderRadius: '24px',
-    boxShadow: 24,
-    marginBottom: '20px',
-    textAlign: 'center',
-    color: 'white',
-    pt: 2,
-    px: 4,
-    pb: 3,
+  const { isOpened } = useSelector((state) => state.logoutModal);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { deactivate } = useWeb3React();
+
+  const handleClose = () => {
+    dispatch(close());
   };
 
-  const { isOpened } = useSelector((state) => state.logoutModal);
-  console.log('isOpened', isOpened)
-  const dispatch = useDispatch();
-  const handleClose = () => {
+  const handleLogout = () => {
+    deactivate();
+    dispatch(logout());
+    dispatch(setAccount(null));
+    router.push("/connect-wallet");
     dispatch(close());
   };
 
@@ -42,10 +38,9 @@ export const LogoutWindow = () => {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Do you really want to log out?
         </Typography>
-        <div style={{display: 'flex', justifyContent: 'space-around',  
-    marginTop: '20px',}}>
-          <CustButton color="primary" text="yes" />
-          <CustButton color="primary" text="no" />
+        <div style={{ display: "flex", justifyContent: "space-around", marginTop: "20px" }}>
+          <CustButton color="primary" onClick={handleLogout} text="yes" />
+          <CustButton color="primary" onClick={handleClose} text="no" />
         </div>
       </Box>
     </Modal>

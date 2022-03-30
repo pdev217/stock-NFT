@@ -3,28 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import cn from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import { useWeb3React } from "@web3-react/core";
-import { logout, setAccount } from "../../redux/slices/authorizationSlice";
+import { open as openLogout } from "../../redux/slices/logoutModalSlice";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { close } from "../../redux/slices/profilePopupSlice";
 import styles from "./ProfilePopup.module.css";
-import { useRouter } from "next/router";
 
 export const ProfilePopup = ({ categories, className }) => {
   const dispatch = useDispatch();
   const ref = useRef();
-  const router = useRouter();
-  const { deactivate } = useWeb3React();
 
-  const isAuthorized = useSelector((state) => {
-    return state.authorization.authorization.isAuthorized;
+  const { isAuthorized } = useSelector((state) => {
+    return state.authorization.authorization;
   });
 
   const handleLogout = () => {
-    deactivate();
-    dispatch(logout());
-    dispatch(setAccount(null));
-    router.push('/connect-wallet')
+    dispatch(openLogout());
   };
 
   const closePopup = () => {
