@@ -1,23 +1,7 @@
 import Button from "@mui/material/Button";
+import { styles } from "./CustButton.utils";
 
 export const CustButton = ({ text, onClick, color, className, disabled }) => {
-  const styles = {
-    height: "fit-content",
-    textTransform: "none",
-    background: "#617BFF 0% 0% no-repeat padding-box;",
-    color: "var(--white)",
-    boxShadow: "none",
-    borderRadius: "30px",
-    fontSize: "16px",
-    lineHeight: "33px",
-    letterSpacing: "0.8px",
-    paddingRight: "40px",
-    paddingLeft: "40px",
-    ":hover": {
-      backgroundColor: "rgb(82, 96, 227)",
-    },
-  };
-
   if (disabled) {
     return (
       <div className={className}>
@@ -25,7 +9,7 @@ export const CustButton = ({ text, onClick, color, className, disabled }) => {
           disabled
           sx={{
             ...styles,
-            "& .Mui-button-root .Mui-disabled": {
+            "&.Mui-disabled": {
               background: "var(--dark-grey) 0% 0% no-repeat padding-box",
               color: "var(--light-grey)",
             },

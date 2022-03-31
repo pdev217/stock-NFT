@@ -23,10 +23,10 @@ export const CreateNFTPage = () => {
     collection: "none",
     supply: "none",
     blockchain: "none",
-    freezeMetadata: "none"
+    freezeMetadata: "none",
   });
+  const [disabled, setDisabled] = useState(true);
   const muiClasses = useStyles();
-  console.log(muiClasses.select);
 
   const handleChange = (e, value) => {
     e.preventDefault();
@@ -141,9 +141,12 @@ export const CreateNFTPage = () => {
           </div>
         ))}
         {selects.slice(1).map(({ title, description, options, placeholder, id }) => (
-          <div className={cn(styles.section, {
-            [styles.sectionWithMarginTop]: title === 'Supply'
-          })} key={id}>
+          <div
+            className={cn(styles.section, {
+              [styles.sectionWithMarginTop]: title === "Supply",
+            })}
+            key={id}
+          >
             <div className={styles.title}>
               <span>{title}</span>
             </div>
@@ -172,8 +175,8 @@ export const CreateNFTPage = () => {
             </Select>
           </div>
         ))}
+        <CustButton color="primary" text="uyvivb" disabled={disabled} className={styles.button} />
       </div>
-      <CustButton color="primary" text="uyvivb" disabled />
     </div>
   );
 };
