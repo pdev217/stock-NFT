@@ -33,6 +33,7 @@ export const CreateNFTPage = () => {
     blockchain: "none",
     freezeMetadata: "none",
   });
+  console.log(values.file);
   const [disabledButton, setDisabledButton] = useState(true);
   const muiClasses = useStyles();
   const router = useRouter();
@@ -68,11 +69,16 @@ export const CreateNFTPage = () => {
     e.preventDefault();
 
     if (isFile) {
-      setValues({ ...values, [value]: e.target.files[0] });
+      const file = e.target.files[0];
+      setValues({ ...values, [value]: file });
     } else {
       setValues({ ...values, [value]: e.target.value });
     }
   };
+
+  const handleSave = () => {
+    
+  }
 
   const star = <span className={styles.star}>*</span>;
 
@@ -98,9 +104,6 @@ export const CreateNFTPage = () => {
               onChange={(e) => handleChange(e, "file", true)}
               accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
             />
-            <div className={styles.homeImage}>
-              <Image src="/create-nft/home.svg" alt="home-icon" layout="fill" />
-            </div>
           </div>
         </div>
         {textFields.map(({ title, description, required, label, multiline, id }) => (
@@ -223,7 +226,7 @@ export const CreateNFTPage = () => {
             </Select>
           </div>
         ))}
-        <CustButton color="primary" text="Save" disabled={disabledButton} className={styles.button} />
+        <CustButton color="primary" text="Save" disabled={false} onClick={handleSave} className={styles.button} />
       </div>
     </div>
   );
