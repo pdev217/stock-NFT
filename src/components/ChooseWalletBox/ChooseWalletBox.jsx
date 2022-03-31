@@ -73,7 +73,6 @@ export const ChooseWalletBox = ({ className }) => {
       publicAddress: address,
       signature,
     });
-    console.log(tokenRes)
     localStorage.setItem("accessToken", tokenRes.data.token);
     dispatch(login());
   };
