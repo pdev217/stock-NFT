@@ -7,12 +7,7 @@ import Image from "next/image";
 //axios
 import axios from "axios";
 //redux
-<<<<<<< HEAD
 import { useDispatch, useSelector } from "react-redux";
-=======
-import { useDispatch } from "react-redux";
-import { logout, setAccount, login } from "../../redux/slices/authorizationSlice";
->>>>>>> f22cc93cd5f8f3d8bc6d380a47d6b485ca7e45d4
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 //mui
 import TextField from "@mui/material/TextField";
@@ -57,52 +52,6 @@ export const CreateNFTPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-<<<<<<< HEAD
-=======
-  const verifyUser = async () => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      await axios
-        .get(`${process.env.BACKEND_URL}/auth/verifyUser`, {
-          headers: {
-            Authorization: "Bearer " + accessToken,
-          },
-        })
-        .then((result) => {
-          localStorage.setItem("accessToken", result.data.token);
-          dispatch(login());
-        });
-    } catch (e) {
-      dispatch(logout());
-      dispatch(setAccount(null));
-      router.push("/connect-wallet");
-      if (e.response) {
-        dispatch(openError(`${e.response.data.statusCode} ${e.response.data.message}`));
-      } else {
-        dispatch(openError(e.message));
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (
-      values.file &&
-      values.name &&
-      values.description &&
-      values.collection !== "None" &&
-      values.collection !== "none"
-    ) {
-      setDisabledButton(false);
-    } else {
-      setDisabledButton(true);
-    }
-  }, [values.file, values.name, values.collection, values.description]);
-
-  useEffect(() => {
-    verifyUser();
-  }, []);
-
->>>>>>> f22cc93cd5f8f3d8bc6d380a47d6b485ca7e45d4
   const handleChange = (e, value, isFile) => {
     e.preventDefault();
 
@@ -124,7 +73,6 @@ export const CreateNFTPage = () => {
     if(account) {
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner(account);
-      console.log(signer)
     }
   }, [account])
 
