@@ -52,6 +52,25 @@ export const CustButton = ({ text, onClick, color, className, disabled }) => {
           </Button>
         </div>
       );
-    case "disabled":
+    case "ghost":
+      return (
+        <div className={className}>
+          <Button
+            sx={{
+              ...styles,
+              background: "none",
+              color: 'var(--primary)',
+              ":hover": {
+                backgroundColor: "var(--primary)",
+                color: 'var(--white)'
+              },
+            }}
+            onClick={onClick}
+            variant="outlined"
+          >
+            {text}
+          </Button>
+        </div>
+      );
   }
 };

@@ -1,8 +1,8 @@
 export const styles = {
   height: "fit-content",
   textTransform: "none",
-  background: "#617BFF 0% 0% no-repeat padding-box;",
-  color: "var(--white)",
+  background: "var(--primary) 0% 0% no-repeat padding-box;",
+  color: "white",
   boxShadow: "none",
   borderRadius: "30px",
   fontSize: "16px",
