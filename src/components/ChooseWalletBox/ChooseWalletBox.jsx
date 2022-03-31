@@ -9,7 +9,7 @@ import styles from "./ChooseWalletBox.module.css";
 //@web3/react
 import { useWeb3React } from "@web3-react/core";
 //connectors
-import { injected, coinbaseWallet, walletConnect, SignMessage } from "../../connectors";
+import { injected, coinbaseWallet, walletConnect } from "../../connectors";
 import axios from 'axios'
 //redux
 import { login } from "../../redux/slices/authorizationSlice";
@@ -19,7 +19,6 @@ import Web3 from "web3";
 export const ChooseWalletBox = ({ className }) => {
   const dispatch = useDispatch();
   const { activate, active, library, account } = useWeb3React();
-  const [address, setAddress] = useState('');
   const [isSelect, setIsSelect] = useState();
   const { isAuthorized } = useSelector((state) => state.authorization.authorization);
   const router = useRouter();
