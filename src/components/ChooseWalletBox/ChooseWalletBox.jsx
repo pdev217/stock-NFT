@@ -1,91 +1,78 @@
 import { useEffect, useState } from "react";
-//redux
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/slices/authorizationSlice";
 import { open } from "../../redux/slices/errorSnackbarSlice";
-//next
-import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-//classnames
 import cn from "classnames";
+import Image from "next/image";
 //style
 import styles from "./ChooseWalletBox.module.css";
-//axios
-import axios from "axios";
-//web3/react
+//@web3/react
 import { useWeb3React } from "@web3-react/core";
 //connectors
-import { injected, coinbaseWallet, walletConnect } from "../../connectors";
-
-let i = 0;
+import { injected, coinbaseWallet, walletConnect, SignMessage } from "../../connectors";
+import axios from 'axios'
+//redux
+import { login } from "../../redux/slices/authorizationSlice";
+//web3
+import Web3 from "web3";
 
 export const ChooseWalletBox = ({ className }) => {
   const dispatch = useDispatch();
-  const router = useRouter();
-  const [connected, setConnected] = useState(false);
+  const { activate, active, library, account } = useWeb3React();
+  const [address, setAddress] = useState('');
+  const [isSelect, setIsSelect] = useState();
   const { isAuthorized } = useSelector((state) => state.authorization.authorization);
+  const router = useRouter();
 
-  const { activate, account, active, library } = useWeb3React();
-
-  const onConnect = (connector, id) => {
-    setConnected(true);
-    if (id === "1") {
-      if (!window.ethereum || !window.ethereum?.isMetaMask) {
-        console.log(id);
-        dispatch(open("Please install Metamask Chrome extension"));
-        setConnected(false);
-      } else {
-        activate(connector).catch((err) => {
-          setConnected(false);
-          console.log(err);
-        });
-      }
-    } else {
-      activate(connector)
-        .then(() => {
-          setConnected(false);
-        })
+  const onConnect = async (connector, id) => {
+    setIsSelect(true)
+    if(id === "1") {
+      if(!window.ethereum || !window.ethereum?.isMetaMask ) {
+          dispatch(open("Please install Metamask Chrome extension")); 
+          setIsSelect(false)
+      }else {
+        await activate(connector)
         .catch((err) => {
-          console.log(err);
-          setConnected(false);
-        });
-    }
-  };
-
-  useEffect(() => {
-    if (router.pathname === "/connect-wallet") {
-      if (account && i % 2 === 0) {
-        signMessage();
+          setIsSelect(false)
+        })
       }
-    } else {
-      signMessage();
-    }
-    i++;
-  }, [account]);
-
-  async function signMessage() {
-    try {
-    const response = await axios.post(`${process.env.BACKEND_URL}/users/${account}`);
-    const nonce = response.data.nonce;
-    const msg = `I am signing my one-time nonce: ${nonce}`;
-    library
-      ?.getSigner(account)
-      .signMessage(msg)
-      .then((signature) => {
-        handleAuthenticate(signature);
+    }else {
+      await activate(connector)
+      .then(() => dispatch(setSelect(false)))
+      .catch((err) => {
+        setIsSelect(false)
       })
-      .catch((error) => {
-        setConnected(false);
-        console.log("Failure!" + (error && error.message ? `\n\n${error.message}` : ""));
-      });
-    } catch (e) {
-      console.log(e)
     }
   }
 
-  const handleAuthenticate = async (signature) => {
+  let web3;
+
+  const connect = async (connector, id) => {
+    await onConnect(connector, id)
+    const provider = await connector.getProvider();
+    if(provider) {
+      web3 = new Web3(provider);
+      signMessage();
+    }
+  }
+
+  async function signMessage() {
+    const accounts = await web3.eth.getAccounts();
+    const response = await axios.post(`${process.env.BACKEND_URL}/users/${accounts[0]}`);
+    const nonce = response.data.nonce;
+    const msg = `I am signing my one-time nonce: ${nonce}`;
+
+    await web3.eth.personal.sign(
+      web3.utils.utf8ToHex(msg),
+      accounts[0],
+    ).then((signature) => {
+      handleAuthenticate(signature, accounts[0])
+    }).catch(err => setIsSelect(false))
+  }
+
+  const handleAuthenticate = async (signature, address) => {
     const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
-      publicAddress: account,
+      publicAddress: address,
       signature,
     });
     localStorage.setItem("accessToken", tokenRes.data);
@@ -96,26 +83,27 @@ export const ChooseWalletBox = ({ className }) => {
     if (isAuthorized) {
       router.push("/");
     }
-  }, [isAuthorized]);
+  }, [isAuthorized, router]);
+
 
   const wallets = [
     {
       id: "1",
       name: "Metamask",
       src: "/metamask-fox-wallet.svg",
-      connector: injected,
+      connector: injected
     },
     {
       id: "2",
       name: "Coinbase",
       src: "/coinbase-wallet.svg",
-      connector: coinbaseWallet,
+      connector: coinbaseWallet
     },
     {
       id: "3",
       name: "WalletConnect",
       src: "/walletconnect-wallet.svg",
-      connector: walletConnect,
+      connector: walletConnect
     },
   ];
 
@@ -125,8 +113,8 @@ export const ChooseWalletBox = ({ className }) => {
         <button
           key={id}
           className={cn(styles.wallet)}
-          disabled={connected}
-          onClick={() => onConnect(connector, id)}
+          onClick={() => connect(connector, id)}
+          disabled={isSelect}
         >
           <Image src={src} alt={name} height={31} width={31} />
           <p className={styles.walletName}>{name}</p>
