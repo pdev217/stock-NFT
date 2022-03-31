@@ -53,20 +53,26 @@
 
 .dragPlaceholder {
   border: 1px dashed #ffffff4d;
+  position: relative;
   border-radius: 30px;
   width: 100%;
   max-width: 400px;
   height: 200px;
   margin-bottom: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.uploadFileInput{
+  height: 100%;
+  width: 100%;
 }
 
 .homeImage {
   height: 40px;
   width: 48px;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .section {
