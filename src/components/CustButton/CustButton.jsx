@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 
-export const CustButton = ({ text, onClick, color, className }) => {
+export const CustButton = ({ text, onClick, color, className, disabled }) => {
   const styles = {
     height: "fit-content",
     textTransform: "none",
@@ -17,6 +17,29 @@ export const CustButton = ({ text, onClick, color, className }) => {
       backgroundColor: "rgb(82, 96, 227)",
     },
   };
+
+  if (disabled) {
+    return (
+      <div className={className}>
+        <Button
+          disabled
+          sx={{
+            ...styles,
+            "& .Mui-button-root .Mui-disabled": {
+              background: "var(--dark-grey) 0% 0% no-repeat padding-box",
+              color: "var(--light-grey)",
+            },
+            ":hover": {
+              backgroundColor: "var(--dark-grey)",
+            },
+          }}
+          variant="contained"
+        >
+          {text}
+        </Button>
+      </div>
+    );
+  }
 
   switch (color) {
     case "primary":
@@ -36,7 +59,7 @@ export const CustButton = ({ text, onClick, color, className }) => {
               background: "#DD0D2D 0% 0% no-repeat padding-box",
               ":hover": {
                 backgroundColor: "rgb(202, 10, 23)",
-              }
+              },
             }}
             onClick={onClick}
             variant="contained"
@@ -45,5 +68,6 @@ export const CustButton = ({ text, onClick, color, className }) => {
           </Button>
         </div>
       );
+    case "disabled":
   }
 };

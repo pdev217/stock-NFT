@@ -6,7 +6,10 @@
 }
 
 .contentWrapper {
-  width: 800px;
+  max-width: 840px;
+  width: 100%;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--dark-grey);
 }
 
 .mainTitle {
@@ -18,13 +21,24 @@
   margin: 40px 0;
 }
 
-.title {
+.title,
+.boldTitle {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: 16px;
   letter-spacing: 0.01px;
   color: var(--white);
   margin-bottom: 4px;
+}
+
+.name {
+  margin-bottom: 16px;
+}
+
+.boldTitle {
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.02px;
 }
 
 .star {
@@ -70,4 +84,46 @@
 .descriptionSection {
   color: white;
   margin-bottom: 24px;
+}
+
+.underlinedSection {
+  display: flex;
+  border-bottom: 1px solid var(--dark-grey);
+  padding: 21px 0;
+}
+
+.sectionWithMarginTop {
+  margin-top: 24px;
+}
+
+.underlinedSection .description {
+  margin-bottom: 0;
+}
+
+.fieldIcon {
+  position: relative;
+
+  height: 19px;
+  width: 19px;
+  margin-right: 12px;
+}
+
+.plus {
+  color: var(--primary);
+  height: 42px;
+  width: 42px;
+  background-color: var(--dark-grey);
+  font-size: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  border-radius: 9px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.switch {
+  margin-left: auto;
 }

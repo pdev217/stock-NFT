@@ -1,24 +1,29 @@
 import { useState } from "react";
+//classnames
+import cn from "classnames";
+//next
+import Image from "next/image";
 // mui
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
+//components
+import { CustSwitch } from "../../components/CustSwitch/CustSwitch";
 //utils
-import { useStyles, textFields, selects } from "./CreateNFTPage.utils";
+import { useStyles, textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
 //styles
 import styles from "./CreateNFTPage.module.css";
-import Image from "next/image";
+import { CustButton } from "../../components/CustButton/CustButton";
 
 export const CreateNFTPage = () => {
-  const [age, setAge] = useState("");
-  console.log(age);
   const [values, setValues] = useState({
     name: "",
     externalLink: "",
     description: "",
     collection: "none",
+    supply: "none",
+    blockchain: "none",
+    freezeMetadata: "none"
   });
   const muiClasses = useStyles();
   console.log(muiClasses.select);
@@ -53,7 +58,11 @@ export const CreateNFTPage = () => {
         </div>
         {textFields.map(({ title, description, required, label, multiline, id }) => (
           <div key={id} className={styles.section}>
-            <div className={styles.title}>
+            <div
+              className={cn(styles.title, {
+                [styles.name]: title === "Name",
+              })}
+            >
               <span>
                 {title} {required && star}
               </span>
@@ -81,28 +90,90 @@ export const CreateNFTPage = () => {
             />
           </div>
         ))}
-        <FormControl
-          sx={{
-            width: "100%",
-            color: "white",
-          }}
-        >
+        <div className={styles.section}>
+          <div className={styles.title}>
+            <span>{selects[0].title}</span>
+          </div>
+          <div className={styles.description}>
+            <span>{selects[0].description}</span>
+          </div>
           <Select
+            fullWidth
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
+            style={{
+              color: "white",
+            }}
             onChange={(e) => handleChange(e, "collection")}
             value={values.collection}
             className={muiClasses.select}
           >
-            <MenuItem disabled value="1">
-              <em>None</em>
+            <MenuItem disabled value="none">
+              <span style={{ color: "#FFFFFF4D" }}>{selects[0].placeholder}</span>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {selects[0].options.map(({ id, text }) => (
+              <MenuItem key={id} value={text}>
+                <span>{text}</span>
+              </MenuItem>
+            ))}
           </Select>
-        </FormControl>
+        </div>
+        {uploadAndSwitchFields.map(({ title, description, icon, type, id, defaultChecked }) => (
+          <div key={id} className={styles.underlinedSection}>
+            <div className={styles.fieldIcon}>
+              <Image src={icon} layout="fill" alt={title} />
+            </div>
+            <div className={styles.fieldsTitleDescriptionWrapper}>
+              <div className={styles.boldTitle}>
+                <span>{title}</span>
+              </div>
+              <div className={styles.description}>
+                <span>{description}</span>
+              </div>
+            </div>
+            {type === "add" ? (
+              <div className={styles.plus}>
+                <span>+</span>
+              </div>
+            ) : (
+              <CustSwitch className={styles.switch} defaultChecked={defaultChecked} />
+            )}
+          </div>
+        ))}
+        {selects.slice(1).map(({ title, description, options, placeholder, id }) => (
+          <div className={cn(styles.section, {
+            [styles.sectionWithMarginTop]: title === 'Supply'
+          })} key={id}>
+            <div className={styles.title}>
+              <span>{title}</span>
+            </div>
+            <div className={styles.description}>
+              <span>{description}</span>
+            </div>
+            <Select
+              fullWidth
+              labelId="demo-simple-select-filled-label"
+              id="demo-simple-select-filled"
+              style={{
+                color: "white",
+              }}
+              onChange={(e) => handleChange(e, id)}
+              value={values[id]}
+              className={muiClasses.select}
+            >
+              <MenuItem disabled value="none">
+                <span style={{ color: "#FFFFFF4D" }}>{placeholder}</span>
+              </MenuItem>
+              {options.map(({ id, text }) => (
+                <MenuItem key={id} value={text}>
+                  <span>{text}</span>
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
+        ))}
       </div>
+      <CustButton color="primary" text="uyvivb" disabled />
     </div>
   );
 };

@@ -26,24 +26,21 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   select: {
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline":
-      {
-        border: '2px solid var(--primary)'
-      },
-      "&.Mui-focused .MuiOutlinedInput-root":
-      {
-        border: '20px solid var(--primary)'
-      },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      border: "2px solid var(--primary)",
+    },
+    "&.Mui-focused .MuiOutlinedInput-root": {
+      border: "20px solid var(--primary)",
+    },
     "&.MuiOutlinedInput-root:hover fieldset": {
-      border: '1px solid grey',
+      border: "1px solid #FFFFFF4D",
       borderRadius: "7px",
     },
 
     "&.MuiOutlinedInput-root fieldset": {
-      border: '1px solid grey',
+      border: "1px solid #FFFFFF4D",
       borderRadius: "7px",
     },
-
   },
 }));
 
@@ -75,21 +72,34 @@ export const selects = [
   {
     title: "Collection",
     description: "This is the collection where your item will appear.",
-    label: "Select Collection",
-    options: [],
+    placeholder: "Select Collection",
+    options: [
+      {
+        id: "op1",
+        text: "Collection 1",
+      },
+      {
+        id: "op2",
+        text: "Collection 2",
+      },
+      {
+        id: "op3",
+        text: "None",
+      },
+    ],
     id: "collection",
   },
   {
     title: "Supply",
     description: "The number of items that can be minted. No gas cost to you!",
-    label: "Select Collection",
+    placeholder: "Select Collection",
     options: [],
     id: "supply",
   },
   {
     title: "Blockchain",
     description: "This is the collection where your item will appear.",
-    label: "Select Collection",
+    placeholder: "Select Collection",
     options: [],
     id: "blockchain",
   },
@@ -97,8 +107,47 @@ export const selects = [
     title: "Freeze Metadata",
     description:
       "Freezing your metadata will allow you to permanently lock and store all of this item’s content in decentralized file storage.",
-    label: "To freeze your metadata, you must create your item first.",
+    placeholder: "To freeze your metadata, you must create your item first.",
     options: [],
     id: "freezeMetadata",
+  },
+];
+
+export const uploadAndSwitchFields = [
+  {
+    title: "Properties",
+    description: "Textual traits that show up as rectangles",
+    icon: "/create-nft/Icon-Properties.svg",
+    type: "add",
+    id: "up1",
+  },
+  {
+    title: "Levels",
+    description: "Numerical traits that show as a progress bar",
+    icon: "/create-nft/Icon-Levels.svg",
+    type: "add",
+    id: "up2",
+  },
+  {
+    title: "Stats",
+    description: "Numerical traits that just show as numbers",
+    icon: "/create-nft/Icon-Stats.svg",
+    type: "add",
+    id: "up3",
+  },
+  {
+    title: "Unlockable Content",
+    description: "Include unlockable content that can only be revealed by the owner of the item.",
+    icon: "/create-nft/Icon-Unlockable.svg",
+    type: "switch",
+    id: "up4",
+    defaultChecked: true,
+  },
+  {
+    title: "Explicit & Sensitive Content",
+    description: "Set this item as explicit and sensitive content",
+    icon: "/create-nft/Icon-Explicit.svg",
+    type: "switch",
+    id: "up5",
   },
 ];
