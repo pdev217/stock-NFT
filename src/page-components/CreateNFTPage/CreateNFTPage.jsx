@@ -109,7 +109,7 @@ export const CreateNFTPage = () => {
             className={muiClasses.select}
           >
             <MenuItem disabled value="none">
-              <span style={{ color: "#FFFFFF4D" }}>{selects[0].placeholder}</span>
+              <span>{selects[0].placeholder}</span>
             </MenuItem>
             {selects[0].options.map(({ id, text }) => (
               <MenuItem key={id} value={text}>
@@ -144,6 +144,7 @@ export const CreateNFTPage = () => {
           <div
             className={cn(styles.section, {
               [styles.sectionWithMarginTop]: title === "Supply",
+              [styles.sectionWithBigMarginBottom]: title === "Freeze Metadata",
             })}
             key={id}
           >
@@ -165,7 +166,7 @@ export const CreateNFTPage = () => {
               className={muiClasses.select}
             >
               <MenuItem disabled value="none">
-                <span style={{ color: "#FFFFFF4D" }}>{placeholder}</span>
+                <span>{placeholder}</span>
               </MenuItem>
               {options.map(({ id, text }) => (
                 <MenuItem key={id} value={text}>
@@ -175,7 +176,7 @@ export const CreateNFTPage = () => {
             </Select>
           </div>
         ))}
-        <CustButton color="primary" text="uyvivb" disabled={disabled} className={styles.button} />
+        <CustButton color="primary" text="Save" disabled={disabled} className={styles.button} />
       </div>
     </div>
   );
