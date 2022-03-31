@@ -92,9 +92,21 @@
 }
 
 .underlinedSection {
-  display: flex;
   border-bottom: 1px solid var(--dark-grey);
   padding: 21px 0;
+}
+
+.underlinedSection > div:first-child {
+  display: flex;
+}
+
+.unlockableDisplayed {
+  display: block;
+  margin-top: 24px;
+}
+
+.unlockableAbsent {
+  display: none;
 }
 
 .sectionWithMarginTop {

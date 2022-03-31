@@ -39,6 +39,7 @@ export const CreateNFTPage = () => {
     freezeMetadata: "none",
   });
   const [disabledButton, setDisabledButton] = useState(true);
+  const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   const muiClasses = useStyles();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -61,15 +62,10 @@ export const CreateNFTPage = () => {
       dispatch(setAccount(null));
       router.push("/connect-wallet");
       if (e.response) {
-        dispatch(
-          openError(`${e.response.data.statusCode} ${e.response.data.message}`)
-        );
+        dispatch(openError(`${e.response.data.statusCode} ${e.response.data.message}`));
       } else {
-        dispatch(
-          openError(e.message)
-        );
+        dispatch(openError(e.message));
       }
-      
     }
   };
 
@@ -102,7 +98,6 @@ export const CreateNFTPage = () => {
         dispatch(openError(`The uploaded file must be smaller than 100 mb`));
       }
     } else {
-      console.log('---e.target.value', e.target.value)
       setValues({ ...values, [value]: e.target.value });
     }
   };
@@ -204,24 +199,60 @@ export const CreateNFTPage = () => {
         </div>
         {uploadAndSwitchFields.map(({ title, description, icon, type, id, defaultChecked }) => (
           <div key={id} className={styles.underlinedSection}>
-            <div className={styles.fieldIcon}>
-              <Image src={icon} layout="fill" alt={title} />
+            <div>
+              <div className={styles.fieldIcon}>
+                <Image src={icon} layout="fill" alt={title} />
+              </div>
+              <div className={styles.fieldsTitleDescriptionWrapper}>
+                <div className={styles.boldTitle}>
+                  <span>{title}</span>
+                </div>
+                <div className={styles.description}>
+                  <span>{description}</span>
+                </div>
+              </div>
+              {type === "add" ? (
+                <div className={styles.plus} onClick={() => {}}>
+                  <span>+</span>
+                </div>
+              ) : (
+                <CustSwitch
+                  className={styles.switch}
+                  defaultChecked={defaultChecked}
+                  onChange={(e) => setEnsabledUnlockable(e.target.checked)}
+                />
+              )}
             </div>
-            <div className={styles.fieldsTitleDescriptionWrapper}>
-              <div className={styles.boldTitle}>
-                <span>{title}</span>
+            {title === "Unlockable Content" && (
+              <div
+                className={cn(styles.unlockable, {
+                  // I definetly don't understand the reason, but in MUI Switch component
+                  // blue background stands for checked={false}
+                  // and the grey one - the opposite
+                  [styles.unlockableDisplayed]: enabledUnlockable,
+                  [styles.unlockableAbsent]: !enabledUnlockable,
+                })}
+              >
+                <div
+                  className={cn(styles.title, {
+                    [styles.name]: title === "Name",
+                  })}
+                ></div>
+                <TextField
+                  fullWidth
+                  id="Unlockable"
+                  label="Unlockable Content"
+                  variant="outlined"
+                  className={muiClasses.textField}
+                  value={values.unlockable}
+                  onChange={(e) => handleChange(e, "unlockable")}
+                  InputLabelProps={{
+                    style: { color: "#FFFFFF4D" },
+                  }}
+                  InputProps={{ style: { color: "white" } }}
+                  multiline
+                />
               </div>
-              <div className={styles.description}>
-                <span>{description}</span>
-              </div>
-            </div>
-            {type === "add" ? (
-              <div className={styles.plus} onClick={() => {}}>
-                <span>+</span>
-              </div>
-            ) : (
-              <CustSwitch className={styles.switch} defaultChecked={defaultChecked} 
-              onChange={(e) => handleChange(e, id)}/>
             )}
           </div>
         ))}
