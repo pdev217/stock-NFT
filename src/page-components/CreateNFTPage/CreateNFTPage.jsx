@@ -3,20 +3,21 @@ import { useState } from "react";
 import cn from "classnames";
 //next
 import Image from "next/image";
-// mui
+//mui
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 //components
 import { CustSwitch } from "../../components/CustSwitch/CustSwitch";
+import { CustButton } from "../../components/CustButton/CustButton";
 //utils
 import { useStyles, textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
 //styles
 import styles from "./CreateNFTPage.module.css";
-import { CustButton } from "../../components/CustButton/CustButton";
 
 export const CreateNFTPage = () => {
   const [values, setValues] = useState({
+    file: undefined,
     name: "",
     externalLink: "",
     description: "",
@@ -28,9 +29,14 @@ export const CreateNFTPage = () => {
   const [disabled, setDisabled] = useState(true);
   const muiClasses = useStyles();
 
-  const handleChange = (e, value) => {
+  const handleChange = (e, value, isFile) => {
     e.preventDefault();
-    setValues({ ...values, [value]: e.target.value });
+
+    if (isFile) {
+      setValues({ ...values, [value]: e.target.files[0] });
+    } else {
+      setValues({ ...values, [value]: e.target.value });
+    }
   };
 
   const star = <span className={styles.star}>*</span>;
@@ -51,6 +57,12 @@ export const CreateNFTPage = () => {
             </span>
           </div>
           <div className={styles.dragPlaceholder}>
+            <input
+              className={styles.uploadFileInput}
+              type="file"
+              onChange={(e) => handleChange(e, "file", true)}
+              accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
+            />
             <div className={styles.homeImage}>
               <Image src="/create-nft/home.svg" alt="home-icon" layout="fill" />
             </div>
@@ -109,7 +121,7 @@ export const CreateNFTPage = () => {
             className={muiClasses.select}
           >
             <MenuItem disabled value="none">
-              <span style={{ color: "#FFFFFF4D" }}>{selects[0].placeholder}</span>
+              <span>{selects[0].placeholder}</span>
             </MenuItem>
             {selects[0].options.map(({ id, text }) => (
               <MenuItem key={id} value={text}>
@@ -144,6 +156,7 @@ export const CreateNFTPage = () => {
           <div
             className={cn(styles.section, {
               [styles.sectionWithMarginTop]: title === "Supply",
+              [styles.sectionWithBigMarginBottom]: title === "Freeze Metadata",
             })}
             key={id}
           >
@@ -165,7 +178,7 @@ export const CreateNFTPage = () => {
               className={muiClasses.select}
             >
               <MenuItem disabled value="none">
-                <span style={{ color: "#FFFFFF4D" }}>{placeholder}</span>
+                <span>{placeholder}</span>
               </MenuItem>
               {options.map(({ id, text }) => (
                 <MenuItem key={id} value={text}>
@@ -175,7 +188,7 @@ export const CreateNFTPage = () => {
             </Select>
           </div>
         ))}
-        <CustButton color="primary" text="uyvivb" disabled={disabled} className={styles.button} />
+        <CustButton color="primary" text="Save" disabled={disabled} className={styles.button} />
       </div>
     </div>
   );

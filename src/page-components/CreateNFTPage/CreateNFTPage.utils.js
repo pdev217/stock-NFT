@@ -41,6 +41,9 @@ export const useStyles = makeStyles((theme) => ({
       border: "1px solid #FFFFFF4D",
       borderRadius: "7px",
     },
+    "&.Mui-disabled span": {
+      color: 'black'
+    }
   },
 }));
 
