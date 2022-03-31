@@ -11,18 +11,17 @@ import Image from "next/image";
 import { ProfilePopup } from "../../src/components/ProfilePopup/ProfilePopup";
 import { routingCategories, fakeProfilePopupCategories } from "./Header.utils";
 import styles from "./Header.module.css";
+//hook
+import useAuth  from "../../src/hooks/useAuth"
 
 const fakeChartData = new Array(15).fill({}, 0, 14).map(() => {
   return { name: "Page A", price: Math.random() * 100 };
 });
 
 export const Header = () => {
+  const { isAuthorized } = useAuth();
   const dispatch = useDispatch();
   const isProfilePopupOpened = useSelector((state) => state.profilePopup.profilePopup.isOpened);
-
-  const isAuthorized = useSelector((state) => {
-    return state.authorization.authorization.isAuthorized;
-  });
 
   const openProfilePopup = () => {
     dispatch(openProfilePopupReducer());

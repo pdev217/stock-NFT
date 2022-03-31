@@ -11,17 +11,16 @@ import { useWeb3React } from "@web3-react/core";
 //connectors
 import { injected, coinbaseWallet, walletConnect } from "../../connectors";
 import axios from "axios";
-//redux
-import { login } from "../../redux/slices/authorizationSlice";
 //web3
 import Web3 from "web3";
+//hook
+import useAuth from "../../hooks/useAuth";
 
 export const ChooseWalletBox = ({ className }) => {
   const dispatch = useDispatch();
   const { activate, active, library, account } = useWeb3React();
   const [isSelect, setIsSelect] = useState();
-  const { isAuthorized } = useSelector((state) => state.authorization.authorization);
-  const router = useRouter();
+  const { login } = useAuth();
 
   const onConnect = async (connector, id) => {
     setIsSelect(true);
@@ -69,19 +68,8 @@ export const ChooseWalletBox = ({ className }) => {
   }
 
   const handleAuthenticate = async (signature, address) => {
-    const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
-      publicAddress: address,
-      signature,
-    });
-    localStorage.setItem("accessToken", tokenRes.data.token);
-    dispatch(login());
+    await login(signature, address);
   };
-
-  useEffect(() => {
-    if (isAuthorized) {
-      router.push("/");
-    }
-  }, [isAuthorized, router]);
 
   const wallets = [
     {

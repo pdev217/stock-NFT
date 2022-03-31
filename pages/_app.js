@@ -1,4 +1,5 @@
 import { Web3ReactProvider } from '@web3-react/core';
+import { AuthProvider } from '../src/contexts/JWTContext';
 import { ethers } from "ethers";
 import "../styles/globals.css";
 
@@ -11,7 +12,9 @@ const getLibrary = (provider) => {
 function MyApp({ Component, pageProps }) {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </Web3ReactProvider>
     );
 }

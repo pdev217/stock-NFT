@@ -7,8 +7,7 @@ import Image from "next/image";
 //axios
 import axios from 'axios';
 //redux
-import { useDispatch } from "react-redux";
-import { logout, setAccount } from "../../redux/slices/authorizationSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 //mui
 import TextField from "@mui/material/TextField";
@@ -21,8 +20,17 @@ import { CustButton } from "../../components/CustButton/CustButton";
 import { useStyles, textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
 //styles
 import styles from "./CreateNFTPage.module.css";
+import { useWeb3React } from "@web3-react/core";
+//ethers
+import { ethers } from "ethers";
+//hook
+import useAuth from "../../hooks/useAuth";
 
 export const CreateNFTPage = () => {
+  const { active } = useWeb3React
+  const { account } = useAuth();
+  console.log(account)
+
   const [values, setValues] = useState({
     file: undefined,
     name: "",
@@ -33,37 +41,10 @@ export const CreateNFTPage = () => {
     blockchain: "none",
     freezeMetadata: "none",
   });
-  console.log(values.file);
   const [disabledButton, setDisabledButton] = useState(true);
   const muiClasses = useStyles();
   const router = useRouter();
   const dispatch = useDispatch();
-
-  const verifyUser = async () => {
-    try {
-      const accessToken = localStorage.getItem('accessToken');
-      console.log('accessToken', accessToken)
-      await axios
-        .get(`${process.env.BACKEND_URL}/auth/verifyUser`, {
-          headers: {
-            'Authorization': 'Bearer ' + accessToken,
-          },
-        })
-        .then((result) => {
-          console.log('result', result)
-          localStorage.setItem("accessToken", result.data.token);
-        });
-    } catch (e) {
-      dispatch(logout());
-      dispatch(setAccount(null));
-      router.push("/connect-wallet");
-      dispatch(openError(`${e.response.data.statusCode} ${e.response.data.message}`));
-    }
-  };
-
-  useEffect(() => {
-    verifyUser();
-  }, []);
 
   const handleChange = (e, value, isFile) => {
     e.preventDefault();
@@ -79,6 +60,14 @@ export const CreateNFTPage = () => {
   const handleSave = () => {
     
   }
+
+  useEffect(() => {
+    if(account) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner(account);
+      console.log(signer)
+    }
+  }, [account])
 
   const star = <span className={styles.star}>*</span>;
 

@@ -5,7 +5,6 @@ import { useWeb3React } from "@web3-react/core";
 import { useRouter } from "next/router";
 //redux
 import { close } from "../../redux/slices/logoutModalSlice";
-import { logout, setAccount } from "../../redux/slices/authorizationSlice";
 //mui
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -14,24 +13,22 @@ import Modal from "@mui/material/Modal";
 import { CustButton } from "../CustButton/CustButton";
 //styles
 import { style } from "./LogoutWindow.utils";
+//hook
+import useAuth from "../../hooks/useAuth";
 
 export const LogoutWindow = () => {
   const { isOpened } = useSelector((state) => state.logoutModal);
   const dispatch = useDispatch();
-  const router = useRouter();
   const { deactivate } = useWeb3React();
+  const { logout } = useAuth()
 
   const handleClose = () => {
     dispatch(close());
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     deactivate();
-    dispatch(logout());
-    dispatch(setAccount(null));
-    localStorage.removeItem('accessToken')
-    router.push("/connect-wallet");
-    dispatch(close());
+    await logout()
   };
 
   return (

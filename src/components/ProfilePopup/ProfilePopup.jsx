@@ -7,14 +7,13 @@ import { open as openLogout } from "../../redux/slices/logoutModalSlice";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { close } from "../../redux/slices/profilePopupSlice";
 import styles from "./ProfilePopup.module.css";
+import useAuth from "../../hooks/useAuth";
 
 export const ProfilePopup = ({ categories, className }) => {
   const dispatch = useDispatch();
   const ref = useRef();
 
-  const { isAuthorized } = useSelector((state) => {
-    return state.authorization.authorization;
-  });
+  const { isAuthorized } = useAuth();
 
   const handleLogout = () => {
     dispatch(openLogout());

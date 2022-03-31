@@ -10,15 +10,14 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { ChooseWalletBox } from "../ChooseWalletBox/ChooseWalletBox";
 import { MyWalletOptionsPopup } from "../MyWalletOptionsPopup/MyWalletOptionsPopup";
 import styles from "./WalletPopup.module.css";
+import useAuth from "../../hooks/useAuth";
 
 export const WalletPopup = ({ className }) => {
   const isMyWalletOptionsPopupOpened = useSelector(
     (state) => state.myWalletOptionsPopup.myWalletOptionsPopup.isOpened
   );
 
-  const isAuthorized = useSelector((state) => {
-    return state.authorization.authorization.isAuthorized;
-  });
+  const { isAuthorized } = useAuth()
 
   const dispatch = useDispatch();
   const ref = useRef();

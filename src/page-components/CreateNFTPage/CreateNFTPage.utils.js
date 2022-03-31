@@ -102,7 +102,7 @@ export const selects = [
   {
     title: "Blockchain",
     description: "This is the collection where your item will appear.",
-    placeholder: "Select Collection",
+    placeholder: "Select Blockchain",
     options: [],
     id: "blockchain",
   },
