@@ -10,7 +10,7 @@ import styles from "./ChooseWalletBox.module.css";
 import { useWeb3React } from "@web3-react/core";
 //connectors
 import { injected, coinbaseWallet, walletConnect } from "../../connectors";
-import axios from 'axios'
+import axios from "axios";
 //redux
 import { login } from "../../redux/slices/authorizationSlice";
 //web3
@@ -24,36 +24,35 @@ export const ChooseWalletBox = ({ className }) => {
   const router = useRouter();
 
   const onConnect = async (connector, id) => {
-    setIsSelect(true)
-    if(id === "1") {
-      if(!window.ethereum || !window.ethereum?.isMetaMask ) {
-          dispatch(open("Please install Metamask Chrome extension")); 
-          setIsSelect(false)
-      }else {
-        await activate(connector)
-        .catch((err) => {
-          setIsSelect(false)
-        })
+    setIsSelect(true);
+    if (id === "1") {
+      if (!window.ethereum || !window.ethereum?.isMetaMask) {
+        dispatch(open("Please install Metamask Chrome extension"));
+        setIsSelect(false);
+      } else {
+        await activate(connector).catch((err) => {
+          setIsSelect(false);
+        });
       }
-    }else {
+    } else {
       await activate(connector)
-      .then(() => dispatch(setSelect(false)))
-      .catch((err) => {
-        setIsSelect(false)
-      })
+        .then(() => dispatch(setSelect(false)))
+        .catch((err) => {
+          setIsSelect(false);
+        });
     }
-  }
+  };
 
   let web3;
 
   const connect = async (connector, id) => {
-    await onConnect(connector, id)
+    await onConnect(connector, id);
     const provider = await connector.getProvider();
-    if(provider) {
+    if (provider) {
       web3 = new Web3(provider);
       signMessage();
     }
-  }
+  };
 
   async function signMessage() {
     const accounts = await web3.eth.getAccounts();
@@ -61,12 +60,12 @@ export const ChooseWalletBox = ({ className }) => {
     const nonce = response.data.nonce;
     const msg = `I am signing my one-time nonce: ${nonce}`;
 
-    await web3.eth.personal.sign(
-      web3.utils.utf8ToHex(msg),
-      accounts[0],
-    ).then((signature) => {
-      handleAuthenticate(signature, accounts[0])
-    }).catch(err => setIsSelect(false))
+    await web3.eth.personal
+      .sign(web3.utils.utf8ToHex(msg), accounts[0])
+      .then((signature) => {
+        handleAuthenticate(signature, accounts[0]);
+      })
+      .catch((err) => setIsSelect(false));
   }
 
   const handleAuthenticate = async (signature, address) => {
@@ -74,7 +73,8 @@ export const ChooseWalletBox = ({ className }) => {
       publicAddress: address,
       signature,
     });
-    localStorage.setItem("accessToken", tokenRes.data);
+    console.log(tokenRes)
+    localStorage.setItem("accessToken", tokenRes.data.token);
     dispatch(login());
   };
 
@@ -84,25 +84,24 @@ export const ChooseWalletBox = ({ className }) => {
     }
   }, [isAuthorized, router]);
 
-
   const wallets = [
     {
       id: "1",
       name: "Metamask",
       src: "/metamask-fox-wallet.svg",
-      connector: injected
+      connector: injected,
     },
     {
       id: "2",
       name: "Coinbase",
       src: "/coinbase-wallet.svg",
-      connector: coinbaseWallet
+      connector: coinbaseWallet,
     },
     {
       id: "3",
       name: "WalletConnect",
       src: "/walletconnect-wallet.svg",
-      connector: walletConnect
+      connector: walletConnect,
     },
   ];
 

@@ -29,6 +29,7 @@ export const LogoutWindow = () => {
     deactivate();
     dispatch(logout());
     dispatch(setAccount(null));
+    localStorage.removeItem('accessToken')
     router.push("/connect-wallet");
     dispatch(close());
   };
