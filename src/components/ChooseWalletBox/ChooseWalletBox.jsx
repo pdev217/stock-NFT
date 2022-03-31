@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { open } from "../../redux/slices/errorSnackbarSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import cn from "classnames";
 import Image from "next/image";
 //style
@@ -8,7 +9,7 @@ import styles from "./ChooseWalletBox.module.css";
 //@web3/react
 import { useWeb3React } from "@web3-react/core";
 //connectors
-import { injected, coinbaseWallet, walletConnect } from "../../connectors";
+import { injected, coinbaseWallet, walletConnect, SignMessage } from "../../connectors";
 import axios from 'axios'
 //redux
 import { login } from "../../redux/slices/authorizationSlice";
@@ -17,9 +18,11 @@ import Web3 from "web3";
 
 export const ChooseWalletBox = ({ className }) => {
   const dispatch = useDispatch();
-
-  const { activate, active, account, library } = useWeb3React();
+  const { activate, active, library, account } = useWeb3React();
+  const [address, setAddress] = useState('');
   const [isSelect, setIsSelect] = useState();
+  const { isAuthorized } = useSelector((state) => state.authorization.authorization);
+  const router = useRouter();
 
   const onConnect = async (connector, id) => {
     setIsSelect(true)
@@ -28,13 +31,13 @@ export const ChooseWalletBox = ({ className }) => {
           dispatch(open("Please install Metamask Chrome extension")); 
           setIsSelect(false)
       }else {
-        activate(connector)
+        await activate(connector)
         .catch((err) => {
           setIsSelect(false)
         })
       }
     }else {
-      activate(connector)
+      await activate(connector)
       .then(() => dispatch(setSelect(false)))
       .catch((err) => {
         setIsSelect(false)
@@ -42,25 +45,29 @@ export const ChooseWalletBox = ({ className }) => {
     }
   }
 
+  let web3;
+
   const connect = async (connector, id) => {
     await onConnect(connector, id)
-    signMessage()
+    const provider = await connector.getProvider();
+    if(provider) {
+      web3 = new Web3(provider);
+      signMessage();
+    }
   }
 
-  const web3 = new Web3(Web3.givenProvider);
-
   async function signMessage() {
-    const accounts = await web3.eth.getAccounts()
+    const accounts = await web3.eth.getAccounts();
     const response = await axios.post(`${process.env.BACKEND_URL}/users/${accounts[0]}`);
     const nonce = response.data.nonce;
     const msg = `I am signing my one-time nonce: ${nonce}`;
 
-    const signature = await web3.eth.personal.sign(
+    await web3.eth.personal.sign(
       web3.utils.utf8ToHex(msg),
-      address,
-    )
-
-    handleAuthenticate(signature, accounts[0])
+      accounts[0],
+    ).then((signature) => {
+      handleAuthenticate(signature, accounts[0])
+    }).catch(err => setIsSelect(false))
   }
 
   const handleAuthenticate = async (signature, address) => {
@@ -71,6 +78,13 @@ export const ChooseWalletBox = ({ className }) => {
     localStorage.setItem("accessToken", tokenRes.data);
     dispatch(login());
   };
+
+  useEffect(() => {
+    if (isAuthorized) {
+      router.push("/");
+    }
+  }, [isAuthorized, router]);
+
 
   const wallets = [
     {

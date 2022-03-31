@@ -1,6 +1,7 @@
 import { WalletLinkConnector } from "@web3-react/walletlink-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { InjectedConnector } from "@web3-react/injected-connector";
+import { useWeb3React } from "@web3-react/core";
 
 const coinbaseWallet = new WalletLinkConnector({
     url: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
