@@ -53,6 +53,7 @@ export const textFields = [
     label: "Item name",
     required: true,
     id: "name",
+    maxLength: 100
   },
   {
     title: "External Link",
@@ -67,13 +68,16 @@ export const textFields = [
       "The description will be included on the item’s detail page underneath its image. Markdown syntax is supported.",
     label: "Provide a detail description of your item",
     multiline: true,
+    required: true,
     id: "description",
+    maxLength: 450
   },
 ];
 
 export const selects = [
   {
     title: "Collection",
+    required: true,
     description: "This is the collection where your item will appear.",
     placeholder: "Select Collection",
     options: [
@@ -122,28 +126,28 @@ export const uploadAndSwitchFields = [
     description: "Textual traits that show up as rectangles",
     icon: "/create-nft/Icon-Properties.svg",
     type: "add",
-    id: "up1",
+    id: "properties",
   },
   {
     title: "Levels",
     description: "Numerical traits that show as a progress bar",
     icon: "/create-nft/Icon-Levels.svg",
     type: "add",
-    id: "up2",
+    id: "levels",
   },
   {
     title: "Stats",
     description: "Numerical traits that just show as numbers",
     icon: "/create-nft/Icon-Stats.svg",
     type: "add",
-    id: "up3",
+    id: "stats",
   },
   {
     title: "Unlockable Content",
     description: "Include unlockable content that can only be revealed by the owner of the item.",
     icon: "/create-nft/Icon-Unlockable.svg",
     type: "switch",
-    id: "up4",
+    id: "unlockable",
     defaultChecked: true,
   },
   {
@@ -151,6 +155,7 @@ export const uploadAndSwitchFields = [
     description: "Set this item as explicit and sensitive content",
     icon: "/create-nft/Icon-Explicit.svg",
     type: "switch",
-    id: "up5",
+    id: "explicit",
   },
 ];
+

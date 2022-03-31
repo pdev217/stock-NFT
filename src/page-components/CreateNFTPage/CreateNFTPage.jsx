@@ -5,10 +5,10 @@ import cn from "classnames";
 import { useRouter } from "next/router";
 import Image from "next/image";
 //axios
-import axios from 'axios';
+import axios from "axios";
 //redux
 import { useDispatch } from "react-redux";
-import { logout, setAccount } from "../../redux/slices/authorizationSlice";
+import { logout, setAccount, login } from "../../redux/slices/authorizationSlice";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 //mui
 import TextField from "@mui/material/TextField";
@@ -29,11 +29,15 @@ export const CreateNFTPage = () => {
     externalLink: "",
     description: "",
     collection: "none",
+    properties: undefined,
+    levels: undefined,
+    stats: undefined,
+    unlockable: true,
+    explicit: false,
     supply: "none",
     blockchain: "none",
     freezeMetadata: "none",
   });
-  console.log(values.file);
   const [disabledButton, setDisabledButton] = useState(true);
   const muiClasses = useStyles();
   const router = useRouter();
@@ -41,25 +45,47 @@ export const CreateNFTPage = () => {
 
   const verifyUser = async () => {
     try {
-      const accessToken = localStorage.getItem('accessToken');
-      console.log('accessToken', accessToken)
+      const accessToken = localStorage.getItem("accessToken");
       await axios
         .get(`${process.env.BACKEND_URL}/auth/verifyUser`, {
           headers: {
-            'Authorization': 'Bearer ' + accessToken,
+            Authorization: "Bearer " + accessToken,
           },
         })
         .then((result) => {
-          console.log('result', result)
           localStorage.setItem("accessToken", result.data.token);
+          dispatch(login());
         });
     } catch (e) {
       dispatch(logout());
       dispatch(setAccount(null));
       router.push("/connect-wallet");
-      dispatch(openError(`${e.response.data.statusCode} ${e.response.data.message}`));
+      if (e.response) {
+        dispatch(
+          openError(`${e.response.data.statusCode} ${e.response.data.message}`)
+        );
+      } else {
+        dispatch(
+          openError(e.message)
+        );
+      }
+      
     }
   };
+
+  useEffect(() => {
+    if (
+      values.file &&
+      values.name &&
+      values.description &&
+      values.collection !== "None" &&
+      values.collection !== "none"
+    ) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
+  }, [values.file, values.name, values.collection, values.description]);
 
   useEffect(() => {
     verifyUser();
@@ -70,15 +96,18 @@ export const CreateNFTPage = () => {
 
     if (isFile) {
       const file = e.target.files[0];
-      setValues({ ...values, [value]: file });
+      if (file.size < 100000) {
+        setValues({ ...values, [value]: file });
+      } else {
+        dispatch(openError(`The uploaded file must be smaller than 100 mb`));
+      }
     } else {
+      console.log('---e.target.value', e.target.value)
       setValues({ ...values, [value]: e.target.value });
     }
   };
 
-  const handleSave = () => {
-    
-  }
+  const handleSave = () => {};
 
   const star = <span className={styles.star}>*</span>;
 
@@ -106,7 +135,7 @@ export const CreateNFTPage = () => {
             />
           </div>
         </div>
-        {textFields.map(({ title, description, required, label, multiline, id }) => (
+        {textFields.map(({ title, description, required, label, multiline, id, maxLength }) => (
           <div key={id} className={styles.section}>
             <div
               className={cn(styles.title, {
@@ -135,6 +164,9 @@ export const CreateNFTPage = () => {
               }}
               InputProps={{ style: { color: "white" } }}
               multiline={multiline}
+              inputProps={{
+                maxLength: maxLength || 524288,
+              }}
               minRows={multiline && 3}
               maxRows={multiline && 10}
             />
@@ -142,7 +174,9 @@ export const CreateNFTPage = () => {
         ))}
         <div className={styles.section}>
           <div className={styles.title}>
-            <span>{selects[0].title}</span>
+            <span>
+              {selects[0].title} {star}
+            </span>
           </div>
           <div className={styles.description}>
             <span>{selects[0].description}</span>
@@ -182,11 +216,12 @@ export const CreateNFTPage = () => {
               </div>
             </div>
             {type === "add" ? (
-              <div className={styles.plus}>
+              <div className={styles.plus} onClick={() => {}}>
                 <span>+</span>
               </div>
             ) : (
-              <CustSwitch className={styles.switch} defaultChecked={defaultChecked} />
+              <CustSwitch className={styles.switch} defaultChecked={defaultChecked} 
+              onChange={(e) => handleChange(e, id)}/>
             )}
           </div>
         ))}
@@ -226,7 +261,13 @@ export const CreateNFTPage = () => {
             </Select>
           </div>
         ))}
-        <CustButton color="primary" text="Save" disabled={false} onClick={handleSave} className={styles.button} />
+        <CustButton
+          color="primary"
+          text="Save"
+          disabled={disabledButton}
+          onClick={handleSave}
+          className={styles.button}
+        />
       </div>
     </div>
   );
