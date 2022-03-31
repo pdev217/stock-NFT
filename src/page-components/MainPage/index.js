@@ -40,11 +40,10 @@ export const MainPage = () => {
           localStorage.setItem("accessToken", result.data.token);
         });
     } catch (e) {
-      console.log(e);
       dispatch(logout());
       dispatch(setAccount(null));
       router.push("/connect-wallet");
-      dispatch(openError(e.message));
+      dispatch(openError(`${e.response.data.statusCode} ${e.response.data.message}`));
     }
   };
 
