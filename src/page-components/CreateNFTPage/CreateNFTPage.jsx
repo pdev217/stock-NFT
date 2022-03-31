@@ -226,9 +226,6 @@ export const CreateNFTPage = () => {
             {title === "Unlockable Content" && (
               <div
                 className={cn(styles.unlockable, {
-                  // I definetly don't understand the reason, but in MUI Switch component
-                  // blue background stands for checked={false}
-                  // and the grey one - the opposite
                   [styles.unlockableDisplayed]: enabledUnlockable,
                   [styles.unlockableAbsent]: !enabledUnlockable,
                 })}

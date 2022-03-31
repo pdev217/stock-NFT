@@ -13,3 +13,6 @@ Primary.args = { text: "A button", onClick: () => {}, color: "primary" };
 
 export const Red = Template.bind({});
 Red.args = { text: "A button", onClick: () => {}, color: "red" };
+
+export const Ghost = Template.bind({});
+Ghost.args = { text: "A button", onClick: () => {}, color: "ghost" };
