@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //classnames
 import cn from "classnames";
 //next
+import { useRouter } from "next/router";
 import Image from "next/image";
+//axios
+import axios from 'axios';
+//redux
+import { useDispatch } from "react-redux";
+import { logout, setAccount } from "../../redux/slices/authorizationSlice";
+import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 //mui
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
@@ -26,8 +33,36 @@ export const CreateNFTPage = () => {
     blockchain: "none",
     freezeMetadata: "none",
   });
-  const [disabled, setDisabled] = useState(true);
+  const [disabledButton, setDisabledButton] = useState(true);
   const muiClasses = useStyles();
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const verifyUser = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      console.log('accessToken', accessToken)
+      await axios
+        .get(`${process.env.BACKEND_URL}/auth/verifyUser`, {
+          headers: {
+            'Authorization': 'Bearer ' + accessToken,
+          },
+        })
+        .then((result) => {
+          console.log('result', result)
+          localStorage.setItem("accessToken", result.data.token);
+        });
+    } catch (e) {
+      dispatch(logout());
+      dispatch(setAccount(null));
+      router.push("/connect-wallet");
+      dispatch(openError(`${e.response.data.statusCode} ${e.response.data.message}`));
+    }
+  };
+
+  useEffect(() => {
+    verifyUser();
+  }, []);
 
   const handleChange = (e, value, isFile) => {
     e.preventDefault();
@@ -188,7 +223,7 @@ export const CreateNFTPage = () => {
             </Select>
           </div>
         ))}
-        <CustButton color="primary" text="Save" disabled={disabled} className={styles.button} />
+        <CustButton color="primary" text="Save" disabled={disabledButton} className={styles.button} />
       </div>
     </div>
   );

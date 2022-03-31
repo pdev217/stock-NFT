@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles({
   textField: {
     borderRadius: "7px",
     "& label.Mui-focused": {
@@ -45,7 +45,7 @@ export const useStyles = makeStyles((theme) => ({
       color: 'black'
     }
   },
-}));
+}, { name: "MuiCustomized" });
 
 export const textFields = [
   {
