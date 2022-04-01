@@ -1,139 +1,137 @@
-import { createContext, useEffect, useReducer } from 'react';
-import axios from 'axios';
+import { createContext, useEffect, useReducer } from "react";
+import axios from "axios";
 import { useRouter } from "next/router";
 
 const initialState = {
-    isAuthorized: false,
-    account: null,
+  isAuthorized: false,
+  account: null,
 };
 
 const handlers = {
-    INITIALIZE: (state, action) => {
-      const { isAuthorized, account } = action.payload;
-      return {
-        ...state,
-        isAuthorized,
-        account,
-      };
-    },
-    LOGIN: (state, action) => {
-      const { account }  = action.payload;
-      console.log(account)
-  
-      return {
-        ...state,
-        isAuthorized: true,
-        account,
-      };
-    },
-    LOGOUT: (state) => ({
+  INITIALIZE: (state, action) => {
+    const { isAuthorized, account } = action.payload;
+    return {
       ...state,
-      isAuthorized: false,
-      account: null,
-    }),
+      isAuthorized,
+      account,
+    };
+  },
+  LOGIN: (state, action) => {
+    const { account } = action.payload;
+    console.log(account);
+
+    return {
+      ...state,
+      isAuthorized: true,
+      account,
+    };
+  },
+  LOGOUT: (state) => ({
+    ...state,
+    isAuthorized: false,
+    account: null,
+  }),
 };
 
 const reducer = (state, action) => (handlers[action.type] ? handlers[action.type](state, action) : state);
 
 const AuthContext = createContext({
-    ...initialState,
-    method: 'jwt',
-    login: () => Promise.resolve(),
-    logout: () => Promise.resolve(),
+  ...initialState,
+  method: "jwt",
+  login: () => Promise.resolve(),
+  logout: () => Promise.resolve(),
 });
 
 const verifyUser = async (accessToken) => {
-    const result = await axios
-      .get(`${process.env.BACKEND_URL}/auth/verifyUser`, {
-        headers: {
-          'Authorization': 'Bearer ' + accessToken,
-        },
-      })
-  return result
+  const result = await axios.get(`${process.env.BACKEND_URL}/auth/verifyUser`, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  });
+  return result;
 };
 
-function AuthProvider({children}) {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const router = useRouter();
+function AuthProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const router = useRouter();
 
-    useEffect(() => {
-        const initialize = async () => {  
-          try {
-            const accessToken = localStorage.getItem('accessToken');
-            const account = localStorage.getItem('account');
-            const isValid = await verifyUser(accessToken)
+  useEffect(() => {
+    const initialize = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        const account = localStorage.getItem("account");
+        const isValid = await verifyUser(accessToken);
 
-            if(accessToken && isValid?.data?.token) {
-              dispatch({
-                type: 'INITIALIZE',
-                payload: {
-                  isAuthorized: true,
-                  account,
-                },
-              });
-            }else {
-              dispatch({
-                type: 'INITIALIZE',
-                payload: {
-                  isAuthorized: false,
-                  account: null,
-                },
-              });
-              router.push('/connect-wallet')
-            }
-          }catch (err) {
-            console.error(err);
-            dispatch({
-              type: 'INITIALIZE',
-              payload: {
-                isAuthorized: false,
-                account: null,
-              },
-            });
-          }
-        }
-
-        initialize()
-
-    }, [])
-
-    const login = async (signature, account) => {
-        const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
-            publicAddress: account,
-            signature,
-        });
-
-        localStorage.setItem("accessToken", tokenRes.data.token);
-        localStorage.setItem("account", account);
-
-        dispatch({
-            type: 'LOGIN',
+        if (accessToken && isValid?.data?.token) {
+          dispatch({
+            type: "INITIALIZE",
             payload: {
-                account,
+              isAuthorized: true,
+              account,
             },
+          });
+        } else {
+          dispatch({
+            type: "INITIALIZE",
+            payload: {
+              isAuthorized: false,
+              account: null,
+            },
+          });
+          router.push("/connect-wallet");
+        }
+      } catch (err) {
+        console.error(err);
+        dispatch({
+          type: "INITIALIZE",
+          payload: {
+            isAuthorized: false,
+            account: null,
+          },
         });
-        router.push('/')
-    }
-
-    const logout = async () => {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem("account");
-      dispatch({ type: 'LOGOUT' });
-      router.push('/connect-wallet')
+      }
     };
 
-    return (
-        <AuthContext.Provider
-          value={{
-            ...state,
-            method: 'jwt',
-            login,
-            logout,
-          }}
-        >
-          {children}
-        </AuthContext.Provider>
-      );
+    initialize();
+  }, []);
+
+  const login = async (signature, account) => {
+    const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
+      publicAddress: account,
+      signature,
+    });
+
+    localStorage.setItem("accessToken", tokenRes.data.token);
+    localStorage.setItem("account", account);
+
+    dispatch({
+      type: "LOGIN",
+      payload: {
+        account,
+      },
+    });
+    router.push("/");
+  };
+
+  const logout = async () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("account");
+    dispatch({ type: "LOGOUT" });
+    router.push("/connect-wallet");
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        ...state,
+        method: "jwt",
+        login,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
-export { AuthContext, AuthProvider}
+export { AuthContext, AuthProvider };
