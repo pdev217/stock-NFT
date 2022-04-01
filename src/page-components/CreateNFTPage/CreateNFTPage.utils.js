@@ -27,7 +27,7 @@ export const useStyles = makeStyles(
       },
     },
     icon: {
-      fill: 'var(--light-grey)',
+      fill: "var(--light-grey)",
     },
     select: {
       "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
@@ -38,15 +38,63 @@ export const useStyles = makeStyles(
       },
       "&.MuiOutlinedInput-root:hover fieldset": {
         border: "1px solid #FFFFFF4D",
-        borderRadius: "7px 0 0 7px",
+        borderRadius: "7px",
       },
 
       "&.MuiOutlinedInput-root fieldset": {
         border: "1px solid #FFFFFF4D",
-        borderRadius: "7px 0 0 7px",
+        borderRadius: "7px",
       },
       "&.Mui-disabled span": {
         color: "black",
+      },
+    },
+    textFieldLeftHalf: {
+      borderRadius: "7px 0 0 7px",
+      "& label.Mui-focused": {
+        color: "white",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "yellow",
+        borderRadius: "7px 0 0 7px",
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "#FFFFFF4D",
+          borderRadius: "7px 0 0 7px",
+        },
+        "&:hover fieldset": {
+          borderColor: "#FFFFFF4D",
+          borderRadius: "7px 0 0 7px",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "var(--primary)",
+          borderRadius: "7px 0 0 7px",
+        },
+      },
+    },
+    textFieldRightHalf: {
+      borderRadius: "0 7px 7px 0",
+      "& label.Mui-focused": {
+        color: "white",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "yellow",
+        borderRadius: "0 7px 7px 0",
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "#FFFFFF4D",
+          borderRadius: "0 7px 7px 0",
+        },
+        "&:hover fieldset": {
+          borderColor: "#FFFFFF4D",
+          borderRadius: "0 7px 7px 0",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "var(--primary)",
+          borderRadius: "0 7px 7px 0",
+        },
       },
     },
   },
