@@ -6,7 +6,6 @@ import Modal from "@mui/material/Modal";
 import { CustButton } from "../../components/CustButton/CustButton";
 import { Row } from "./Row";
 //styles
-import { useStyles } from "../../page-components/CreateNFTPage/CreateNFTPage.utils";
 import { styles as jsStyles } from "./AddStatsModal.utils";
 import cssStyles from "./AddStatsModal.module.css";
 
