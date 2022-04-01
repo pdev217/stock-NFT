@@ -1,51 +1,57 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export const useStyles = makeStyles({
-  textField: {
-    borderRadius: "7px",
-    "& label.Mui-focused": {
-      color: "white",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "yellow",
+export const useStyles = makeStyles(
+  {
+    textField: {
       borderRadius: "7px",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#FFFFFF4D",
+      "& label.Mui-focused": {
+        color: "white",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "yellow",
         borderRadius: "7px",
       },
-      "&:hover fieldset": {
-        borderColor: "#FFFFFF4D",
-        borderRadius: "7px",
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "#FFFFFF4D",
+          borderRadius: "7px",
+        },
+        "&:hover fieldset": {
+          borderColor: "#FFFFFF4D",
+          borderRadius: "7px",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "var(--primary)",
+          borderRadius: "7px",
+        },
       },
-      "&.Mui-focused fieldset": {
-        borderColor: "var(--primary)",
-        borderRadius: "7px",
+    },
+    icon: {
+      fill: 'var(--light-grey)',
+    },
+    select: {
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        border: "2px solid var(--primary)",
       },
-    },
-  },
-  select: {
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      border: "2px solid var(--primary)",
-    },
-    "&.Mui-focused .MuiOutlinedInput-root": {
-      border: "20px solid var(--primary)",
-    },
-    "&.MuiOutlinedInput-root:hover fieldset": {
-      border: "1px solid #FFFFFF4D",
-      borderRadius: "7px",
-    },
+      "&.Mui-focused .MuiOutlinedInput-root": {
+        border: "2px solid var(--primary)",
+      },
+      "&.MuiOutlinedInput-root:hover fieldset": {
+        border: "1px solid #FFFFFF4D",
+        borderRadius: "7px 0 0 7px",
+      },
 
-    "&.MuiOutlinedInput-root fieldset": {
-      border: "1px solid #FFFFFF4D",
-      borderRadius: "7px",
+      "&.MuiOutlinedInput-root fieldset": {
+        border: "1px solid #FFFFFF4D",
+        borderRadius: "7px 0 0 7px",
+      },
+      "&.Mui-disabled span": {
+        color: "black",
+      },
     },
-    "&.Mui-disabled span": {
-      color: 'black'
-    }
   },
-}, { name: "MuiCustomized" });
+  { name: "MuiCustomized" }
+);
 
 export const textFields = [
   {
@@ -53,7 +59,7 @@ export const textFields = [
     label: "Item name",
     required: true,
     id: "name",
-    maxLength: 100
+    maxLength: 100,
   },
   {
     title: "External Link",
@@ -70,7 +76,7 @@ export const textFields = [
     multiline: true,
     required: true,
     id: "description",
-    maxLength: 450
+    maxLength: 450,
   },
 ];
 
@@ -158,4 +164,3 @@ export const uploadAndSwitchFields = [
     id: "explicit",
   },
 ];
-

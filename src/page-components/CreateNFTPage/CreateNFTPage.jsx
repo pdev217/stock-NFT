@@ -2,12 +2,9 @@ import { useState, useEffect } from "react";
 //classnames
 import cn from "classnames";
 //next
-import { useRouter } from "next/router";
 import Image from "next/image";
-//axios
-import axios from "axios";
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 //mui
 import TextField from "@mui/material/TextField";
@@ -16,20 +13,21 @@ import MenuItem from "@mui/material/MenuItem";
 //components
 import { CustSwitch } from "../../components/CustSwitch/CustSwitch";
 import { CustButton } from "../../components/CustButton/CustButton";
+import { AddStatsModal } from "../../modals/AddStatsModal/AddStatsModal";
 //utils
 import { useStyles, textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
 //styles
 import styles from "./CreateNFTPage.module.css";
+//web3
 import { useWeb3React } from "@web3-react/core";
 //ethers
 import { ethers } from "ethers";
-//hook
+//hooks
 import useAuth from "../../hooks/useAuth";
 
 export const CreateNFTPage = () => {
-  const { active } = useWeb3React
+  const { active } = useWeb3React;
   const { account } = useAuth();
-  console.log(account)
 
   const [values, setValues] = useState({
     file: undefined,
@@ -37,10 +35,10 @@ export const CreateNFTPage = () => {
     externalLink: "",
     description: "",
     collection: "none",
-    properties: undefined,
-    levels: undefined,
-    stats: undefined,
-    unlockable: true,
+    properties: [],
+    levels: [],
+    stats: [],
+    unlockable: "",
     explicit: false,
     supply: "none",
     blockchain: "none",
@@ -48,33 +46,49 @@ export const CreateNFTPage = () => {
   });
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
+  const [isModalOpened, setIsModalOpened] = useState(false);
   const muiClasses = useStyles();
-  const router = useRouter();
   const dispatch = useDispatch();
 
-  const handleChange = (e, value, isFile) => {
+  const handleChange = (e, value, type) => {
     e.preventDefault();
 
-    if (isFile) {
-      const file = e.target.files[0];
-      if (file.size < 100000) {
-        setValues({ ...values, [value]: file });
-      } else {
-        dispatch(openError(`The uploaded file must be smaller than 100 mb`));
-      }
-    } else {
-      setValues({ ...values, [value]: e.target.value });
+    switch (type) {
+      case "string":
+        setValues({ ...values, [value]: e.target.value });
+      case "file":
+        const file = e.target.files[0];
+        if (file.size < 100000000) {
+          setValues({ ...values, [value]: file });
+        } else {
+          dispatch(openError(`The uploaded file must be smaller than 100 mb`));
+        }
+      case "array":
     }
   };
 
   const handleSave = () => {};
 
   useEffect(() => {
-    if(account) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
+    if (
+      values.file &&
+      values.name &&
+      values.description &&
+      values.collection !== "none" &&
+      values.collection !== "None"
+    ) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
+  }, [values.file, values.name, values.description, values.collection]);
+
+  useEffect(() => {
+    if (account) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner(account);
     }
-  }, [account])
+  }, [account]);
 
   const star = <span className={styles.star}>*</span>;
 
@@ -97,7 +111,7 @@ export const CreateNFTPage = () => {
             <input
               className={styles.uploadFileInput}
               type="file"
-              onChange={(e) => handleChange(e, "file", true)}
+              onChange={(e) => handleChange(e, "file", "file")}
               accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
             />
           </div>
@@ -125,7 +139,7 @@ export const CreateNFTPage = () => {
               variant="outlined"
               className={muiClasses.textField}
               value={values[id]}
-              onChange={(e) => handleChange(e, id)}
+              onChange={(e) => handleChange(e, id, "string")}
               InputLabelProps={{
                 style: { color: "#FFFFFF4D" },
               }}
@@ -155,12 +169,12 @@ export const CreateNFTPage = () => {
             style={{
               color: "white",
             }}
-            onChange={(e) => handleChange(e, "collection")}
+            onChange={(e) => handleChange(e, "collection", "string")}
             value={values.collection}
             className={muiClasses.select}
           >
             <MenuItem disabled value="none">
-              <span>{selects[0].placeholder}</span>
+              <span style={{ color: "var(--light-grey)" }}>{selects[0].placeholder}</span>
             </MenuItem>
             {selects[0].options.map(({ id, text }) => (
               <MenuItem key={id} value={text}>
@@ -210,16 +224,18 @@ export const CreateNFTPage = () => {
                 <TextField
                   fullWidth
                   id="Unlockable"
-                  label="Unlockable Content"
+                  label="Provide a detail description of your item"
                   variant="outlined"
                   className={muiClasses.textField}
                   value={values.unlockable}
-                  onChange={(e) => handleChange(e, "unlockable")}
+                  onChange={(e) => handleChange(e, "unlockable", "string")}
                   InputLabelProps={{
                     style: { color: "#FFFFFF4D" },
                   }}
                   InputProps={{ style: { color: "white" } }}
                   multiline
+                  minRows={3}
+                  maxRows={10}
                 />
               </div>
             )}
@@ -246,12 +262,12 @@ export const CreateNFTPage = () => {
               style={{
                 color: "white",
               }}
-              onChange={(e) => handleChange(e, id)}
+              onChange={(e) => handleChange(e, id, "string")}
               value={values[id]}
               className={muiClasses.select}
             >
               <MenuItem disabled value="none">
-                <span>{placeholder}</span>
+                <span style={{ color: "var(--light-grey)" }}>{placeholder}</span>
               </MenuItem>
               {options.map(({ id, text }) => (
                 <MenuItem key={id} value={text}>
@@ -268,6 +284,7 @@ export const CreateNFTPage = () => {
           onClick={handleSave}
           className={styles.button}
         />
+        <AddStatsModal isModalOpened={true} setIsModalOpened={setIsModalOpened} />
       </div>
     </div>
   );

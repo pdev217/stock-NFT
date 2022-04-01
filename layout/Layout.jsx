@@ -7,7 +7,7 @@ import { Footer } from "./Footer/Footer";
 import styles from "./Layout.module.css";
 import { WalletPopup } from "../src/components/WalletPopup/WalletPopup";
 import { ErrorSnackbar } from "../src/components/ErrorSnackbar/ErrorSnackbar";
-import { LogoutWindow } from "../src/components/LogoutWindow/LogoutWindow";
+import { LogoutWindow } from "../src/modals/LogoutWindow/LogoutWindow";
 
 const Layout = ({ children, isFooterDisplayed }) => {
   const isWalletPopupOpened = useSelector((state) => state.walletPopup.walletPopup.isOpened);

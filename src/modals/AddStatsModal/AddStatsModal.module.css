@@ -1,0 +1,63 @@
+.section {
+  padding: 0 24px;
+  display: flex;
+}
+
+.fieldsWrapper {
+  width: 100%;
+}
+
+.cross {
+    margin-left: auto;
+}
+
+.titles {
+  display: flex;
+}
+
+.titles > div:first-child {
+  width: calc(40% + 16px);
+}
+
+.row {
+  display: flex;
+}
+
+.select {
+  width: 45%;
+  display: flex;
+  margin-top: 16px;
+}
+
+.of {
+  width: 42px;
+  border-top: 1px solid #ffffff4d;
+  border-bottom: 1px solid #ffffff4d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  color: var(--light-grey);
+}
+
+.endOfSelect {
+  width: 42%;
+  border: 1px solid #ffffff4d;
+  border-radius: 0 7px 7px 0;
+  display: flex;
+  padding-left: 16px;
+  align-items: center;
+  color: var(--white);
+}
+
+.crossBox {
+    margin-top: 16px;
+    width: 59px;
+    height: 59px;
+    border: 1px solid #FFFFFF4D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+}
