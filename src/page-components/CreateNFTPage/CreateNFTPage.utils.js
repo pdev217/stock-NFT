@@ -193,6 +193,20 @@ export const uploadAndSwitchFields = [
     title: "Stats",
     description: "Numerical traits that just show as numbers",
     icon: "/create-nft/Icon-Stats.svg",
+    data: [
+      {
+        name: 'speed',
+        value: 5,
+        maxValue: 7,
+        id: '1'
+      },
+      {
+        name: 'height',
+        value: 1,
+        maxValue: 10,
+        id: '2'
+      },
+    ],
     type: "add",
     id: "stats",
   },

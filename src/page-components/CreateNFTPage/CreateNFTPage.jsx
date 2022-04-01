@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 //components
 import { CustSwitch } from "../../components/CustSwitch/CustSwitch";
 import { CustButton } from "../../components/CustButton/CustButton";
-import { AddStatsModal } from "../../modals/AddStatsModal/AddStatsModal";
+import { AddStatsOrLevelsModal } from "../../modals/AddStatsOrLevelsModal/AddStatsOrLevelsModal";
 //utils
 import { useStyles, textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
 //styles
@@ -24,6 +24,7 @@ import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 //hooks
 import useAuth from "../../hooks/useAuth";
+import { Stat } from "../../components/Stat/Stat";
 
 export const CreateNFTPage = () => {
   const { active } = useWeb3React;
@@ -44,9 +45,12 @@ export const CreateNFTPage = () => {
     blockchain: "none",
     freezeMetadata: "none",
   });
+
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isAddStatsOpened, setIsAddStatsOpened] = useState(false);
+  const [isAddLevelsOpened, setIsAddLevelsOpened] = useState(false);
+
   const muiClasses = useStyles();
   const dispatch = useDispatch();
 
@@ -64,6 +68,17 @@ export const CreateNFTPage = () => {
           dispatch(openError(`The uploaded file must be smaller than 100 mb`));
         }
       case "array":
+    }
+  };
+
+  const handleOpenPopup = (type) => {
+    switch (type) {
+      case "stats":
+        setIsAddStatsOpened(true);
+        break;
+      case "levels":
+        setIsAddLevelsOpened(true);
+        break;
     }
   };
 
@@ -183,7 +198,7 @@ export const CreateNFTPage = () => {
             ))}
           </Select>
         </div>
-        {uploadAndSwitchFields.map(({ title, description, icon, type, id, defaultChecked }) => (
+        {uploadAndSwitchFields.map(({ title, description, icon, type, id, data, defaultChecked }) => (
           <div key={id} className={styles.underlinedSection}>
             <div>
               <div className={styles.fieldIcon}>
@@ -198,14 +213,14 @@ export const CreateNFTPage = () => {
                 </div>
               </div>
               {type === "add" ? (
-                <div className={styles.plus} onClick={() => {}}>
+                <div className={styles.plus} onClick={() => handleOpenPopup(id)}>
                   <span>+</span>
                 </div>
               ) : (
                 <CustSwitch
                   className={styles.switch}
                   defaultChecked={defaultChecked}
-                  onChange={(e) => setEnsabledUnlockable(e.target.checked)}
+                  onChange={(e) => id === "unlockable" && setEnsabledUnlockable(e.target.checked)}
                 />
               )}
             </div>
@@ -239,6 +254,10 @@ export const CreateNFTPage = () => {
                 />
               </div>
             )}
+            {id === "stats" &&
+              data.map(({ name, value, maxValue, id }) => (
+                <Stat key={id} name={name} value={value} maxValue={maxValue} />
+              ))}
           </div>
         ))}
         {selects.slice(1).map(({ title, description, options, placeholder, id }) => (
@@ -284,7 +303,18 @@ export const CreateNFTPage = () => {
           onClick={handleSave}
           className={styles.button}
         />
-        <AddStatsModal isModalOpened={true} setIsModalOpened={setIsModalOpened} />
+        <AddStatsOrLevelsModal
+          title="Add Stats"
+          description="Stats show up underneath your item, are clickable, and can be filtered in your collection’s sidebar."
+          isModalOpened={isAddStatsOpened}
+          setIsModalOpened={setIsAddStatsOpened}
+        />
+        <AddStatsOrLevelsModal
+          title="Add Levels"
+          description="Levels show up underneath your item, are clickable, and can be filtered in your collection's sidebar."
+          isModalOpened={isAddLevelsOpened}
+          setIsModalOpened={setIsAddLevelsOpened}
+        />
       </div>
     </div>
   );

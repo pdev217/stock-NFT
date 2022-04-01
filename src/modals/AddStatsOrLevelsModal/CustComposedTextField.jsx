@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 //mui
 import TextField from "@mui/material/TextField";
 //styles
-import cssStyles from "./AddStatsModal.module.css";
+import cssStyles from "./AddStatsOrLevelsModal.module.css";
 import { useStyles } from "../../page-components/CreateNFTPage/CreateNFTPage.utils";
 
 export const CustComposedTextField = ({ value, max }) => {
