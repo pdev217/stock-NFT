@@ -77,6 +77,10 @@
 	background-position: center;
 }
 
+.dragPlaceholder:hover {
+	background-color: var(--dark-grey);
+}
+
 .uploadFileInput {
 	width: 100%;
 	height: 100%;
@@ -144,6 +148,11 @@
 
 	height: 19px;
 	margin-right: 12px;
+}
+
+.propertiesWrapper {
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .plus {

@@ -179,6 +179,38 @@ export const uploadAndSwitchFields = [
     title: "Properties",
     description: "Textual traits that show up as rectangles",
     icon: "/create-nft/Icon-Properties.svg",
+    data: [
+      {
+        type: 'speed',
+        name: 'fast',
+        id: '1'
+      },
+      {
+        type: 'height',
+        name: 'Tall',
+        id: '2'
+      },
+      {
+        type: 'wealth',
+        name: 'Very very very very rich',
+        id: '3'
+      },
+      {
+        type: 'speed',
+        name: 'fast',
+        id: '4'
+      },
+      {
+        type: 'height',
+        name: 'Tall',
+        id: '5'
+      },
+      {
+        type: 'wealth',
+        name: 'Very very very very rich',
+        id: '6'
+      },
+    ],
     type: "add",
     id: "properties",
   },
@@ -186,6 +218,20 @@ export const uploadAndSwitchFields = [
     title: "Levels",
     description: "Numerical traits that show as a progress bar",
     icon: "/create-nft/Icon-Levels.svg",
+    data: [
+      {
+        name: 'speed',
+        value: 5,
+        maxValue: 7,
+        id: '1'
+      },
+      {
+        name: 'height',
+        value: 1,
+        maxValue: 10,
+        id: '2'
+      },
+    ],
     type: "add",
     id: "levels",
   },

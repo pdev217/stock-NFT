@@ -14,6 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { CustSwitch } from "../../components/CustSwitch/CustSwitch";
 import { CustButton } from "../../components/CustButton/CustButton";
 import { AddStatsOrLevelsModal } from "../../modals/AddStatsOrLevelsModal/AddStatsOrLevelsModal";
+import { Stat } from "../../components/Stat/Stat";
+import { Level } from "../../components/Level/Level";
 //utils
 import { useStyles, textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
 //styles
@@ -24,7 +26,8 @@ import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 //hooks
 import useAuth from "../../hooks/useAuth";
-import { Stat } from "../../components/Stat/Stat";
+import { Property } from "../../components/Property/Property";
+import { AddPropertiesModal } from "../../modals/AddPropertiesModal/AddPropertiesModal";
 
 export const CreateNFTPage = () => {
   const { active } = useWeb3React;
@@ -50,6 +53,7 @@ export const CreateNFTPage = () => {
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   const [isAddStatsOpened, setIsAddStatsOpened] = useState(false);
   const [isAddLevelsOpened, setIsAddLevelsOpened] = useState(false);
+  const [isAddPropertiesOpened, setIsAddPropertiesOpened] = useState(false)
 
   const muiClasses = useStyles();
   const dispatch = useDispatch();
@@ -258,6 +262,17 @@ export const CreateNFTPage = () => {
               data.map(({ name, value, maxValue, id }) => (
                 <Stat key={id} name={name} value={value} maxValue={maxValue} />
               ))}
+            {id === "levels" &&
+              data.map(({ name, value, maxValue, id }) => (
+                <Level key={id} name={name} value={value} maxValue={maxValue} />
+              ))}
+            {id === "properties" && (
+              <div className={styles.propertiesWrapper}>
+                {data.map(({ name, type, id }) => (
+                  <Property key={id} name={name} type={type} />
+                ))}
+              </div>
+            )}
           </div>
         ))}
         {selects.slice(1).map(({ title, description, options, placeholder, id }) => (
@@ -315,6 +330,7 @@ export const CreateNFTPage = () => {
           isModalOpened={isAddLevelsOpened}
           setIsModalOpened={setIsAddLevelsOpened}
         />
+        <AddPropertiesModal isModalOpened={true} setIsModalOpened={setIsAddPropertiesOpened} />
       </div>
     </div>
   );

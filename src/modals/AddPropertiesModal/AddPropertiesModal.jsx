@@ -7,18 +7,12 @@ import Modal from "@mui/material/Modal";
 import { CustButton } from "../../components/CustButton/CustButton";
 import { Row } from "./Row";
 //styles
-import { styles as jsStyles } from "./AddStatsOrLevelsModal.utils";
-import cssStyles from "./AddStatsOrLevelsModal.module.css";
+import { styles as jsStyles } from "./AddPropertiesModal.utils";
+import cssStyles from "./AddPropertiesModal.module.css";
 //uuid
 import { v4 } from "uuid";
 
-export const AddStatsOrLevelsModal = ({
-  title,
-  description,
-  isModalOpened,
-  setIsModalOpened,
-  data,
-}) => {
+export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data }) => {
   const [modalData, setModalData] = useState(data);
 
   const handleClose = () => {
@@ -39,12 +33,14 @@ export const AddStatsOrLevelsModal = ({
 
   const handleDelete = (id) => {
     if (modalData.length === 1) {
-      setModalData([{
-        name: "",
-        score: undefined,
-        maxScore: undefined,
-        id: v4(),
-      }]);
+      setModalData([
+        {
+          name: "",
+          score: undefined,
+          maxScore: undefined,
+          id: v4(),
+        },
+      ]);
 
       return;
     }
@@ -63,13 +59,14 @@ export const AddStatsOrLevelsModal = ({
     >
       <Box sx={jsStyles.wrapper}>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.header}>
-          <span>{title}</span>
+          <span>Add Properties</span>
           <span className={cssStyles.cross} onClick={() => setIsModalOpened(false)}>
             x
           </span>
         </Typography>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.description}>
-          {description}
+          Properties show up underneath your item, are clickable, and can be filtered in your collection&apos;s
+          sidebar.
         </Typography>
         <section className={cssStyles.section}>
           <div className={cssStyles.fieldsWrapper}>
@@ -81,8 +78,8 @@ export const AddStatsOrLevelsModal = ({
                 <span>Value</span>
               </div>
             </div>
-            {modalData.map(({ name, score, id }) => (
-              <Row name={name} value={score} id={id} key={id} handleDelete={handleDelete} />
+            {modalData.map(({ name, value, id }) => (
+              <Row name={name} value={value} id={id} key={id} handleDelete={handleDelete} />
             ))}
           </div>
           <CustButton color="ghost" onClick={handleAdd} text="Add More" className={cssStyles.addMoreButton} />
