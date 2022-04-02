@@ -5,15 +5,22 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 //components
 import { CustButton } from "../../components/CustButton/CustButton";
-import { Row } from "./Row";
+import { StatsOrLevelsRow } from "./StatsOrLevelsRow";
 //styles
-import { styles as jsStyles } from "./AddPropertiesModal.utils";
-import cssStyles from "./AddPropertiesModal.module.css";
+import { styles as jsStyles } from "./AddToNFTModal.utils";
+import cssStyles from "./AddToNFTModal.module.css";
 //uuid
 import { v4 } from "uuid";
 
-export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data }) => {
-  const [modalData, setModalData] = useState(data);
+export const AddStatsOrLevelsModal = ({
+  title,
+  description,
+  isModalOpened,
+  setIsModalOpened,
+  setData,
+  data,
+}) => {
+  const [modalData, setModalData] = useState(title === "Add Stats" ? data.stats : data.levels);
 
   const handleClose = () => {
     setIsModalOpened(false);
@@ -48,7 +55,12 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data }) =>
     setModalData(modalData.filter((elem) => elem.id !== id));
   };
 
-  const handleSave = () => {};
+  const handleSave = () => {
+    title = "Add Stats"
+      ? setData({ ...data, stats: [...modalData] })
+      : setData({ ...data, levels: [...modalData] });
+    setIsModalOpened(false);
+  };
 
   return (
     <Modal
@@ -59,14 +71,13 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data }) =>
     >
       <Box sx={jsStyles.wrapper}>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.header}>
-          <span>Add Properties</span>
+          <span>{title}</span>
           <span className={cssStyles.cross} onClick={() => setIsModalOpened(false)}>
             x
           </span>
         </Typography>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.description}>
-          Properties show up underneath your item, are clickable, and can be filtered in your collection&apos;s
-          sidebar.
+          {description}
         </Typography>
         <section className={cssStyles.section}>
           <div className={cssStyles.fieldsWrapper}>
@@ -78,8 +89,8 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data }) =>
                 <span>Value</span>
               </div>
             </div>
-            {modalData.map(({ name, value, id }) => (
-              <Row name={name} value={value} id={id} key={id} handleDelete={handleDelete} />
+            {modalData.map(({ name, score, id }) => (
+              <StatsOrLevelsRow name={name} value={score} id={id} key={id} handleDelete={handleDelete} />
             ))}
           </div>
           <CustButton color="ghost" onClick={handleAdd} text="Add More" className={cssStyles.addMoreButton} />

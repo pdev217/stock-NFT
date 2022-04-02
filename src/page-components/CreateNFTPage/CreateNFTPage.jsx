@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 //components
 import { CustSwitch } from "../../components/CustSwitch/CustSwitch";
 import { CustButton } from "../../components/CustButton/CustButton";
-import { AddStatsOrLevelsModal } from "../../modals/AddStatsOrLevelsModal/AddStatsOrLevelsModal";
+import { AddStatsOrLevelsModal } from "../../modals/AddToNFTModal/AddStatsOrLevelsModal";
 import { Stat } from "../../components/Stat/Stat";
 import { Level } from "../../components/Level/Level";
 //utils
@@ -27,7 +27,7 @@ import { ethers } from "ethers";
 //hooks
 import useAuth from "../../hooks/useAuth";
 import { Property } from "../../components/Property/Property";
-import { AddPropertiesModal } from "../../modals/AddPropertiesModal/AddPropertiesModal";
+import { AddPropertiesModal } from "../../modals/AddToNFTModal/AddPropertiesModal";
 
 export const CreateNFTPage = () => {
   const { active } = useWeb3React;
@@ -48,12 +48,13 @@ export const CreateNFTPage = () => {
     blockchain: "none",
     freezeMetadata: "none",
   });
+  console.log('values', values)
 
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   const [isAddStatsOpened, setIsAddStatsOpened] = useState(false);
   const [isAddLevelsOpened, setIsAddLevelsOpened] = useState(false);
-  const [isAddPropertiesOpened, setIsAddPropertiesOpened] = useState(false)
+  const [isAddPropertiesOpened, setIsAddPropertiesOpened] = useState(false);
 
   const muiClasses = useStyles();
   const dispatch = useDispatch();
@@ -83,6 +84,9 @@ export const CreateNFTPage = () => {
       case "levels":
         setIsAddLevelsOpened(true);
         break;
+      case "properties":
+        setIsAddPropertiesOpened(true);
+        break;
     }
   };
 
@@ -110,7 +114,7 @@ export const CreateNFTPage = () => {
   }, [account]);
 
   const star = <span className={styles.star}>*</span>;
-
+  console.log(values.levels);
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.contentWrapper}>
@@ -202,7 +206,7 @@ export const CreateNFTPage = () => {
             ))}
           </Select>
         </div>
-        {uploadAndSwitchFields.map(({ title, description, icon, type, id, data, defaultChecked }) => (
+        {uploadAndSwitchFields.map(({ title, description, icon, type, id, defaultChecked }) => (
           <div key={id} className={styles.underlinedSection}>
             <div>
               <div className={styles.fieldIcon}>
@@ -259,16 +263,16 @@ export const CreateNFTPage = () => {
               </div>
             )}
             {id === "stats" &&
-              data.map(({ name, value, maxValue, id }) => (
+              values.stats.map(({ name, value, maxValue, id }) => (
                 <Stat key={id} name={name} value={value} maxValue={maxValue} />
               ))}
             {id === "levels" &&
-              data.map(({ name, value, maxValue, id }) => (
+              values.levels.map(({ name, value, maxValue, id }) => (
                 <Level key={id} name={name} value={value} maxValue={maxValue} />
               ))}
             {id === "properties" && (
               <div className={styles.propertiesWrapper}>
-                {data.map(({ name, type, id }) => (
+                {values.properties.map(({ name, type, id }) => (
                   <Property key={id} name={name} type={type} />
                 ))}
               </div>
@@ -323,14 +327,23 @@ export const CreateNFTPage = () => {
           description="Stats show up underneath your item, are clickable, and can be filtered in your collection’s sidebar."
           isModalOpened={isAddStatsOpened}
           setIsModalOpened={setIsAddStatsOpened}
+          data={values}
+          setData={setValues}
         />
         <AddStatsOrLevelsModal
           title="Add Levels"
           description="Levels show up underneath your item, are clickable, and can be filtered in your collection's sidebar."
           isModalOpened={isAddLevelsOpened}
           setIsModalOpened={setIsAddLevelsOpened}
+          data={values}
+          setData={setValues}
         />
-        <AddPropertiesModal isModalOpened={true} setIsModalOpened={setIsAddPropertiesOpened} />
+        <AddPropertiesModal
+          isModalOpened={isAddPropertiesOpened}
+          setIsModalOpened={setIsAddPropertiesOpened}
+          data={values}
+          setData={setValues}
+        />
       </div>
     </div>
   );

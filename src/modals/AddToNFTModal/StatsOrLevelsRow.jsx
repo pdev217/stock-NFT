@@ -1,8 +1,9 @@
 import { CustComposedTextField } from "./CustComposedTextField";
 import { CustTextField } from "./CustTextField";
-import cssStyles from "./AddStatsOrLevelsModal.module.css";
+import cssStyles from "./AddToNFTModal.module.css";
 
-export const Row = ({ name, id, score, handleDelete }) => {
+export const 
+StatsOrLevelsRow = ({ name, id, score, handleDelete }) => {
   return (
     <div className={cssStyles.row}>
       <CustTextField name={name} id={id} label="Name" />
