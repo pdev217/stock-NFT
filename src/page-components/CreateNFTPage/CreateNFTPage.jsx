@@ -16,6 +16,8 @@ import { CustButton } from "../../components/CustButton/CustButton";
 import { AddStatsOrLevelsModal } from "../../modals/AddToNFTModal/AddStatsOrLevelsModal";
 import { Stat } from "../../components/Stat/Stat";
 import { Level } from "../../components/Level/Level";
+import { Property } from "../../components/Property/Property";
+import { AddPropertiesModal } from "../../modals/AddToNFTModal/AddPropertiesModal";
 //utils
 import { useStyles, textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
 //styles
@@ -26,8 +28,8 @@ import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 //hooks
 import useAuth from "../../hooks/useAuth";
-import { Property } from "../../components/Property/Property";
-import { AddPropertiesModal } from "../../modals/AddToNFTModal/AddPropertiesModal";
+//uuid
+import { v4 } from "uuid";
 
 export const CreateNFTPage = () => {
   const { active } = useWeb3React;
@@ -48,7 +50,7 @@ export const CreateNFTPage = () => {
     blockchain: "none",
     freezeMetadata: "none",
   });
-  console.log('values', values)
+  console.log("values", values);
 
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
@@ -272,8 +274,8 @@ export const CreateNFTPage = () => {
               ))}
             {id === "properties" && (
               <div className={styles.propertiesWrapper}>
-                {values.properties.map(({ name, type, id }) => (
-                  <Property key={id} name={name} type={type} />
+                {values.properties.map(({ name, value, id }) => (
+                  <Property key={id} name={name} type={value} />
                 ))}
               </div>
             )}

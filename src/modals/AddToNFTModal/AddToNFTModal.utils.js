@@ -1,3 +1,5 @@
+import { v4 } from "uuid";
+
 export const styles = {
   wrapper: {
     position: "absolute",
@@ -23,8 +25,8 @@ export const styles = {
     color: "var(--white)",
     borderBottom: "1px solid var(--dark-grey)",
     padding: "24px",
-    display: 'flex',
-    justifyContent: 'space-between'
+    display: "flex",
+    justifyContent: "space-between",
   },
   description: {
     fontWeight: "normal",
@@ -34,4 +36,17 @@ export const styles = {
     color: "var(--light-grey)",
     padding: "24px",
   },
+};
+
+export const emptyLevelOrStat = {
+  name: "",
+  value: 3,
+  maxValue: 5,
+  id: v4(),
+};
+
+export const emptyProperty = {
+  name: "",
+  value: "",
+  id: v4(),
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 //mui
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -9,8 +9,8 @@ import { StatsOrLevelsRow } from "./StatsOrLevelsRow";
 //styles
 import { styles as jsStyles } from "./AddToNFTModal.utils";
 import cssStyles from "./AddToNFTModal.module.css";
-//uuid
-import { v4 } from "uuid";
+//utils
+import { emptyLevelOrStat } from "./AddToNFTModal.utils";
 
 export const AddStatsOrLevelsModal = ({
   title,
@@ -20,34 +20,26 @@ export const AddStatsOrLevelsModal = ({
   setData,
   data,
 }) => {
-  const [modalData, setModalData] = useState(title === "Add Stats" ? data.stats : data.levels);
+  const defaultValue = title === "Add Stats" ? data.stats : data.levels;
+  const [modalData, setModalData] = useState(
+    defaultValue.length > 0 ? defaultValue : [{ ...emptyLevelOrStat }]
+  );
+
+  useEffect(() => {
+    modalData.length === 0 && setModalData([{ ...emptyLevelOrStat }]);
+  }, [modalData]);
 
   const handleClose = () => {
     setIsModalOpened(false);
   };
 
   const handleAdd = () => {
-    setModalData([
-      ...modalData,
-      {
-        name: "",
-        score: undefined,
-        maxScore: undefined,
-        id: v4(),
-      },
-    ]);
+    setModalData([...modalData, { ...emptyLevelOrStat }]);
   };
 
   const handleDelete = (id) => {
     if (modalData.length === 1) {
-      setModalData([
-        {
-          name: "",
-          score: undefined,
-          maxScore: undefined,
-          id: v4(),
-        },
-      ]);
+      setModalData([{ ...emptyLevelOrStat }]);
 
       return;
     }
@@ -56,9 +48,14 @@ export const AddStatsOrLevelsModal = ({
   };
 
   const handleSave = () => {
-    title = "Add Stats"
-      ? setData({ ...data, stats: [...modalData] })
-      : setData({ ...data, levels: [...modalData] });
+    const newData = [...modalData];
+    const filtered = newData.filter((elem) => elem.name !== "" && elem.value && elem.maxValue);
+    setModalData([...filtered]);
+
+    title === "Add Stats"
+      ? setData({ ...data, stats: [...filtered] })
+      : setData({ ...data, levels: [...filtered] });
+
     setIsModalOpened(false);
   };
 
@@ -89,8 +86,18 @@ export const AddStatsOrLevelsModal = ({
                 <span>Value</span>
               </div>
             </div>
-            {modalData.map(({ name, score, id }) => (
-              <StatsOrLevelsRow name={name} value={score} id={id} key={id} handleDelete={handleDelete} />
+            {modalData.map(({ name, value, id, maxValue }, index) => (
+              <StatsOrLevelsRow
+                name={name}
+                modalData={modalData}
+                setModalData={setModalData}
+                value={value}
+                maxValue={maxValue}
+                id={id}
+                key={id}
+                index={index}
+                handleDelete={handleDelete}
+              />
             ))}
           </div>
           <CustButton color="ghost" onClick={handleAdd} text="Add More" className={cssStyles.addMoreButton} />

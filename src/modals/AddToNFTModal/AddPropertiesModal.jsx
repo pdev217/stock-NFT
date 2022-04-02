@@ -9,36 +9,25 @@ import { PropertiesRow } from "./PropertiesRow";
 //styles
 import { styles as jsStyles } from "./AddToNFTModal.utils";
 import cssStyles from "./AddToNFTModal.module.css";
-//uuid
-import { v4 } from "uuid";
+//utils
+import { emptyProperty } from "./AddToNFTModal.utils";
 
 export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setData }) => {
-  const [modalData, setModalData] = useState(data.properties);
+  const [modalData, setModalData] = useState(
+    data.properties.length > 0 ? data.properties : [{ ...emptyProperty }]
+  );
 
   const handleClose = () => {
     setIsModalOpened(false);
   };
 
   const handleAdd = () => {
-    setModalData([
-      ...modalData,
-      {
-        name: "",
-        value: "",
-        id: v4(),
-      },
-    ]);
+    setModalData([...modalData, { ...emptyProperty }]);
   };
 
   const handleDelete = (id) => {
     if (modalData.length === 1) {
-      setModalData([
-        {
-          name: "",
-          value: "",
-          id: v4(),
-        },
-      ]);
+      setModalData([{ ...emptyProperty }]);
 
       return;
     }
@@ -46,10 +35,12 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
     setModalData(modalData.filter((elem) => elem.id !== id));
   };
 
-  const handleSave = () => { 
-    console.log('modalData', modalData);
-    console.log('data', data)     
-    setData({ ...data, properties: [...modalData] })
+  const handleSave = () => {
+    const newData = [...modalData];
+    const filtered = newData.filter((elem) => elem.name !== "" && elem.value !== "");
+    
+    setModalData([...filtered]);
+    setData({ ...data, properties: [...filtered] });
     setIsModalOpened(false);
   };
 
@@ -81,8 +72,17 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
                 <span>Value</span>
               </div>
             </div>
-            {modalData.map(({ name, value, id }) => (
-              <PropertiesRow name={name} value={value} id={id} key={id} handleDelete={handleDelete} />
+            {modalData.map(({ name, value, id }, index) => (
+              <PropertiesRow
+                handleDelete={handleDelete}
+                setModalData={setModalData}
+                modalData={modalData}
+                id={id}
+                index={index}
+                key={id}
+                name={name}
+                value={value}
+              />
             ))}
           </div>
           <CustButton color="ghost" onClick={handleAdd} text="Add More" className={cssStyles.addMoreButton} />
