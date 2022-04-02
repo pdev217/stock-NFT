@@ -26,8 +26,10 @@ import { ethers } from "ethers";
 import useAuth from "../../hooks/useAuth";
 //artifacts
 import StokeArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json"
-//web3/react
+//@web3/react
 import { useWeb3React } from "@web3-react/core";
+//utils
+import { toHex } from "../../utils";
 
 var stokeContract;
 const ethContractAddr = "0x244218500f847dbb4270f5f66399537c6bbd7a8d";
@@ -35,7 +37,14 @@ const polContractAddr = "0xdA054F032E40F04c9E564701B70631ebC8Ba4877";
 
 export const CreateNFTPage = () => {
   const { account } = useAuth();
-  const { library, chainId } = useWeb3React();
+  const { library, chainId, connector } = useWeb3React();
+  const [disabledButton, setDisabledButton] = useState(true);
+  const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
+  const muiClasses = useStyles();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const etherNetwork = 3 //Ropsten testnet chainID
+  const polygonNetwork = 80001 //Mumbai testnet chainId
 
   const [values, setValues] = useState({
     file: undefined,
@@ -52,12 +61,7 @@ export const CreateNFTPage = () => {
     blockchain: "none",
     freezeMetadata: "none",
   });
-  const [disabledButton, setDisabledButton] = useState(true);
-  const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
-  const muiClasses = useStyles();
-  const dispatch = useDispatch();
-  const router = useRouter();
-
+  
   const handleChange = (e, value, isFile) => {
     e.preventDefault();
 
@@ -101,11 +105,26 @@ export const CreateNFTPage = () => {
     if(account && library) {
       const signer = library.getSigner(account);
       const IStoke = new ethers.Contract(account, StokeArtifacts.abi, signer);
-      stokeContract = IStoke.attach(ethContractAddr);      
+      stokeContract = IStoke.attach(polContractAddr);      
     }
   }, [account])
 
+  const switchNetwork = async (network) => {
+    await library?.provider.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: toHex(network) }]
+    });
+  }
+
   const handleSave = async () => {
+    console.log(chainId)
+    if(chainId !== polygonNetwork) {
+      switchNetwork(polygonNetwork).then((res) => {
+        console.log('network is changed successfully')
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
     if(library) {
       const imageHash = await pinFileToIPFS(values.file);
       const metaData = {
@@ -118,8 +137,8 @@ export const CreateNFTPage = () => {
       console.log(stokeContract)
       const transaction = await stokeContract.createToken(`https://ipfs.io/ipfs/${metaDataHash}`)
       .catch((err) => {
-        console.log(err.message) 
-        dispatch(open(err.message));
+        console.log(err.message)
+        dispatch(open(err.message)); //not working
       });
       transaction?.wait().then(res => console.log(res)).catch((e) => console.log(e))
     }else {

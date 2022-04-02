@@ -6,7 +6,7 @@ import { useWeb3React } from "@web3-react/core";
 const coinbaseWallet = new WalletLinkConnector({
     url: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
     appName: "Web3-react Demo",
-    supportedChainIds: [1, 3, 4, 5, 42],
+    supportedChainIds: [1, 3, 4, 5, 42, 137, 80001],
 });
 
 const walletConnect = new WalletConnectConnector({
@@ -16,7 +16,7 @@ const walletConnect = new WalletConnectConnector({
 });
 
 const injected = new InjectedConnector({
-    supportedChainIds: [1, 3, 4, 5, 42]
+    supportedChainIds: [1, 3, 4, 5, 42, 137, 80001]
 });
 
 //prevent coinbase wallet in click injected
