@@ -56,6 +56,7 @@ export const CreateNFTPage = () => {
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   const muiClasses = useStyles();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleChange = (e, value, isFile) => {
     e.preventDefault();
@@ -105,21 +106,25 @@ export const CreateNFTPage = () => {
   }, [account])
 
   const handleSave = async () => {
-    const imageHash = await pinFileToIPFS(values.file);
-    const metaData = {
-      image: `https://ipfs.io/ipfs/${imageHash}`,
-      name: values.name,
-      description: values.description,
-      externalLink: values.externalLink
+    if(library) {
+      const imageHash = await pinFileToIPFS(values.file);
+      const metaData = {
+        image: `https://ipfs.io/ipfs/${imageHash}`,
+        name: values.name,
+        description: values.description,
+        externalLink: values.externalLink
+      }
+      const metaDataHash = await pinJSONToIPFS(metaData)
+      console.log(stokeContract)
+      const transaction = await stokeContract.createToken(`https://ipfs.io/ipfs/${metaDataHash}`)
+      .catch((err) => {
+        console.log(err.message) 
+        dispatch(open(err.message));
+      });
+      transaction?.wait().then(res => console.log(res)).catch((e) => console.log(e))
+    }else {
+      router.push("/connect-wallet");
     }
-    const metaDataHash = await pinJSONToIPFS(metaData)
-    console.log(stokeContract)
-    const transaction = await stokeContract.createToken(`https://ipfs.io/ipfs/${metaDataHash}`)
-    .catch((err) => {
-      console.log(err.message) 
-      dispatch(open(err.message));
-    });
-    transaction?.wait().then(res => console.log(res)).catch((e) => console.log(e))
   };
 
   const star = <span className={styles.star}>*</span>;
