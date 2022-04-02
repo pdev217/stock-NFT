@@ -1,11 +1,3 @@
-import { useEffect } from "react";
-//axios
-import axios from "axios";
-//next
-import { useRouter } from "next/router";
-//redux
-import { useDispatch } from "react-redux";
-import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 //page-sections
 import { Collections } from "./Collections/Collections";
 import { HottestNFTCollectibles } from "./HottestNFTCollectibles/HottestNFTCollectibles";
@@ -19,7 +11,6 @@ import { VideoAboutNFT } from "./VideoAboutNFT/VideoAboutNFT";
 import { TopCollections } from "./TopCollections/TopCollections";
 import { JoinOurCreatoes } from "./JoinOurCreators/JoinOurCreatoes";
 import { PopularCreators } from "./PopularCreators/PopularCreators";
-import useAuth from "../../hooks/useAuth";
 
 export const MainPage = () => {
   return (

@@ -7,8 +7,8 @@ import Image from "next/image";
 //axios
 import axios from "axios";
 //redux
-import { useDispatch, useSelector } from "react-redux";
-import { open as openError } from "../../redux/slices/errorSnackbarSlice";
+import { useDispatch } from "react-redux";
+import { open } from "../../redux/slices/errorSnackbarSlice";
 //mui
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
@@ -20,16 +20,22 @@ import { CustButton } from "../../components/CustButton/CustButton";
 import { useStyles, textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
 //styles
 import styles from "./CreateNFTPage.module.css";
-import { useWeb3React } from "@web3-react/core";
 //ethers
 import { ethers } from "ethers";
 //hook
 import useAuth from "../../hooks/useAuth";
+//artifacts
+import StokeArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json"
+//web3/react
+import { useWeb3React } from "@web3-react/core";
+
+var stokeContract;
+const ethContractAddr = "0x244218500f847dbb4270f5f66399537c6bbd7a8d";
+const polContractAddr = "0xdA054F032E40F04c9E564701B70631ebC8Ba4877";
 
 export const CreateNFTPage = () => {
-  const { active } = useWeb3React
   const { account } = useAuth();
-  console.log(account)
+  const { library, chainId } = useWeb3React();
 
   const [values, setValues] = useState({
     file: undefined,
@@ -49,7 +55,6 @@ export const CreateNFTPage = () => {
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   const muiClasses = useStyles();
-  const router = useRouter();
   const dispatch = useDispatch();
 
   const handleChange = (e, value, isFile) => {
@@ -67,14 +72,55 @@ export const CreateNFTPage = () => {
     }
   };
 
-  const handleSave = () => {};
+  const pinFileToIPFS = async (data) => {
+    const formData = new FormData();
+    formData.append('file', data)
+    const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
+        maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
+        headers: {
+            pinata_api_key: process.env.PINATA_API_KEY ,
+            pinata_secret_api_key: process.env.PINATA_SECRET_API_LEY
+        }
+    })
+
+    return response.data.IpfsHash
+  }
+
+  const pinJSONToIPFS = async (JSONBody) => {
+      const response = await axios.post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, JSONBody, {
+          headers: {
+              pinata_api_key: process.env.PINATA_API_KEY,
+              pinata_secret_api_key: process.env.PINATA_SECRET_API_LEY
+          }
+      })
+      return response.data.IpfsHash
+  };
 
   useEffect(() => {
-    if(account) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner(account);
+    if(account && library) {
+      const signer = library.getSigner(account);
+      const IStoke = new ethers.Contract(account, StokeArtifacts.abi, signer);
+      stokeContract = IStoke.attach(ethContractAddr);      
     }
   }, [account])
+
+  const handleSave = async () => {
+    const imageHash = await pinFileToIPFS(values.file);
+    const metaData = {
+      image: `https://ipfs.io/ipfs/${imageHash}`,
+      name: values.name,
+      description: values.description,
+      externalLink: values.externalLink
+    }
+    const metaDataHash = await pinJSONToIPFS(metaData)
+    console.log(stokeContract)
+    const transaction = await stokeContract.createToken(`https://ipfs.io/ipfs/${metaDataHash}`)
+    .catch((err) => {
+      console.log(err.message) 
+      dispatch(open(err.message));
+    });
+    transaction?.wait().then(res => console.log(res)).catch((e) => console.log(e))
+  };
 
   const star = <span className={styles.star}>*</span>;
 
@@ -264,7 +310,6 @@ export const CreateNFTPage = () => {
         <CustButton
           color="primary"
           text="Save"
-          disabled={disabledButton}
           onClick={handleSave}
           className={styles.button}
         />

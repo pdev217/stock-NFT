@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { open } from "../../redux/slices/errorSnackbarSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 import cn from "classnames";
 import Image from "next/image";
 //style
@@ -16,9 +15,12 @@ import Web3 from "web3";
 //hook
 import useAuth from "../../hooks/useAuth";
 
+let web3;
+let provider;
+
 export const ChooseWalletBox = ({ className }) => {
   const dispatch = useDispatch();
-  const { activate, active, library, account } = useWeb3React();
+  const { activate } = useWeb3React();
   const [isSelect, setIsSelect] = useState();
   const { login } = useAuth();
 
@@ -35,18 +37,16 @@ export const ChooseWalletBox = ({ className }) => {
       }
     } else {
       await activate(connector)
-        .then(() => dispatch(setSelect(false)))
+        .then(() => dispatch(setIsSelect(false)))
         .catch((err) => {
           setIsSelect(false);
         });
     }
   };
 
-  let web3;
-
   const connect = async (connector, id) => {
     await onConnect(connector, id);
-    const provider = await connector.getProvider();
+    provider = await connector.getProvider();
     if (provider) {
       web3 = new Web3(provider);
       signMessage();
@@ -68,7 +68,7 @@ export const ChooseWalletBox = ({ className }) => {
   }
 
   const handleAuthenticate = async (signature, address) => {
-    await login(signature, address);
+    await login(signature, address, provider);
   };
 
   const wallets = [

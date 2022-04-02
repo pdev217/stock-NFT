@@ -10,6 +10,7 @@ require("@openzeppelin/hardhat-upgrades");
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
+  console.log(process.env.ROPSTEN_URL)
   const accounts = await hre.ethers.getSigners();
 
   for (const account of accounts) {
@@ -23,6 +24,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 /**
  * @type import('hardhat/config'). HardhatUserConfig
  */
+
 module.exports = {
   solidity:{
     compilers: [
@@ -119,6 +121,9 @@ module.exports = {
     timeout: 60000
   },
   networks: {
+    hardhat: {
+      chainId: 1337
+    },
     bscmainnet: {
       url: process.env.BSC_URL || "",
       accounts:
@@ -126,9 +131,12 @@ module.exports = {
       timeout: 600000
     },
     ropsten: {
-      url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      url: "https://eth-ropsten.alchemyapi.io/v2/0B51t_8NmdFD3MVHsdMddCGt0Zjwfo7y",
+      accounts: ['95cd7ac56a15b471c1d479b6f109881606affab88d03c95cbc44076c7018f88a']
+    },
+    matic: {
+      url: "https://rpc-mumbai.maticvigil.com",
+      accounts: ["95cd7ac56a15b471c1d479b6f109881606affab88d03c95cbc44076c7018f88a"]
     },
     rinkeby: {
       url: process.env.RINKEBY_URL || "",

@@ -1,6 +1,7 @@
 import { createContext, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import { useRouter } from "next/router";
+import { useWeb3React } from "@web3-react/core"
 
 const initialState = {
     isAuthorized: false,
@@ -18,7 +19,6 @@ const handlers = {
     },
     LOGIN: (state, action) => {
       const { account }  = action.payload;
-      console.log(account)
   
       return {
         ...state,
@@ -55,6 +55,7 @@ const verifyUser = async (accessToken) => {
 function AuthProvider({children}) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const router = useRouter();
+    const { deactivate } = useWeb3React();
 
     useEffect(() => {
         const initialize = async () => {  
@@ -94,7 +95,6 @@ function AuthProvider({children}) {
         }
 
         initialize()
-
     }, [])
 
     const login = async (signature, account) => {
@@ -116,6 +116,7 @@ function AuthProvider({children}) {
     }
 
     const logout = async () => {
+      deactivate()
       localStorage.removeItem('accessToken');
       localStorage.removeItem("account");
       dispatch({ type: 'LOGOUT' });

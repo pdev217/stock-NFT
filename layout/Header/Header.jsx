@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { open as openProfilePopupReducer } from "../../src/redux/slices/profilePopupSlice";
 import { open as openWalletPopupReducer } from "../../src/redux/slices/walletPopupSlice";
 import Image from "next/image";
+import Link from 'next/link'
 // these are components for the second variant of header. I don't know exactly which one to implement
 // import { Username } from "../../src/components/Username/Username";
 // import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
@@ -51,6 +52,7 @@ export const Header = () => {
         </div>
       </div>
       <div className={styles.userData}>
+        <Link href="/create-nft">Create</Link>
         <div className={styles.profile} onClick={openProfilePopup}>
           <div className={isAuthorized ? styles.authorisedIcon : styles.profileIcon}>
             <Image
