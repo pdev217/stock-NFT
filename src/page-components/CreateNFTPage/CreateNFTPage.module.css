@@ -2,8 +2,6 @@
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-
-	border-top: 1px solid var(--dark-grey);
 }
 
 .contentWrapper {
@@ -89,6 +87,15 @@
 
 .dragPlaceholder:hover {
 	background-color: var(--dark-grey);
+}
+
+.audio {
+	position: absolute;
+}
+
+.video {
+	width: 90%;
+	position: absolute;
 }
 
 .uploadFileInput {

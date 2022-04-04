@@ -117,9 +117,7 @@ export const CreateNFTPage = () => {
 
   const handleSave = async () => {
     try {
-    } catch {
-
-    }
+    } catch {}
   };
 
   const fetchCollections = async () => {
@@ -159,6 +157,7 @@ export const CreateNFTPage = () => {
     }
   }, [values.fileLink, values.name, values.description, values.collection, values.blockchainType]);
 
+  console.log("---values.file", values.file);
   useEffect(() => {
     if (account) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -198,7 +197,9 @@ export const CreateNFTPage = () => {
           </div>
           <div className={styles.dragPlaceholder}>
             <div className={styles.imageWrapper}>
-              {previewFile && <Image src={previewFile} alt="image" layout="fill" objectFit="contain" />}
+              {previewFile && values.file?.type.startsWith("image") && (
+                <Image src={previewFile} alt="image" layout="fill" objectFit="contain" />
+              )}
             </div>
             <input
               className={styles.uploadFileInput}
@@ -206,6 +207,12 @@ export const CreateNFTPage = () => {
               onChange={(e) => handleChange(e, "file", "file")}
               accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
             />
+            {previewFile && values.file?.type.startsWith("video") && (
+              <video src={previewFile} controls="controls" autoPlay="true" className={styles.video} />
+            )}
+            {previewFile && values.file?.type.startsWith("audio") && (
+              <audio src={previewFile} controls="controls" autoPlay="true" className={styles.audio} />
+            )}
           </div>
         </div>
         {textFields.map(({ title, description, required, label, multiline, id, maxLength }) => (
@@ -351,9 +358,8 @@ export const CreateNFTPage = () => {
         {selects.slice(1).map(({ title, description, options, placeholder, required, id }) => (
           <div
             className={cn(styles.section, {
-
               [styles.sectionWithMarginTop]: title === "Blockchain", //"Supply",
-              [styles.sectionWithBigMarginBottom]: title === "Blockchain" //"Freeze Metadata",
+              [styles.sectionWithBigMarginBottom]: title === "Blockchain", //"Freeze Metadata",
             })}
             key={id}
           >

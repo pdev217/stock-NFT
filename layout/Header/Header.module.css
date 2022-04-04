@@ -10,6 +10,7 @@
 
 	background: var(--black) 0% 0% no-repeat padding-box;
 	grid-template-columns: auto 1fr auto;
+	border-bottom: 1px solid var(--dark-grey);
 }
 
 .logo {
