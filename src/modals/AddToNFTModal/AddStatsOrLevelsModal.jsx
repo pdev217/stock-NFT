@@ -1,4 +1,7 @@
 import { useState, useLayoutEffect } from "react";
+//redux
+import { open as openError } from "../../redux/slices/errorSnackbarSlice";
+import { useDispatch } from "react-redux";
 //next
 import Image from "next/image";
 //mui
@@ -36,6 +39,10 @@ export const AddStatsOrLevelsModal = ({
   };
 
   const handleAdd = () => {
+    if (modalData.length === 50) {
+      dispatch(openError('Only 50 values can be added'))
+    }
+
     setModalData([...modalData, { ...getEmptyLevelOrStat() }]);
   };
 
