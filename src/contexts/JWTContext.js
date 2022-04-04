@@ -89,7 +89,9 @@ function AuthProvider({ children }) {
           payload: {
             isAuthorized: false,
             account: null,
-            error: { ...err.response.data },
+            error: err.response
+              ? { message: `${err.response.data.statusCode} ${err.response.data.message}` }
+              : { message: err.message },
           },
         });
         router.push("/connect-wallet");

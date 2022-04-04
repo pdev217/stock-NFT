@@ -21,7 +21,7 @@ export const MainPage = () => {
   
   const { error } = useAuth()
   if (error) {
-    dispatch(openError(`${error.statusCode} ${error.message}`))
+    dispatch(openError(`${error.message}`))
   }
 
   return (
