@@ -27,6 +27,7 @@ export const LogoutWindow = () => {
   const handleLogout = async () => {
     deactivate();
     await logout()
+    handleClose();
   };
 
   return (

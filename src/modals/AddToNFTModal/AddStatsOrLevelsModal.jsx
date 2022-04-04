@@ -12,7 +12,7 @@ import { StatsOrLevelsRow } from "./StatsOrLevelsRow";
 import { styles as jsStyles } from "./AddToNFTModal.utils";
 import cssStyles from "./AddToNFTModal.module.css";
 //utils
-import { emptyLevelOrStat } from "./AddToNFTModal.utils";
+import { getEmptyLevelOrStat } from "./AddToNFTModal.utils";
 
 export const AddStatsOrLevelsModal = ({
   title,
@@ -24,11 +24,11 @@ export const AddStatsOrLevelsModal = ({
 }) => {
   const defaultValue = title === "Add Stats" ? data.stats : data.levels;
   const [modalData, setModalData] = useState(
-    defaultValue.length > 0 ? defaultValue : [{ ...emptyLevelOrStat }]
+    defaultValue.length > 0 ? defaultValue : [{ ...getEmptyLevelOrStat() }]
   );
 
   useLayoutEffect(() => {
-    modalData.length === 0 && setModalData([{ ...emptyLevelOrStat }]);
+    modalData.length === 0 && setModalData([{ ...getEmptyLevelOrStat() }]);
   }, [modalData]);
 
   const handleClose = () => {
@@ -36,7 +36,7 @@ export const AddStatsOrLevelsModal = ({
   };
 
   const handleAdd = () => {
-    setModalData([...modalData, { ...emptyLevelOrStat }]);
+    setModalData([...modalData, { ...getEmptyLevelOrStat() }]);
   };
 
   const handleDelete = (id) => {

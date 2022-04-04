@@ -32,11 +32,10 @@ import useAuth from "../../hooks/useAuth";
 export const CreateNFTPage = () => {
   const { active } = useWeb3React;
   const dispatch = useDispatch();
-  const { account, error } = useAuth()
-  console.log(error)
+  const { account, error } = useAuth();
 
   if (error) {
-    dispatch(openError(`${error.statusCode} ${error.message}`))
+    dispatch(openError(`${error.statusCode} ${error.message}`));
   }
 
   const [values, setValues] = useState({
@@ -55,6 +54,8 @@ export const CreateNFTPage = () => {
     freezeMetadata: "none",
   });
 
+  console.log("---values", values);
+
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   const [isAddStatsOpened, setIsAddStatsOpened] = useState(false);
@@ -65,10 +66,12 @@ export const CreateNFTPage = () => {
 
   const handleChange = (e, value, type) => {
     e.preventDefault();
+    console.log(type);
 
     switch (type) {
       case "string":
         setValues({ ...values, [value]: e.target.value });
+        break;
       case "file":
         const file = e.target.files[0];
         if (file.size < 100000000) {
@@ -76,7 +79,14 @@ export const CreateNFTPage = () => {
         } else {
           dispatch(openError(`The uploaded file must be smaller than 100 mb`));
         }
-      case "array":
+        break;
+      case "boolean":
+        if (value === 'unlockable') {
+          setEnsabledUnlockable(e.target.checked);
+        } else if (value === 'explicit') {
+          setValues({ ...values, [value]: e.target.checked });
+        }
+        break;
     }
   };
 
@@ -231,7 +241,7 @@ export const CreateNFTPage = () => {
                 <CustSwitch
                   className={styles.switch}
                   defaultChecked={defaultChecked}
-                  onChange={(e) => id === "unlockable" && setEnsabledUnlockable(e.target.checked)}
+                  onChange={(e) => handleChange(e, id, 'boolean')}
                 />
               )}
             </div>
