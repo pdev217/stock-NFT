@@ -39,7 +39,7 @@ export const CreateNFTPage = () => {
   }
 
   const [values, setValues] = useState({
-    fileLink: "",
+    file: undefined,
     name: "",
     externalLink: "",
     description: "",
@@ -54,6 +54,7 @@ export const CreateNFTPage = () => {
     freezeMetadata: "none",
   });
 
+  const [previewFile, setPrewiewFile] = useState();
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   const [isAddStatsOpened, setIsAddStatsOpened] = useState(false);
@@ -74,7 +75,7 @@ export const CreateNFTPage = () => {
         const file = e.target.files[0];
         const link = e.target.value;
         if (file.size < 100000000) {
-          setValues({ ...values, fileLink: link });
+          setValues({ ...values, file: file });
         } else {
           dispatch(openError(`The uploaded file must be smaller than 100 mb`));
         }
@@ -149,6 +150,7 @@ export const CreateNFTPage = () => {
               onChange={(e) => handleChange(e, "file", "file")}
               accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
             />
+            {values.file && <Image src={values.file} alt="image" />}
           </div>
         </div>
         {textFields.map(({ title, description, required, label, multiline, id, maxLength }) => (
