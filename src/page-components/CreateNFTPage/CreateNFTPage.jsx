@@ -37,7 +37,7 @@ const polContractAddr = "0xdA054F032E40F04c9E564701B70631ebC8Ba4877";
 
 export const CreateNFTPage = () => {
   const { account } = useAuth();
-  const { library, chainId, connector } = useWeb3React();
+  const { library, chainId } = useWeb3React();
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   const muiClasses = useStyles();
@@ -107,7 +107,7 @@ export const CreateNFTPage = () => {
       const IStoke = new ethers.Contract(account, StokeArtifacts.abi, signer);
       stokeContract = IStoke.attach(polContractAddr);      
     }
-  }, [account])
+  }, [account, library])
 
   const switchNetwork = async (network) => {
     await library?.provider.request({
@@ -117,7 +117,6 @@ export const CreateNFTPage = () => {
   }
 
   const handleSave = async () => {
-    console.log(chainId)
     if(chainId !== polygonNetwork) {
       switchNetwork(polygonNetwork).then((res) => {
         console.log('network is changed successfully')
