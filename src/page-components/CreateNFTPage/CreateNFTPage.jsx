@@ -115,7 +115,12 @@ export const CreateNFTPage = () => {
     }
   };
 
-  const handleSave = () => {};
+  const handleSave = async () => {
+    try {
+    } catch {
+
+    }
+  };
 
   const fetchCollections = async () => {
     try {
