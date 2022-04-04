@@ -134,20 +134,7 @@ export const selects = [
     required: true,
     description: "This is the collection where your item will appear.",
     placeholder: "Select Collection",
-    options: [
-      {
-        id: "op1",
-        text: "Collection 1",
-      },
-      {
-        id: "op2",
-        text: "Collection 2",
-      },
-      {
-        id: "op3",
-        text: "None",
-      },
-    ],
+    options: [],
     id: "collection",
   },
   {
@@ -172,7 +159,7 @@ export const selects = [
       },
     ],
     id: "blockchain",
-    required: true
+    required: true,
   },
   {
     title: "Freeze Metadata",
@@ -191,34 +178,34 @@ export const uploadAndSwitchFields = [
     icon: "/create-nft/Icon-Properties.svg",
     data: [
       {
-        type: 'speed',
-        name: 'fast',
-        id: '1'
+        type: "speed",
+        name: "fast",
+        id: "1",
       },
       {
-        type: 'height',
-        name: 'Tall',
-        id: '2'
+        type: "height",
+        name: "Tall",
+        id: "2",
       },
       {
-        type: 'wealth',
-        name: 'Very very very very rich',
-        id: '3'
+        type: "wealth",
+        name: "Very very very very rich",
+        id: "3",
       },
       {
-        type: 'speed',
-        name: 'fast',
-        id: '4'
+        type: "speed",
+        name: "fast",
+        id: "4",
       },
       {
-        type: 'height',
-        name: 'Tall',
-        id: '5'
+        type: "height",
+        name: "Tall",
+        id: "5",
       },
       {
-        type: 'wealth',
-        name: 'Very very very very rich',
-        id: '6'
+        type: "wealth",
+        name: "Very very very very rich",
+        id: "6",
       },
     ],
     type: "add",
@@ -230,16 +217,16 @@ export const uploadAndSwitchFields = [
     icon: "/create-nft/Icon-Levels.svg",
     data: [
       {
-        name: 'speed',
+        name: "speed",
         value: 5,
         maxValue: 7,
-        id: '1'
+        id: "1",
       },
       {
-        name: 'height',
+        name: "height",
         value: 1,
         maxValue: 10,
-        id: '2'
+        id: "2",
       },
     ],
     type: "add",
@@ -251,16 +238,16 @@ export const uploadAndSwitchFields = [
     icon: "/create-nft/Icon-Stats.svg",
     data: [
       {
-        name: 'speed',
+        name: "speed",
         value: 5,
         maxValue: 7,
-        id: '1'
+        id: "1",
       },
       {
-        name: 'height',
+        name: "height",
         value: 1,
         maxValue: 10,
-        id: '2'
+        id: "2",
       },
     ],
     type: "add",
