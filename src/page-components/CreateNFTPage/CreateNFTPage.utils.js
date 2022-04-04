@@ -161,8 +161,18 @@ export const selects = [
     title: "Blockchain",
     description: "This is the collection where your item will appear.",
     placeholder: "Select Blockchain",
-    options: [],
+    options: [
+      {
+        id: "bch1",
+        text: "Polygon",
+      },
+      {
+        id: "bch2",
+        text: "Ethereum",
+      },
+    ],
     id: "blockchain",
+    required: true
   },
   {
     title: "Freeze Metadata",
