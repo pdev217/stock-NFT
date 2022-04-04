@@ -5,7 +5,11 @@ import cn from "classnames";
 import Image from "next/image";
 //redux
 import { useDispatch } from "react-redux";
+<<<<<<< HEAD
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
+=======
+import { open } from "../../redux/slices/errorSnackbarSlice";
+>>>>>>> 472e6f6e5fd30e016e37770be94344a938014b5d
 //mui
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
@@ -22,14 +26,28 @@ import { AddPropertiesModal } from "../../modals/AddToNFTModal/AddPropertiesModa
 import { useStyles, textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
 //styles
 import styles from "./CreateNFTPage.module.css";
+<<<<<<< HEAD
 //web3
 import { useWeb3React } from "@web3-react/core";
+=======
+>>>>>>> 472e6f6e5fd30e016e37770be94344a938014b5d
 //ethers
 import { ethers } from "ethers";
 //hooks
 import useAuth from "../../hooks/useAuth";
+//artifacts
+import StokeArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json"
+//@web3/react
+import { useWeb3React } from "@web3-react/core";
+//utils
+import { toHex } from "../../utils";
+
+var stokeContract;
+const ethContractAddr = "0x244218500f847dbb4270f5f66399537c6bbd7a8d";
+const polContractAddr = "0xdA054F032E40F04c9E564701B70631ebC8Ba4877";
 
 export const CreateNFTPage = () => {
+<<<<<<< HEAD
   const { active } = useWeb3React;
   const dispatch = useDispatch();
   const { account, error } = useAuth();
@@ -37,6 +55,17 @@ export const CreateNFTPage = () => {
   if (error) {
     dispatch(openError(`${error.statusCode} ${error.message}`));
   }
+=======
+  const { account } = useAuth();
+  const { library, chainId } = useWeb3React();
+  const [disabledButton, setDisabledButton] = useState(true);
+  const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
+  const muiClasses = useStyles();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const etherNetwork = 3 //Ropsten testnet chainID
+  const polygonNetwork = 80001 //Mumbai testnet chainId
+>>>>>>> 472e6f6e5fd30e016e37770be94344a938014b5d
 
   const [values, setValues] = useState({
     fileLink: undefined,
@@ -53,6 +82,7 @@ export const CreateNFTPage = () => {
     blockchain: "none",
     freezeMetadata: "none",
   });
+<<<<<<< HEAD
 
   console.log("---values", values);
 
@@ -65,6 +95,10 @@ export const CreateNFTPage = () => {
   const muiClasses = useStyles();
 
   const handleChange = (e, value, type) => {
+=======
+  
+  const handleChange = (e, value, isFile) => {
+>>>>>>> 472e6f6e5fd30e016e37770be94344a938014b5d
     e.preventDefault();
     console.log(type);
 
@@ -104,9 +138,32 @@ export const CreateNFTPage = () => {
     }
   };
 
-  const handleSave = () => {};
+  const pinFileToIPFS = async (data) => {
+    const formData = new FormData();
+    formData.append('file', data)
+    const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
+        maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
+        headers: {
+            pinata_api_key: process.env.PINATA_API_KEY ,
+            pinata_secret_api_key: process.env.PINATA_SECRET_API_LEY
+        }
+    })
+
+    return response.data.IpfsHash
+  }
+
+  const pinJSONToIPFS = async (JSONBody) => {
+      const response = await axios.post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, JSONBody, {
+          headers: {
+              pinata_api_key: process.env.PINATA_API_KEY,
+              pinata_secret_api_key: process.env.PINATA_SECRET_API_LEY
+          }
+      })
+      return response.data.IpfsHash
+  };
 
   useEffect(() => {
+<<<<<<< HEAD
     if (
       values.fileLink &&
       values.name &&
@@ -126,6 +183,50 @@ export const CreateNFTPage = () => {
       const signer = provider.getSigner(account);
     }
   }, [account]);
+=======
+    if(account && library) {
+      const signer = library.getSigner(account);
+      const IStoke = new ethers.Contract(account, StokeArtifacts.abi, signer);
+      stokeContract = IStoke.attach(polContractAddr);      
+    }
+  }, [account, library])
+
+  const switchNetwork = async (network) => {
+    await library?.provider.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: toHex(network) }]
+    });
+  }
+
+  const handleSave = async () => {
+    if(chainId !== polygonNetwork) {
+      switchNetwork(polygonNetwork).then((res) => {
+        console.log('network is changed successfully')
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+    if(library) {
+      const imageHash = await pinFileToIPFS(values.file);
+      const metaData = {
+        image: `https://ipfs.io/ipfs/${imageHash}`,
+        name: values.name,
+        description: values.description,
+        externalLink: values.externalLink
+      }
+      const metaDataHash = await pinJSONToIPFS(metaData)
+      console.log(stokeContract)
+      const transaction = await stokeContract.createToken(`https://ipfs.io/ipfs/${metaDataHash}`)
+      .catch((err) => {
+        console.log(err.message)
+        dispatch(open(err.message)); //not working
+      });
+      transaction?.wait().then(res => console.log(res)).catch((e) => console.log(e))
+    }else {
+      router.push("/connect-wallet");
+    }
+  };
+>>>>>>> 472e6f6e5fd30e016e37770be94344a938014b5d
 
   const star = <span className={styles.star}>*</span>;
   return (
@@ -331,7 +432,6 @@ export const CreateNFTPage = () => {
         <CustButton
           color="primary"
           text="Save"
-          disabled={disabledButton}
           onClick={handleSave}
           className={styles.button}
         />
