@@ -41,6 +41,11 @@ export const WalletPopup = ({ className }) => {
         name: "Metamask",
         src: "/metamask-fox-wallet.svg",
       };
+    } else {
+      return {
+        name: "WalletConnect",
+        src: "/walletconnect-wallet.svg",
+      };
     }
   };
 
