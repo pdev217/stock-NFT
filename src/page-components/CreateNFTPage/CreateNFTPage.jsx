@@ -35,7 +35,7 @@ import axios from "axios"
 
 var stokeContract;
 export const CreateNFTPage = () => {
-  const { library, chainId } = useWeb3React();
+  const { active, library } = useWeb3React();
   const dispatch = useDispatch();
   const { account, error } = useAuth();
   const etherContractAddr = "0x244218500f847dbb4270f5f66399537c6bbd7a8d"
@@ -61,7 +61,7 @@ export const CreateNFTPage = () => {
     freezeMetadata: "none",
   });
 
-  const [previewFile, setPrewiewFile] = useState();
+  const [previewFile, setPreviewFile] = useState();
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   const [isAddStatsOpened, setIsAddStatsOpened] = useState(false);
@@ -77,6 +77,11 @@ export const CreateNFTPage = () => {
         setValues({ ...values, [value]: e.target.value });
         break;
       case "file":
+        if (!e.target.files || e.target.files.length === 0) {
+          setValues({ ...values, file: undefined });
+          return;
+        }
+
         const file = e.target.files[0];
         const link = e.target.value;
         if (file.size < 100000000) {
@@ -86,9 +91,9 @@ export const CreateNFTPage = () => {
         }
         break;
       case "boolean":
-        if (value === 'unlockable') {
+        if (value === "unlockable") {
           setEnsabledUnlockable(e.target.checked);
-        } else if (value === 'isSensitiveContent') {
+        } else if (value === "isSensitiveContent") {
           setValues({ ...values, [value]: e.target.checked });
         }
         break;
@@ -136,8 +141,8 @@ export const CreateNFTPage = () => {
   }
 
   const handleSave = async () => {    
-    const imageHash = await pinFileToIPFS(values.fileLink);
-    console.log(imageHash)
+    console.log(values)
+    const imageHash = await pinFileToIPFS(values.file);
   };
 
   useEffect(() => {
@@ -146,13 +151,14 @@ export const CreateNFTPage = () => {
       values.name &&
       values.description &&
       values.collection !== "none" &&
-      values.collection !== "None"
+      values.collection !== "None" &&
+      values.blockchain !== "none"
     ) {
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [values.fileLink, values.name, values.description, values.collection]);
+  }, [values.fileLink, values.name, values.description, values.collection, values.blockchain]);
 
   useEffect(() => {
     if (account && library) {
@@ -161,6 +167,19 @@ export const CreateNFTPage = () => {
       stokeContract = IStoke.attach(etherContractAddr)
     }
   }, [account, library]);
+
+  useEffect(() => {
+    if (!values.file) {
+      setPreviewFile(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(values.file);
+    console.log("---objectUrl", objectUrl);
+    setPreviewFile(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [values.file]);
 
   const star = <span className={styles.star}>*</span>;
   return (
@@ -179,13 +198,15 @@ export const CreateNFTPage = () => {
             </span>
           </div>
           <div className={styles.dragPlaceholder}>
+            <div className={styles.imageWrapper}>
+              {previewFile && <Image src={previewFile} alt="image" layout="fill" objectFit="contain" />}
+            </div>
             <input
               className={styles.uploadFileInput}
               type="file"
               onChange={(e) => handleChange(e, "file", "file")}
               accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
             />
-            {values.file && <Image src={values.file} alt="image" />}
           </div>
         </div>
         {textFields.map(({ title, description, required, label, multiline, id, maxLength }) => (
@@ -277,7 +298,7 @@ export const CreateNFTPage = () => {
                 <CustSwitch
                   className={styles.switch}
                   defaultChecked={defaultChecked}
-                  onChange={(e) => handleChange(e, id, 'boolean')}
+                  onChange={(e) => handleChange(e, id, "boolean")}
                 />
               )}
             </div>
@@ -337,7 +358,9 @@ export const CreateNFTPage = () => {
             key={id}
           >
             <div className={styles.title}>
-              <span>{title} {required && star}</span>
+              <span>
+                {title} {required && star}
+              </span>
             </div>
             <div className={styles.description}>
               <span>{description}</span>
@@ -367,7 +390,6 @@ export const CreateNFTPage = () => {
         <CustButton
           color="primary"
           text="Save"
-          disabled={disabledButton}
           onClick={handleSave}
           className={styles.button}
         />

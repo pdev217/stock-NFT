@@ -20,7 +20,7 @@ const fakeChartData = new Array(15).fill({}, 0, 14).map(() => {
 });
 
 export const Header = () => {
-  const { isAuthorized, error } = useAuth();
+  const { isAuthorized } = useAuth();
 
   const dispatch = useDispatch();
   const isProfilePopupOpened = useSelector((state) => state.profilePopup.profilePopup.isOpened);
@@ -53,7 +53,6 @@ export const Header = () => {
         </div>
       </div>
       <div className={styles.userData}>
-        <Link href="/create-nft">Create</Link>
         <div className={styles.profile} onClick={openProfilePopup}>
           <div className={isAuthorized ? styles.authorisedIcon : styles.profileIcon}>
             <Image

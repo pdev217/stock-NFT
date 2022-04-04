@@ -1,4 +1,7 @@
 import { useState, useLayoutEffect } from "react";
+//redux
+import { open as openError } from "../../redux/slices/errorSnackbarSlice";
+import { useDispatch } from "react-redux";
 //next
 import Image from "next/image";
 //mui
@@ -15,6 +18,7 @@ import cssStyles from "./AddToNFTModal.module.css";
 import { getEmptyProperty } from "./AddToNFTModal.utils";
 
 export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setData }) => {
+  const dispatch = useDispatch();
   const [modalData, setModalData] = useState(
     data.properties.length > 0 ? data.properties : [{ ...getEmptyProperty() }]
   );
@@ -24,6 +28,10 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
   };
 
   const handleAdd = () => {
+    if (modalData.length === 50) {
+      dispatch(openError('Only 50 values can be added'))
+    }
+
     setModalData([...modalData, { ...getEmptyProperty() }]);
   };
 

@@ -1,15 +1,23 @@
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import cn from "classnames";
+//next
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@mui/material";
+//redux
+import { useDispatch, useSelector } from "react-redux";
 import { close } from "../../redux/slices/walletPopupSlice";
 import { open } from "../../redux/slices/myWalletOptionsPopupSlice";
-import { useOnClickOutside } from "../../hooks/useOnClickOutside";
+//classnames
+import cn from "classnames";
+//components
+import { Button } from "@mui/material";
 import { ChooseWalletBox } from "../ChooseWalletBox/ChooseWalletBox";
 import { MyWalletOptionsPopup } from "../MyWalletOptionsPopup/MyWalletOptionsPopup";
+//@web3/react
+import { useWeb3React } from "@web3-react/core";
+//styles
 import styles from "./WalletPopup.module.css";
+//hooks
+import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import useAuth from "../../hooks/useAuth";
 
 export const WalletPopup = ({ className }) => {
