@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 //next
 import Link from "next/link";
 import Image from "next/image";
@@ -21,11 +21,30 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import useAuth from "../../hooks/useAuth";
 
 export const WalletPopup = ({ className }) => {
+  const [connectedWallet, setConnectedWallet] = useState();
   const isMyWalletOptionsPopupOpened = useSelector(
     (state) => state.myWalletOptionsPopup.myWalletOptionsPopup.isOpened
   );
+  
+  useEffect(() => {
+    setConnectedWallet(localStorage.getItem("walletConnected"));
+  }, []);
 
-  const { isAuthorized } = useAuth()
+  const getConnectedData = () => {
+    if (connectedWallet.startsWith("https://mainnet.infura.io/v3/")) {
+      return {
+        name: "Coinbase",
+        src: "/coinbase-wallet.svg",
+      };
+    } else if (connectedWallet === "metamask") {
+      return {
+        name: "Metamask",
+        src: "/metamask-fox-wallet.svg",
+      };
+    }
+  };
+
+  const { isAuthorized } = useAuth();
 
   const dispatch = useDispatch();
   const ref = useRef();
@@ -56,8 +75,8 @@ export const WalletPopup = ({ className }) => {
         {isMyWalletOptionsPopupOpened && (
           <MyWalletOptionsPopup
             className={styles.myWalletOptionsPopup}
-            walletName="Metamask"
-            src="/metamask-fox-wallet.svg"
+            walletName={getConnectedData().name}
+            src={getConnectedData().src}
           />
         )}
       </div>
