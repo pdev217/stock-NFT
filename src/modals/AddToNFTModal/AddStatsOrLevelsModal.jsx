@@ -45,7 +45,7 @@ export const AddStatsOrLevelsModal = ({
 
   const handleSave = () => {
     const newData = [...modalData];
-    const filtered = newData.filter((elem) => elem.name !== "" && elem.value && elem.maxValue);
+    const filtered = newData.filter((elem) => elem.name !== "" && elem.nftValue && elem.maxValue);
     
     title === "Add Stats"
       ? setData({ ...data, stats: [...filtered] })
@@ -86,12 +86,12 @@ export const AddStatsOrLevelsModal = ({
                 <span>Value</span>
               </div>
             </div>
-            {modalData.map(({ name, value, id, maxValue }, index) => (
+            {modalData.map(({ name, nftValue, id, maxValue }, index) => (
               <StatsOrLevelsRow
                 name={name}
                 modalData={modalData}
                 setModalData={setModalData}
-                value={value}
+                nftValue={nftValue}
                 maxValue={maxValue}
                 id={id}
                 key={id}

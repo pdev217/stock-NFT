@@ -10,7 +10,8 @@ export const CustTextField = ({ name, label, modalData, setModalData, index }) =
 
   const handleChange = (newValue, label, index) => {
     const data = [...modalData];
-    if (label === 'Name') data[index].name = newValue;
+    if (label === 'Type') data[index].type = newValue;
+    else if (label === 'Name') data[index].name = newValue;
     else if (label === 'Value') data[index].value = newValue;
     else if (label === 'Max Value') data[index].maxValue = newValue;
 

@@ -39,7 +39,7 @@ export const CreateNFTPage = () => {
   }
 
   const [values, setValues] = useState({
-    file: undefined,
+    fileLink: undefined,
     name: "",
     externalLink: "",
     description: "",
@@ -48,7 +48,7 @@ export const CreateNFTPage = () => {
     levels: [],
     stats: [],
     unlockable: "",
-    explicit: false,
+    isSensitiveContent: false,
     supply: "none",
     blockchain: "none",
     freezeMetadata: "none",
@@ -75,7 +75,7 @@ export const CreateNFTPage = () => {
       case "file":
         const file = e.target.files[0];
         if (file.size < 100000000) {
-          setValues({ ...values, [value]: file });
+          setValues({ ...values, fileLink: file });
         } else {
           dispatch(openError(`The uploaded file must be smaller than 100 mb`));
         }
@@ -83,7 +83,7 @@ export const CreateNFTPage = () => {
       case "boolean":
         if (value === 'unlockable') {
           setEnsabledUnlockable(e.target.checked);
-        } else if (value === 'explicit') {
+        } else if (value === 'isSensitiveContent') {
           setValues({ ...values, [value]: e.target.checked });
         }
         break;
@@ -108,7 +108,7 @@ export const CreateNFTPage = () => {
 
   useEffect(() => {
     if (
-      values.file &&
+      values.fileLink &&
       values.name &&
       values.description &&
       values.collection !== "none" &&
@@ -118,7 +118,7 @@ export const CreateNFTPage = () => {
     } else {
       setDisabledButton(true);
     }
-  }, [values.file, values.name, values.description, values.collection]);
+  }, [values.fileLink, values.name, values.description, values.collection]);
 
   useEffect(() => {
     if (account) {
@@ -276,17 +276,17 @@ export const CreateNFTPage = () => {
               </div>
             )}
             {id === "stats" &&
-              values.stats.map(({ name, value, maxValue, id }) => (
-                <Stat key={id} name={name} value={value} maxValue={maxValue} />
+              values.stats.map(({ name, nftValue, maxValue, id }) => (
+                <Stat key={id} name={name} nftValue={nftValue} maxValue={maxValue} />
               ))}
             {id === "levels" &&
-              values.levels.map(({ name, value, maxValue, id }) => (
-                <Level key={id} name={name} value={value} maxValue={maxValue} />
+              values.levels.map(({ name, nftValue, maxValue, id }) => (
+                <Level key={id} name={name} nftValue={nftValue} maxValue={maxValue} />
               ))}
             {id === "properties" && (
               <div className={styles.propertiesWrapper}>
-                {values.properties.map(({ name, value, id }) => (
-                  <Property key={id} name={name} type={value} />
+                {values.properties.map(({ name, type, id }) => (
+                  <Property key={id} name={name} type={type} />
                 ))}
               </div>
             )}

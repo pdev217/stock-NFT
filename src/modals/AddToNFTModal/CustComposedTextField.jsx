@@ -5,8 +5,8 @@ import TextField from "@mui/material/TextField";
 import cssStyles from "./AddToNFTModal.module.css";
 import { useStyles } from "../../page-components/CreateNFTPage/CreateNFTPage.utils";
 
-export const CustComposedTextField = ({ value, maxValue, modalData, setModalData, index }) => {
-  const [fieldValue, setfieldValue] = useState(value);
+export const CustComposedTextField = ({ nftValue, maxValue, modalData, setModalData, index }) => {
+  const [fieldValue, setfieldValue] = useState(nftValue);
   const [maxFieldValue, setMaxFieldValue] = useState(maxValue);
   const muiClasses = useStyles();
 
@@ -14,7 +14,7 @@ export const CustComposedTextField = ({ value, maxValue, modalData, setModalData
     const data = [...modalData];
 
     if (label === "Value") {
-      data[index].value = newValue;
+      data[index].nftValue = newValue;
       setfieldValue(newValue);
     } else if (label === "Max Value") {
       data[index].maxValue = newValue;

@@ -35,7 +35,8 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
 
   const handleSave = () => {
     const newData = [...modalData];
-    const filtered = newData.filter((elem) => elem.name !== "" && elem.value !== "");
+    console.log(newData)
+    const filtered = newData.filter((elem) => elem.name !== "" && elem.type !== "");
     setData({ ...data, properties: [...filtered] });
 
     setModalData([...filtered]);
@@ -80,7 +81,7 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
                 <span>Value</span>
               </div>
             </div>
-            {modalData.map(({ name, value, id }, index) => (
+            {modalData.map(({ name, type, id }, index) => (
               <PropertiesRow
                 handleDelete={handleDelete}
                 setModalData={setModalData}
@@ -89,7 +90,7 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
                 index={index}
                 key={id}
                 name={name}
-                value={value}
+                type={type}
               />
             ))}
           </div>

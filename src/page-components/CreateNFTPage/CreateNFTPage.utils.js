@@ -269,6 +269,6 @@ export const uploadAndSwitchFields = [
     description: "Set this item as explicit and sensitive content",
     icon: "/create-nft/Icon-Explicit.svg",
     type: "switch",
-    id: "explicit",
+    id: "isSensitiveContent",
   },
 ];

@@ -39,9 +39,9 @@ export const styles = {
 };
 
 export const getEmptyLevelOrStat = () => {
-  return { name: "", value: 3, maxValue: 5, id: v4() };
+  return { name: "", nftValue: 3, maxValue: 5, id: v4() };
 };
 
 export const getEmptyProperty = () => {
-  return { name: "", value: "", id: v4() };
+  return { type: "", name: "", id: v4() };
 };

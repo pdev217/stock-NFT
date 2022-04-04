@@ -5,22 +5,22 @@ import { CustTextField } from "./CustTextField";
 //styles
 import cssStyles from "./AddToNFTModal.module.css";
 
-export const PropertiesRow = ({ name, id, value, handleDelete, modalData, setModalData, index }) => {
+export const PropertiesRow = ({ name, id, type, handleDelete, modalData, setModalData, index }) => {
   return (
     <div className={cssStyles.row}>
+      <CustTextField
+        name={type}
+        id={id}
+        index={index}
+        label="Type"
+        modalData={modalData}
+        setModalData={setModalData}
+      />
       <CustTextField
         name={name}
         id={id}
         index={index}
         label="Name"
-        modalData={modalData}
-        setModalData={setModalData}
-      />
-      <CustTextField
-        name={value}
-        id={id}
-        index={index}
-        label="Value"
         modalData={modalData}
         setModalData={setModalData}
       />

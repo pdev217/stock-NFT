@@ -6,7 +6,7 @@ import { CustTextField } from "./CustTextField";
 //styles
 import cssStyles from "./AddToNFTModal.module.css";
 
-export const StatsOrLevelsRow = ({ name, id, value, maxValue, handleDelete, modalData, setModalData, index }) => {
+export const StatsOrLevelsRow = ({ name, id, nftValue, maxValue, handleDelete, modalData, setModalData, index }) => {
   return (
     <div className={cssStyles.row}>
       <CustTextField
@@ -18,7 +18,7 @@ export const StatsOrLevelsRow = ({ name, id, value, maxValue, handleDelete, moda
         index={index}
       />
       <CustComposedTextField
-        value={value}
+        nftValue={nftValue}
         id={id}
         modalData={modalData}
         setModalData={setModalData}

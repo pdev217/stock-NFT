@@ -1,10 +1,10 @@
 import styles from "./Stat.module.css";
 
-export const Stat = ({ name, value, maxValue }) => (
+export const Stat = ({ name, nftValue, maxValue }) => (
   <div className={styles.wrapper}>
     <span>{name}</span>
     <span>
-      {value} of {maxValue}
+      {nftValue} of {maxValue}
     </span>
   </div>
 );
