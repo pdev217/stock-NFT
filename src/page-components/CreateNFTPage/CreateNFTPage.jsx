@@ -42,11 +42,11 @@ export const CreateNFTPage = () => {
   const polygonContractAddr = "0xdA054F032E40F04c9E564701B70631ebC8Ba4877"
 
   if (error) {
-    dispatch(openError(`${error.statusCode} ${error.message}`));
+    dispatch(openError(`${error.message}`));
   }
 
   const [values, setValues] = useState({
-    fileLink: undefined,
+    file: undefined,
     name: "",
     externalLink: "",
     description: "",
@@ -61,8 +61,7 @@ export const CreateNFTPage = () => {
     freezeMetadata: "none",
   });
 
-  console.log("---values", values);
-
+  const [previewFile, setPrewiewFile] = useState();
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   const [isAddStatsOpened, setIsAddStatsOpened] = useState(false);
@@ -73,16 +72,15 @@ export const CreateNFTPage = () => {
 
   const handleChange = (e, value, type) => {
     e.preventDefault();
-    console.log(type);
-
     switch (type) {
       case "string":
         setValues({ ...values, [value]: e.target.value });
         break;
       case "file":
         const file = e.target.files[0];
+        const link = e.target.value;
         if (file.size < 100000000) {
-          setValues({ ...values, fileLink: file });
+          setValues({ ...values, file: file });
         } else {
           dispatch(openError(`The uploaded file must be smaller than 100 mb`));
         }
@@ -121,6 +119,17 @@ export const CreateNFTPage = () => {
           headers: {
               pinata_api_key: process.env.PINATA_API_KEY,
               pinata_secret_api_key: process.env.PINATA_SECRET_API_LEY
+          }
+      })
+    return responsive.data.IpfsHash
+  }
+
+  const pinJSONToIPFS = async (JSONBody) => {
+    const responsive = axios
+        .post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, JSONBody, {
+          headers: {
+            pinata_api_key: process.env.PINATA_API_KEY,
+            pinata_secret_api_key: process.env.PINATA_SECRET_API_LEY
           }
       })
     return responsive.data.IpfsHash
@@ -176,6 +185,7 @@ export const CreateNFTPage = () => {
               onChange={(e) => handleChange(e, "file", "file")}
               accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
             />
+            {values.file && <Image src={values.file} alt="image" />}
           </div>
         </div>
         {textFields.map(({ title, description, required, label, multiline, id, maxLength }) => (
@@ -318,7 +328,7 @@ export const CreateNFTPage = () => {
             )}
           </div>
         ))}
-        {selects.slice(1).map(({ title, description, options, placeholder, id }) => (
+        {selects.slice(1).map(({ title, description, options, placeholder, required, id }) => (
           <div
             className={cn(styles.section, {
               [styles.sectionWithMarginTop]: title === "Supply",
@@ -327,7 +337,7 @@ export const CreateNFTPage = () => {
             key={id}
           >
             <div className={styles.title}>
-              <span>{title}</span>
+              <span>{title} {required && star}</span>
             </div>
             <div className={styles.description}>
               <span>{description}</span>
@@ -344,7 +354,7 @@ export const CreateNFTPage = () => {
               className={muiClasses.select}
             >
               <MenuItem disabled value="none">
-                <span style={{ color: "var(--light-grey)" }}>{placeholder}</span>
+                <span style={{ color: "var(--dark-grey)" }}>{placeholder}</span>
               </MenuItem>
               {options.map(({ id, text }) => (
                 <MenuItem key={id} value={text}>

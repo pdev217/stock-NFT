@@ -65,7 +65,7 @@ function AuthProvider({children}) {
           const accessToken = localStorage.getItem("accessToken");
           const account = localStorage.getItem("account");
           const isValid = await verifyUser(accessToken);
-          console.log(accessToken)
+          // console.log(accessToken)
 
           if (accessToken && isValid?.data?.token) {
             dispatch({
