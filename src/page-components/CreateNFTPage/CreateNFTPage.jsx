@@ -35,11 +35,11 @@ export const CreateNFTPage = () => {
   const { account, error } = useAuth();
 
   if (error) {
-    dispatch(openError(`${error.statusCode} ${error.message}`));
+    dispatch(openError(`${error.message}`));
   }
 
   const [values, setValues] = useState({
-    fileLink: undefined,
+    fileLink: "",
     name: "",
     externalLink: "",
     description: "",
@@ -53,8 +53,6 @@ export const CreateNFTPage = () => {
     blockchain: "none",
     freezeMetadata: "none",
   });
-
-  console.log("---values", values);
 
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
@@ -74,8 +72,9 @@ export const CreateNFTPage = () => {
         break;
       case "file":
         const file = e.target.files[0];
+        const link = e.target.value;
         if (file.size < 100000000) {
-          setValues({ ...values, fileLink: file });
+          setValues({ ...values, fileLink: link });
         } else {
           dispatch(openError(`The uploaded file must be smaller than 100 mb`));
         }
@@ -318,7 +317,7 @@ export const CreateNFTPage = () => {
               className={muiClasses.select}
             >
               <MenuItem disabled value="none">
-                <span style={{ color: "var(--light-grey)" }}>{placeholder}</span>
+                <span style={{ color: "var(--dark-grey)" }}>{placeholder}</span>
               </MenuItem>
               {options.map(({ id, text }) => (
                 <MenuItem key={id} value={text}>
