@@ -158,7 +158,7 @@ export const selects = [
         text: "Ethereum",
       },
     ],
-    id: "blockchain",
+    id: "blockchainType",
     required: true,
   },
   {
