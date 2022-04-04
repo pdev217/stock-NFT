@@ -69,12 +69,22 @@
 	max-width: 400px;
 	height: 200px;
 	margin-bottom: 24px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
 
 	border: 1px dashed #FFFFFF4D;
 	border-radius: 30px;
 	background-image: url("../../../public/create-nft/Icon-Image.svg");
 	background-repeat: no-repeat;
 	background-position: center;
+}
+
+.imageWrapper {
+	position: absolute;
+	height: 100%;
+	width: 100%;
 }
 
 .dragPlaceholder:hover {
