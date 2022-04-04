@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState, useLayoutEffect } from "react";
+//next
+import Image from "next/image";
 //mui
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -25,7 +27,7 @@ export const AddStatsOrLevelsModal = ({
     defaultValue.length > 0 ? defaultValue : [{ ...emptyLevelOrStat }]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     modalData.length === 0 && setModalData([{ ...emptyLevelOrStat }]);
   }, [modalData]);
 
@@ -38,24 +40,16 @@ export const AddStatsOrLevelsModal = ({
   };
 
   const handleDelete = (id) => {
-    if (modalData.length === 1) {
-      setModalData([{ ...emptyLevelOrStat }]);
-
-      return;
-    }
-
     setModalData(modalData.filter((elem) => elem.id !== id));
   };
 
   const handleSave = () => {
     const newData = [...modalData];
     const filtered = newData.filter((elem) => elem.name !== "" && elem.value && elem.maxValue);
-    setModalData([...filtered]);
-
+    
     title === "Add Stats"
       ? setData({ ...data, stats: [...filtered] })
       : setData({ ...data, levels: [...filtered] });
-
     setIsModalOpened(false);
   };
 
@@ -69,9 +63,15 @@ export const AddStatsOrLevelsModal = ({
       <Box sx={jsStyles.wrapper}>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.header}>
           <span>{title}</span>
-          <span className={cssStyles.cross} onClick={() => setIsModalOpened(false)}>
-            x
-          </span>
+          <div className={cssStyles.cross} onClick={() => setIsModalOpened(false)}>
+            <Image
+              src="/create-nft/Icon-Close.svg"
+              alt="close-icon"
+              width={15}
+              height={15}
+              onClick={() => setIsModalOpened(false)}
+            />
+          </div>
         </Typography>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.description}>
           {description}

@@ -1,3 +1,5 @@
+//next
+import Image from "next/image";
 //components
 import { CustTextField } from "./CustTextField";
 //styles
@@ -23,7 +25,12 @@ export const PropertiesRow = ({ name, id, value, handleDelete, modalData, setMod
         setModalData={setModalData}
       />
       <div className={cssStyles.crossBox} onClick={() => handleDelete(id)}>
-        <span>X</span>
+        <Image
+          src="/create-nft/Icon-Close.svg"
+          alt="close-icon"
+          width={15}
+          height={15}
+        />
       </div>
     </div>
   );

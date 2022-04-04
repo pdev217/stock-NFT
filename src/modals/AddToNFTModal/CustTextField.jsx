@@ -7,7 +7,6 @@ import { useStyles } from "../../page-components/CreateNFTPage/CreateNFTPage.uti
 export const CustTextField = ({ name, label, modalData, setModalData, index }) => {
   const muiClasses = useStyles();
   const [fieldName, setFieldName] = useState(name);
-  console.log('---modalData', modalData)
 
   const handleChange = (newValue, label, index) => {
     const data = [...modalData];

@@ -1,3 +1,5 @@
+//next
+import Image from "next/image";
 //components
 import { CustComposedTextField } from "./CustComposedTextField";
 import { CustTextField } from "./CustTextField";
@@ -24,8 +26,13 @@ export const StatsOrLevelsRow = ({ name, id, value, maxValue, handleDelete, moda
         maxValue={maxValue}
       />
       <div className={cssStyles.crossBox} onClick={() => handleDelete(id)}>
-        <span>X</span>
-      </div>
+            <Image
+              src="/create-nft/Icon-Close.svg"
+              alt="close-icon"
+              width={15}
+              height={15}
+            />
+          </div>
     </div>
   );
 };

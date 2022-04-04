@@ -38,15 +38,10 @@ export const styles = {
   },
 };
 
-export const emptyLevelOrStat = {
-  name: "",
-  value: 3,
-  maxValue: 5,
-  id: v4(),
+export const getEmptyLevelOrStat = () => {
+  return { name: "", value: 3, maxValue: 5, id: v4() };
 };
 
-export const emptyProperty = {
-  name: "",
-  value: "",
-  id: v4(),
+export const getEmptyProperty = () => {
+  return { name: "", value: "", id: v4() };
 };

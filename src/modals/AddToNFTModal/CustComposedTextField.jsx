@@ -6,16 +6,11 @@ import cssStyles from "./AddToNFTModal.module.css";
 import { useStyles } from "../../page-components/CreateNFTPage/CreateNFTPage.utils";
 
 export const CustComposedTextField = ({ value, maxValue, modalData, setModalData, index }) => {
-  console.log("---value", value);
-  console.log("---maxValue", maxValue);
   const [fieldValue, setfieldValue] = useState(value);
   const [maxFieldValue, setMaxFieldValue] = useState(maxValue);
   const muiClasses = useStyles();
-  console.log("---fieldValue", fieldValue);
-  console.log("---maxFieldValue", maxFieldValue);
 
   const handleChange = (newValue, label, index) => {
-    console.log("---modalData", modalData);
     const data = [...modalData];
 
     if (label === "Value") {

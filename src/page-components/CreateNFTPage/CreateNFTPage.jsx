@@ -50,7 +50,6 @@ export const CreateNFTPage = () => {
     blockchain: "none",
     freezeMetadata: "none",
   });
-  console.log("values", values);
 
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
@@ -116,7 +115,6 @@ export const CreateNFTPage = () => {
   }, [account]);
 
   const star = <span className={styles.star}>*</span>;
-  console.log(values.levels);
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.contentWrapper}>

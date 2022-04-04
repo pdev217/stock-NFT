@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
+//next
+import Image from "next/image";
 //mui
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -10,11 +12,11 @@ import { PropertiesRow } from "./PropertiesRow";
 import { styles as jsStyles } from "./AddToNFTModal.utils";
 import cssStyles from "./AddToNFTModal.module.css";
 //utils
-import { emptyProperty } from "./AddToNFTModal.utils";
+import { getEmptyProperty } from "./AddToNFTModal.utils";
 
 export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setData }) => {
   const [modalData, setModalData] = useState(
-    data.properties.length > 0 ? data.properties : [{ ...emptyProperty }]
+    data.properties.length > 0 ? data.properties : [{ ...getEmptyProperty() }]
   );
 
   const handleClose = () => {
@@ -22,27 +24,27 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
   };
 
   const handleAdd = () => {
-    setModalData([...modalData, { ...emptyProperty }]);
+    setModalData([...modalData, { ...getEmptyProperty() }]);
   };
 
   const handleDelete = (id) => {
-    if (modalData.length === 1) {
-      setModalData([{ ...emptyProperty }]);
+    const newArr = [...modalData];
 
-      return;
-    }
-
-    setModalData(modalData.filter((elem) => elem.id !== id));
+    setModalData(newArr.filter((elem) => elem.id !== id));
   };
 
   const handleSave = () => {
     const newData = [...modalData];
     const filtered = newData.filter((elem) => elem.name !== "" && elem.value !== "");
-    
-    setModalData([...filtered]);
     setData({ ...data, properties: [...filtered] });
+
+    setModalData([...filtered]);
     setIsModalOpened(false);
   };
+
+  useLayoutEffect(() => {
+    modalData.length === 0 && setModalData([{ ...getEmptyProperty() }]);
+  }, [modalData]);
 
   return (
     <Modal
@@ -54,9 +56,15 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
       <Box sx={jsStyles.wrapper}>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.header}>
           <span>Add Properties</span>
-          <span className={cssStyles.cross} onClick={() => setIsModalOpened(false)}>
-            x
-          </span>
+          <div className={cssStyles.cross} onClick={() => setIsModalOpened(false)}>
+            <Image
+              src="/create-nft/Icon-Close.svg"
+              alt="close-icon"
+              width={15}
+              height={15}
+              onClick={() => setIsModalOpened(false)}
+            />
+          </div>
         </Typography>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.description}>
           Properties show up underneath your item, are clickable, and can be filtered in your
