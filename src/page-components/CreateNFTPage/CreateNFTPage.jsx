@@ -351,8 +351,9 @@ export const CreateNFTPage = () => {
         {selects.slice(1).map(({ title, description, options, placeholder, required, id }) => (
           <div
             className={cn(styles.section, {
-              [styles.sectionWithMarginTop]: title === "Supply",
-              [styles.sectionWithBigMarginBottom]: title === "Freeze Metadata",
+
+              [styles.sectionWithMarginTop]: title === "Blockchain", //"Supply",
+              [styles.sectionWithBigMarginBottom]: title === "Blockchain" //"Freeze Metadata",
             })}
             key={id}
           >

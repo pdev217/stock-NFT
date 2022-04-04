@@ -137,13 +137,13 @@ export const selects = [
     options: [],
     id: "collection",
   },
-  {
-    title: "Supply",
-    description: "The number of items that can be minted. No gas cost to you!",
-    placeholder: "Select Collection",
-    options: [],
-    id: "supply",
-  },
+  // {
+  //   title: "Supply",
+  //   description: "The number of items that can be minted. No gas cost to you!",
+  //   placeholder: "Select Collection",
+  //   options: [],
+  //   id: "supply",
+  // },
   {
     title: "Blockchain",
     description: "This is the collection where your item will appear.",
@@ -161,14 +161,14 @@ export const selects = [
     id: "blockchainType",
     required: true,
   },
-  {
-    title: "Freeze Metadata",
-    description:
-      "Freezing your metadata will allow you to permanently lock and store all of this item’s content in decentralized file storage.",
-    placeholder: "To freeze your metadata, you must create your item first.",
-    options: [],
-    id: "freezeMetadata",
-  },
+  // {
+  //   title: "Freeze Metadata",
+  //   description:
+  //     "Freezing your metadata will allow you to permanently lock and store all of this item’s content in decentralized file storage.",
+  //   placeholder: "To freeze your metadata, you must create your item first.",
+  //   options: [],
+  //   id: "freezeMetadata",
+  // },
 ];
 
 export const uploadAndSwitchFields = [
