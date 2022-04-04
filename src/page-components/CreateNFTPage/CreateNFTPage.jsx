@@ -291,7 +291,7 @@ export const CreateNFTPage = () => {
             )}
           </div>
         ))}
-        {selects.slice(1).map(({ title, description, options, placeholder, id }) => (
+        {selects.slice(1).map(({ title, description, options, placeholder, required, id }) => (
           <div
             className={cn(styles.section, {
               [styles.sectionWithMarginTop]: title === "Supply",
@@ -300,7 +300,7 @@ export const CreateNFTPage = () => {
             key={id}
           >
             <div className={styles.title}>
-              <span>{title}</span>
+              <span>{title} {required && star}</span>
             </div>
             <div className={styles.description}>
               <span>{description}</span>
