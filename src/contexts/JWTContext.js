@@ -10,30 +10,9 @@ const initialState = {
 };
 
 const handlers = {
-<<<<<<< HEAD
   INITIALIZE: (state, action) => {
     const { isAuthorized, account, error } = action.payload;
     return {
-=======
-    INITIALIZE: (state, action) => {
-      const { isAuthorized, account } = action.payload;
-      return {
-        ...state,
-        isAuthorized,
-        account,
-      };
-    },
-    LOGIN: (state, action) => {
-      const { account }  = action.payload;
-  
-      return {
-        ...state,
-        isAuthorized: true,
-        account,
-      };
-    },
-    LOGOUT: (state) => ({
->>>>>>> 472e6f6e5fd30e016e37770be94344a938014b5d
       ...state,
       isAuthorized,
       account,
@@ -75,141 +54,79 @@ const verifyUser = async (accessToken) => {
   return result;
 };
 
-<<<<<<< HEAD
-function AuthProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const router = useRouter();
-=======
 function AuthProvider({children}) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const router = useRouter();
     const { deactivate } = useWeb3React();
 
     useEffect(() => {
-        const initialize = async () => {  
-          try {
-            const accessToken = localStorage.getItem('accessToken');
-            const account = localStorage.getItem('account');
-            const isValid = await verifyUser(accessToken)
+      const initialize = async () => {
+        try {
+          const accessToken = localStorage.getItem("accessToken");
+          const account = localStorage.getItem("account");
+          const isValid = await verifyUser(accessToken);
+          console.log(accessToken)
 
-            if(accessToken && isValid?.data?.token) {
-              dispatch({
-                type: 'INITIALIZE',
-                payload: {
-                  isAuthorized: true,
-                  account,
-                },
-              });
-            }else {
-              dispatch({
-                type: 'INITIALIZE',
-                payload: {
-                  isAuthorized: false,
-                  account: null,
-                },
-              });
-              router.push('/connect-wallet')
-            }
-          }catch (err) {
-            console.error(err);
+          if (accessToken && isValid?.data?.token) {
             dispatch({
-              type: 'INITIALIZE',
+              type: "INITIALIZE",
+              payload: {
+                isAuthorized: true,
+                account,
+              },
+            });
+          } else {
+            dispatch({
+              type: "INITIALIZE",
               payload: {
                 isAuthorized: false,
                 account: null,
               },
             });
+            console.log("push");
+            router.push("/connect-wallet");
           }
-        }
-
-        initialize()
-    }, [])
-
-    const login = async (signature, account) => {
-        const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
-            publicAddress: account,
-            signature,
-        });
->>>>>>> 472e6f6e5fd30e016e37770be94344a938014b5d
-
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        const accessToken = localStorage.getItem("accessToken");
-        const account = localStorage.getItem("account");
-        const isValid = await verifyUser(accessToken);
-
-        if (accessToken && isValid?.data?.token) {
-          dispatch({
-            type: "INITIALIZE",
-            payload: {
-              isAuthorized: true,
-              account,
-            },
-          });
-        } else {
+        } catch (err) {
           dispatch({
             type: "INITIALIZE",
             payload: {
               isAuthorized: false,
               account: null,
+              error: { ...err.response.data },
             },
           });
-          console.log("push");
           router.push("/connect-wallet");
         }
-      } catch (err) {
-        dispatch({
-          type: "INITIALIZE",
-          payload: {
-            isAuthorized: false,
-            account: null,
-            error: { ...err.response.data },
-          },
-        });
-<<<<<<< HEAD
-        router.push("/connect-wallet");
-      }
-=======
-        router.push('/')
-    }
+      };
+
+      initialize();
+    }, []);
+
+    const login = async (signature, account) => {
+      const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
+        publicAddress: account,
+        signature,
+      });
+
+      localStorage.setItem("accessToken", tokenRes.data.token);
+      localStorage.setItem("account", account);
+
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          account,
+        },
+      });
+      router.push("/");
+    };
 
     const logout = async () => {
       deactivate()
-      localStorage.removeItem('accessToken');
+      localStorage.removeItem("accessToken");
       localStorage.removeItem("account");
-      dispatch({ type: 'LOGOUT' });
-      router.push('/connect-wallet')
->>>>>>> 472e6f6e5fd30e016e37770be94344a938014b5d
+      dispatch({ type: "LOGOUT" });
+      router.push("/connect-wallet");
     };
-
-    initialize();
-  }, []);
-
-  const login = async (signature, account) => {
-    const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
-      publicAddress: account,
-      signature,
-    });
-
-    localStorage.setItem("accessToken", tokenRes.data.token);
-    localStorage.setItem("account", account);
-
-    dispatch({
-      type: "LOGIN",
-      payload: {
-        account,
-      },
-    });
-    router.push("/");
-  };
-
-  const logout = async () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("account");
-    dispatch({ type: "LOGOUT" });
-    router.push("/connect-wallet");
-  };
 
   return (
     <AuthContext.Provider
@@ -225,4 +142,4 @@ function AuthProvider({children}) {
   );
 }
 
-export { AuthContext, AuthProvider };
+export { AuthContext, AuthProvider }

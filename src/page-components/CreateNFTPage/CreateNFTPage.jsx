@@ -28,11 +28,18 @@ import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 //hooks
 import useAuth from "../../hooks/useAuth";
+//artifacts
+import stokeArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json"
+//axios
+import axios from "axios"
 
+var stokeContract;
 export const CreateNFTPage = () => {
-  const { active } = useWeb3React;
+  const { library, chainId } = useWeb3React();
   const dispatch = useDispatch();
   const { account, error } = useAuth();
+  const etherContractAddr = "0x244218500f847dbb4270f5f66399537c6bbd7a8d"
+  const polygonContractAddr = "0xdA054F032E40F04c9E564701B70631ebC8Ba4877"
 
   if (error) {
     dispatch(openError(`${error.statusCode} ${error.message}`));
@@ -104,7 +111,25 @@ export const CreateNFTPage = () => {
     }
   };
 
-  const handleSave = () => {};
+  const pinFileToIPFS = async (file) => {
+    let data = new FormData();
+    data.append('file', file);
+
+    const responsive = await axios
+      .post(`https://api.pinata.cloud/pinning/pinFileToIPFS`, data, {
+          maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
+          headers: {
+              pinata_api_key: process.env.PINATA_API_KEY,
+              pinata_secret_api_key: process.env.PINATA_SECRET_API_LEY
+          }
+      })
+    return responsive.data.IpfsHash
+  }
+
+  const handleSave = async () => {    
+    const imageHash = await pinFileToIPFS(values.fileLink);
+    console.log(imageHash)
+  };
 
   useEffect(() => {
     if (
@@ -121,11 +146,12 @@ export const CreateNFTPage = () => {
   }, [values.fileLink, values.name, values.description, values.collection]);
 
   useEffect(() => {
-    if (account) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner(account);
+    if (account && library) {
+      const signer = library.getSigner(account);
+      const IStoke = new ethers.Contract(etherContractAddr, stokeArtifacts.abi, signer);
+      stokeContract = IStoke.attach(etherContractAddr)
     }
-  }, [account]);
+  }, [account, library]);
 
   const star = <span className={styles.star}>*</span>;
   return (
