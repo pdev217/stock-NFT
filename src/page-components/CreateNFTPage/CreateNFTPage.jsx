@@ -28,12 +28,16 @@ import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 //hooks
 import useAuth from "../../hooks/useAuth";
-//uuid
-import { v4 } from "uuid";
 
 export const CreateNFTPage = () => {
   const { active } = useWeb3React;
-  const { account } = useAuth();
+  const dispatch = useDispatch();
+  const { account, error } = useAuth()
+  console.log(error)
+
+  if (error) {
+    dispatch(openError(`${error.statusCode} ${error.message}`))
+  }
 
   const [values, setValues] = useState({
     file: undefined,
@@ -58,7 +62,6 @@ export const CreateNFTPage = () => {
   const [isAddPropertiesOpened, setIsAddPropertiesOpened] = useState(false);
 
   const muiClasses = useStyles();
-  const dispatch = useDispatch();
 
   const handleChange = (e, value, type) => {
     e.preventDefault();

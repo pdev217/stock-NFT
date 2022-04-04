@@ -19,7 +19,8 @@ const fakeChartData = new Array(15).fill({}, 0, 14).map(() => {
 });
 
 export const Header = () => {
-  const { isAuthorized } = useAuth();
+  const { isAuthorized, error } = useAuth();
+
   const dispatch = useDispatch();
   const isProfilePopupOpened = useSelector((state) => state.profilePopup.profilePopup.isOpened);
 

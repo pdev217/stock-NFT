@@ -5,15 +5,17 @@ import { useRouter } from "next/router";
 const initialState = {
   isAuthorized: false,
   account: null,
+  error: null,
 };
 
 const handlers = {
   INITIALIZE: (state, action) => {
-    const { isAuthorized, account } = action.payload;
+    const { isAuthorized, account, error } = action.payload;
     return {
       ...state,
       isAuthorized,
       account,
+      error,
     };
   },
   LOGIN: (state, action) => {
@@ -78,17 +80,19 @@ function AuthProvider({ children }) {
               account: null,
             },
           });
+          console.log("push");
           router.push("/connect-wallet");
         }
       } catch (err) {
-        console.error(err);
         dispatch({
           type: "INITIALIZE",
           payload: {
             isAuthorized: false,
             account: null,
+            error: { ...err.response.data },
           },
         });
+        router.push("/connect-wallet");
       }
     };
 
