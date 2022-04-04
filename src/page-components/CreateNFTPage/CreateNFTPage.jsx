@@ -30,7 +30,7 @@ import { ethers } from "ethers";
 import useAuth from "../../hooks/useAuth";
 
 export const CreateNFTPage = () => {
-  const { active } = useWeb3React;
+  const { active } = useWeb3React();
   const dispatch = useDispatch();
   const { account, error } = useAuth();
 
