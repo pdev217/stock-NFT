@@ -286,7 +286,7 @@ export const CreateNFTPage = () => {
     } else {
       setDisabledButton(true);
     }
-  }, [values.fileLink, values.name]);
+  }, [values.file, values.name]);
 
   useEffect(() => {
     if (!values.file) {
