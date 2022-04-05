@@ -5,12 +5,12 @@ export const sidebarData = [
     },
     {
         text: 'Profile',
-        src: '/profile-without-circle.svg',
+        hasIcon: true,
         id: 'sett1',
     },
     {
         text: 'Notifications',
-        src: '/add-alert-icon.svg',
+        hasIcon: true,
         id: 'sett2',
     }
 ]

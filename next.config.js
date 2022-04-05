@@ -4,6 +4,14 @@ const nextConfig = {
 }
 
 module.exports = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"]
+    });
+
+    return config;
+  },
   nextConfig,
   env: {
     INFURA_ID: 'a5b51678f5c248c5af6c10dc7c5501ea',
