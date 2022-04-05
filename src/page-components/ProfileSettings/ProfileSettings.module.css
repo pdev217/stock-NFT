@@ -1,185 +1,198 @@
 .wrapper {
-  display: flex;
+	display: flex;
 }
 
 .sidebar {
-  width: 40%;
-  max-width: 440px;
+	width: 40%;
+	max-width: 440px;
 
-  border-right: 1px solid var(--dark-grey);
-  border-bottom: 1px solid var(--dark-grey);
+	border-right: 1px solid var(--dark-grey);
+	border-bottom: 1px solid var(--dark-grey);
 }
 
 .sidebarRow {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 
-  padding: 27px 40px;
+	padding: 27px 40px;
 
-  border-bottom: 1px solid var(--dark-grey);
+	border-bottom: 1px solid var(--dark-grey);
 }
 
 .sidebarRow:first-child {
-  border-top: 1px solid var(--dark-grey);
+	border-top: 1px solid var(--dark-grey);
 }
 
 .sidebarIconWrapper {
-  position: relative;
+	position: relative;
 
-  width: 19px;
-  height: 19px;
-  margin-right: 12px;
+	width: 19px;
+	height: 19px;
+	margin-right: 12px;
 
-  cursor: pointer;
-  fill: white;
+	cursor: pointer;
+	fill: white;
 }
 
 .sidebarText {
-  cursor: pointer;
-  letter-spacing: 0.02px;
+	cursor: pointer;
+	letter-spacing: 0.02px;
 
-  color: var(--white);
+	color: var(--white);
 
-  font-family: "Poppins", sans-serif;
-  font-size: 18px;
-  font-weight: 600;
+	font-family: "Poppins", sans-serif;
+	font-size: 18px;
+	font-weight: 600;
 }
 
 .sidebarActiveRow .sidebarText, .sidebarActiveRow svg g g {
-  stroke: var(--purple);
-  color: var(--purple);
+	stroke: var(--purple);
+
+	color: var(--purple);
 }
 
 .contentWrapper {
-  width: 55%;
-  max-width: 560px;
-  padding-left: 40px;
+	width: 55%;
+	max-width: 560px;
+	padding-left: 40px;
 }
 
 .title {
-  padding: 48px 40px 40px 0px;
+	padding: 48px 40px 40px 0px;
 
-  letter-spacing: 0px;
+	letter-spacing: 0px;
 
-  color: #ffffff;
+	color: #FFFFFF;
 
-  font-family: "Poppins", sans-serif;
-  font-size: 36px;
-  font-weight: bold;
+	font-family: "Poppins", sans-serif;
+	font-size: 36px;
+	font-weight: bold;
 }
 
 .imageFieldWrapper {
-  margin-bottom: 24px;
+	margin-bottom: 24px;
 }
 
 .imageTitle {
-  margin-bottom: 8px;
+	margin-bottom: 8px;
 
-  letter-spacing: 0.01px;
+	letter-spacing: 0.01px;
 
-  color: #ffffff;
+	color: #FFFFFF;
 
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .imageButtonsWrapper {
-  display: flex;
+	display: flex;
 }
 
 .profileImage {
-  position: relative;
+	position: relative;
 
-  overflow: hidden;
+	overflow: hidden;
 
-  width: 28.57%;
-  margin-right: 7.14%;
+	width: 28.57%;
+	margin-right: 7.14%;
 
-  border: 1px solid var(--shadow);
-  aspect-ratio: 1 / 1;
+	border: 1px solid var(--shadow);
+	aspect-ratio: 1 / 1;
 }
 
 .imageRounded {
-  border-radius: 50%;
+	border-radius: 50%;
 }
 
 .imageSquare {
-  border-radius: 16px;
+	border-radius: 16px;
 }
 
 .profileImageButtons {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 
-  width: 64%;
+	width: 64%;
 }
 
 .imageButton {
-  width: 100%;
-  margin: 8px 0;
+	width: 100%;
+	margin: 8px 0;
 }
 
 .textField {
-  margin-bottom: 24px;
-  position: relative;
+	position: relative;
+
+	margin-bottom: 24px;
 }
 
 .textFieldTitle {
-  font-family: "Poppins", sans-serif;
-  margin-bottom: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.01px;
-  color: var(--white);
+	margin-bottom: 8px;
+
+	letter-spacing: 0.01px;
+
+	color: var(--white);
+
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .textFieldWithAdornment {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
 }
 
 .websiteImageWrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+	position: relative;
+
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
 }
 
 .websiteImageContainer {
-  border: 1px solid var(--shadow);
-  border-right: 0;
-  position: relative;
-  height: 56px;
-  box-sizing: border-box;
-  width: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	position: relative;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	box-sizing: border-box;
+	width: 60px;
+	height: 56px;
+
+	border: 1px solid var(--shadow);
+	border-right: 0;
 }
 
 .websiteImageContainer:first-child {
-  border-top: 1px solid var(--shadow);
+	border-top: 1px solid var(--shadow);
 }
 
 .tooltip {
-  position: absolute;
-  left: 50%;
-  top: 140%;
-  transform: translate(-50%, -50%);
-  padding: 10px;
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  width: fit-content;
-  border-radius: 7px;
-  background-color: var(--light-grey);
-  color: var(--white);
+	position: absolute;
+	top: 140%;
+	left: 50%;
+
+	width: fit-content;
+	padding: 10px;
+
+	transform: translate(-50%, -50%);
+
+	color: var(--white);
+	border-radius: 7px;
+	background-color: var(--light-grey);
+
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .button {
-  margin-top: 40px;
-  width: fit-content;
+	width: fit-content;
+	margin-top: 40px;
 }
