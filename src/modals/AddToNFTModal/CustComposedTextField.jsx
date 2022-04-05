@@ -13,7 +13,10 @@ export const CustComposedTextField = ({ nftValue, maxValue, modalData, setModalD
   const handleChange = (newValue, label, index) => {
     const data = [...modalData];
 
-    if (label === "Value") {
+    if (label === "Value" && newValue > maxFieldValue) {
+      data[index].nftValue = maxFieldValue;
+      setfieldValue(maxFieldValue);
+    } else if (label === "Value") {
       data[index].nftValue = newValue;
       setfieldValue(newValue);
     } else if (label === "Max Value") {
@@ -23,12 +26,6 @@ export const CustComposedTextField = ({ nftValue, maxValue, modalData, setModalD
 
     setModalData([...data]);
   };
-
-  useEffect(() => {
-    if (fieldValue > maxFieldValue) {
-      setfieldValue(maxFieldValue);
-    }
-  }, [fieldValue, maxFieldValue]);
 
   return (
     <div className={cssStyles.select}>

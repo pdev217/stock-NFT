@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import cn from "classnames";
 //next
 import Image from "next/image";
+//axios
+import axios from "axios";
 //redux
 import { useDispatch } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
@@ -30,8 +32,6 @@ import { ethers } from "ethers";
 import useAuth from "../../hooks/useAuth";
 //artifacts
 import stokeArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json"
-//axios
-import axios from "axios"
 //untils
 import { toHex } from "../../utils/index"
 
@@ -62,8 +62,9 @@ export const CreateNFTPage = () => {
     unlockable: "",
     isSensitiveContent: false,
     supply: "none",
-    blockchain: "none",
+    blockchainType: "none",
     freezeMetadata: "none",
+    isAssetBacked: false,
   });
 
   const [previewFile, setPreviewFile] = useState();
@@ -72,8 +73,11 @@ export const CreateNFTPage = () => {
   const [isAddStatsOpened, setIsAddStatsOpened] = useState(false);
   const [isAddLevelsOpened, setIsAddLevelsOpened] = useState(false);
   const [isAddPropertiesOpened, setIsAddPropertiesOpened] = useState(false);
+  const [collections, setCollections] = useState([]);
 
   const muiClasses = useStyles();
+
+  //handle functions
 
   const handleChange = (e, value, type) => {
     e.preventDefault();
@@ -244,6 +248,28 @@ export const CreateNFTPage = () => {
     });
   }
 
+  const fetchCollections = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const { data } = await axios.get(`${process.env.BACKEND_URL}/collections`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      setCollections([...data]);
+    } catch (e) {
+      dispatch(
+        openError(e.response.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
+    }
+  };
+
+  // useEffects
+
+  useEffect(() => {
+    fetchCollections();
+  }, []);
+
   useEffect(() => {
     if (
       values.fileLink &&
@@ -251,14 +277,15 @@ export const CreateNFTPage = () => {
       values.description &&
       values.collection !== "none" &&
       values.collection !== "None" &&
-      values.blockchain !== "none"
+      values.blockchainType !== "none"
     ) {
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [values.fileLink, values.name, values.description, values.collection, values.blockchain]);
+  }, [values.fileLink, values.name, values.description, values.collection, values.blockchainType]);
 
+  console.log("---values.file", values.file);
   useEffect(() => {
     if (!values.file) {
       setPreviewFile(undefined);
@@ -291,7 +318,9 @@ export const CreateNFTPage = () => {
           </div>
           <div className={styles.dragPlaceholder}>
             <div className={styles.imageWrapper}>
-              {previewFile && <Image src={previewFile} alt="image" layout="fill" objectFit="contain" />}
+              {previewFile && values.file?.type.startsWith("image") && (
+                <Image src={previewFile} alt="image" layout="fill" objectFit="contain" />
+              )}
             </div>
             <input
               className={styles.uploadFileInput}
@@ -299,6 +328,12 @@ export const CreateNFTPage = () => {
               onChange={(e) => handleChange(e, "file", "file")}
               accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
             />
+            {previewFile && values.file?.type.startsWith("video") && (
+              <video src={previewFile} controls="controls" autoPlay="true" className={styles.video} />
+            )}
+            {previewFile && values.file?.type.startsWith("audio") && (
+              <audio src={previewFile} controls="controls" autoPlay="true" className={styles.audio} />
+            )}
           </div>
         </div>
         {textFields.map(({ title, description, required, label, multiline, id, maxLength }) => (
@@ -359,9 +394,9 @@ export const CreateNFTPage = () => {
             className={muiClasses.select}
           >
             <MenuItem disabled value="none">
-              <span style={{ color: "var(--light-grey)" }}>{selects[0].placeholder}</span>
+              <span style={{ color: "rgb(77, 77, 77)" }}>{selects[0].placeholder}</span>
             </MenuItem>
-            {selects[0].options.map(({ id, text }) => (
+            {collections.map(({ id, text }) => (
               <MenuItem key={id} value={text}>
                 <span>{text}</span>
               </MenuItem>
@@ -444,8 +479,8 @@ export const CreateNFTPage = () => {
         {selects.slice(1).map(({ title, description, options, placeholder, required, id }) => (
           <div
             className={cn(styles.section, {
-              [styles.sectionWithMarginTop]: title === "Supply",
-              [styles.sectionWithBigMarginBottom]: title === "Freeze Metadata",
+              [styles.sectionWithMarginTop]: title === "Blockchain", //"Supply",
+              [styles.sectionWithBigMarginBottom]: title === "Blockchain", //"Freeze Metadata",
             })}
             key={id}
           >
@@ -469,7 +504,7 @@ export const CreateNFTPage = () => {
               className={muiClasses.select}
             >
               <MenuItem disabled value="none">
-                <span style={{ color: "var(--dark-grey)" }}>{placeholder}</span>
+                <span style={{ color: "rgb(77, 77, 77)" }}>{placeholder}</span>
               </MenuItem>
               {options.map(({ id, text }) => (
                 <MenuItem key={id} value={text}>
