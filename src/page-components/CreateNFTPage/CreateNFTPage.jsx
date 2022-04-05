@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import cn from "classnames";
 //next
 import Image from "next/image";
+import { useRouter } from "next/router";
 //axios
 import axios from "axios";
 //redux
@@ -45,6 +46,7 @@ export const CreateNFTPage = () => {
   const etherChainId = 3; //Ropsten testnet chainId
   const polChainId = 80001; //mumbai testnet chainId
   let attributes = [];
+  const router = useRouter();
 
   if (error) {
     dispatch(openError(`${error.message}`));
@@ -151,59 +153,66 @@ export const CreateNFTPage = () => {
   }
 
   const handleSave = async () => {
-    const imageHash = await pinFileToIPFS(values.file);
-    console.log(chainId)
-
-    setAttribute(values.properties, "property")
-    setAttribute(values.levels, "other")
-    setAttribute(values.stats, "other")
-
-    const metaData = {
-      name: values.name,
-      image: `https://ipfs.io/ipfs/${imageHash}`,
-    }
-
-    if(values.description) {
-      metaData.description = values.description
-    }
-    if(values.externalLink) {
-      metaData.externalLink = values.externalLink
-    }
-    if(values.unlockable) {
-      metaData.unlockable = values.unlockable
-    }
-    if(attributes) {
-      metaData.attributes = attributes
-    }
-
-    const metaDataHash = await pinJSONToIPFS(metaData)
-    const tokenURI = `https://ipfs.io/ipfs/${metaDataHash}`
-
-    if(values.blockchain === "Ethereum") {
-      contractAddress = etherContractAddr
-      if(chainId !== 3 ) {
-        await switchNetwork(etherChainId).then(() => {
-          console.log('network changed to Ropsten testnet')
-        }).catch((err) => {
-          dispatch(openError(err.message))
-        })
+    console.log(values)
+    console.log(library)
+    if(!library) {
+      router.push("/connect-wallet")
+    }else {
+      const imageHash = await pinFileToIPFS(values.file);
+  
+      setAttribute(values.properties, "property")
+      setAttribute(values.levels, "other")
+      setAttribute(values.stats, "other")
+  
+      const metaData = {
+        name: values.name,
+        image: `https://ipfs.io/ipfs/${imageHash}`,
       }
-    }else if(values.blockchain === "Polygon") {
-      contractAddress = polygonContractAddr
-      if(chainId !== 80001 ) {
-        await switchNetwork(polChainId).then(() => {
-          console.log('network changed to Mumbai testnet')
-        }).catch((err) => {
-          dispatch(openError(err.message))
-        })
+  
+      if(values.description) {
+        metaData.description = values.description
       }
+      if(values.externalLink) {
+        metaData.externalLink = values.externalLink
+      }
+      if(values.unlockable) {
+        metaData.unlockable = values.unlockable
+      }
+      if(attributes) {
+        metaData.attributes = attributes
+      }
+  
+      const metaDataHash = await pinJSONToIPFS(metaData)
+      const tokenURI = `https://ipfs.io/ipfs/${metaDataHash}`
+  
+      if(values.blockchainType === "Ethereum") {
+        contractAddress = etherContractAddr
+        console.log("ethereum")
+        if(chainId !== 3 ) {
+          await switchNetwork(etherChainId).then(() => {
+            console.log('network changed to Ropsten testnet')
+          }).catch((err) => {
+            dispatch(openError(err.message))
+          })
+        }
+      }else if(values.blockchainType === "Polygon") {
+        contractAddress = polygonContractAddr
+        console.log("polygon")
+        if(chainId !== 80001 ) {
+          await switchNetwork(polChainId).then(() => {
+            console.log('network changed to Mumbai testnet')
+          }).catch((err) => {
+            dispatch(openError(err.message))
+          })
+        }
+      }
+      createToken(tokenURI)
     }
-    createToken(tokenURI)
   };
 
   const createToken = async (tokenURI) => {
     const signer = library.getSigner(account);
-    const IStoke = new ethers.Contract(contractAddress, stokeArtifacts.abi, signer);
+    const IStoke = await new ethers.Contract(contractAddress, stokeArtifacts.abi, signer);
     const stokeContract = IStoke.attach(contractAddress)
     console.log(stokeContract)
     const transaction = await stokeContract.createToken(tokenURI)
