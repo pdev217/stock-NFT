@@ -280,21 +280,14 @@ export const CreateNFTPage = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      values.fileLink &&
-      values.name &&
-      values.description &&
-      values.collection !== "none" &&
-      values.collection !== "None" &&
-      values.blockchainType !== "none"
-    ) {
+    if (values.file && values.name) {
+      console.log("23456789")
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [values.fileLink, values.name, values.description, values.collection, values.blockchainType]);
+  }, [values.fileLink, values.name]);
 
-  console.log("---values.file", values.file);
   useEffect(() => {
     if (!values.file) {
       setPreviewFile(undefined);
@@ -528,6 +521,7 @@ export const CreateNFTPage = () => {
           text="Save"
           onClick={handleSave}
           className={styles.button}
+          disabled={ disabledButton }
         />
         <AddStatsOrLevelsModal
           title="Add Stats"
