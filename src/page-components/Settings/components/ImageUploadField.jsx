@@ -5,7 +5,7 @@ import cn from "classnames";
 //components
 import { CustButton } from "../../../components/CustButton/CustButton";
 //styles
-import styles from "../ProfileSettings.module.css";
+import styles from "../Settings.module.css";
 
 export const ImageUploadField = ({ src, profileData, setProfileData, text, form }) => {
   return (

@@ -1,19 +1,18 @@
 import { useState } from "react";
 //classnames
 import cn from "classnames";
-//next
-import Image from "next/image";
 //utils
-import { sidebarData } from "./ProfileSettings.utils";
+import { sidebarData } from "./Settings.utils";
 //components
-import { ProfileSubPage } from "./components/ProfileSubPage";
+import { ProfileSubPage } from "./components/subPages/ProfileSubPage";
+import { NoticicationsSubPage } from "./components/subPages/NoticicationsSubPage";
 //icons
 import ProfileIcon from "./icons/profile.svg";
 import NotificationsIcon from "./icons/notifications.svg";
 //styles
-import styles from "./ProfileSettings.module.css";
+import styles from "./Settings.module.css";
 
-export const ProfileSettings = () => {
+export const Settings = () => {
   const [activeSidebarRow, setActiveSidebarRow] = useState("Profile");
 
   const getIcon = (text) => {
@@ -51,7 +50,10 @@ export const ProfileSettings = () => {
           </div>
         ))}
       </div>
-      <div className={styles.contentWrapper}>{activeSidebarRow === "Profile" && <ProfileSubPage />}</div>
+      <div className={styles.contentWrapper}>
+        {activeSidebarRow === "Profile" && <ProfileSubPage />}
+        {activeSidebarRow === "Notifications" && <NoticicationsSubPage />}
+      </div>
     </div>
   );
 };

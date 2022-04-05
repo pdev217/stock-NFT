@@ -34,6 +34,10 @@ const handlers = {
     isAuthorized: false,
     account: null,
   }),
+  CLEAR_ERROR: (state) => ({
+    ...state, 
+    error: null
+  })
 };
 
 const reducer = (state, action) => (handlers[action.type] ? handlers[action.type](state, action) : state);

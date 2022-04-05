@@ -180,6 +180,32 @@ export const useStyles = makeStyles(
         },
       },
     },
+    textFieldWithoutLeft: {
+      borderRadius: "0 7px 7px 0",
+      "& label.Mui-focused": {
+        color: "white",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "yellow",
+        borderRadius: "0 7px 7px 0",
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "var(--shadow)",
+          borderRadius: "0 7px 7px 0",
+          borderLeft: 'none'
+        },
+        "&:hover fieldset": {
+          borderColor: "var(--shadow)",
+          borderRadius: "0 7px 7px 0",
+          borderLeft: 'none'
+        },
+        "&.Mui-focused fieldset": {
+          border: "2px solid var(--primary)",
+          borderRadius: "0 7px 7px 0",
+        },
+      },
+    }
   },
   
   { name: "MuiCustomized" }

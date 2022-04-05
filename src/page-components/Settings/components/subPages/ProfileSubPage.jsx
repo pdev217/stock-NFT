@@ -4,15 +4,15 @@ import Image from "next/image";
 //mui
 import TextField from "@mui/material/TextField";
 //components
-import { ImageUploadField } from "./ImageUploadField";
-import { SitesTextField } from "./SitesTextField";
-import { CustButton } from "../../../components/CustButton/CustButton";
+import { ImageUploadField } from "../ImageUploadField";
+import { SitesTextField } from "../SitesTextField";
+import { CustButton } from "../../../../components/CustButton/CustButton";
 //utils
 import { imageDataArray, textFields } from "./ProfileSubPage.utils";
 //hooks
-import { useStyles } from "../../../hooks/useStyles";
+import { useStyles } from "../../../../hooks/useStyles";
 //styles
-import styles from "../ProfileSettings.module.css";
+import styles from "../../Settings.module.css";
 
 export const ProfileSubPage = () => {
   const [profileData, setProfileData] = useState({
@@ -56,7 +56,7 @@ export const ProfileSubPage = () => {
   };
 
   return (
-    <>
+    <div className={styles.profileWrapper}>
       <div className={styles.title}>
         <span>Profile Settings</span>
       </div>
@@ -139,6 +139,6 @@ export const ProfileSubPage = () => {
         onClick={handleSave}
         className={styles.button}
       />
-    </>
+    </div>
   );
 };

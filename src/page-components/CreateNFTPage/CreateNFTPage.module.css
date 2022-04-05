@@ -201,4 +201,5 @@
 
 .button {
 	margin: 40px auto 160px 0;
+	width: fit-content;
 }

@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 //hooks
 import { useStyles } from "../../../hooks/useStyles";
 //styles
-import styles from "../ProfileSettings.module.css";
+import styles from "../Settings.module.css";
 
 export const SitesTextField = ({ handleChange, profileData }) => {
   const muiClasses = useStyles();
