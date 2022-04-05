@@ -149,7 +149,7 @@ export const CreateNFTPage = () => {
             pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY
           }
       })
-    return responsive.data;
+    return responsive.data.IpfsHash;
   }
 
   const handleSave = async () => {
@@ -178,12 +178,13 @@ export const CreateNFTPage = () => {
       if(values.unlockable) {
         metaData.unlockable = values.unlockable
       }
-      if(attributes) {
+      if(attributes.length !== 0) {
         metaData.attributes = attributes
       }
   
       const metaDataHash = await pinJSONToIPFS(metaData)
       const tokenURI = `https://ipfs.io/ipfs/${metaDataHash}`
+      console.log(metaData)
   
       if(values.blockchainType === "Ethereum") {
         contractAddress = etherContractAddr
