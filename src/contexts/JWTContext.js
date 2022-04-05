@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useWeb3React } from "@web3-react/core"
+import { useWeb3React } from "@web3-react/core";
 
 const initialState = {
   isAuthorized: false,
@@ -35,9 +35,9 @@ const handlers = {
     account: null,
   }),
   CLEAR_ERROR: (state) => ({
-    ...state, 
-    error: null
-  })
+    ...state,
+    error: null,
+  }),
 };
 
 const reducer = (state, action) => (handlers[action.type] ? handlers[action.type](state, action) : state);
@@ -58,79 +58,80 @@ const verifyUser = async (accessToken) => {
   return result;
 };
 
-function AuthProvider({children}) {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const router = useRouter();
-    const { deactivate } = useWeb3React();
+function AuthProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const router = useRouter();
+  const { deactivate } = useWeb3React();
 
-    useEffect(() => {
-      const initialize = async () => {
-        try {
-          const accessToken = localStorage.getItem("accessToken");
-          const account = localStorage.getItem("account");
-          const isValid = await verifyUser(accessToken);
-          // console.log(accessToken)
+  useEffect(() => {
+    const initialize = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        const account = localStorage.getItem("account");
+        const isValid = await verifyUser(accessToken);
+        // console.log(accessToken)
 
-          if (accessToken && isValid?.data?.token) {
-            dispatch({
-              type: "INITIALIZE",
-              payload: {
-                isAuthorized: true,
-                account,
-              },
-            });
-          } else {
-            dispatch({
-              type: "INITIALIZE",
-              payload: {
-                isAuthorized: false,
-                account: null,
-              },
-            });
-            console.log("push");
-            router.push("/connect-wallet");
-          }
-        } catch (err) {
+        if (accessToken && isValid?.data?.token) {
+          dispatch({
+            type: "INITIALIZE",
+            payload: {
+              isAuthorized: true,
+              account,
+            },
+          });
+        } else {
           dispatch({
             type: "INITIALIZE",
             payload: {
               isAuthorized: false,
               account: null,
-              error: { ...err.response.data },
             },
           });
+          console.log("push");
           router.push("/connect-wallet");
         }
-      };
-
-      initialize();
-    }, []);
-
-    const login = async (signature, account) => {
-      const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
-        publicAddress: account,
-        signature,
-      });
-
-      localStorage.setItem("accessToken", tokenRes.data.token);
-      localStorage.setItem("account", account);
-
-      dispatch({
-        type: "LOGIN",
-        payload: {
-          account,
-        },
-      });
-      router.push("/");
+      } catch (err) {
+        dispatch({
+          type: "INITIALIZE",
+          payload: {
+            isAuthorized: false,
+            account: null,
+            error: { ...err.response.data },
+          },
+        });
+        router.push("/connect-wallet");
+        dispatch({type: 'CLEAR_ERROR'});
+      }
     };
 
-    const logout = async () => {
-      deactivate()
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("account");
-      dispatch({ type: "LOGOUT" });
-      router.push("/connect-wallet");
-    };
+    initialize();
+  }, []);
+
+  const login = async (signature, account) => {
+    const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
+      publicAddress: account,
+      signature,
+    });
+
+    localStorage.setItem("accessToken", tokenRes.data.token);
+    localStorage.setItem("account", account);
+
+    dispatch({
+      type: "LOGIN",
+      payload: {
+        account,
+      },
+    });
+    router.push("/");
+  };
+
+  const logout = async () => {
+    deactivate();
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("account");
+    dispatch({ type: "LOGOUT" });
+    router.push("/connect-wallet");
+  };
 
   return (
     <AuthContext.Provider
@@ -146,4 +147,4 @@ function AuthProvider({children}) {
   );
 }
 
-export { AuthContext, AuthProvider }
+export { AuthContext, AuthProvider };
