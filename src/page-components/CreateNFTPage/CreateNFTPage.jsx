@@ -21,7 +21,7 @@ import { Level } from "../../components/Level/Level";
 import { Property } from "../../components/Property/Property";
 import { AddPropertiesModal } from "../../modals/AddToNFTModal/AddPropertiesModal";
 //utils
-import { useStyles, textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
+import { textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
 //styles
 import styles from "./CreateNFTPage.module.css";
 //web3
@@ -29,6 +29,7 @@ import { useWeb3React } from "@web3-react/core";
 //ethers
 import { ethers } from "ethers";
 //hooks
+import { useStyles } from "../../hooks/useStyles";
 import useAuth from "../../hooks/useAuth";
 
 export const CreateNFTPage = () => {
@@ -240,7 +241,7 @@ export const CreateNFTPage = () => {
               value={values[id]}
               onChange={(e) => handleChange(e, id, "string")}
               InputLabelProps={{
-                style: { color: "#FFFFFF4D" },
+                style: { color: "var(--shadow)" },
               }}
               InputProps={{ style: { color: "white" } }}
               multiline={multiline}
@@ -329,7 +330,7 @@ export const CreateNFTPage = () => {
                   value={values.unlockable}
                   onChange={(e) => handleChange(e, "unlockable", "string")}
                   InputLabelProps={{
-                    style: { color: "#FFFFFF4D" },
+                    style: { color: "var(--shadow)" },
                   }}
                   InputProps={{ style: { color: "white" } }}
                   multiline

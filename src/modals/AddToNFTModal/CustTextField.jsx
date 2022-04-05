@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 //components
 import TextField from "@mui/material/TextField";
-//styles
-import { useStyles } from "../../page-components/CreateNFTPage/CreateNFTPage.utils";
+//hooks
+import { useStyles } from "../../hooks/useStyles";
 
 export const CustTextField = ({ name, label, modalData, setModalData, index }) => {
   const muiClasses = useStyles();
@@ -32,7 +32,7 @@ export const CustTextField = ({ name, label, modalData, setModalData, index }) =
       value={fieldName}
       onChange={({ target: { value } }) => setFieldName(value)}
       InputLabelProps={{
-        style: { color: "#FFFFFF4D" },
+        style: { color: "var(--shadow)" },
       }}
       InputProps={{ style: { color: "white" } }}
     />

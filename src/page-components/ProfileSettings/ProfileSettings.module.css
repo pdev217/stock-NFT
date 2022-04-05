@@ -1,0 +1,123 @@
+.wrapper {
+	display: flex;
+}
+
+.sidebar {
+	width: 40%;
+	max-width: 440px;
+
+	border-right: 1px solid var(--dark-grey);
+	border-bottom: 1px solid var(--dark-grey);
+}
+
+.sidebarRow {
+	display: flex;
+	align-items: center;
+
+	padding: 27px 40px;
+
+	border-bottom: 1px solid var(--dark-grey);
+}
+
+.sidebarRow:first-child {
+	border-top: 1px solid var(--dark-grey);
+}
+
+.sidebarIconWrapper {
+	position: relative;
+
+	width: 19px;
+	height: 19px;
+	margin-right: 12px;
+
+	cursor: pointer;
+	fill: white;
+}
+
+.sidebarText {
+	cursor: pointer;
+	letter-spacing: 0.02px;
+
+	color: var(--white);
+
+	font-family: "Poppins", sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.sidebarActiveRow .sidebarText {
+	color: var(--purple);
+	fill: var(--purple);
+}
+
+.contentWrapper {
+	width: 55%;
+	max-width: 560px;
+	padding-left: 40px;
+}
+
+.title {
+	padding: 48px 40px 40px 0px;
+
+	letter-spacing: 0px;
+
+	color: #FFFFFF;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 36px;
+	font-weight: bold;
+}
+
+.imageFieldWrapper {
+	margin-bottom: 24px;
+}
+
+.imageTitle {
+	margin-bottom: 8px;
+
+	letter-spacing: 0.01px;
+
+	color: #FFFFFF;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.imageButtonsWrapper {
+	display: flex;
+}
+
+
+.profileImage {
+	position: relative;
+
+	overflow: hidden;
+
+	width: 28.57%;
+	margin-right: 7.14%;
+
+	border: 1px solid var(--shadow);
+	aspect-ratio: 1 / 1;
+}
+
+.imageRounded {
+	border-radius: 50%;
+}
+
+.imageSquare {
+	border-radius: 16px;
+}
+
+.profileImageButtons {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	width: 64%;
+}
+
+.imageButton {
+	width: 100%;
+	margin: 8px 0;
+}

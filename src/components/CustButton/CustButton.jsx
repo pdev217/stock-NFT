@@ -1,7 +1,11 @@
 import Button from "@mui/material/Button";
 import { styles } from "./CustButton.utils";
 
-export const CustButton = ({ text, onClick, color, className, disabled }) => {
+export const CustButton = ({ text, onClick, color, className, disabled, fullWidth }) => {
+  if (fullWidth) {
+    styles.width = "100%";
+  }
+
   if (disabled) {
     return (
       <div className={className}>
@@ -40,7 +44,7 @@ export const CustButton = ({ text, onClick, color, className, disabled }) => {
           <Button
             sx={{
               ...styles,
-              background: "#DD0D2D 0% 0% no-repeat padding-box",
+              background: "#FB3A50 0% 0% no-repeat padding-box",
               ":hover": {
                 backgroundColor: "rgb(202, 10, 23)",
               },
@@ -59,10 +63,10 @@ export const CustButton = ({ text, onClick, color, className, disabled }) => {
             sx={{
               ...styles,
               background: "none",
-              color: 'var(--primary)',
+              color: "var(--primary)",
               ":hover": {
                 backgroundColor: "var(--primary)",
-                color: 'var(--white)'
+                color: "var(--white)",
               },
             }}
             onClick={onClick}

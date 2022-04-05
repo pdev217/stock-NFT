@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 //styles
 import cssStyles from "./AddToNFTModal.module.css";
-import { useStyles } from "../../page-components/CreateNFTPage/CreateNFTPage.utils";
+//hooks
+import { useStyles } from "../../hooks/useStyles";
 
 export const CustComposedTextField = ({ nftValue, maxValue, modalData, setModalData, index }) => {
   const [fieldValue, setfieldValue] = useState(nftValue);
@@ -40,7 +41,7 @@ export const CustComposedTextField = ({ nftValue, maxValue, modalData, setModalD
         value={fieldValue}
         onChange={({ target: { value } }) => handleChange(value, "Value", index)}
         InputLabelProps={{
-          style: { color: "#FFFFFF4D" },
+          style: { color: "var(--shadow)" },
         }}
         InputProps={{ style: { color: "white" } }}
       />
@@ -58,7 +59,7 @@ export const CustComposedTextField = ({ nftValue, maxValue, modalData, setModalD
         value={maxFieldValue}
         onChange={({ target: { value } }) => handleChange(value, "Max Value", index)}
         InputLabelProps={{
-          style: { color: "#FFFFFF4D" },
+          style: { color: "var(--shadow)" },
         }}
         InputProps={{ style: { color: "white" } }}
       />

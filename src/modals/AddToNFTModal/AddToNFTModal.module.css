@@ -1,9 +1,10 @@
 .section {
+	overflow-y: scroll;
+
+	max-height: 70vh;
 	padding: 0 24px;
 
 	border-bottom: 1px solid var(--dark-grey);
-	max-height: 70vh;
-	overflow-y: scroll;
 }
 
 .fieldsWrapper {
@@ -12,7 +13,8 @@
 
 .cross {
 	margin-left: auto;
-    cursor: pointer;
+
+	cursor: pointer;
 }
 
 .titles {
@@ -42,8 +44,8 @@
 	width: 42px;
 
 	color: var(--light-grey);
-	border-top: 1px solid #FFFFFF4D;
-	border-bottom: 1px solid #FFFFFF4D;
+	border-top: 1px solid var(--shadow);
+	border-bottom: 1px solid var(--shadow);
 
 	font-family: "Poppins", sans-serif;
 	font-size: 16px;
@@ -53,13 +55,14 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	cursor: pointer;
 
 	width: 56px;
 	height: 56px;
 	margin-top: 16px;
 
-	border: 1px solid #FFFFFF4D;
+	cursor: pointer;
+
+	border: 1px solid var(--shadow);
 	border-radius: 7px;
 }
 

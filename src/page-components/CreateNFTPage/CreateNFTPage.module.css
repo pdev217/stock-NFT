@@ -63,16 +63,17 @@
 .dragPlaceholder {
 	position: relative;
 
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
+
 	width: 100%;
 	max-width: 400px;
 	height: 200px;
 	margin-bottom: 24px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
 
-	border: 1px dashed #FFFFFF4D;
+	border: 1px dashed var(--shadow);
 	border-radius: 30px;
 	background-image: url("../../../public/create-nft/Icon-Image.svg");
 	background-repeat: no-repeat;
@@ -81,8 +82,9 @@
 
 .imageWrapper {
 	position: absolute;
-	height: 100%;
+
 	width: 100%;
+	height: 100%;
 }
 
 .dragPlaceholder:hover {
@@ -94,8 +96,9 @@
 }
 
 .video {
-	width: 90%;
 	position: absolute;
+
+	width: 90%;
 }
 
 .uploadFileInput {

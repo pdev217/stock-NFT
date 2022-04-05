@@ -38,9 +38,9 @@
 .walletLink {
 	cursor: pointer;
 
-	color: #FC3AAA;
+	color: var(--purple);
 
-	font-weight: 600;
+	font-weight: 600
 }
 
 .wallet {

@@ -1,29 +1,35 @@
 .wrapper {
-  width: 157px;
-  height: 79px;
-  background: #617bff1a 0% 0% no-repeat padding-box;
-  border: 1px solid var(--primary);
-  border-radius: 16px;
-  padding: 16px;
-  margin: 16px 16px 0 0;
+	width: 157px;
+	height: 79px;
+	margin: 16px 16px 0 0;
+	padding: 16px;
+
+	border: 1px solid var(--primary);
+	border-radius: 16px;
+	background: #617BFF1A 0% 0% no-repeat padding-box;
 }
 
 .type {
-  text-align: center;
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.01px;
-  color: var(--primary);
+	text-align: center;
+	letter-spacing: 0.01px;
+
+	color: var(--primary);
+
+	font-family: "Poppins", sans-serif;
+	font-size: 14px;
 }
 
 .name {
-  text-align: center;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.01px;
-  color: #ffffff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	overflow: hidden;
+
+	text-align: center;
+	white-space: nowrap;
+	letter-spacing: 0.01px;
+	text-overflow: ellipsis;
+
+	color: #FFFFFF;
+
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
+	font-weight: 600;
 }
