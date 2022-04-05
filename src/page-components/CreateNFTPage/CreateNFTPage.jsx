@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import cn from "classnames";
 //next
 import Image from "next/image";
+import { useRouter } from "next/router";
 //axios
 import axios from "axios";
 //redux
@@ -31,11 +32,22 @@ import { ethers } from "ethers";
 //hooks
 import { useStyles } from "../../hooks/useStyles";
 import useAuth from "../../hooks/useAuth";
+//artifacts
+import stokeArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json"
+//untils
+import { toHex } from "../../utils/index"
 
+var contractAddress;
 export const CreateNFTPage = () => {
-  const { active } = useWeb3React();
+  const { active, library, chainId } = useWeb3React();
   const dispatch = useDispatch();
   const { account, error } = useAuth();
+  const etherContractAddr = "0x244218500f847dbb4270f5f66399537c6bbd7a8d"
+  const polygonContractAddr = "0xdA054F032E40F04c9E564701B70631ebC8Ba4877"
+  const etherChainId = 3; //Ropsten testnet chainId
+  const polChainId = 80001; //mumbai testnet chainId
+  let attributes = [];
+  const router = useRouter();
 
   if (error) {
     dispatch(openError(`${error.message}`));
@@ -72,8 +84,6 @@ export const CreateNFTPage = () => {
 
   const handleChange = (e, value, type) => {
     e.preventDefault();
-    console.log(type);
-
     switch (type) {
       case "string":
         setValues({ ...values, [value]: e.target.value });
@@ -86,6 +96,7 @@ export const CreateNFTPage = () => {
 
         const file = e.target.files[0];
         const link = e.target.value;
+
         if (file.size < 100000000) {
           setValues({ ...values, file: file });
         } else {
@@ -116,10 +127,137 @@ export const CreateNFTPage = () => {
     }
   };
 
+  const pinFileToIPFS = async (file) => {
+    let data = new FormData();
+    data.append('file', file);
+
+    const responsive = await axios
+      .post(`https://api.pinata.cloud/pinning/pinFileToIPFS`, data, {
+          maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
+          headers: {
+              pinata_api_key: process.env.PINATA_API_KEY,
+              pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY
+          }
+      })
+    return responsive.data.IpfsHash
+  }
+
+  const pinJSONToIPFS = async (JSONBody) => {
+    const responsive = await axios
+        .post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, JSONBody, {
+          headers: {
+            pinata_api_key: process.env.PINATA_API_KEY,
+            pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY
+          }
+      })
+    return responsive.data.IpfsHash;
+  }
+
   const handleSave = async () => {
-    try {
-    } catch {}
+    console.log(values)
+    console.log(library)
+    if(!library) {
+      router.push("/connect-wallet")
+    }else {
+      const imageHash = await pinFileToIPFS(values.file);
+  
+      setAttribute(values.properties, "property")
+      setAttribute(values.levels, "other")
+      setAttribute(values.stats, "other")
+  
+      const metaData = {
+        name: values.name,
+        image: `https://ipfs.io/ipfs/${imageHash}`,
+      }
+  
+      if(values.description) {
+        metaData.description = values.description
+      }
+      if(values.externalLink) {
+        metaData.externalLink = values.externalLink
+      }
+      if(values.unlockable) {
+        metaData.unlockable = values.unlockable
+      }
+      if(attributes.length !== 0) {
+        metaData.attributes = attributes
+      }
+  
+      const metaDataHash = await pinJSONToIPFS(metaData)
+      const tokenURI = `https://ipfs.io/ipfs/${metaDataHash}`
+      console.log(metaData)
+  
+      if(values.blockchainType === "Ethereum") {
+        contractAddress = etherContractAddr
+        console.log("ethereum")
+        if(chainId !== 3 ) {
+          await switchNetwork(etherChainId).then(() => {
+            console.log('network changed to Ropsten testnet')
+          }).catch((err) => {
+            dispatch(openError(err.message))
+          })
+        }
+      }else if(values.blockchainType === "Polygon") {
+        contractAddress = polygonContractAddr
+        console.log("polygon")
+        if(chainId !== 80001 ) {
+          await switchNetwork(polChainId).then(() => {
+            console.log('network changed to Mumbai testnet')
+          }).catch((err) => {
+            dispatch(openError(err.message))
+          })
+        }
+      }
+      createToken(tokenURI)
+    }
   };
+
+  const createToken = async (tokenURI) => {
+    const signer = library.getSigner(account);
+    const IStoke = await new ethers.Contract(contractAddress, stokeArtifacts.abi, signer);
+    const stokeContract = IStoke.attach(contractAddress)
+    console.log(stokeContract)
+    const transaction = await stokeContract.createToken(tokenURI)
+    .then(res => console.log(res))
+    .catch(err => {
+      dispatch(openError(err.message));
+    })
+    // transaction.wait().then(res => console.log(res))
+  }
+
+  const setAttribute = (data, type) => {
+    switch (type) {
+      case "property":
+        data?.map((d) => {
+          const newData = { 
+            "trait_type": d.type,
+            "value": d.name,
+          }
+          attributes.push(newData)
+        })
+        break;
+      
+      case "other":
+        data?.map((d) => {
+          const newData = { 
+            "trait_type": d.name,
+            "value": d.nftValue,
+          }
+          attributes.push(newData)
+        })
+        break;
+    
+      default:
+        break;
+    }
+  }
+
+  const switchNetwork = async (network) => {
+    await library.provider.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: toHex(network) }]
+    });
+  }
 
   const fetchCollections = async () => {
     try {
@@ -144,27 +282,13 @@ export const CreateNFTPage = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      values.fileLink &&
-      values.name &&
-      values.description &&
-      values.collection !== "none" &&
-      values.collection !== "None" &&
-      values.blockchainType !== "none"
-    ) {
+    if (values.file && values.name) {
+      console.log("23456789")
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [values.fileLink, values.name, values.description, values.collection, values.blockchainType]);
-
-  console.log("---values.file", values.file);
-  useEffect(() => {
-    if (account) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner(account);
-    }
-  }, [account]);
+  }, [values.file, values.name]);
 
   useEffect(() => {
     if (!values.file) {
@@ -180,7 +304,7 @@ export const CreateNFTPage = () => {
   }, [values.file]);
 
   const star = <span className={styles.star}>*</span>;
-
+  
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.contentWrapper}>
@@ -397,9 +521,9 @@ export const CreateNFTPage = () => {
         <CustButton
           color="primary"
           text="Save"
-          disabled={disabledButton}
           onClick={handleSave}
           className={styles.button}
+          disabled={ disabledButton }
         />
         <AddStatsOrLevelsModal
           title="Add Stats"

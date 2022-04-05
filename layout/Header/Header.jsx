@@ -53,6 +53,9 @@ export const Header = () => {
         </div>
       </div>
       <div className={styles.userData}>
+        <div>
+          <Link href="/create-nft">Create</Link>
+        </div>
         <div className={styles.profile} onClick={openProfilePopup}>
           <div className={isAuthorized ? styles.authorisedIcon : styles.profileIcon}>
             <Image
