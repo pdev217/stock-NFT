@@ -98,7 +98,6 @@ export const CreateNFTPage = () => {
         }
 
         const file = e.target.files[0];
-        const link = e.target.value;
 
         if (file.size < 100000000) {
           setValues({ ...values, file: file });

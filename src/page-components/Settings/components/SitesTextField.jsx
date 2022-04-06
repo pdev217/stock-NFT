@@ -20,7 +20,7 @@ export const SitesTextField = ({ handleChange, profileData }) => {
             borderBottom: 'none',
           }}
         >
-          <Image src="/profile-settings/Icon-Insta.svg" alt="insta" width={19} height={19} />
+          <Image src="/profile-settings/Icon-Twitter.svg" alt="insta" width={19} height={19} />
         </div>
         <TextField
           fullWidth
@@ -73,7 +73,7 @@ export const SitesTextField = ({ handleChange, profileData }) => {
             height: "56px"
           }}
         >
-          <Image src="/profile-settings/Icon-Insta.svg" alt="insta" width={19} height={19} />
+          <Image src="/profile-settings/Icon-Site.svg" alt="insta" width={19} height={19} />
         </div>
         <TextField
           fullWidth

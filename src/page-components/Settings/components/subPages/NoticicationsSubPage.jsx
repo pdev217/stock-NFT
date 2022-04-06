@@ -16,20 +16,17 @@ import styles from "../../Settings.module.css";
 export const NoticicationsSubPage = () => {
   const [disabledButton, setDidabledButton] = useState(true);
   const [account, setAccount] = useState("");
-  const [notificationsData, setNotificationsData] = useState({
-    
-    maxTheresold: "",
-  });
-  
+  const [notificationsData, setNotificationsData] = useState({ maxTheresold: 0.005 });
+
   const muiClasses = useStyles();
-  
+
   useEffect(() => {
     setAccount(localStorage.getItem("account"));
   }, []);
 
   const handleChange = (newValue, field) => {
-
-  }
+    setNotificationsData({ ...notificationsData, [field]: newValue });
+  };
 
   return (
     <div className={styles.noticicationsWrapper}>
@@ -64,7 +61,7 @@ export const NoticicationsSubPage = () => {
               borderRadius: "7px 0 0 7px",
             }}
           >
-            <Image src="/profile-settings/Icon-Insta.svg" alt="insta" width={19} height={19} />
+            <Image src="/profile-settings/Icon-Eth.svg" alt="insta" width={31} height={31} />
             <div className={styles.etheriumText}>
               <span>ETH</span>
               <span>Ethereum</span>
@@ -77,7 +74,7 @@ export const NoticicationsSubPage = () => {
             type="number"
             className={muiClasses.textFieldWithoutLeft}
             value={notificationsData.maxTheresold}
-            onChange={({ target: { value } }) => {}}
+            onChange={({ target: { value } }) => handleChange(value, "maxTheresold")}
             InputLabelProps={{
               style: { color: "var(--shadow)" },
             }}

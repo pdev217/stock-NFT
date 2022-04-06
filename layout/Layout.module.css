@@ -39,9 +39,9 @@
 }
 
 .errorSnackbar {
-	position: absolute;
+	position: fixed;
 	z-index: 100;
-	top: 50px;
+	top: 50%;
 	right: 50%;
 
 	transform: translate(50%);

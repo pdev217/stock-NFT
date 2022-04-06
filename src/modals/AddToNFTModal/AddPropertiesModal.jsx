@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from "react";
+import { useState } from "react";
 //redux
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 import { useDispatch } from "react-redux";
@@ -36,8 +36,13 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
   };
 
   const handleDelete = (id) => {
-    const newArr = [...modalData];
+    if (modalData.length === 1) {
+      setModalData([{ ...getEmptyProperty() }]);
 
+      return;
+    }
+
+    const newArr = [...modalData];
     setModalData(newArr.filter((elem) => elem.id !== id));
   };
 
@@ -50,10 +55,6 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
     setModalData([...filtered]);
     setIsModalOpened(false);
   };
-
-  useLayoutEffect(() => {
-    modalData.length === 0 && setModalData([{ ...getEmptyProperty() }]);
-  }, [modalData]);
 
   return (
     <Modal

@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from "react";
+import { useState } from "react";
 //redux
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 import { useDispatch } from "react-redux";
@@ -30,10 +30,6 @@ export const AddStatsOrLevelsModal = ({
     defaultValue.length > 0 ? defaultValue : [{ ...getEmptyLevelOrStat() }]
   );
 
-  useLayoutEffect(() => {
-    modalData.length === 0 && setModalData([{ ...getEmptyLevelOrStat() }]);
-  }, [modalData]);
-
   const handleClose = () => {
     setIsModalOpened(false);
   };
@@ -47,6 +43,12 @@ export const AddStatsOrLevelsModal = ({
   };
 
   const handleDelete = (id) => {
+    if (modalData.length === 1) {
+      setModalData([{ ...getEmptyLevelOrStat() }]);
+      
+      return;
+    }
+
     setModalData(modalData.filter((elem) => elem.id !== id));
   };
 
