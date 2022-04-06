@@ -5,7 +5,7 @@ export const routingCategories = [
   { categoryName: "Activity", id: "category4", src: "/activity-icon.svg" },
 ];
 
-export const fakeProfilePopupCategories = [
+export const profilePopupCategories = [
   {
     categoryName: "Profile",
     href: "#",
@@ -25,5 +25,5 @@ export const fakeProfilePopupCategories = [
     src: "/collections-icon.svg",
     id: "4",
   },
-  { categoryName: "Settings", href: "#", src: "/settings-icon.svg", id: "5" },
+  { categoryName: "Settings", href: "/settings", src: "/settings-icon.svg", id: "5" },
 ];

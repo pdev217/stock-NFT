@@ -2,6 +2,7 @@ import { useRef } from "react";
 // redux
 import { open as openError } from "../../../redux/slices/errorSnackbarSlice";
 import { useDispatch } from "react-redux";
+import { setImage, setBanner } from "../../../redux/slices/userDataSlice";
 //next
 import Image from "next/image";
 //axios
@@ -19,11 +20,13 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
   const dispatch = useDispatch();
   // const [isImageAbsent, setIsImageAbsent] = useState(false);
 
-  const [assetUrl, setAssetUrl] = useState(``);
+  const [assetUrl, setAssetUrl] = useState(`/noImage.png`);
   const inputRef = useRef();
 
   useEffect(() => {
-    setAssetUrl(`${process.env.BACKEND_WITHOUT_API}/assets/${type + "s"}/${profileImages[type]}`);
+    profileImages[type]
+      ? setAssetUrl(`${process.env.BACKEND_WITHOUT_API}/assets/${type + "s"}/${profileImages[type]}`)
+      : setAssetUrl("/noImage.png");
   }, [profileImages]);
 
   const handleUpload = async (e) => {
@@ -41,6 +44,22 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
         },
       });
       setProfileImages({ ...profileImages, [type]: data });
+      type === "profileImage" ? dispatch(setImage(data)) : dispatch(setBanner(data));
+    } catch (e) {
+      dispatch(
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
+    }
+  };
+
+  const deleteImage = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      await axios.delete(`${process.env.BACKEND_URL}/users/delete/${type}`, {
+        headers: { Authorization: "Bearer " + accessToken },
+      });
+      setProfileImages({ ...profileImages, [type]: null });
+      dispatch(setImage(null));
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
@@ -63,11 +82,7 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
           {/* {isImageAbsent ? (
             <></>
           ) : ( */}
-          <img
-            src={assetUrl}
-            alt="avatar"
-            className={styles.image}
-          />
+          <img src={assetUrl} alt="avatar" className={styles.image} />
           {/* )} */}
         </div>
         <div className={styles.profileImageButtons}>
@@ -85,7 +100,7 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
             fullWidth
             onClick={() => inputRef.current.click()}
           />
-          <CustButton text="Delete Image" color="red" className={styles.imageButton} />
+          <CustButton text="Delete Image" color="red" className={styles.imageButton} onClick={deleteImage} />
         </div>
       </div>
     </div>

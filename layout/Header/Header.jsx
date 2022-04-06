@@ -1,19 +1,30 @@
+import { useEffect } from "react";
+//classnames
 import cn from "classnames";
+//axios
+import axios from "axios";
+//redux
 import { useSelector, useDispatch } from "react-redux";
 import { open as openProfilePopupReducer } from "../../src/redux/slices/profilePopupSlice";
 import { open as openWalletPopupReducer } from "../../src/redux/slices/walletPopupSlice";
+import { open as openError } from "../../src/redux/slices/errorSnackbarSlice";
+import { setImage, setUsername } from "../../src/redux/slices/userDataSlice";
+//next
 import Image from "next/image";
-import Link from 'next/link'
+import Link from "next/link";
 // these are components for the second variant of header. I don't know exactly which one to implement
 // import { Username } from "../../src/components/Username/Username";
 // import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
 // import { AmountDifference } from "../../src/components/AmountDifference/AmountDifference";
 // import { SmallChart } from "../../src/components/SmallChart/SmallChart";
+//components
 import { ProfilePopup } from "../../src/components/ProfilePopup/ProfilePopup";
-import { routingCategories, fakeProfilePopupCategories } from "./Header.utils";
-import styles from "./Header.module.css";
+//utils
+import { routingCategories, profilePopupCategories } from "./Header.utils";
 //hook
-import useAuth  from "../../src/hooks/useAuth"
+import useAuth from "../../src/hooks/useAuth";
+//styles
+import styles from "./Header.module.css";
 
 const fakeChartData = new Array(15).fill({}, 0, 14).map(() => {
   return { name: "Page A", price: Math.random() * 100 };
@@ -23,7 +34,30 @@ export const Header = () => {
   const { isAuthorized } = useAuth();
 
   const dispatch = useDispatch();
+
+  const fetchUserData = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const publicAddress = localStorage.getItem("account");
+    try {
+      const {
+        data: { profileImage, username },
+      } = await axios.get(`${process.env.BACKEND_URL}/users/${publicAddress}`, {
+        headers: { Authorization: "Bearer " + accessToken },
+      });
+      dispatch(setImage(profileImage));
+      dispatch(setUsername(username));
+    } catch (e) {
+      dispatch(openError(e.message));
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
   const isProfilePopupOpened = useSelector((state) => state.profilePopup.profilePopup.isOpened);
+  const avatar = useSelector((state) => state.userData.imageUrl);
+  const username = useSelector((state) => state.userData.username);
 
   const openProfilePopup = () => {
     dispatch(openProfilePopupReducer());
@@ -58,15 +92,14 @@ export const Header = () => {
         </div>
         <div className={styles.profile} onClick={openProfilePopup}>
           <div className={isAuthorized ? styles.authorisedIcon : styles.profileIcon}>
-            <Image
-              src={isAuthorized ? "/some-man.png" : "/profile-icon.svg"}
-              layout="fill"
-              alt={isAuthorized ? "user-avatar" : "profile-icon"}
+            <img
+              src={isAuthorized ? avatar : "/profile-icon.svg"}
+              style={{ width: "100%", height: "100%" }}
             />
           </div>
-          <div className={styles.profileText}>Profile</div>
+          <div className={styles.profileText}>{username || 'Profile'}</div>
           <ProfilePopup
-            categories={fakeProfilePopupCategories}
+            categories={profilePopupCategories}
             className={cn(styles.profilePopup, {
               [styles.popupActive]: isProfilePopupOpened,
             })}
