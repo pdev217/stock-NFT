@@ -3,8 +3,6 @@ import { useRef } from "react";
 import { open as openError } from "../../../redux/slices/errorSnackbarSlice";
 import { useDispatch } from "react-redux";
 import { setImage, setBanner } from "../../../redux/slices/userDataSlice";
-//next
-import Image from "next/image";
 //axios
 import axios from "axios";
 //classnames
@@ -18,7 +16,6 @@ import { useEffect } from "react";
 
 export const ImageUploadField = ({ text, form, profileImages, setProfileImages, type }) => {
   const dispatch = useDispatch();
-  // const [isImageAbsent, setIsImageAbsent] = useState(false);
 
   const [assetUrl, setAssetUrl] = useState(`/noImage.png`);
   const inputRef = useRef();
@@ -79,11 +76,7 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
             [styles.imageSquare]: form === "square",
           })}
         >
-          {/* {isImageAbsent ? (
-            <></>
-          ) : ( */}
           <img src={assetUrl} alt="avatar" className={styles.image} />
-          {/* )} */}
         </div>
         <div className={styles.profileImageButtons}>
           <input

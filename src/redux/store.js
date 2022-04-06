@@ -3,18 +3,20 @@ import profilePopupReducer from "./slices/profilePopupSlice";
 import walletPopupReducer from "./slices/walletPopupSlice";
 import myWalletOptionsPopupReducer from "./slices/myWalletOptionsPopupSlice";
 import errorSnackbarReducer from "./slices/errorSnackbarSlice";
-import carouselReducer from './slices/carouselSlice';
-import logoutModalReducer from './slices/logoutModalSlice';
-import userDataReducer from './slices/userDataSlice';
+import carouselReducer from "./slices/carouselSlice";
+import logoutModalReducer from "./slices/logoutModalSlice";
+import userDataReducer from "./slices/userDataSlice";
+import successSnackbarReducer from "./slices/successSnackbarSlice";
 
 export const store = configureStore({
   reducer: {
-    profilePopup: profilePopupReducer,
-    walletPopup: walletPopupReducer,
-    myWalletOptionsPopup: myWalletOptionsPopupReducer,
-    errorSnackbar: errorSnackbarReducer,
     carousel: carouselReducer,
+    errorSnackbar: errorSnackbarReducer,
     logoutModal: logoutModalReducer,
-    userData: userDataReducer
+    myWalletOptionsPopup: myWalletOptionsPopupReducer,
+    profilePopup: profilePopupReducer,
+    successSnackbar: successSnackbarReducer,
+    userData: userDataReducer,
+    walletPopup: walletPopupReducer,
   },
 });

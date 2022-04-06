@@ -13,17 +13,8 @@ import { VideoAboutNFT } from "./VideoAboutNFT/VideoAboutNFT";
 import { TopCollections } from "./TopCollections/TopCollections";
 import { JoinOurCreatoes } from "./JoinOurCreators/JoinOurCreatoes";
 import { PopularCreators } from "./PopularCreators/PopularCreators";
-//hooks
-import useAuth from "../../hooks/useAuth";
 
 export const MainPage = () => {
-  const dispatch = useDispatch();
-  
-  const { error } = useAuth()
-  if (error) {
-    dispatch(openError(`${error.message}`))
-  }
-
   return (
     <>
       <HottestNFTCollectibles />

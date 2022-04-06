@@ -99,7 +99,7 @@ function AuthProvider({ children }) {
             error: { ...err.response.data },
           },
         });
-        router.push("/connect-wallet");
+        router.pathname !== '/' && router.push("/connect-wallet");
         dispatch({type: 'CLEAR_ERROR'});
       }
     };

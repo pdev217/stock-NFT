@@ -47,7 +47,7 @@ export const Header = () => {
       dispatch(setImage(profileImage));
       dispatch(setUsername(username));
     } catch (e) {
-      dispatch(openError(e.message));
+      console.log(e);
     }
   };
 

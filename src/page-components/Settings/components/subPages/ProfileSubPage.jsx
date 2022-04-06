@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 //redux
 import { open as openError } from "../../../../redux/slices/errorSnackbarSlice";
+import { open as openSuccess } from "../../../../redux/slices/successSnackbarSlice";
 import { useDispatch } from "react-redux";
 //next
 import Image from "next/image";
@@ -83,6 +84,8 @@ export const ProfileSubPage = () => {
         { ...profileData },
         { headers: { Authorization: "Bearer " + accessToken } }
       );
+
+      dispatch(openSuccess('Successfully saved'))
     } catch (e) {
       dispatch(
         openError(e.response.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
