@@ -28,7 +28,7 @@ export const textFields = [
 export const selects = [
   {
     title: "Collection",
-    required: true,
+    required: false,
     description: "This is the collection where your item will appear.",
     placeholder: "Select Collection",
     options: [],
@@ -155,7 +155,7 @@ export const uploadAndSwitchFields = [
     description: "Include unlockable content that can only be revealed by the owner of the item.",
     icon: "/create-nft/Icon-Unlockable.svg",
     type: "switch",
-    id: "unlockable",
+    id: "unlockableContent",
     defaultChecked: true,
   },
   {

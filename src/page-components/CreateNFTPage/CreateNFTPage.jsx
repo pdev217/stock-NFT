@@ -46,11 +46,11 @@ export const CreateNFTPage = () => {
     name: "",
     externalLink: "",
     description: "",
-    collection: "none",
     properties: [],
     levels: [],
     stats: [],
-    unlockable: "",
+    collection: "none",
+    unlockableContent: "",
     isSensitiveContent: false,
     supply: "none",
     blockchainType: "none",
@@ -140,10 +140,55 @@ export const CreateNFTPage = () => {
     });
     return responsive.data.IpfsHash;
   };
-  console.log("---values", values);
- const handleSave = async () => {
+
+  const handleSave = async () => {
     const imageHash = await pinFileToIPFS(values.file); //use `https://ipfs.io/ipfs/${imageHash}` as image
     //code here.
+    const blockchainTypeId = blockchainTypes.find((type) => type.name === values.blockchainType)?.id || 0;
+    const collectionId = collections.find((elem) => elem.name === values.blockchainType)?.id || 0;
+
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const form = new FormData();
+      const noFormData = {
+        name: values.name,
+        fileLink: `https://ipfs.io/ipfs/${imageHash}`,
+        externalLink: values.externalLink,
+        description: values.description,
+        properties: values.properties,
+        levels: values.levels,
+        stats: values.stats,
+        unlockableContent: values.unlockableContent,
+        isSensitiveContent: values.isSensitiveContent,
+        isAssetBacked: values.isAssetBacked,
+        blockchainTypeId,
+        collectionId,
+        content: values.file,
+      };
+
+      for (let entry of Object.entries(noFormData)) {
+        if (Array.isArray(entry[1])) {
+          form.append(`${entry[0]}[]`, entry[1]);
+        } else if (typeof entry[1] === "boolean") {
+          console.log('---entry[1]', entry[1])
+          form.append(`${entry[0]}`, JSON.stringify(entry[1]));
+        } else {
+          form.append(entry[0], entry[1]);
+        }
+      }
+
+      const response = await axios.post(`${process.env.BACKEND_URL}/nfts`, form, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-type": "multipart/form-data; boundary=MyBoundary",
+        },
+      });
+      console.log("---response", response);
+    } catch (e) {
+      dispatch(
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
+    }
   };
 
   const fetchCollections = async () => {
@@ -157,7 +202,7 @@ export const CreateNFTPage = () => {
       setCollections([...data]);
     } catch (e) {
       dispatch(
-        openError(e.response.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
       );
     }
   };
@@ -177,7 +222,7 @@ export const CreateNFTPage = () => {
       setBlockchainTypes(array);
     } catch (e) {
       dispatch(
-        openError(e.response.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
       );
     }
   };
@@ -190,13 +235,12 @@ export const CreateNFTPage = () => {
   }, []);
 
   useEffect(() => {
-    if (values.file && values.name) {
-      console.log("23456789");
+    if (values.file && values.name && values.blockchainType !== "none" && values.description) {
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [values.file, values.name]);
+  }, [values.file, values.name, values.description, values.blockchainType]);
 
   useEffect(() => {
     if (!values.file) {
@@ -205,7 +249,6 @@ export const CreateNFTPage = () => {
     }
 
     const objectUrl = URL.createObjectURL(values.file);
-    console.log("---objectUrl", objectUrl);
     setPreviewFile(objectUrl);
 
     return () => URL.revokeObjectURL(objectUrl);
@@ -292,9 +335,7 @@ export const CreateNFTPage = () => {
         ))}
         <div className={styles.section}>
           <div className={styles.title}>
-            <span>
-              {selects[0].title} {star}
-            </span>
+            <span>{selects[0].title}</span>
           </div>
           <div className={styles.description}>
             <span>{selects[0].description}</span>
@@ -313,9 +354,9 @@ export const CreateNFTPage = () => {
             <MenuItem disabled value="none">
               <span style={{ color: "rgb(77, 77, 77)" }}>{selects[0].placeholder}</span>
             </MenuItem>
-            {collections.map(({ id, text }) => (
-              <MenuItem key={id} value={text}>
-                <span>{text}</span>
+            {collections.map(({ id, name }) => (
+              <MenuItem key={id} value={name}>
+                <span>{name}</span>
               </MenuItem>
             ))}
           </Select>
