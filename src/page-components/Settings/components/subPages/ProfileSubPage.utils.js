@@ -12,22 +12,26 @@ export const imageDataArray = [
 ];
 
 export const textFields = [
-    {
-        id: 'username',
-        label: "Enter Username",
-        title: 'Username',
-        withError: true
-    },
-    {
-        id: 'bio',
-        label: "Describe your mission here",
-        minRows: 2,
-        title: 'Bio'
-    },
-    {
-        id: 'email',
-        label: "Enter Email",
-        title: 'Email Address',
-        withError: true
-    },
-]
+  {
+    id: "username",
+    label: "Enter Username",
+    title: "Username",
+    withError: true,
+    maxLength: 45,
+    required: true,
+  },
+  {
+    id: "bio",
+    label: "Describe your mission here",
+    minRows: 2,
+    title: "Bio",
+    maxLength: 140,
+  },
+  {
+    id: "email",
+    label: "Enter Email",
+    title: "Email Address",
+    withError: true,
+    required: true,
+  },
+];

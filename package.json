@@ -44,10 +44,12 @@
     "npm": "^8.5.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-loader-spinner": "^6.0.0-0",
     "react-redux": "^7.2.6",
     "recharts": "^2.1.9",
     "solidity-coverage": "^0.7.20",
     "uuid": "^8.3.2",
+    "validator": "^13.7.0",
     "walletlink": "^2.5.0",
     "web3": "1.2",
     "web3modal": "^1.9.5"

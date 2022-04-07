@@ -152,7 +152,7 @@ export const CreateNFTPage = () => {
     });
     return responsive.data.IpfsHash;
   };
-
+  console.log("---values", values);
   const handleSave = async () => {
     console.log(values);
     console.log(library);
@@ -347,7 +347,12 @@ export const CreateNFTPage = () => {
             </span>
           </div>
           <div className={styles.dragPlaceholder}>
-            <div className={styles.imageWrapper}>
+            <div
+              className={styles.imageWrapper}
+              style={{
+                background: previewFile ? "none" : 'url("/create-nft/Icon-Image.png") no-repeat center',
+              }}
+            >
               {previewFile && values.file?.type.startsWith("image") && (
                 <Image src={previewFile} alt="image" layout="fill" objectFit="contain" />
               )}

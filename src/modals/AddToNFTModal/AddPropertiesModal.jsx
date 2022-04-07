@@ -48,7 +48,6 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
 
   const handleSave = () => {
     const newData = [...modalData];
-    console.log(newData)
     const filtered = newData.filter((elem) => elem.name !== "" && elem.type !== "");
     setData({ ...data, properties: [...filtered] });
 

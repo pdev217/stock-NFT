@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 // redux
 import { open as openError } from "../../../redux/slices/errorSnackbarSlice";
 import { useDispatch } from "react-redux";
@@ -9,15 +9,16 @@ import axios from "axios";
 import cn from "classnames";
 //components
 import { CustButton } from "../../../components/CustButton/CustButton";
+//spinner
+import { Oval } from "react-loader-spinner";
 //styles
 import styles from "../Settings.module.css";
-import { useState } from "react";
-import { useEffect } from "react";
 
 export const ImageUploadField = ({ text, form, profileImages, setProfileImages, type }) => {
   const dispatch = useDispatch();
 
   const [assetUrl, setAssetUrl] = useState(`/noImage.png`);
+  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef();
 
   useEffect(() => {
@@ -31,6 +32,7 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
     formData.append("file", e.target.files[0]);
 
     try {
+      setIsLoading(true);
       const accessToken = localStorage.getItem("accessToken");
       const apiUrl = `${process.env.BACKEND_URL}/users/upload/${type}`;
 
@@ -42,10 +44,12 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
       });
       setProfileImages({ ...profileImages, [type]: data });
       type === "profileImage" ? dispatch(setImage(data)) : dispatch(setBanner(data));
+      setIsLoading(false);
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
       );
+      setIsLoading(false);
     }
   };
 
@@ -57,7 +61,7 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
       });
       setProfileImages({ ...profileImages, [type]: null });
       type === "profileImage" ? dispatch(setImage(null)) : dispatch(setBanner(null));
-      inputRef.current.value = '';
+      inputRef.current.value = "";
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
@@ -77,7 +81,18 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
             [styles.imageSquare]: form === "square",
           })}
         >
-          <img src={assetUrl} alt="avatar" className={styles.image} />
+          {isLoading ? (
+            <Oval
+            ariaLabel="loading-indicator"
+            height={70}
+            width={70}
+            strokeWidth={3}
+            color="var(--dark-grey)"
+            secondaryColor="var(--light-grey)"
+          />
+          ) : (
+            <img src={assetUrl} alt="avatar" className={styles.image} />
+          )}
         </div>
         <div className={styles.profileImageButtons}>
           <input

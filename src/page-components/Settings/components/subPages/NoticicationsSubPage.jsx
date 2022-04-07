@@ -13,16 +13,60 @@ import { useStyles } from "../../../../hooks/useStyles";
 //styles
 import styles from "../../Settings.module.css";
 
+const fakeServerData = {
+  itemsSold: false,
+  bidActivity: true,
+  priceChange: true,
+  auctionExpiration: false,
+  outbid: true,
+  ownedItemUpdates: true,
+  successfulPurchase: true,
+  openSeaNewsletter: false,
+  maxTheresold: 0.005,
+};
+
 export const NoticicationsSubPage = () => {
   const [disabledButton, setDidabledButton] = useState(true);
   const [account, setAccount] = useState("");
-  const [notificationsData, setNotificationsData] = useState({ maxTheresold: 0.005 });
+  const [startData, setStartData] = useState({});
+  const [notificationsData, setNotificationsData] = useState({
+    itemsSold: false,
+    bidActivity: true,
+    priceChange: true,
+    auctionExpiration: false,
+    outbid: true,
+    ownedItemUpdates: true,
+    successfulPurchase: true,
+    openSeaNewsletter: false,
+    maxTheresold: 0.005,
+  });
 
   const muiClasses = useStyles();
 
   useEffect(() => {
     setAccount(localStorage.getItem("account"));
+    setNotificationsData({ ...fakeServerData });
+    setStartData({ ...fakeServerData });
   }, []);
+
+  useEffect(() => {
+    const newData = JSON.stringify(notificationsData);
+    if (newData !== JSON.stringify(startData)) {
+      setDidabledButton(false);
+    } else {
+      setDidabledButton(true);
+    }
+  }, [
+    notificationsData.itemsSold,
+    notificationsData.bidActivity,
+    notificationsData.priceChange,
+    notificationsData.auctionExpiration,
+    notificationsData.outbid,
+    notificationsData.ownedItemUpdates,
+    notificationsData.successfulPurchase,
+    notificationsData.openSeaNewsletter,
+    notificationsData.maxTheresold,
+  ]);
 
   const handleChange = (newValue, field) => {
     setNotificationsData({ ...notificationsData, [field]: newValue });
@@ -39,8 +83,16 @@ export const NoticicationsSubPage = () => {
           {`${account.substring(0, 6)}...${account.substring(account.length - 4)}`}
         </span>
       </div>
-      {rowsData.map(({ title, description, id, defaultChecked }) => (
-        <NotificationRow key={id} description={description} title={title} defaultChecked={defaultChecked} />
+      {rowsData.map(({ title, description, id }) => (
+        <NotificationRow
+          key={id}
+          id={id}
+          description={description}
+          title={title}
+          checked={notificationsData[id]}
+          notificationsData={notificationsData}
+          setNotificationsData={setNotificationsData}
+        />
       ))}
       <div className={styles.minimumBit}>
         <div className={styles.fieldsTitleDescriptionWrapper}>

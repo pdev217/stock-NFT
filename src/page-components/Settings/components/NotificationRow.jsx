@@ -3,7 +3,15 @@ import { CustSwitch } from "../../../components/CustSwitch/CustSwitch";
 //styles
 import styles from "../Settings.module.css";
 
-export const NotificationRow = ({ handleChange, title, description, defaultChecked }) => {
+export const NotificationRow = ({
+  checked,
+  description,
+  handleChange,
+  notificationsData,
+  setNotificationsData,
+  title,
+  id,
+}) => {
   return (
     <div className={styles.underlinedSection}>
       <div className={styles.fieldsTitleDescriptionWrapper}>
@@ -14,7 +22,13 @@ export const NotificationRow = ({ handleChange, title, description, defaultCheck
           <span>{description}</span>
         </div>
       </div>
-      <CustSwitch className={styles.switch} defaultChecked={defaultChecked} onChange={() => {}} />
+      <CustSwitch
+        className={styles.switch}
+        checked={checked}
+        onChange={(e) => 
+          setNotificationsData({ ...notificationsData, [id]: e.target.checked })
+        }
+      />
     </div>
   );
 };

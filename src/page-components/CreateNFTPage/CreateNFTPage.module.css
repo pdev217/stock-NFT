@@ -75,9 +75,6 @@
 
 	border: 1px dashed var(--shadow);
 	border-radius: 30px;
-	background-image: url("../../../public/create-nft/Icon-Image.svg");
-	background-repeat: no-repeat;
-	background-position: center;
 }
 
 .imageWrapper {
