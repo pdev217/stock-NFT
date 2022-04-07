@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 //redux
 import { open as openError } from "../../../../redux/slices/errorSnackbarSlice";
 import { open as openSuccess } from "../../../../redux/slices/successSnackbarSlice";
@@ -35,13 +35,40 @@ export const ProfileSubPage = () => {
     profileBanner: "",
   });
   const [isCopyTooltipOpened, setIsCopyTooltipOpened] = useState(false);
+  const [startData, setStartData] = useState({ username: "", email: "" });
   const [disabledButton, setDisabledButton] = useState(true);
+  const [errorTextField, setErrorTextField] = useState({
+    username: false,
+    email: false,
+  });
   const [walletAddress, setWalletAddress] = useState();
 
   const muiClasses = useStyles();
   const walletAddressRef = useRef(null);
 
-  useEffect(() => {
+  const checkUsername = async (value) => {
+    try {
+      const {
+        data: { exists },
+      } = await axios.get(`${process.env.BACKEND_URL}/users/checkUserName/${value}`);
+      exists
+        ? setErrorTextField({ ...errorTextField, username: true })
+        : setErrorTextField({ ...errorTextField, username: false });
+    } catch (e) {}
+  };
+
+  const checkEmail = async (value) => {
+    try {
+      const {
+        data: { exists },
+      } = await axios.get(`${process.env.BACKEND_URL}/users/checkEmail/${value}`);
+      exists
+        ? setErrorTextField({ ...errorTextField, email: true })
+        : setErrorTextField({ ...errorTextField, email: false });
+    } catch (e) {}
+  };
+
+  useLayoutEffect(() => {
     const account = localStorage.getItem("account");
     setWalletAddress(account);
 
@@ -49,9 +76,9 @@ export const ProfileSubPage = () => {
   }, []);
 
   const handleChange = (newValue, field) => {
-    if (typeof profileData[field] === "string") {
-      setProfileData({ ...profileData, [field]: newValue });
-    }
+    setProfileData({ ...profileData, [field]: newValue });
+    field === "username" && newValue !== startData.username && checkUsername(newValue);
+    field === "email" && newValue !== startData.email && checkEmail(newValue);
   };
 
   const getUserData = async () => {
@@ -67,9 +94,10 @@ export const ProfileSubPage = () => {
 
       setProfileData({ username, bio, email, twitterLink, instagramLink, websiteLink });
       setProfileImages({ profileBanner, profileImage });
+      setStartData({ username, email });
     } catch (e) {
       dispatch(
-        openError(e.response.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
       );
     }
   };
@@ -85,7 +113,7 @@ export const ProfileSubPage = () => {
         { headers: { Authorization: "Bearer " + accessToken } }
       );
 
-      dispatch(openSuccess('Successfully saved'))
+      dispatch(openSuccess("Successfully saved"));
     } catch (e) {
       dispatch(
         openError(e.response.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
@@ -119,21 +147,23 @@ export const ProfileSubPage = () => {
           form={form}
         />
       ))}
-      {textFields.map(({ id, label, multiline, minRows, title }) => (
+      {textFields.map(({ id, label, multiline, minRows, title, withError }) => (
         <div key={id} className={styles.textField}>
           <div className={styles.textFieldTitle}>
             <span>{title}</span>
           </div>
           <TextField
+            error={withError && errorTextField[id]}
+            helperText={withError && errorTextField[id] && "Already taken"}
             fullWidth
             id={id}
             label={label}
             variant="outlined"
-            className={muiClasses.textField}
+            className={withError && errorTextField[id] ? muiClasses.textFieldError : muiClasses.textField}
             value={profileData[id]}
             onChange={({ target: { value } }) => handleChange(value, id)}
             InputLabelProps={{
-              style: { color: "var(--shadow)" },
+              style: { color: withError && errorTextField[id] ? "#d32f2f" : "var(--shadow)" },
             }}
             multiline={multiline}
             minRows={multiline && minRows}

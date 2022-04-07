@@ -56,7 +56,8 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
         headers: { Authorization: "Bearer " + accessToken },
       });
       setProfileImages({ ...profileImages, [type]: null });
-      dispatch(setImage(null));
+      type === "profileImage" ? dispatch(setImage(null)) : dispatch(setBanner(null));
+      inputRef.current.value = '';
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)

@@ -96,7 +96,7 @@ function AuthProvider({ children }) {
           payload: {
             isAuthorized: false,
             account: null,
-            error: { ...err.response.data },
+            error: { ...err.response?.data },
           },
         });
         router.pathname !== '/' && router.push("/connect-wallet");

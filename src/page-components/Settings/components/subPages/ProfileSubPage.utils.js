@@ -15,18 +15,19 @@ export const textFields = [
     {
         id: 'username',
         label: "Enter Username",
-        title: 'Username'
+        title: 'Username',
+        withError: true
     },
     {
         id: 'bio',
         label: "Describe your mission here",
-        multiline: true,
         minRows: 2,
         title: 'Bio'
     },
     {
         id: 'email',
         label: "Enter Email",
-        title: 'Email Address'
+        title: 'Email Address',
+        withError: true
     },
 ]

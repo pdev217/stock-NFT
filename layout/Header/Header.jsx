@@ -53,7 +53,7 @@ export const Header = () => {
 
   useEffect(() => {
     fetchUserData();
-  }, []);
+  }, [isAuthorized]);
 
   const isProfilePopupOpened = useSelector((state) => state.profilePopup.profilePopup.isOpened);
   const avatar = useSelector((state) => state.userData.imageUrl);

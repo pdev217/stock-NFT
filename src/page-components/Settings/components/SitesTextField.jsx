@@ -25,7 +25,7 @@ export const SitesTextField = ({ handleChange, profileData }) => {
         <TextField
           fullWidth
           id="twitterLink"
-          label="Your Twitter Handle"
+          placeholder="Your Twitter Handle"
           variant="outlined"
           className={muiClasses.tripleTextFieldTop}
           value={profileData.twitterLink}
@@ -51,7 +51,7 @@ export const SitesTextField = ({ handleChange, profileData }) => {
         <TextField
           fullWidth
           id="instagramLink"
-          label="Your Instagram Handle"
+          placeholder="Your Instagram Handle"
           variant="outlined"
           className={muiClasses.tripleTextFieldCenter}
           value={profileData.instagramLink}
@@ -78,7 +78,7 @@ export const SitesTextField = ({ handleChange, profileData }) => {
         <TextField
           fullWidth
           id="websiteLink"
-          label="yoursite.io"
+          placeholder="yoursite.io"
           variant="outlined"
           className={muiClasses.tripleTextFieldBottom}
           value={profileData.websiteLink}
