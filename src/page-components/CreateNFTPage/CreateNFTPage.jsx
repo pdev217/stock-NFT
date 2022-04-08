@@ -159,9 +159,7 @@ export const CreateNFTPage = () => {
         },
       });
 
-      const {
-        data: { name },
-      } = await axios.post(
+      const { data } = await axios.post(
         `${process.env.BACKEND_URL}/nfts`,
         {
           name: values.name,
@@ -183,7 +181,8 @@ export const CreateNFTPage = () => {
           },
         }
       );
-      dispatch(openSuccess(`NFT ${name} is successfully created`));
+      console.log("---data", data);
+      dispatch(openSuccess(`NFT ${data.name} is successfully created`));
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
