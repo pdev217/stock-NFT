@@ -5,7 +5,6 @@ import Image from "next/image";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { close } from "../../redux/slices/walletPopupSlice";
-import { open as openSuccess } from "../../redux/slices/successSnackbarSlice";
 import { open } from "../../redux/slices/myWalletOptionsPopupSlice";
 //classnames
 import cn from "classnames";
@@ -35,7 +34,6 @@ export const WalletPopup = ({ className }) => {
   }, [isAuthorized]);
 
   const getConnectedData = () => {
-    dispatch(openSuccess(connectedWallet));
     if (connectedWallet?.startsWith("https://mainnet.infura.io/v3/")) {
       return {
         name: "Coinbase",
