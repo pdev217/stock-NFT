@@ -49,7 +49,7 @@ export const Header = () => {
       dispatch(setImage(profileImage));
       dispatch(setUsername(username));
     } catch (e) {
-      console.log('---router.path', router)
+      console.log("---router.path", router);
       router.pathname !== "/" &&
         router.pathname !== "/connect-wallet" &&
         dispatch(
@@ -104,7 +104,7 @@ export const Header = () => {
               style={{ width: "100%", height: "100%" }}
             />
           </div>
-          <div className={styles.profileText}>{username || "Profile"}</div>
+          <div className={styles.profileText}>{isAuthorized ? username : "Profile"}</div>
           <ProfilePopup
             categories={profilePopupCategories}
             className={cn(styles.profilePopup, {
