@@ -23,7 +23,7 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
 
   useEffect(() => {
     profileImages[type]
-      ? setAssetUrl(`${process.env.}/assets/${type + "s"}/${profileImages[type]}`)
+      ? setAssetUrl(`${process.env.BACKEND_WITHOUT_API}/assets/${type + "s"}/${profileImages[type]}`)
       : setAssetUrl("/noImage.png");
   }, [profileImages]);
 
