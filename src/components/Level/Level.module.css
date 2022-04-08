@@ -5,6 +5,9 @@
 	padding: 16px;
 
 	letter-spacing: 0.01px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 
 	color: var(--light-grey);
 	border: 1px solid var(--shadow);
@@ -12,6 +15,12 @@
 
 	font-family: "Poppins", sans-serif;
 	font-size: 16px;
+}
+
+.wrapper span:first-child {
+	margin-right: 8px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .wrapper > div:first-child {

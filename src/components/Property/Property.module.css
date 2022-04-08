@@ -12,6 +12,9 @@
 .type {
 	text-align: center;
 	letter-spacing: 0.01px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 
 	color: var(--primary);
 

@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack";
 import { AntSwitch } from "./CustSwitch.utils";
 
 export const CustSwitch = ({ className, checked, onChange }) => {
+  console.log('---checked', checked)
   return (
     <div className={className}>
       <Stack direction="row" spacing={1} alignItems="center">

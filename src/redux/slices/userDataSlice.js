@@ -25,7 +25,11 @@ export const userData = createSlice({
       }
     },
     setUsername: (state, action) => {
-      state.username = action.payload;
+      if (action.payload === "") {
+        state.username = "Unnamed";
+      } else {
+        state.username = action.payload;
+      }
     },
   },
 });

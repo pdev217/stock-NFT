@@ -74,7 +74,6 @@ export const CreateNFTPage = () => {
   //handle functions
 
   const handleChange = (e, value, type) => {
-    e.preventDefault();
     switch (type) {
       case "string":
         setValues({ ...values, [value]: e.target.value });
@@ -94,9 +93,11 @@ export const CreateNFTPage = () => {
         }
         break;
       case "boolean":
-        if (value === "unlockable") {
+        console.log("---e.target.checked", e.target.checked);
+        if (value === "unlockableContent") {
           setEnsabledUnlockable(e.target.checked);
         } else if (value === "isSensitiveContent") {
+          console.log("---checked", e.target.checked);
           setValues({ ...values, [value]: e.target.checked });
         }
         break;
@@ -158,30 +159,27 @@ export const CreateNFTPage = () => {
           "Content-type": "multipart/form-data; boundary=MyBoundary",
         },
       });
+      const body = {
+        name: values.name,
+        fileName: `https://ipfs.io/ipfs/${imageHash}`,
+        externalLink: values.externalLink,
+        description: values.description,
+        unlockableContent: values.unlockableContent,
+        isSensitiveContent: values.isSensitiveContent,
+        isAssetBacked: values.isAssetBacked,
+        blockchainTypeId,
+        collectionId,
+      };
 
-      const { data } = await axios.post(
-        `${process.env.BACKEND_URL}/nfts`,
-        {
-          name: values.name,
-          fileName: `https://ipfs.io/ipfs/${imageHash}`,
-          externalLink: values.externalLink,
-          description: values.description,
-          properties: values.properties,
-          levels: values.levels,
-          stats: values.stats,
-          unlockableContent: values.unlockableContent,
-          isSensitiveContent: values.isSensitiveContent,
-          isAssetBacked: values.isAssetBacked,
-          blockchainTypeId,
-          collectionId,
+      if (values.stats.length > 0) body.stats = values.stats;
+      if (values.properties.length > 0) body.properties = values.properties;
+      if (values.levels.length > 0) body.levels = values.levels;
+
+      const { data } = await axios.post(`${process.env.BACKEND_URL}/nfts`, body, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
         },
-        {
-          headers: {
-            Authorization: "Bearer " + accessToken,
-          },
-        }
-      );
-      console.log("---data", data);
+      });
       dispatch(openSuccess(`NFT ${data.name} is successfully created`));
     } catch (e) {
       dispatch(
@@ -360,7 +358,7 @@ export const CreateNFTPage = () => {
             ))}
           </Select>
         </div>
-        {uploadAndSwitchFields.map(({ title, description, icon, type, id, defaultChecked }) => (
+        {uploadAndSwitchFields.map(({ title, description, icon, type, id }) => (
           <div key={id} className={styles.underlinedSection}>
             <div>
               <div className={styles.fieldIcon}>
@@ -381,7 +379,7 @@ export const CreateNFTPage = () => {
               ) : (
                 <CustSwitch
                   className={styles.switch}
-                  defaultChecked={defaultChecked}
+                  checked={title === "Unlockable Content" ? enabledUnlockable : values[id]}
                   onChange={(e) => handleChange(e, id, "boolean")}
                 />
               )}
