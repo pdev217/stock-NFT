@@ -150,40 +150,39 @@ export const CreateNFTPage = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const form = new FormData();
-      const noFormData = {
-        name: values.name,
-        fileLink: `https://ipfs.io/ipfs/${imageHash}`,
-        externalLink: values.externalLink,
-        description: values.description,
-        properties: values.properties,
-        levels: values.levels,
-        stats: values.stats,
-        unlockableContent: values.unlockableContent,
-        isSensitiveContent: values.isSensitiveContent,
-        isAssetBacked: values.isAssetBacked,
-        blockchainTypeId,
-        collectionId,
-        content: values.file,
-      };
+      form.append("content", values.file);
 
-      for (let entry of Object.entries(noFormData)) {
-        if (Array.isArray(entry[1])) {
-          form.append(`${entry[0]}`, entry[1]);
-        } else if (typeof entry[1] === "boolean") {
-          form.append(`${entry[0]}`, entry[1]);
-        } else {
-          form.append(entry[0], entry[1]);
-        }
-      }
-
-      const {
-        data: { name },
-      } = await axios.post(`${process.env.BACKEND_URL}/nfts`, form, {
+      await axios.post(`${process.env.BACKEND_URL}/nfts/upload/media`, form, {
         headers: {
           Authorization: "Bearer " + accessToken,
           "Content-type": "multipart/form-data; boundary=MyBoundary",
         },
       });
+
+      const {
+        data: { name },
+      } = await axios.post(
+        `${process.env.BACKEND_URL}/nfts`,
+        {
+          name: values.name,
+          fileName: `https://ipfs.io/ipfs/${imageHash}`,
+          externalLink: values.externalLink,
+          description: values.description,
+          properties: values.properties,
+          levels: values.levels,
+          stats: values.stats,
+          unlockableContent: values.unlockableContent,
+          isSensitiveContent: values.isSensitiveContent,
+          isAssetBacked: values.isAssetBacked,
+          blockchainTypeId,
+          collectionId,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
       dispatch(openSuccess(`NFT ${name} is successfully created`));
     } catch (e) {
       dispatch(
