@@ -76,7 +76,7 @@ export const WalletPopup = ({ className }) => {
         })}
         onClick={openMyWalletOptionsPopup}
       >
-       {userImage && <Image src={userImage} height={39} width={39} alt="user-avatar" />}
+       <div style={{height:'39px', width: '39px', borderRadius: '50%', position: 'relative'}}>{userImage && <Image src={userImage} layout="fill" alt="user-avatar" />}</div>
         <div className={styles.titleText}>My Wallet</div>
         <div className={styles.deltaIcon}>
           <Image src="/delta-down-icon.svg" layout="fill" alt="delta-down" />

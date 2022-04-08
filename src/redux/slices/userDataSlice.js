@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   imageUrl: "/",
-  username: "",
+  username: "Profile",
   banner: "",
 };
 
