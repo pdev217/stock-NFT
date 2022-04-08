@@ -153,7 +153,7 @@ export const CreateNFTPage = () => {
       const form = new FormData();
       form.append("content", values.file);
 
-      await axios.post(`${process.env.BACKEND_URL}/nfts/upload/media`, form, {
+      const response = await axios.post(`${process.env.BACKEND_URL}/nfts/upload/media`, form, {
         headers: {
           Authorization: "Bearer " + accessToken,
           "Content-type": "multipart/form-data; boundary=MyBoundary",
@@ -161,7 +161,7 @@ export const CreateNFTPage = () => {
       });
       const body = {
         name: values.name,
-        fileName: `https://ipfs.io/ipfs/${imageHash}`,
+        fileName: response.data,
         externalLink: values.externalLink,
         description: values.description,
         unlockableContent: values.unlockableContent,

@@ -26,12 +26,13 @@ export const WalletPopup = ({ className }) => {
   const isMyWalletOptionsPopupOpened = useSelector(
     (state) => state.myWalletOptionsPopup.myWalletOptionsPopup.isOpened
   );
+  const { isAuthorized } = useAuth();
 
   const userImage = useSelector((state) => state.userData.imageUrl)
   
   useEffect(() => {
     setConnectedWallet(localStorage.getItem("walletConnected"));
-  }, []);
+  }, [isAuthorized]);
 
   const getConnectedData = () => {
     dispatch(openSuccess(connectedWallet));
@@ -53,8 +54,7 @@ export const WalletPopup = ({ className }) => {
     }
   };
 
-  const { isAuthorized } = useAuth();
-
+  
   const dispatch = useDispatch();
   const ref = useRef();
 
