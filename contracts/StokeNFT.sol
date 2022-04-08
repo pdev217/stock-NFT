@@ -11,15 +11,16 @@ import "hardhat/console.sol";
 contract StokeNFT is ERC721URIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
-
     constructor() ERC721("StokeNFT", "NFT") {}
 
-    function createToken(string memory tokenURI) public returns (uint256) {
-        _tokenIds.increment();
-        uint256 newItemId = _tokenIds.current();
+    //get the current supply of tokens
+    function totalSupply() public view returns (uint256) {
+        return _tokenIds.current();
+    }
 
-        _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, tokenURI);
-        return newItemId;
+    function createToken(uint256 tokenId, address recipient, string memory tokenURI) public returns (uint256) {
+        _safeMint(recipient, tokenId);
+        _setTokenURI(tokenId, tokenURI);
+        return tokenId;
     }
 }
