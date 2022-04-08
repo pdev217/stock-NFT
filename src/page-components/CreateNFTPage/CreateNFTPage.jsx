@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import cn from "classnames";
 //next
 import Image from "next/image";
-import { useRouter } from "next/router";
 //axios
 import axios from "axios";
 //redux
 import { useDispatch } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
+import { open as openSuccess } from "../../redux/slices/successSnackbarSlice";
 //mui
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
@@ -168,22 +168,23 @@ export const CreateNFTPage = () => {
 
       for (let entry of Object.entries(noFormData)) {
         if (Array.isArray(entry[1])) {
-          form.append(`${entry[0]}[]`, entry[1]);
+          form.append(`${entry[0]}`, entry[1]);
         } else if (typeof entry[1] === "boolean") {
-          console.log('---entry[1]', entry[1])
-          form.append(`${entry[0]}`, JSON.stringify(entry[1]));
+          form.append(`${entry[0]}`, entry[1]);
         } else {
           form.append(entry[0], entry[1]);
         }
       }
 
-      const response = await axios.post(`${process.env.BACKEND_URL}/nfts`, form, {
+      const {
+        data: { name },
+      } = await axios.post(`${process.env.BACKEND_URL}/nfts`, form, {
         headers: {
           Authorization: "Bearer " + accessToken,
           "Content-type": "multipart/form-data; boundary=MyBoundary",
         },
       });
-      console.log("---response", response);
+      dispatch(openSuccess(`NFT ${name} is successfully created`));
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)

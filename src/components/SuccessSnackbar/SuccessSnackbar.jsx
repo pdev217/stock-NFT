@@ -23,10 +23,13 @@ export const SuccessSnackbar = ({ className }) => {
 
   return (
     <div className={cn(styles.wrapper, className)}>
-      <div onClick={closeSnackbar} className={styles.icon}>
+      <div className={styles.icon}>
         <Image src="/Icon-Check.svg" height={19} width={19} alt="x-icon" />
       </div>
-      <div className={styles.text}>{text}</div>
+      <div className={styles.text}>
+        <span>{text}</span>
+        <Image src="/create-nft/Icon-Close.svg" alt="close" height={19} width={19} onClick={closeSnackbar} />
+      </div>
     </div>
   );
 };
