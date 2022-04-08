@@ -12,6 +12,7 @@ import { setImage, setUsername } from "../../src/redux/slices/userDataSlice";
 //next
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 // these are components for the second variant of header. I don't know exactly which one to implement
 // import { Username } from "../../src/components/Username/Username";
 // import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
@@ -34,6 +35,7 @@ export const Header = () => {
   const { isAuthorized } = useAuth();
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const fetchUserData = async () => {
     const accessToken = localStorage.getItem("accessToken");
@@ -47,7 +49,11 @@ export const Header = () => {
       dispatch(setImage(profileImage));
       dispatch(setUsername(username));
     } catch (e) {
-      console.log(e);
+      router.path !== "/" &&
+        router.path !== "/connect-wallet" &&
+        dispatch(
+          openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+        );
     }
   };
 
@@ -97,7 +103,7 @@ export const Header = () => {
               style={{ width: "100%", height: "100%" }}
             />
           </div>
-          <div className={styles.profileText}>{username || 'Profile'}</div>
+          <div className={styles.profileText}>{username || "Profile"}</div>
           <ProfilePopup
             categories={profilePopupCategories}
             className={cn(styles.profilePopup, {

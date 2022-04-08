@@ -15,14 +15,29 @@ const fakeServerData = {
   owner: "King Crypto",
   properties: [
     {
-      type: "color",
+      type: "Color",
       value: "red",
+      percent: 3,
       id: "1",
     },
     {
-      type: "color",
+      type: "Hairs",
+      value: "Long",
+      percent: 37,
+      id: "2",
+    },
+    {
+      type: "The very very long property name",
+      value: "The very very very long property value",
+      percent: 100,
+      id: "3",
+    },
+
+    {
+      type: "Color",
       value: "red",
-      id: "1",
+      percent: 3,
+      id: "4",
     },
   ],
   about:

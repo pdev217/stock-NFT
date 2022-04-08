@@ -4,6 +4,7 @@
 
   border: 1px solid #ffffff33;
   border-radius: 24px;
+  overflow: hidden;
 }
 
 .sectionHeader {
@@ -24,7 +25,9 @@
   margin-left: 12px;
 }
 
-.sectionHeader > div {
+.sectionHeader div {
+  display: flex;
+  width: 100%;
   justify-content: space-between;
 }
 
@@ -38,13 +41,79 @@
   letter-spacing: 0.02px;
   color: var(--light-grey);
   padding: 16px 25px;
+  overflow: hidden;
+  height: fit-content;
+  transition: max-height 0.2s ease-in;
+  max-height: 1000px;
+}
+
+.propertiesWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 7px 16px;
+}
+
+.propertiesClosed {
+  border: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: none;
+  max-height: 0;
+  transition: max-height 0.2s ease-out;
+  transition: padding 0.2s ease-out;
 }
 
 .ownedBy {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .link {
   color: var(--primary);
   cursor: pointer;
+}
+
+.propertyWrapper {
+  width: 29%;
+  height: 95px;
+  overflow: hidden;
+  white-space: nowrap;
+  background: #617bff1a 0% 0% no-repeat padding-box;
+  border: 1px solid var(--primary);
+  border-radius: 16px;
+  padding: 12px;
+  margin: 9px 2%;
+  text-align: center;
+}
+
+.propertyWrapper div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.propertyType {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.01px;
+  color: var(--primary);
+}
+
+.propertyValue {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01px;
+  color: #ffffff;
+}
+
+.propertyPercent {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.01px;
+  color: var(--light-grey);
+}
+
+@media screen and (max-width: 1450px) {
+  .propertyWrapper {
+    width: 45%;
+  }
 }
