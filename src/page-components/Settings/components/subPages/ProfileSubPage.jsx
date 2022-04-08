@@ -19,12 +19,14 @@ import { imageDataArray, textFields } from "./ProfileSubPage.utils";
 import isEmail from "validator/lib/isEmail";
 //hooks
 import { useStyles } from "../../../../hooks/useStyles";
+import useAuth from "../../../../hooks/useAuth";
 //styles
 import styles from "../../Settings.module.css";
 
 const star = <span className={styles.star}>*</span>;
 
 export const ProfileSubPage = () => {
+  const { error } = useAuth();
   const dispatch = useDispatch();
   const [profileData, setProfileData] = useState({
     username: "",
@@ -122,7 +124,7 @@ export const ProfileSubPage = () => {
     const account = localStorage.getItem("account");
     setWalletAddress(account);
 
-    getUserData();
+    !error && getUserData();
   }, []);
 
   useEffect(() => {

@@ -35,7 +35,6 @@ export const Header = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { isAuthorized, error } = useAuth();
-console.log('---router.pathname', router.pathname)
   if (error && router.pathname !== "/" && router.pathname !== "/connect-wallet") {
     dispatch(
       openError(

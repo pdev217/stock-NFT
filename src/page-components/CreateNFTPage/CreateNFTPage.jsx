@@ -229,8 +229,8 @@ export const CreateNFTPage = () => {
   // useEffects
 
   useEffect(() => {
-    // fetchCollections();
-    // fetchBlockchainTypes();
+    !error && fetchCollections();
+    !error && fetchBlockchainTypes();
   }, []);
 
   useEffect(() => {
