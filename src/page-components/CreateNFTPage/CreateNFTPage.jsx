@@ -38,7 +38,7 @@ export const CreateNFTPage = () => {
   const { account, error } = useAuth();
 
   if (error) {
-    dispatch(openError(`${error.message}`));
+    dispatch(openError(`${error.statusCode + " " + error.message}`));
   }
 
   const [values, setValues] = useState({
@@ -229,8 +229,8 @@ export const CreateNFTPage = () => {
   // useEffects
 
   useEffect(() => {
-    fetchCollections();
-    fetchBlockchainTypes();
+    // fetchCollections();
+    // fetchBlockchainTypes();
   }, []);
 
   useEffect(() => {

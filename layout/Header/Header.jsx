@@ -32,10 +32,19 @@ const fakeChartData = new Array(15).fill({}, 0, 14).map(() => {
 });
 
 export const Header = () => {
-  const { isAuthorized } = useAuth();
-
   const dispatch = useDispatch();
   const router = useRouter();
+  const { isAuthorized, error } = useAuth();
+console.log('---router.pathname', router.pathname)
+  if (error && router.pathname !== "/" && router.pathname !== "/connect-wallet") {
+    dispatch(
+      openError(
+        error.response?.data
+          ? `${error.response.data.statusCode} ${error.response.data.message}`
+          : error.message
+      )
+    );
+  }
 
   const fetchUserData = async () => {
     const accessToken = localStorage.getItem("accessToken");
@@ -49,7 +58,6 @@ export const Header = () => {
       dispatch(setImage(profileImage));
       dispatch(setUsername(username));
     } catch (e) {
-      console.log("---router.path", router);
       router.pathname !== "/" &&
         router.pathname !== "/connect-wallet" &&
         dispatch(
@@ -59,7 +67,7 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    fetchUserData();
+    !error && fetchUserData();
   }, [isAuthorized]);
 
   const isProfilePopupOpened = useSelector((state) => state.profilePopup.profilePopup.isOpened);

@@ -9,10 +9,13 @@ import { NoticicationsSubPage } from "./components/subPages/NoticicationsSubPage
 //icons
 import ProfileIcon from "./icons/profile.svg";
 import NotificationsIcon from "./icons/notifications.svg";
+//hooks
+import useAuth from "../../hooks/useAuth";
 //styles
 import styles from "./Settings.module.css";
 
 export const Settings = () => {
+  const { error } = useAuth();
   const [activeSidebarRow, setActiveSidebarRow] = useState("Profile");
 
   const getIcon = (text) => {

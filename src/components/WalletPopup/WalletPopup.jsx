@@ -25,6 +25,8 @@ export const WalletPopup = ({ className }) => {
   const isMyWalletOptionsPopupOpened = useSelector(
     (state) => state.myWalletOptionsPopup.myWalletOptionsPopup.isOpened
   );
+
+  const userImage = useSelector((state) => state.userData.imageUrl)
   
   useEffect(() => {
     setConnectedWallet(localStorage.getItem("walletConnected"));
@@ -72,7 +74,7 @@ export const WalletPopup = ({ className }) => {
         })}
         onClick={openMyWalletOptionsPopup}
       >
-        <Image src="/some-man.png" height={39} width={39} alt="user-avatar" />
+       {userImage && <Image src={userImage} height={39} width={39} alt="user-avatar" />}
         <div className={styles.titleText}>My Wallet</div>
         <div className={styles.deltaIcon}>
           <Image src="/delta-down-icon.svg" layout="fill" alt="delta-down" />
