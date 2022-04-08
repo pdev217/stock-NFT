@@ -31,7 +31,7 @@ export const WalletPopup = ({ className }) => {
   }, []);
 
   const getConnectedData = () => {
-    if (connectedWallet.startsWith("https://mainnet.infura.io/v3/")) {
+    if (connectedWallet?.startsWith("https://mainnet.infura.io/v3/")) {
       return {
         name: "Coinbase",
         src: "/coinbase-wallet.svg",

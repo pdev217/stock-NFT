@@ -49,8 +49,9 @@ export const Header = () => {
       dispatch(setImage(profileImage));
       dispatch(setUsername(username));
     } catch (e) {
-      router.path !== "/" &&
-        router.path !== "/connect-wallet" &&
+      console.log('---router.path', router)
+      router.pathname !== "/" &&
+        router.pathname !== "/connect-wallet" &&
         dispatch(
           openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
         );
