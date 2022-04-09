@@ -14,31 +14,6 @@ const fakeServerData = {
     "A Woman can be everything she wants. For 10 years, it has been our mission to educate and empower the next generation of Women and Girls. The Boss Beauties Collection is an extension of the same passion and goals we have championed for the past decade. This is a collection of 10,000 unique, independent and strong Women which are also used to access exclusive virtual events and more.",
   owner: "King Crypto",
   properties: [
-    {
-      type: "Color",
-      value: "red",
-      percent: 3,
-      id: "1",
-    },
-    {
-      type: "Hairs",
-      value: "Long",
-      percent: 37,
-      id: "2",
-    },
-    {
-      type: "The very very long property name",
-      value: "The very very very long property value",
-      percent: 100,
-      id: "3",
-    },
-
-    {
-      type: "Color",
-      value: "red",
-      percent: 3,
-      id: "4",
-    },
   ],
   about:
     "Loser Club. Never Cool. Never Alone. A project by artist J’Von aka Catman aka Cool Sweater. One thing remains true in this budding NFT space, and that is community. ‍ Loser club is the creation of ‘Todd Nebula’ (J’von). He clearly was never «cool» (the best of us aren’t). His goal : To sell art, put money back to the holders to do whatever they want, and create a hub for all losers to commune and create together. We’re bohemian hedonists. We celebrate non-conformity and spontaneous creativity. For real raw artwork, the real utility is behind getting to know the artist and it is the people who determine value.",

@@ -180,6 +180,7 @@ export const CreateNFTPage = () => {
           Authorization: "Bearer " + accessToken,
         },
       });
+      console.log('---data', data)
       dispatch(openSuccess(`NFT ${data.name} is successfully created`));
     } catch (e) {
       dispatch(

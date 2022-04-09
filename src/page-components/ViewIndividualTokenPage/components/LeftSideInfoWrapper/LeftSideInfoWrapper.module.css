@@ -112,6 +112,14 @@
   color: var(--light-grey);
 }
 
+.emptySection {
+  color: var(--light-grey);
+  font-size: 18px;
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+}
+
 @media screen and (max-width: 1450px) {
   .propertyWrapper {
     width: 45%;

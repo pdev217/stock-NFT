@@ -55,10 +55,17 @@ export const LeftSideInfoWrapper = ({ owner, description, properties }) => {
           [styles.propertiesClosed]: !isPropertiesOpened,
         })}
       >
-        {properties.map(({ type, value, id, percent }) => (
-          <SmallProperty type={type} key={id} value={value} percent={percent} />
-        ))}
+        {properties.length > 0 ? (
+          properties.map(({ type, value, id, percent }) => (
+            <SmallProperty type={type} key={id} value={value} percent={percent} />
+          ))
+        ) : (
+          <div className={styles.emptySection}>
+            <span>No properties</span>
+          </div>
+        )}
       </div>
+      <div className={styles.sectionHeader}></div>
     </div>
   );
 };
