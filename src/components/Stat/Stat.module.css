@@ -1,13 +1,14 @@
 .wrapper {
 	display: flex;
+	overflow: hidden;
 	justify-content: space-between;
 
 	width: 54%;
 	height: 55px;
 	margin-top: 24px;
 	padding: 16px;
+
 	white-space: nowrap;
-	overflow: hidden;
 
 	letter-spacing: 0.01px;
 
@@ -20,7 +21,9 @@
 }
 
 .wrapper span:first-child {
-	margin-right: 8px;
-	text-overflow: ellipsis;
 	overflow: hidden;
+
+	margin-right: 8px;
+
+	text-overflow: ellipsis;
 }

@@ -23,10 +23,12 @@
 
 .text {
 	position: relative;
+	bottom: 3px;
+
 	display: flex;
 	justify-content: space-between;
+
 	width: 100%;
-	bottom: 3px;
 
 	margin-left: 8px;
 }
