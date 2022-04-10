@@ -21,4 +21,8 @@ describe("StokeNFT contract", function () {
         await hardhatNFT.createToken(1, addr1.address, 'https://ipfs.io/ipfs/QmRFs2ZhztgiVSivw9mJVYDqgsLsBcUSP8DipgkBovREX5')
         .then((res) => expect(res))
     })
+
+    it("Should get state if exist tokenId minted in blockchain", async function() {
+      expect(await hardhatNFT.statusForToken(1));
+    })
 })

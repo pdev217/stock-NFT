@@ -51,6 +51,7 @@
     "uuid": "^8.3.2",
     "walletlink": "^2.5.0",
     "web3": "1.2",
+    "web3-eth-abi": "^1.7.3",
     "web3modal": "^1.9.5"
   },
   "devDependencies": {
