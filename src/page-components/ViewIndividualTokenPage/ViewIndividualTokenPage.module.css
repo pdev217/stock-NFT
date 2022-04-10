@@ -4,10 +4,13 @@
 	flex-direction: column;
 
 	padding: 20px;
+
+	font-family: 'Poppins', sans-serif;
 }
 
 .topSection {
 	display: flex;
+	justify-content: center;
 
 	width: 100%;
 	max-width: 1600px;
@@ -15,11 +18,12 @@
 
 .leftSide {
 	width: 35%;
-	margin-right: 20px;
+	margin-right: 1%;
 }
 
 .rightSide {
 	width: 62.5%;
+	margin-left: 1%;
 }
 
 /*  */
@@ -77,8 +81,4 @@
 
 .tokenImage img {
 	object-fit: cover;
-}
-
-.leftSideInfoWrapper {
-	
 }

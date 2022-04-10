@@ -93,11 +93,9 @@ export const CreateNFTPage = () => {
         }
         break;
       case "boolean":
-        console.log("---e.target.checked", e.target.checked);
         if (value === "unlockableContent") {
           setEnsabledUnlockable(e.target.checked);
         } else if (value === "isSensitiveContent") {
-          console.log("---checked", e.target.checked);
           setValues({ ...values, [value]: e.target.checked });
         }
         break;
@@ -180,7 +178,6 @@ export const CreateNFTPage = () => {
           Authorization: "Bearer " + accessToken,
         },
       });
-      console.log('---data', data)
       dispatch(openSuccess(`NFT ${data.name} is successfully created`));
     } catch (e) {
       dispatch(
