@@ -22,7 +22,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties }) => {
         <div className={styles.ownedBy}>
           Owned by{" "}
           <Link href="" passHref>
-            <span className={styles.link}>{owner}</span>
+            <span className={styles.link}>{owner || 'Some owner'}</span>
           </Link>
         </div>
         <div>{description}</div>
@@ -55,9 +55,9 @@ export const LeftSideInfoWrapper = ({ owner, description, properties }) => {
           [styles.propertiesClosed]: !isPropertiesOpened,
         })}
       >
-        {properties.length > 0 ? (
-          properties.map(({ type, value, id, percent }) => (
-            <SmallProperty type={type} key={id} value={value} percent={percent} />
+        {properties && properties.length > 0 ? (
+          properties.map(({ type, name, id, percent }) => (
+            <SmallProperty type={type} key={id} name={name} percent={percent} />
           ))
         ) : (
           <div className={styles.emptySection}>

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 //next
 import Image from "next/image";
+//axios
+import axios from "axios";
 //components
 import { LeftSideInfoWrapper } from "./components/LeftSideInfoWrapper/LeftSideInfoWraper";
 import { RightSideInfoWrapper } from "./components/RightSideInfoWrapper/RightSideInfoWrapper";
@@ -8,33 +10,106 @@ import { RightSideInfoWrapper } from "./components/RightSideInfoWrapper/RightSid
 import { fakeServerData } from "./fakeData";
 //styles
 import styles from "./ViewIndividualTokenPage.module.css";
+import { BottomInfoWrapper } from "./components/BottomInfoWrapper/BottomInfoWrapper";
 
-export const ViewIndividualTokenPage = () => {
+export const ViewIndividualTokenPage = ({
+  name,
+  fileName,
+  externalLink,
+  description,
+  properties,
+  levels,
+  stats,
+  username,
+  blockchainName,
+  collectionName
+}) => {
   const [imageErrors, setImageErrors] = useState({
     tokenImage: false,
     blockchainTypeIcon: false,
   });
-
   const [values, setValues] = useState({
-    likes: 0,
-    tokenImageLink: `/`,
-    blockchainType: "etherium",
-    collection: "",
-    description: "",
-    owner: "",
-    properties: [],
-    name: "",
+    likes: 15,
+    externalLink,
+    tokenImageLink: `${process.env.BACKEND_WITHOUT_API}/assets/nftMedia/${fileName}`,
+    blockchainName,
+    collectionName,
+    description,
+    owner: username,
+    properties,
+    levels,
+    stats,
+    username,
+    name,
     price: {
-      eth: 0,
-      usd: 0,
+      eth: 0.211,
+      usd: 667.75,
     },
-    listing: [],
-    offers: []
+    listing: [
+      {
+        price: {
+          eth: 1.0577,
+          usd: 667.75,
+        },
+        expiration: new Date(2022, 6, 1, 2, 3, 4, 567),
+        owner: "CreVthor",
+        id: "1",
+      },
+      {
+        price: {
+          eth: 1.0677,
+          usd: 687.75,
+        },
+        expiration: new Date(2022, 3, 12, 1, 3, 4, 567),
+        owner: "Darth Vader",
+        id: "2",
+      },
+    ],
+    offers: [
+      {
+        price: {
+          eth: 1.0577,
+          usd: 667.75,
+        },
+        expiration: new Date(2022, 6, 1, 2, 3, 4, 567),
+        owner: "CreVthor",
+        id: "1",
+      },
+      {
+        price: {
+          eth: 1.0677,
+          usd: 687.75,
+        },
+        expiration: new Date(2022, 3, 12, 1, 3, 4, 567),
+        owner: "Darth Vader",
+        id: "2",
+      },
+    ],
+    activity: [
+      {
+          event: 'Offers',
+          price: {
+              eth: 6.95,
+              usd: 19494.06
+          },
+          from: 'Birds_of_Pray',
+          to: 'Son fo Anarchy Chris',
+          date: new Date(2022, 1, 1, 2, 3, 4, 567),
+          id: '1'
+      },
+      {
+          event: 'Offers',
+          price: {
+              eth: 6.95,
+              usd: 19494.06
+          },
+          from: 'Birds_of_Pray',
+          to: 'Son fo Anarchy Chris',
+          date: new Date(2022, 0, 1, 2, 3, 4, 567),
+          id: '2'
+      },
+    ]
   });
-
-  useEffect(() => {
-    setValues({ ...fakeServerData });
-  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -46,7 +121,7 @@ export const ViewIndividualTokenPage = () => {
                 <Image src="/noImage.png" layout="fill" alt="token-image" />
               ) : (
                 <Image
-                  src={values.blockchainType === "etherium" && "/view-token/Icon:Eth.svg"}
+                  src={values.blockchainName === "Etherium" && "/view-token/Icon:Eth.svg"}
                   width={19}
                   height={19}
                   alt="blockchain-type"
@@ -63,11 +138,10 @@ export const ViewIndividualTokenPage = () => {
                 {imageErrors.tokenImage ? (
                   <Image src="/noImage.png" layout="fill" alt="token-image" />
                 ) : (
-                  <Image
+                  <img
                     src={values.tokenImageLink}
-                    layout="fill"
                     alt="token-image"
-                    onError={() => setImageErrors({ ...imageErrors, tokenImage: true })}
+                    onError={(e) => e && setImageErrors({ ...imageErrors, tokenImage: true })}
                   />
                 )}
               </div>
@@ -75,7 +149,7 @@ export const ViewIndividualTokenPage = () => {
           </div>
           <div className={styles.leftSideInfoWrapper}>
             <LeftSideInfoWrapper
-              owner={values.owner}
+              owner={values.username}
               description={values.description}
               properties={values.properties}
             />
@@ -83,16 +157,20 @@ export const ViewIndividualTokenPage = () => {
         </div>
         <div className={styles.rightSide}>
           <RightSideInfoWrapper
-            collection={values.collection}
+            collection={values.collectionName}
+            username={values.username}
             name={values.name}
-            owner={values.owner}
+            owner={values.username}
+            offers={values.offers}
             likes={values.likes}
             usdPrice={values.price.usd}
             ethPrice={values.price.eth}
             listing={values.listing}
-            offers={values.offers}
           />
         </div>
+      </div>
+      <div className={styles.bottomSection}>
+        <BottomInfoWrapper activity={values.activity} />
       </div>
     </div>
   );

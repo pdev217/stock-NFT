@@ -22,7 +22,7 @@
 }
 
 .titles > div:first-child {
-	width: calc(40% + 16px);
+	width: calc(40% + 36px);
 }
 
 .row {

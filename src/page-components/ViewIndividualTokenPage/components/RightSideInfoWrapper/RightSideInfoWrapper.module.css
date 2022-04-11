@@ -118,16 +118,17 @@
 .closed {
   max-height: 0px;
   margin: 0;
-  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 
-  transition: max-height 0.2s ease-out;
-  transition: padding 0.2s ease-out;
+  transition: max-height 0.2s ease-out !important;
+  transition: padding 0.2s ease-out !important;
 
   border: none;
   border-bottom: none !important;
 }
 
-.closed span {
+.closed span, .closed div {
   visibility: hidden;
 }
 
@@ -148,6 +149,10 @@
   font-weight: 600;
 }
 
+.sectionHeader img {
+  cursor: pointer;
+}
+
 .sectionHeader div {
   display: flex;
   justify-content: space-between;
@@ -156,8 +161,20 @@
   margin-left: 12px;
 }
 
+.emptySection {
+	width: 100%;
+	padding: 20px 0;
+
+	text-align: center;
+
+	color: var(--light-grey);
+
+	font-size: 18px;
+}
+
 .tableRow {
   display: flex;
+  justify-content: space-between;
 
   padding: 28px 24px;
 
@@ -202,8 +219,18 @@
   margin-left: 4px;
 }
 
-.filterAveragePriceWrapper {
+.marginBottom4 {
+  margin-bottom: 4px;
+}
+
+.filterAveragePriceWrapper,
+.chartWrapper {
   padding: 24px;
+  overflow: hidden;
+}
+
+.averagePriceWrapper {
+  margin-left: 24px;
 }
 
 .averagePriceWrapper > div:first-child {
@@ -215,10 +242,62 @@
   font-size: 18px;
   letter-spacing: 0.02px;
   color: #ffffff;
+  height: 26px;
 }
 
 .greyVerySmallText {
   font-size: 16px;
   letter-spacing: 0.01px;
   color: var(--light-grey);
+}
+
+.filterAveragePriceWrapper {
+  display: flex;
+}
+
+.chartWrapper {
+  overflow: hidden;
+}
+
+.maxWidth150 {
+  max-width: 150px !important;
+}
+
+.marginLeft12 {
+  margin-left: 12px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.activityEvent {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01px;
+  color: var(--white);
+}
+
+.marginRight10percent {
+  margin-right: 10% !important;
+}
+
+.alignRight {
+  align-items: flex-end !important;
+  text-align: end;
+}
+
+.justufyRight {
+  justify-content: flex-end !important;
+}
+
+.activityDateText {
+  font-size: 18px;
+letter-spacing: 0.02px;
+color: var(--white);
+}
+.activityFilterWrapper {
+  padding: 24px;
+  border-bottom: 1px solid #FFFFFF33;
 }

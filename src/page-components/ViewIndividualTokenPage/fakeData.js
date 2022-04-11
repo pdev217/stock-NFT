@@ -1,6 +1,6 @@
 export const fakeServerData = {
     likes: 15,
-    tokenImageLink: "/",
+    tokenImageLink: "/!!!!fakeImage.png",
     blockchainType: "etherium",
     description:
       "A Woman can be everything she wants. For 10 years, it has been our mission to educate and empower the next generation of Women and Girls. The Boss Beauties Collection is an extension of the same passion and goals we have championed for the past decade. This is a collection of 10,000 unique, independent and strong Women which are also used to access exclusive virtual events and more.",
@@ -55,4 +55,28 @@ export const fakeServerData = {
         id: "2",
       },
     ],
+    activity: [
+      {
+          event: 'offers',
+          price: {
+              eth: 6.95,
+              usd: 19494.06
+          },
+          from: 'Birds_of_Pray',
+          to: 'Son fo Anarchy Chris',
+          date: new Date(2022, 1, 1, 2, 3, 4, 567),
+          id: '1'
+      },
+      {
+          event: 'offers',
+          price: {
+              eth: 6.95,
+              usd: 19494.06
+          },
+          from: 'Birds_of_Pray',
+          to: 'Son fo Anarchy Chris',
+          date: new Date(2022, 0, 1, 2, 3, 4, 567),
+          id: '2'
+      },
+  ]
   };

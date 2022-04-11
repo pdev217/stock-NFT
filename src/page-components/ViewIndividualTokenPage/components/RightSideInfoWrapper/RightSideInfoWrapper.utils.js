@@ -41,14 +41,27 @@ export const getExpirationString = (expTime) => {
 
   const days = Math.floor(difference / 1000 / 60 / 60 / 24);
 
-  if (days === 1) return `about ${days} day`;
-  else return `about ${days} days`;
-};
+  if (days < 30) {
+    if (days === 1) return `about ${days} day`;
+    else return `about ${days} days`;
+  }
 
+  const months = Math.floor(difference / 1000 / 60 / 60 / 24 / 30);
+
+  if (months === 1) return `about ${months} month`;
+  else return `about ${months} months`;
+};
 
 export const priceHistorySelectOptions = [
   {
-    text: 'All Time',
-    id: '1'
+    text: "All Time",
+    id: "1",
   },
-]
+];
+
+export const fakePriceData = new Array(7).fill({}, 0).map(() => {
+  const newDate = new Date();
+  const chartDate = `${newDate.getMonth() + 1}/${newDate.getDate()}`;
+
+  return { name: "Page A", price: Math.random(), date: chartDate };
+});

@@ -40,7 +40,7 @@ export const RightSideInfoWrapper = ({
   }, [saleEnds]);
 
   useEffect(() => {
-    if (listing.length > 0) {
+    if (listing && listing.length > 0) {
       const array = [...listing];
       array.forEach((elem) => (elem.expiration = getExpirationString(elem.expiration)));
       setListingData([...array]);
@@ -48,7 +48,7 @@ export const RightSideInfoWrapper = ({
   }, [listing]);
 
   useEffect(() => {
-    if (offers.length > 0) {
+    if (offers && offers.length > 0) {
       const array = [...offers];
       array.length > 0 && array.forEach((elem) => (elem.expiration = getExpirationString(elem.expiration)));
       setOffersData([...array]);
@@ -66,7 +66,7 @@ export const RightSideInfoWrapper = ({
         </div>
         <div className={styles.ownerAndLikes}>
           <span className={styles.greySmallText}>
-            Owned by <span className={styles.link}>{owner}</span>
+            Owned by <span className={styles.link}>{owner || 'Some owner'}</span>
           </span>
           <div className={styles.likes}>
             <Image src="/view-token/Icon:HeartFilled.svg" width={19} height={19} alt="heart-filled-icon" />
@@ -122,57 +122,65 @@ export const RightSideInfoWrapper = ({
             )}
           </div>
         </div>
-        <div
-          className={cn(styles.tableRow, styles.opened, styles.tableHead, {
-            [styles.closed]: !isListingOpened,
-          })}
-        >
-          <div>
-            <span>Price</span>
-          </div>
-          <div>
-            <span>USD Price</span>
-          </div>
-          <div>
-            <span>Expiration</span>
-          </div>
-          <div>
-            <span>From</span>
-          </div>
-          <div className={styles.buttonWrapper}></div>
-        </div>
-        <div
-          className={cn(styles.opened, {
-            [styles.closed]: !isListingOpened,
-          })}
-        >
-          {listingData &&
-            listingData.length > 0 &&
-            listingData.map(({ price: { eth, usd }, owner, expiration, id }) => (
-              <div key={id} className={styles.tableRow}>
-                <div>
-                  <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="eth-icon" />
-                  <span className={cn(styles.priceText, styles.marginLeft4)}>{eth} ETH</span>
-                </div>
-                <div>
-                  <span className={styles.priceText}>${usd}</span>
-                </div>
-                <div>
-                  <span className={styles.greySmallText}>{expiration}</span>
-                </div>
-                <div>
-                  <span className={styles.link}>{owner}</span>
-                </div>
-                <div className={styles.buttonWrapper}>
-                  <CustButton text="buy" color="ghost" />
-                </div>
+        {listingData && listingData.length > 0 ? (
+          <>
+            <div
+              className={cn(styles.tableRow, styles.opened, styles.tableHead, {
+                [styles.closed]: !isListingOpened,
+              })}
+            >
+              <div>
+                <span>Price</span>
               </div>
-            ))}
-        </div>
+              <div>
+                <span>USD Price</span>
+              </div>
+              <div>
+                <span>Expiration</span>
+              </div>
+              <div>
+                <span>From</span>
+              </div>
+              <div className={styles.buttonWrapper}></div>
+            </div>
+            <div
+              className={cn(styles.opened, {
+                [styles.closed]: !isListingOpened,
+              })}
+            >
+              {listingData.map(({ price: { eth, usd }, owner, expiration, id }) => (
+                <div key={id} className={styles.tableRow}>
+                  <div>
+                    <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="eth-icon" />
+                    <span className={cn(styles.priceText, styles.marginLeft4)}>{eth} ETH</span>
+                  </div>
+                  <div>
+                    <span className={styles.priceText}>${usd}</span>
+                  </div>
+                  <div>
+                    <span className={styles.greySmallText}>{expiration}</span>
+                  </div>
+                  <div>
+                    <span className={styles.link}>{owner}</span>
+                  </div>
+                  <div className={styles.buttonWrapper}>
+                    <CustButton text="buy" color="ghost" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className={cn(styles.emptySection, styles.opened, {
+            [styles.closed]: !isListingOpened,
+          })}>
+            <span>No listings</span>
+          </div>
+        )}
       </div>
       <div className={cn(styles.box, styles.listingsWrapper)}>
         <div className={styles.sectionHeader}>
-          <Image src="/view-token/Icon:Description.svg" height={19} width={19} alt="description" />
+          <Image src="/view-token/Icon:Offers.svg" height={19} width={19} alt="description" />
           <div>
             <span>Offers</span>
             {isOffersOpened ? (
@@ -194,53 +202,63 @@ export const RightSideInfoWrapper = ({
             )}
           </div>
         </div>
-        <div
-          className={cn(styles.tableRow, styles.opened, styles.tableHead, {
-            [styles.closed]: !isOffersOpened,
-          })}
-        >
-          <div>
-            <span>Price</span>
-          </div>
-          <div>
-            <span>USD Price</span>
-          </div>
-          <div>
-            <span>Expiration</span>
-          </div>
-          <div>
-            <span>From</span>
-          </div>
-          <div className={styles.buttonWrapper}></div>
-        </div>
-        <div
-          className={cn(styles.opened, {
-            [styles.closed]: !isOffersOpened,
-          })}
-        >
-          {offersData &&
-            offersData.length > 0 &&
-            offersData.map(({ price: { eth, usd }, owner, expiration, id }) => (
-              <div key={id} className={styles.tableRow}>
-                <div>
-                  <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="eth-icon" />
-                  <span className={cn(styles.priceText, styles.marginLeft4)}>{eth} ETH</span>
-                </div>
-                <div>
-                  <span className={styles.priceText}>${usd}</span>
-                </div>
-                <div>
-                  <span className={styles.greySmallText}>{expiration}</span>
-                </div>
-                <div>
-                  <span className={styles.link}>{owner}</span>
-                </div>
-                <div className={styles.buttonWrapper}>
-                  <CustButton text="buy" color="ghost" />
-                </div>
+        {offersData && offersData.length > 0 ? (
+          <>
+            <div
+              className={cn(styles.tableRow, styles.opened, styles.tableHead, {
+                [styles.closed]: !isOffersOpened,
+              })}
+            >
+              <div>
+                <span>Price</span>
               </div>
-            ))}
-        </div>
+              <div>
+                <span>USD Price</span>
+              </div>
+              <div>
+                <span>Expiration</span>
+              </div>
+              <div>
+                <span>From</span>
+              </div>
+              <div className={styles.buttonWrapper}></div>
+            </div>
+            <div
+              className={cn(styles.opened, {
+                [styles.closed]: !isOffersOpened,
+              })}
+            >
+              {offersData.map(({ price: { eth, usd }, owner, expiration, id }) => (
+                <div key={id} className={styles.tableRow}>
+                  <div>
+                    <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="eth-icon" />
+                    <span className={cn(styles.priceText, styles.marginLeft4)}>{eth} ETH</span>
+                  </div>
+                  <div>
+                    <span className={styles.priceText}>${usd}</span>
+                  </div>
+                  <div>
+                    <span className={styles.greySmallText}>{expiration}</span>
+                  </div>
+                  <div>
+                    <span className={styles.link}>{owner}</span>
+                  </div>
+                  <div className={styles.buttonWrapper}>
+                    <CustButton text="buy" color="ghost" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div
+            className={cn(styles.emptySection, styles.opened, {
+              [styles.closed]: !isOffersOpened,
+            })}
+          >
+            <span>No offers</span>
+          </div>
+        )}
       </div>
       <div className={styles.box}>
         <div className={styles.sectionHeader}>
@@ -266,7 +284,9 @@ export const RightSideInfoWrapper = ({
             )}
           </div>
         </div>
-        <PriceHistory />
+        <div>
+          <PriceHistory isPriceHistoryOpened={isPriceHistoryOpened} />
+        </div>
       </div>
     </div>
   );

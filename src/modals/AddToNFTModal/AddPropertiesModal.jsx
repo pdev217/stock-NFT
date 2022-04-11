@@ -87,7 +87,7 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
                 <span>Type</span>
               </div>
               <div>
-                <span>Value</span>
+                <span>Name</span>
               </div>
             </div>
             {modalData.map(({ name, type, id }, index) => (
