@@ -5,7 +5,19 @@ import https from "https";
 import axios from "axios";
 import { withLayout } from "../../../layout/Layout";
 
-const ViewIndividualToken = ({ username, blockchainName, collectionName, name, fileName, externalLink, description, properties, levels, stats }) => (
+const ViewIndividualToken = ({
+  username,
+  blockchainName,
+  status,
+  collectionName,
+  name,
+  fileName,
+  externalLink,
+  description,
+  properties,
+  levels,
+  stats,
+}) => (
   <ViewIndividualTokenPage
     blockchainName={blockchainName}
     collectionName={collectionName}
@@ -17,6 +29,7 @@ const ViewIndividualToken = ({ username, blockchainName, collectionName, name, f
     properties={properties}
     stats={stats}
     username={username}
+    status={status}
   />
 );
 
@@ -35,6 +48,10 @@ export const getServerSideProps = async ({ params }) => {
     httpsAgent,
   });
 
+  const collections = await axios.get(`${process.env.BACKEND_URL}/collections/${data.collection.id}`, {
+    httpsAgent,
+  });
+
   const {
     user,
     collection,
@@ -46,12 +63,14 @@ export const getServerSideProps = async ({ params }) => {
     properties,
     levels,
     stats,
+    status
   } = data;
   return {
     props: {
       username: user?.username || null,
       name: name,
       collectionName: collection?.name || null,
+      about: collections.data.description,
       blockchainName: blockchainType?.name || null,
       fileName,
       externalLink,
@@ -59,6 +78,7 @@ export const getServerSideProps = async ({ params }) => {
       properties,
       levels,
       stats,
+      status
     },
   };
 };

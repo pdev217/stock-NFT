@@ -2,6 +2,7 @@ export const sidebarData = [
     {
         text: 'Settings',
         id: 'sett0',
+        noClickable: true
     },
     {
         text: 'Profile',

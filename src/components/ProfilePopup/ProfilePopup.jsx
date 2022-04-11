@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios';
+import axios from "axios";
 import cn from "classnames";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,12 +41,24 @@ export const ProfilePopup = ({ categories, className }) => {
         </div>
       ))}
       {isAuthorized && (
-        <div className={styles.category} onClick={handleLogout}>
-          <div className={styles.icon}>
-            <Image src="/signout-icon.svg" alt="signout-icon" layout="fill" />
+        <>
+          <div className={styles.category}>
+            <Link href='/settings' passHref>
+              <a>
+                <div className={styles.icon}>
+                  <Image src="/settings-icon.svg" alt="settings-icon" layout="fill" />
+                </div>
+                <div className={styles.text}>Settings</div>
+              </a>
+            </Link>
           </div>
-          <div className={styles.text}>Log Out</div>
-        </div>
+          <div className={styles.category} onClick={handleLogout}>
+            <div className={styles.icon}>
+              <Image src="/signout-icon.svg" alt="signout-icon" layout="fill" />
+            </div>
+            <div className={styles.text}>Log Out</div>
+          </div>
+        </>
       )}
     </div>
   );

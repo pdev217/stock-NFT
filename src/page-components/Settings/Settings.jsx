@@ -30,13 +30,13 @@ export const Settings = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.sidebar}>
-        {sidebarData.map(({ text, id, hasIcon }) => (
+        {sidebarData.map(({ text, id, hasIcon, noClickable }) => (
           <div
             className={cn(styles.sidebarRow, {
               [styles.sidebarActiveRow]: activeSidebarRow === text,
             })}
             key={id}
-            onClick={() => setActiveSidebarRow(text)}
+            onClick={() => !noClickable && setActiveSidebarRow(text)}
           >
             {hasIcon && (
               <div

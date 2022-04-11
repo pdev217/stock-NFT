@@ -5,12 +5,16 @@ import Link from "next/link";
 //classnames
 import cn from "classnames";
 //components
+import { Stat } from "../../../../components/Stat/Stat";
 import { SmallProperty } from "./SmallProperty";
 //styles
 import styles from "./LeftSideInfoWrapper.module.css";
 
-export const LeftSideInfoWrapper = ({ owner, description, properties }) => {
+export const LeftSideInfoWrapper = ({ owner, description, properties, stats, status, about }) => {
   const [isPropertiesOpened, setIsPropertiesOpened] = useState(true);
+  const [isDetailsOpened, setIsDetailsOpened] = useState(true);
+  const [isStatsOpened, setIsStatsOpened] = useState(true);
+  const [isAboutOpened, setIsAboutOpened] = useState(true);
 
   return (
     <div className={styles.wrapper}>
@@ -22,7 +26,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties }) => {
         <div className={styles.ownedBy}>
           Owned by{" "}
           <Link href="" passHref>
-            <span className={styles.link}>{owner || 'Some owner'}</span>
+            <span className={styles.link}>{owner || "Some owner"}</span>
           </Link>
         </div>
         <div>{description}</div>
@@ -65,7 +69,116 @@ export const LeftSideInfoWrapper = ({ owner, description, properties }) => {
           </div>
         )}
       </div>
-      <div className={styles.sectionHeader}></div>
+      <div className={styles.sectionHeader}>
+        <Image src="/view-token/Icon:Properties.svg" height={19} width={19} alt="description" />
+        <div>
+          <span>Stats</span>
+          {isStatsOpened ? (
+            <Image
+              src="/view-token/Icon:ArrowUp.svg"
+              height={15}
+              width={30}
+              alt="arrow-down"
+              onClick={() => setIsStatsOpened(false)}
+            />
+          ) : (
+            <Image
+              src="/view-token/Icon:ArrowDown.svg"
+              height={15}
+              width={30}
+              alt="arrow-up"
+              onClick={() => setIsStatsOpened(true)}
+            />
+          )}
+        </div>
+      </div>
+      <div
+        className={cn(styles.section, styles.propertiesWrapper, {
+          [styles.propertiesClosed]: !isStatsOpened,
+        })}
+      >
+        {stats && stats.length > 0 ? (
+          stats.map(({ nftValue, name, id, maxValue }) => (
+            <Stat nftValue={nftValue} key={id} name={name} maxValue={maxValue} />
+          ))
+        ) : (
+          <div className={styles.emptySection}>
+            <span>No stats</span>
+          </div>
+        )}
+      </div>
+      <div className={styles.sectionHeader}>
+        <Image src="/view-token/Icon:Properties.svg" height={19} width={19} alt="description" />
+        <div>
+          <span>About</span>
+          {isAboutOpened ? (
+            <Image
+              src="/view-token/Icon:ArrowUp.svg"
+              height={15}
+              width={30}
+              alt="arrow-down"
+              onClick={() => setIsAboutOpened(false)}
+            />
+          ) : (
+            <Image
+              src="/view-token/Icon:ArrowDown.svg"
+              height={15}
+              width={30}
+              alt="arrow-up"
+              onClick={() => setIsAboutOpened(true)}
+            />
+          )}
+        </div>
+      </div>
+      <div
+        className={cn(styles.section, styles.propertiesWrapper, {
+          [styles.propertiesClosed]: !isAboutOpened,
+        })}
+      >
+        {about ? (
+          stats.map(({ nftValue, name, id, maxValue }) => (
+            <Stat nftValue={nftValue} key={id} name={name} maxValue={maxValue} />
+          ))
+        ) : (
+          <div className={styles.emptySection}>
+            <span>No info</span>
+          </div>
+        )}
+      </div>
+      <div className={styles.sectionHeader}>
+        <Image src="/view-token/Icon:About.svg" height={19} width={19} alt="description" />
+        <div>
+          <span>Details</span>
+          {isDetailsOpened ? (
+            <Image
+              src="/view-token/Icon:ArrowUp.svg"
+              height={15}
+              width={30}
+              alt="arrow-down"
+              onClick={() => setIsDetailsOpened(false)}
+            />
+          ) : (
+            <Image
+              src="/view-token/Icon:ArrowDown.svg"
+              height={15}
+              width={30}
+              alt="arrow-up"
+              onClick={() => setIsDetailsOpened(true)}
+            />
+          )}
+        </div>
+      </div>
+      <div
+        className={cn(styles.section, {
+          [styles.propertiesClosed]: !isDetailsOpened,
+        })}
+      >
+        {status === "pending" && (
+          <div className={styles.emptySection}>
+            <span>Lazy minting</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

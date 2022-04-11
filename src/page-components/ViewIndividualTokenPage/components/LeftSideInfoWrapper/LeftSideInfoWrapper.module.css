@@ -1,32 +1,32 @@
 .wrapper {
-  overflow: hidden;
+	overflow: hidden;
 
-  width: 100%;
+	width: 100%;
 
-  border: 1px solid #ffffff33;
-  border-radius: 24px;
-  background-color: var(--dark-grey);
+	border: 1px solid #FFFFFF33;
+	border-radius: 24px;
+	background-color: var(--dark-grey);
 }
 
 .sectionHeader {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 
-  height: 68px;
-  padding: 0 24px;
+	height: 68px;
+	padding: 0 24px;
 
-  letter-spacing: 0.01px;
+	letter-spacing: 0.01px;
 
-  color: var(--white);
-  border-top: 1px solid #ffffff33;
-  border-bottom: 1px solid #ffffff33;
+	color: var(--white);
+	border-top: 1px solid #FFFFFF33;
+	border-bottom: 1px solid #FFFFFF33;
 
-  font-size: 18px;
-  font-weight: 600;
+	font-size: 18px;
+	font-weight: 600;
 }
 
 .sectionHeader span {
-  margin-left: 12px;
+	margin-left: 12px;
 }
 
 .sectionHeader img {
@@ -34,123 +34,123 @@
 }
 
 .sectionHeader div {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 
-  width: 100%;
+	width: 100%;
 }
 
 .sectionHeader:first-child {
-  border-top: none;
+	border-top: none;
 }
 
 .section {
-  overflow: hidden;
+	overflow: hidden;
 
-  height: fit-content;
-  max-height: 1000px;
-  padding: 16px 25px;
+	height: fit-content;
+	max-height: 1000px;
+	padding: 16px 25px;
 
-  transition: max-height 0.2s ease-in;
-  letter-spacing: 0.02px;
+	transition: max-height 0.2s ease-in;
+	letter-spacing: 0.02px;
 
-  color: var(--light-grey);
+	color: var(--light-grey);
 
-  font-size: 18px;
+	font-size: 18px;
 }
 
 .propertiesWrapper {
-  display: flex;
-  flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 
-  padding: 7px 16px;
+	padding: 7px 16px;
 }
 
 .propertiesClosed {
-  max-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+	max-height: 0;
+	padding-top: 0;
+	padding-bottom: 0;
 
-  transition: max-height 0.2s ease-out;
-  transition: padding 0.2s ease-out;
+	transition: max-height 0.2s ease-out;
+	transition: padding 0.2s ease-out;
 
-  border: none;
-  background: none;
+	border: none;
+	background: none;
 }
 
 .ownedBy {
-  margin-bottom: 8px;
+	margin-bottom: 8px;
 }
 
 .link {
-  cursor: pointer;
+	cursor: pointer;
 
-  color: var(--primary);
+	color: var(--primary);
 }
 
 .propertyWrapper {
-  overflow: hidden;
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+	justify-content: center;
 
-  width: 29%;
-  height: 95px;
-  margin: 9px 2%;
-  padding: 12px;
+	width: 29%;
+	height: 95px;
+	margin: 9px 2%;
+	padding: 12px;
 
-  text-align: center;
-  white-space: nowrap;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+	text-align: center;
+	white-space: nowrap;
 
-  border: 1px solid var(--primary);
-  border-radius: 16px;
-  background: #617bff1a 0% 0% no-repeat padding-box;
+	border: 1px solid var(--primary);
+	border-radius: 16px;
+	background: #617BFF1A 0% 0% no-repeat padding-box;
 }
 
 .propertyWrapper div {
-  overflow: hidden;
+	overflow: hidden;
 
-  text-overflow: ellipsis;
+	text-overflow: ellipsis;
 }
 
 .propertyType {
-  letter-spacing: 0.01px;
+	letter-spacing: 0.01px;
 
-  color: var(--primary);
+	color: var(--primary);
 
-  font-size: 14px;
+	font-size: 14px;
 }
 
 .propertyValue {
-  letter-spacing: 0.01px;
+	letter-spacing: 0.01px;
 
-  color: #ffffff;
+	color: #FFFFFF;
 
-  font-size: 16px;
-  font-weight: 600;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .propertyPercent {
-  letter-spacing: 0.01px;
+	letter-spacing: 0.01px;
 
-  color: var(--light-grey);
+	color: var(--light-grey);
 
-  font-size: 14px;
+	font-size: 14px;
 }
 
 .emptySection {
-  width: 100%;
-  margin: 20px 0;
+	width: 100%;
+	margin: 20px 0;
 
-  text-align: center;
+	text-align: center;
 
-  color: var(--light-grey);
+	color: var(--light-grey);
 
-  font-size: 18px;
+	font-size: 18px;
 }
 
 @media screen and (max-width: 1450px) {
-  .propertyWrapper {
-    width: 45%;
-  }
+	.propertyWrapper {
+		width: 45%;
+	}
 }

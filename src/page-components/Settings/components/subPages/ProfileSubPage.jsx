@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 //redux
+import { useDispatch } from "react-redux";
 import { open as openError } from "../../../../redux/slices/errorSnackbarSlice";
 import { open as openSuccess } from "../../../../redux/slices/successSnackbarSlice";
-import { useDispatch } from "react-redux";
+import { setImage, setBanner, setUsername } from "../../../../redux/slices/userDataSlice";
 //next
 import Image from "next/image";
 //axios
@@ -165,12 +166,15 @@ export const ProfileSubPage = () => {
       const accessToken = localStorage.getItem("accessToken");
       const publicAddress = localStorage.getItem("account");
 
-      await axios.patch(
+      const { data } = await axios.patch(
         `${process.env.BACKEND_URL}/users/${publicAddress}`,
         { ...profileData },
         { headers: { Authorization: "Bearer " + accessToken } }
       );
 
+      dispatch(setImage(data.profileImage));
+      dispatch(setUsername(data.username));
+      dispatch(setBanner(data.profileBanner));
       dispatch(openSuccess("Successfully saved"));
     } catch (e) {
       handleError(e);

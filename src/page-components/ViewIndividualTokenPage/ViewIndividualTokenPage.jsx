@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 //next
 import Image from "next/image";
-//axios
-import axios from "axios";
+//redux
+import { open as openError } from "../../redux/slices/errorSnackbarSlice";
+import { useDispatch } from "react-redux";
 //components
 import { LeftSideInfoWrapper } from "./components/LeftSideInfoWrapper/LeftSideInfoWraper";
 import { RightSideInfoWrapper } from "./components/RightSideInfoWrapper/RightSideInfoWrapper";
 //fakeData
-import { fakeServerData } from "./fakeData";
+import { images, videos, audios } from "./ViewIndividualToken.utils";
 //styles
 import styles from "./ViewIndividualTokenPage.module.css";
 import { BottomInfoWrapper } from "./components/BottomInfoWrapper/BottomInfoWrapper";
 
 export const ViewIndividualTokenPage = ({
+  status,
   name,
   fileName,
   externalLink,
@@ -22,13 +24,19 @@ export const ViewIndividualTokenPage = ({
   stats,
   username,
   blockchainName,
-  collectionName
+  collectionName,
+  about,
 }) => {
+  const dispatch = useDispatch();
+
   const [imageErrors, setImageErrors] = useState({
     tokenImage: false,
     blockchainTypeIcon: false,
   });
+  const [typeOfTokenFile, setTypeOfTokenFile] = useState();
   const [values, setValues] = useState({
+    about,
+    status,
     likes: 15,
     externalLink,
     tokenImageLink: `${process.env.BACKEND_WITHOUT_API}/assets/nftMedia/${fileName}`,
@@ -87,29 +95,46 @@ export const ViewIndividualTokenPage = ({
     ],
     activity: [
       {
-          event: 'Offers',
-          price: {
-              eth: 6.95,
-              usd: 19494.06
-          },
-          from: 'Birds_of_Pray',
-          to: 'Son fo Anarchy Chris',
-          date: new Date(2022, 1, 1, 2, 3, 4, 567),
-          id: '1'
+        event: "Offers",
+        price: {
+          eth: 6.95,
+          usd: 19494.06,
+        },
+        from: "Birds_of_Pray",
+        to: "Son fo Anarchy Chris",
+        date: new Date(2022, 1, 1, 2, 3, 4, 567),
+        id: "1",
       },
       {
-          event: 'Offers',
-          price: {
-              eth: 6.95,
-              usd: 19494.06
-          },
-          from: 'Birds_of_Pray',
-          to: 'Son fo Anarchy Chris',
-          date: new Date(2022, 0, 1, 2, 3, 4, 567),
-          id: '2'
+        event: "Offers",
+        price: {
+          eth: 6.95,
+          usd: 19494.06,
+        },
+        from: "Birds_of_Pray",
+        to: "Son fo Anarchy Chris",
+        date: new Date(2022, 0, 1, 2, 3, 4, 567),
+        id: "2",
       },
-    ]
+    ],
   });
+
+  const handeError = (message, callback) => {
+    callback();
+    dispatch(openError(message));
+  };
+
+  useEffect(() => {
+    const end = fileName.substring(fileName.indexOf(".") + 1).toLowerCase();
+
+    if (images.includes(end)) {
+      setTypeOfTokenFile("image");
+    } else if (videos.includes(end)) {
+      setTypeOfTokenFile("video");
+    } else if (audios.includes(end)) {
+      setTypeOfTokenFile("audio");
+    }
+  }, [fileName]);
 
   return (
     <div className={styles.wrapper}>
@@ -121,11 +146,19 @@ export const ViewIndividualTokenPage = ({
                 <Image src="/noImage.png" layout="fill" alt="token-image" />
               ) : (
                 <Image
-                  src={values.blockchainName === "Etherium" && "/view-token/Icon:Eth.svg"}
+                  src={
+                    values.blockchainName === "Etherium"
+                      ? "/view-token/Icon:Eth.svg"
+                      : "/view-token/Polygon.svg"
+                  }
                   width={19}
                   height={19}
                   alt="blockchain-type"
-                  onError={() => setImageErrors({ ...imageErrors, blockchainTypeIcon: true })}
+                  onError={() =>
+                    handeError("Something went wrong with blockchain type", () =>
+                      setImageErrors({ ...imageErrors, blockchainTypeIcon: true })
+                    )
+                  }
                 />
               )}
               <div className={styles.likesWrapper}>
@@ -135,14 +168,16 @@ export const ViewIndividualTokenPage = ({
             </div>
             <div className={styles.tokenImageContainer}>
               <div className={styles.tokenImage}>
-                {imageErrors.tokenImage ? (
+                {typeOfTokenFile === "image" && imageErrors.tokenImage ? (
                   <Image src="/noImage.png" layout="fill" alt="token-image" />
                 ) : (
-                  <img
-                    src={values.tokenImageLink}
-                    alt="token-image"
-                    onError={(e) => e && setImageErrors({ ...imageErrors, tokenImage: true })}
-                  />
+                  <img src={values.tokenImageLink} alt="token-image" />
+                )}
+                {typeOfTokenFile === "video" && (
+                  <video src={values.tokenImageLink} controls="controls" autoPlay="true" alt="token-video" />
+                )}
+                {typeOfTokenFile === "audio" && (
+                  <audio src={values.tokenImageLink} controls="controls" autoPlay="true" alt="token-video" />
                 )}
               </div>
             </div>
@@ -152,6 +187,8 @@ export const ViewIndividualTokenPage = ({
               owner={values.username}
               description={values.description}
               properties={values.properties}
+              status={values.status}
+              about={values.about}
             />
           </div>
         </div>

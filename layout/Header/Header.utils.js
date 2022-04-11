@@ -25,5 +25,4 @@ export const profilePopupCategories = [
     src: "/collections-icon.svg",
     id: "4",
   },
-  { categoryName: "Settings", href: "/settings", src: "/settings-icon.svg", id: "5" },
 ];
