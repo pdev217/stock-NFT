@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useWeb3React } from "@web3-react/core";
 //redux
 import { close } from "../../redux/slices/logoutModalSlice";
+import { setUsername, setImage } from "../../redux/slices/userDataSlice";
 //mui
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -26,7 +27,9 @@ export const LogoutWindow = () => {
 
   const handleLogout = async () => {
     deactivate();
-    await logout()
+    await logout();
+    dispatch(setUsername(''));
+    dispatch(setImage(null));
     handleClose();
   };
 

@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import cn from "classnames";
 //next
 import Image from "next/image";
-import { useRouter } from "next/router";
 //axios
 import axios from "axios";
 //redux
 import { useDispatch } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
+import { open as openSuccess } from "../../redux/slices/successSnackbarSlice";
 //mui
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
@@ -38,7 +38,7 @@ export const CreateNFTPage = () => {
   const { account, error } = useAuth();
 
   if (error) {
-    dispatch(openError(`${error.message}`));
+    dispatch(openError(`${error.statusCode + " " + error.message}`));
   }
 
   const [values, setValues] = useState({
@@ -46,11 +46,11 @@ export const CreateNFTPage = () => {
     name: "",
     externalLink: "",
     description: "",
-    collection: "none",
     properties: [],
     levels: [],
     stats: [],
-    unlockable: "",
+    collection: "none",
+    unlockableContent: "",
     isSensitiveContent: false,
     supply: "none",
     blockchainType: "none",
@@ -74,7 +74,6 @@ export const CreateNFTPage = () => {
   //handle functions
 
   const handleChange = (e, value, type) => {
-    e.preventDefault();
     switch (type) {
       case "string":
         setValues({ ...values, [value]: e.target.value });
@@ -94,7 +93,7 @@ export const CreateNFTPage = () => {
         }
         break;
       case "boolean":
-        if (value === "unlockable") {
+        if (value === "unlockableContent") {
           setEnsabledUnlockable(e.target.checked);
         } else if (value === "isSensitiveContent") {
           setValues({ ...values, [value]: e.target.checked });
@@ -131,9 +130,60 @@ export const CreateNFTPage = () => {
     return responsive.data.IpfsHash;
   };
 
+  const pinJSONToIPFS = async (JSONBody) => {
+    const responsive = await axios.post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, JSONBody, {
+      headers: {
+        pinata_api_key: process.env.PINATA_API_KEY,
+        pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY,
+      },
+    });
+    return responsive.data.IpfsHash;
+  };
+
   const handleSave = async () => {
     const imageHash = await pinFileToIPFS(values.file); //use `https://ipfs.io/ipfs/${imageHash}` as image
     //code here.
+    const blockchainTypeId = blockchainTypes.find((type) => type.name === values.blockchainType)?.id || 0;
+    const collectionId = collections.find((elem) => elem.name === values.blockchainType)?.id || 0;
+
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const form = new FormData();
+      form.append("content", values.file);
+
+      const response = await axios.post(`${process.env.BACKEND_URL}/nfts/upload/media`, form, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-type": "multipart/form-data; boundary=MyBoundary",
+        },
+      });
+      const body = {
+        name: values.name,
+        fileName: response.data,
+        externalLink: values.externalLink,
+        description: values.description,
+        unlockableContent: values.unlockableContent,
+        isSensitiveContent: values.isSensitiveContent,
+        isAssetBacked: values.isAssetBacked,
+        blockchainTypeId,
+        collectionId,
+      };
+
+      if (values.stats.length > 0) body.stats = values.stats;
+      if (values.properties.length > 0) body.properties = values.properties;
+      if (values.levels.length > 0) body.levels = values.levels;
+
+      const { data } = await axios.post(`${process.env.BACKEND_URL}/nfts`, body, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      dispatch(openSuccess(`NFT ${data.name} is successfully created`));
+    } catch (e) {
+      dispatch(
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
+    }
   };
 
   const fetchCollections = async () => {
@@ -147,7 +197,7 @@ export const CreateNFTPage = () => {
       setCollections([...data]);
     } catch (e) {
       dispatch(
-        openError(e.response.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
       );
     }
   };
@@ -167,7 +217,7 @@ export const CreateNFTPage = () => {
       setBlockchainTypes(array);
     } catch (e) {
       dispatch(
-        openError(e.response.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
       );
     }
   };
@@ -175,18 +225,17 @@ export const CreateNFTPage = () => {
   // useEffects
 
   useEffect(() => {
-    fetchCollections();
-    fetchBlockchainTypes();
+    !error && fetchCollections();
+    !error && fetchBlockchainTypes();
   }, []);
 
   useEffect(() => {
-    if (values.file && values.name) {
-      console.log("23456789");
+    if (values.file && values.name && values.blockchainType !== "none" && values.description) {
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [values.file, values.name]);
+  }, [values.file, values.name, values.description, values.blockchainType]);
 
   useEffect(() => {
     if (!values.file) {
@@ -195,7 +244,6 @@ export const CreateNFTPage = () => {
     }
 
     const objectUrl = URL.createObjectURL(values.file);
-    console.log("---objectUrl", objectUrl);
     setPreviewFile(objectUrl);
 
     return () => URL.revokeObjectURL(objectUrl);
@@ -219,7 +267,12 @@ export const CreateNFTPage = () => {
             </span>
           </div>
           <div className={styles.dragPlaceholder}>
-            <div className={styles.imageWrapper}>
+            <div
+              className={styles.imageWrapper}
+              style={{
+                background: previewFile ? "none" : 'url("/create-nft/Icon-Image.png") no-repeat center',
+              }}
+            >
               {previewFile && values.file?.type.startsWith("image") && (
                 <Image src={previewFile} alt="image" layout="fill" objectFit="contain" />
               )}
@@ -277,9 +330,7 @@ export const CreateNFTPage = () => {
         ))}
         <div className={styles.section}>
           <div className={styles.title}>
-            <span>
-              {selects[0].title} {star}
-            </span>
+            <span>{selects[0].title}</span>
           </div>
           <div className={styles.description}>
             <span>{selects[0].description}</span>
@@ -298,14 +349,14 @@ export const CreateNFTPage = () => {
             <MenuItem disabled value="none">
               <span style={{ color: "rgb(77, 77, 77)" }}>{selects[0].placeholder}</span>
             </MenuItem>
-            {collections.map(({ id, text }) => (
-              <MenuItem key={id} value={text}>
-                <span>{text}</span>
+            {collections.map(({ id, name }) => (
+              <MenuItem key={id} value={name}>
+                <span>{name}</span>
               </MenuItem>
             ))}
           </Select>
         </div>
-        {uploadAndSwitchFields.map(({ title, description, icon, type, id, defaultChecked }) => (
+        {uploadAndSwitchFields.map(({ title, description, icon, type, id }) => (
           <div key={id} className={styles.underlinedSection}>
             <div>
               <div className={styles.fieldIcon}>
@@ -326,7 +377,7 @@ export const CreateNFTPage = () => {
               ) : (
                 <CustSwitch
                   className={styles.switch}
-                  defaultChecked={defaultChecked}
+                  checked={title === "Unlockable Content" ? enabledUnlockable : values[id]}
                   onChange={(e) => handleChange(e, id, "boolean")}
                 />
               )}

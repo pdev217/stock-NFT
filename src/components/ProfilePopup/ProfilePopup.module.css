@@ -18,6 +18,11 @@
 	background: #1D1D1D 0% 0% no-repeat padding-box;
 }
 
+.category a {
+	display: flex;
+	align-items: center;
+}
+
 .category:first-child {
 	border-radius: 16px 16px 0px 0px;
 }

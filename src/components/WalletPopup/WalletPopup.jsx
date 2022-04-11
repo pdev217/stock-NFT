@@ -25,13 +25,16 @@ export const WalletPopup = ({ className }) => {
   const isMyWalletOptionsPopupOpened = useSelector(
     (state) => state.myWalletOptionsPopup.myWalletOptionsPopup.isOpened
   );
+  const { isAuthorized } = useAuth();
+
+  const userImage = useSelector((state) => state.userData.imageUrl)
   
   useEffect(() => {
     setConnectedWallet(localStorage.getItem("walletConnected"));
-  }, []);
+  }, [isAuthorized]);
 
   const getConnectedData = () => {
-    if (connectedWallet.startsWith("https://mainnet.infura.io/v3/")) {
+    if (connectedWallet?.startsWith("https://mainnet.infura.io/v3/")) {
       return {
         name: "Coinbase",
         src: "/coinbase-wallet.svg",
@@ -49,8 +52,7 @@ export const WalletPopup = ({ className }) => {
     }
   };
 
-  const { isAuthorized } = useAuth();
-
+  
   const dispatch = useDispatch();
   const ref = useRef();
 
@@ -72,7 +74,7 @@ export const WalletPopup = ({ className }) => {
         })}
         onClick={openMyWalletOptionsPopup}
       >
-        <Image src="/some-man.png" height={39} width={39} alt="user-avatar" />
+       <div style={{height:'39px', width: '39px', borderRadius: '50%', position: 'relative'}}>{userImage && <Image src={userImage} layout="fill" alt="user-avatar" />}</div>
         <div className={styles.titleText}>My Wallet</div>
         <div className={styles.deltaIcon}>
           <Image src="/delta-down-icon.svg" layout="fill" alt="delta-down" />

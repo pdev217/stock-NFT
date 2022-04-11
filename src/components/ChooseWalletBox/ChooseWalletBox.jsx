@@ -23,6 +23,7 @@ export const ChooseWalletBox = ({ className }) => {
   const { activate, library } = useWeb3React();
   const [isSelect, setIsSelect] = useState();
   const { login } = useAuth();
+  
   useEffect(() => {
     library && localStorage.setItem('walletConnected', library.connection.url)
   }, [library])

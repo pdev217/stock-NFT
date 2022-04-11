@@ -4,13 +4,13 @@ import Stack from "@mui/material/Stack";
 //component
 import { AntSwitch } from "./CustSwitch.utils";
 
-export const CustSwitch = ({ className, defaultChecked, onChange }) => {
+export const CustSwitch = ({ className, checked, onChange }) => {
   return (
     <div className={className}>
       <Stack direction="row" spacing={1} alignItems="center">
         <AntSwitch
           onChange={onChange}
-          defaultChecked={defaultChecked}
+          checked={checked}
           inputProps={{ "aria-label": "ant design" }}
         />
       </Stack>

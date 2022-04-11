@@ -112,7 +112,7 @@
 	height: 29px;
 
 	border: 1px solid var(--white);
-	border-radius: 15px;
+	border-radius: 50%;
 }
 
 .clickableUserInfo {
@@ -176,6 +176,11 @@
 
 	width: 19px;
 	height: 19px;
+}
+.profileIcon, .authorisedIcon {
+	overflow: hidden;
+
+	border-radius: 50%;
 }
 
 .authorisedIcon {

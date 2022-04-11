@@ -14,7 +14,7 @@ export const CustComposedTextField = ({ nftValue, maxValue, modalData, setModalD
   const handleChange = (newValue, label, index) => {
     const data = [...modalData];
 
-    if (label === "Value" && newValue > maxFieldValue) {
+    if (label === "Value" && Number(newValue) > maxFieldValue) {
       data[index].nftValue = maxFieldValue;
       setfieldValue(maxFieldValue);
     } else if (label === "Value") {

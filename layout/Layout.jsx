@@ -1,18 +1,25 @@
-import cn from "classnames";
+//redux
 import { Provider } from "react-redux";
 import { useSelector } from "react-redux";
 import { store } from "../src/redux/store";
+//classnames
+import cn from "classnames";
+//layout
 import { Header } from "./Header/Header";
 import { Footer } from "./Footer/Footer";
-import styles from "./Layout.module.css";
+//components
 import { WalletPopup } from "../src/components/WalletPopup/WalletPopup";
 import { ErrorSnackbar } from "../src/components/ErrorSnackbar/ErrorSnackbar";
+import {SuccessSnackbar}from "../src/components/SuccessSnackbar/SuccessSnackbar";
 import { LogoutWindow } from "../src/modals/LogoutWindow/LogoutWindow";
+//styles
+import styles from "./Layout.module.css";
 
 const Layout = ({ children, isFooterDisplayed }) => {
   const isWalletPopupOpened = useSelector((state) => state.walletPopup.walletPopup.isOpened);
 
   const isErrorSnackbarOpened = useSelector((state) => state.errorSnackbar.isOpened);
+  const isSuccessSnackbarOpened = useSelector((state) => state.successSnackbar.isOpened);
 
   return (
     <>
@@ -33,6 +40,7 @@ const Layout = ({ children, isFooterDisplayed }) => {
           />
         </div>
         {isErrorSnackbarOpened && <ErrorSnackbar className={styles.errorSnackbar} />}
+        {isSuccessSnackbarOpened && <SuccessSnackbar className={styles.errorSnackbar} />}
         <LogoutWindow />
       </div>
     </>

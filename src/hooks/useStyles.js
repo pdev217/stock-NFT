@@ -24,6 +24,38 @@ export const useStyles = makeStyles(
           borderColor: "var(--primary)",
           borderRadius: "7px",
         },
+        "& .Mui-error .Mui-focused fieldset": {
+          color: 'red !important',
+          borderColor: 'red'
+        },
+      },
+    },
+    textFieldError: {
+      borderRadius: "7px",
+      "& label.Mui-focused": {
+        color: "#d32f2f",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "#d32f2f",
+        borderRadius: "7px",
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "#d32f2f",
+          borderRadius: "7px",
+        },
+        "&:hover fieldset": {
+          borderColor: "#d32f2f",
+          borderRadius: "7px",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "#d32f2f",
+          borderRadius: "7px",
+        },
+        "& .Mui-error .Mui-focused fieldset": {
+          color: '#d32f2f',
+          borderColor: '#d32f2f'
+        },
       },
     },
     icon: {

@@ -65,6 +65,7 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     const initialize = async () => {
+      console.log('---initialization')
       try {
         const accessToken = localStorage.getItem("accessToken");
         const account = localStorage.getItem("account");
@@ -96,16 +97,18 @@ function AuthProvider({ children }) {
           payload: {
             isAuthorized: false,
             account: null,
-            error: { ...err.response.data },
+            error: { ...err.response?.data },
           },
         });
-        router.push("/connect-wallet");
-        dispatch({type: 'CLEAR_ERROR'});
+        if (router.pathname !== "/") {
+          router.replace("/connect-wallet");
+        }
+        dispatch({ type: "CLEAR_ERROR" });
       }
     };
 
     initialize();
-  }, []);
+  }, [router.pathname]);
 
   const login = async (signature, account) => {
     const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {

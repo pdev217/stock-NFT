@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 import cn from "classnames";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,12 +31,12 @@ export const ProfilePopup = ({ categories, className }) => {
       {categories.map(({ categoryName, src, href, id }) => (
         <div key={id} className={styles.category}>
           <Link href={href} passHref>
-            <>
+            <a>
               <div className={styles.icon}>
                 <Image src={src} alt={categoryName} layout="fill" />
               </div>
               <div className={styles.text}>{categoryName}</div>
-            </>
+            </a>
           </Link>
         </div>
       ))}

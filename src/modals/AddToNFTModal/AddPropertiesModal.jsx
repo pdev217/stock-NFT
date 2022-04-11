@@ -29,7 +29,7 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
 
   const handleAdd = () => {
     if (modalData.length === 50) {
-      dispatch(openError('Only 50 values can be added'))
+      dispatch(openError("Only 50 values can be added"));
     }
 
     setModalData([...modalData, { ...getEmptyProperty() }]);
@@ -48,11 +48,11 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
 
   const handleSave = () => {
     const newData = [...modalData];
-    console.log(newData)
     const filtered = newData.filter((elem) => elem.name !== "" && elem.type !== "");
+
     setData({ ...data, properties: [...filtered] });
 
-    setModalData([...filtered]);
+    filtered.length === 0 ? setModalData([{ ...getEmptyProperty() }]) : setModalData([...filtered]);
     setIsModalOpened(false);
   };
 
@@ -84,7 +84,7 @@ export const AddPropertiesModal = ({ isModalOpened, setIsModalOpened, data, setD
           <div className={cssStyles.fieldsWrapper}>
             <div className={cssStyles.titles}>
               <div>
-                <span>Name</span>
+                <span>Type</span>
               </div>
               <div>
                 <span>Value</span>
