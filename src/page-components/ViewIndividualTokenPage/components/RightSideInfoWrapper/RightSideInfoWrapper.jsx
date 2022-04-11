@@ -6,6 +6,7 @@ import cn from "classnames";
 //components
 import { LeftTimeContainer } from "./LeftTimeContainer";
 import { CustButton } from "../../../../components/CustButton/CustButton";
+import { PriceHistory } from "./PriceHistory";
 //utils
 import { getCorrectDateString, getExpirationString } from "./RightSideInfoWrapper.utils";
 //styles
@@ -25,10 +26,13 @@ export const RightSideInfoWrapper = ({
 }) => {
   const [saleEnds, setSaleEnds] = useState(undefined);
   const [saleEndsStringified, setSaleEndsStringified] = useState("");
+
   const [listingData, setListingData] = useState(undefined);
   const [offersData, setOffersData] = useState(undefined);
+
   const [isListingOpened, setIsListingOpened] = useState(true);
   const [isOffersOpened, setIsOffersOpened] = useState(true);
+  const [isPriceHistoryOpened, setIsPriceHistoryOpened] = useState(true);
 
   useEffect(() => {
     setSaleEnds(fakeDate);
@@ -192,7 +196,7 @@ export const RightSideInfoWrapper = ({
         </div>
         <div
           className={cn(styles.tableRow, styles.opened, styles.tableHead, {
-            [styles.closed]: !isListingOpened,
+            [styles.closed]: !isOffersOpened,
           })}
         >
           <div>
@@ -211,7 +215,7 @@ export const RightSideInfoWrapper = ({
         </div>
         <div
           className={cn(styles.opened, {
-            [styles.closed]: !isListingOpened,
+            [styles.closed]: !isOffersOpened,
           })}
         >
           {offersData &&
@@ -237,6 +241,32 @@ export const RightSideInfoWrapper = ({
               </div>
             ))}
         </div>
+      </div>
+      <div className={styles.box}>
+        <div className={styles.sectionHeader}>
+          <Image src="/view-token/Icon:Activity.svg" height={19} width={19} alt="Activity" />
+          <div>
+            <span>Price History</span>
+            {isPriceHistoryOpened ? (
+              <Image
+                src="/view-token/Icon:ArrowUp.svg"
+                height={15}
+                width={30}
+                alt="arrow-down"
+                onClick={() => setIsPriceHistoryOpened(false)}
+              />
+            ) : (
+              <Image
+                src="/view-token/Icon:ArrowDown.svg"
+                height={15}
+                width={30}
+                alt="arrow-up"
+                onClick={() => setIsPriceHistoryOpened(true)}
+              />
+            )}
+          </div>
+        </div>
+        <PriceHistory />
       </div>
     </div>
   );

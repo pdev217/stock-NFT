@@ -44,3 +44,11 @@ export const getExpirationString = (expTime) => {
   if (days === 1) return `about ${days} day`;
   else return `about ${days} days`;
 };
+
+
+export const priceHistorySelectOptions = [
+  {
+    text: 'All Time',
+    id: '1'
+  },
+]
