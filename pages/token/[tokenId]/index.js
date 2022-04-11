@@ -48,37 +48,13 @@ export const getServerSideProps = async ({ params }) => {
     httpsAgent,
   });
 
-  const collections = await axios.get(`${process.env.BACKEND_URL}/collections/${data.collection.id}`, {
-    httpsAgent,
-  });
-
-  const {
-    user,
-    collection,
-    blockchainType,
-    name,
-    fileName,
-    externalLink,
-    description,
-    properties,
-    levels,
-    stats,
-    status
-  } = data;
   return {
     props: {
-      username: user?.username || null,
-      name: name,
-      collectionName: collection?.name || null,
-      about: collections.data.description,
-      blockchainName: blockchainType?.name || null,
-      fileName,
-      externalLink,
-      description,
-      properties,
-      levels,
-      stats,
-      status
+      username: data.user|| null,
+      collectionName: data.collection?.name || null,
+      about: data.collection.description,
+      blockchainName: data.blockchainType?.name || null,
+      ...data
     },
   };
 };

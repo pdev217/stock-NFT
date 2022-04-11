@@ -1,7 +1,6 @@
 export const getDate = (date) => {
   const nowDate = new Date();
   const prevDate = new Date(date);
-  console.log("---nowDate", nowDate);
 
   const difference = nowDate - prevDate;
 

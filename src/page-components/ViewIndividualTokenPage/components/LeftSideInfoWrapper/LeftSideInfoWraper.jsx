@@ -60,8 +60,8 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
         })}
       >
         {properties && properties.length > 0 ? (
-          properties.map(({ type, name, id, percent }) => (
-            <SmallProperty type={type} key={id} name={name} percent={percent} />
+          properties.map(({ type, name, id, frequency }) => (
+            <SmallProperty type={type} key={id} name={name} frequency={frequency} />
           ))
         ) : (
           <div className={styles.emptySection}>
@@ -136,9 +136,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
         })}
       >
         {about ? (
-          stats.map(({ nftValue, name, id, maxValue }) => (
-            <Stat nftValue={nftValue} key={id} name={name} maxValue={maxValue} />
-          ))
+          <div></div>
         ) : (
           <div className={styles.emptySection}>
             <span>No info</span>

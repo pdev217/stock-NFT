@@ -72,7 +72,6 @@ export const Header = () => {
   const isProfilePopupOpened = useSelector((state) => state.profilePopup.profilePopup.isOpened);
   const avatar = useSelector((state) => state.userData.imageUrl);
   const username = useSelector((state) => state.userData.username);
-  console.log('---username', username)
   const openProfilePopup = () => {
     dispatch(openProfilePopupReducer());
   };
