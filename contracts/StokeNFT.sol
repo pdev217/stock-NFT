@@ -10,16 +10,42 @@ import "hardhat/console.sol";
 
 contract StokeNFT is ERC721URIStorage {
     using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
-
+    Counters.Counter private _tokenCounter;
     constructor() ERC721("StokeNFT", "NFT") {}
 
-    function createToken(string memory tokenURI) public returns (uint256) {
-        _tokenIds.increment();
-        uint256 newItemId = _tokenIds.current();
+    struct Token {
+        uint256 tokenId;
+    }
+    
+     mapping(uint256 => Token) public tokens;
 
-        _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, tokenURI);
-        return newItemId;
+     function totalSupply() public view returns (uint256) {
+        return _tokenCounter.current();
+    }
+
+    function createToken(uint256 _tokenId, address recipient, string memory tokenURI) public returns (uint256) {
+        _tokenCounter.increment();
+
+        uint256 id = _tokenCounter.current();
+
+        _safeMint(recipient, _tokenId);
+        _setTokenURI(_tokenId, tokenURI);
+
+        tokens[id] = Token(
+            _tokenId
+        );
+
+        return _tokenId;
+    }
+
+     function statusForToken(uint256 _tokenId) public view returns(bool){
+        bool state = false;
+        for(uint i = 1; i <= _tokenCounter.current(); i++) {
+            if(tokens[i].tokenId == _tokenId) {
+                state = true;
+            }
+        }
+
+       return state;
     }
 }

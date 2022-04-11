@@ -17,11 +17,6 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
     console.log(account.address);
   }
 });
-
-task("envTest", "Printes the env variables", () => {
-  console.log(process.env.ROPSTEN_URL)
-})
-
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
