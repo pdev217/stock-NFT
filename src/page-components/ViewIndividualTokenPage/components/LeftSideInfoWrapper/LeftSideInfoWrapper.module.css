@@ -149,6 +149,11 @@
 	font-size: 18px;
 }
 
+.stat {
+	width: 100%;
+	margin: 9px 2%;
+}
+
 @media screen and (max-width: 1450px) {
 	.propertyWrapper {
 		width: 45%;

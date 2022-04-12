@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 //next
 import Image from "next/image";
 //redux
@@ -7,11 +7,20 @@ import { useDispatch } from "react-redux";
 //components
 import { LeftSideInfoWrapper } from "./components/LeftSideInfoWrapper/LeftSideInfoWraper";
 import { RightSideInfoWrapper } from "./components/RightSideInfoWrapper/RightSideInfoWrapper";
+import { BottomInfoWrapper } from "./components/BottomInfoWrapper/BottomInfoWrapper";
 //fakeData
-import { images, videos, audios } from "./ViewIndividualToken.utils";
+import {
+  audios,
+  fakeActivity,
+  fakeLikes,
+  fakeListing,
+  fakeOffers,
+  fakePrice,
+  images,
+  videos,
+} from "./ViewIndividualToken.utils";
 //styles
 import styles from "./ViewIndividualTokenPage.module.css";
-import { BottomInfoWrapper } from "./components/BottomInfoWrapper/BottomInfoWrapper";
 
 export const ViewIndividualTokenPage = ({
   status,
@@ -28,100 +37,25 @@ export const ViewIndividualTokenPage = ({
   about,
 }) => {
   const dispatch = useDispatch();
+  console.log("---fileName", fileName);
 
   const [imageErrors, setImageErrors] = useState({
     tokenImage: false,
     blockchainTypeIcon: false,
   });
-  const [typeOfTokenFile, setTypeOfTokenFile] = useState();
-  const [values, setValues] = useState({
-    about,
-    status,
-    likes: 15,
-    externalLink,
-    tokenImageLink: `${process.env.BACKEND_WITHOUT_API}/assets/nftMedia/${fileName}`,
-    blockchainName,
-    collectionName,
-    description,
-    owner: username,
-    properties,
-    levels,
-    stats,
-    username,
-    name,
-    price: {
-      eth: 0.211,
-      usd: 667.75,
-    },
-    listing: [
-      {
-        price: {
-          eth: 1.0577,
-          usd: 667.75,
-        },
-        expiration: new Date(2022, 6, 1, 2, 3, 4, 567),
-        owner: "CreVthor",
-        id: "1",
-      },
-      {
-        price: {
-          eth: 1.0677,
-          usd: 687.75,
-        },
-        expiration: new Date(2022, 3, 12, 1, 3, 4, 567),
-        owner: "Darth Vader",
-        id: "2",
-      },
-    ],
-    offers: [
-      {
-        price: {
-          eth: 1.0577,
-          usd: 667.75,
-        },
-        expiration: new Date(2022, 6, 1, 2, 3, 4, 567),
-        owner: "CreVthor",
-        id: "1",
-      },
-      {
-        price: {
-          eth: 1.0677,
-          usd: 687.75,
-        },
-        expiration: new Date(2022, 3, 12, 1, 3, 4, 567),
-        owner: "Darth Vader",
-        id: "2",
-      },
-    ],
-    activity: [
-      {
-        event: "Offers",
-        price: {
-          eth: 6.95,
-          usd: 19494.06,
-        },
-        from: "Birds_of_Pray",
-        to: "Son fo Anarchy Chris",
-        date: new Date(2022, 1, 1, 2, 3, 4, 567),
-        id: "1",
-      },
-      {
-        event: "Offers",
-        price: {
-          eth: 6.95,
-          usd: 19494.06,
-        },
-        from: "Birds_of_Pray",
-        to: "Son fo Anarchy Chris",
-        date: new Date(2022, 0, 1, 2, 3, 4, 567),
-        id: "2",
-      },
-    ],
-  });
 
-  const handeError = (message, callback) => {
+  const [typeOfTokenFile, setTypeOfTokenFile] = useState();
+  const [tokenFileLink, setTokenFileLink] = useState("/");
+
+  const [ratio, setRatio] = useState(16 / 9);
+
+  const handleError = (message, callback) => {
     callback();
     dispatch(openError(message));
+  };
+
+  const tokenImageLoader = () => {
+    return `${process.env.BACKEND_WITHOUT_API}/assets/nftMedia/${fileName}`;
   };
 
   useEffect(() => {
@@ -135,6 +69,7 @@ export const ViewIndividualTokenPage = ({
       setTypeOfTokenFile("audio");
     }
   }, [fileName]);
+  console.log("---typeOfTokenImage", typeOfTokenFile);
 
   return (
     <div className={styles.wrapper}>
@@ -146,16 +81,12 @@ export const ViewIndividualTokenPage = ({
                 <Image src="/noImage.png" layout="fill" alt="token-image" />
               ) : (
                 <Image
-                  src={
-                    values.blockchainName === "Etherium"
-                      ? "/view-token/Icon:Eth.svg"
-                      : "/view-token/Polygon.svg"
-                  }
+                  src={blockchainName === "Etherium" ? "/view-token/Icon:Eth.svg" : "/view-token/Polygon.svg"}
                   width={19}
                   height={19}
                   alt="blockchain-type"
-                  onError={() =>
-                    handeError("Something went wrong with blockchain type", () =>
+                  onError={(e) =>
+                    handleError("Something went wrong with blockchain type", () =>
                       setImageErrors({ ...imageErrors, blockchainTypeIcon: true })
                     )
                   }
@@ -163,51 +94,86 @@ export const ViewIndividualTokenPage = ({
               )}
               <div className={styles.likesWrapper}>
                 <Image src="/view-token/Icon:Heart.svg" width={19} height={19} alt="likes" />
-                <span>{values.likes}</span>
+                <span>{fakeLikes}</span>
               </div>
             </div>
             <div className={styles.tokenImageContainer}>
               <div className={styles.tokenImage}>
                 {typeOfTokenFile === "image" && imageErrors.tokenImage ? (
-                  <Image src="/noImage.png" layout="fill" alt="token-image" />
+                   <div className={styles.emptySection}>
+                   <span>No file</span>
+                 </div>
                 ) : (
-                  <img src={values.tokenImageLink} alt="token-image" />
+                  <Image
+                    src={tokenFileLink}
+                    loader={tokenImageLoader}
+                    alt="toke2n-image"
+                    objectFit="contain"
+                    layout="responsive"
+                    width="100%"
+                    height={`${ratio}%`}
+                    onError={() =>
+                      handleError("404 Token file is not found", () =>
+                        setImageErrors({ ...imageErrors, tokenImage: true })
+                      )
+                    }
+                    onLoadingComplete={({ naturalWidth, naturalHeight }) =>
+                      setRatio(100 / (naturalWidth / naturalHeight))
+                    }
+                  />
                 )}
                 {typeOfTokenFile === "video" && (
-                  <video src={values.tokenImageLink} controls="controls" autoPlay="true" alt="token-video" />
+                  <video
+                    src={tokenFileLink}
+                    controls="controls"
+                    autoPlay="true"
+                    alt="token-video"
+                    className={styles.video}
+                  />
                 )}
                 {typeOfTokenFile === "audio" && (
-                  <audio src={values.tokenImageLink} controls="controls" autoPlay="true" alt="token-video" />
+                  <audio
+                    src={tokenFileLink}
+                    controls="controls"
+                    autoPlay="true"
+                    alt="token-video"
+                    className={styles.audio}
+                  />
                 )}
               </div>
             </div>
           </div>
           <div className={styles.leftSideInfoWrapper}>
             <LeftSideInfoWrapper
-              owner={values.username}
-              description={values.description}
-              properties={values.properties}
-              status={values.status}
-              about={values.about}
+              owner={username}
+              description={description}
+              properties={properties}
+              levels={levels}
+              status={status}
+              stats={stats}
+              about={about}
             />
           </div>
         </div>
         <div className={styles.rightSide}>
           <RightSideInfoWrapper
-            collection={values.collectionName}
-            username={values.username}
-            name={values.name}
-            owner={values.username}
-            offers={values.offers}
-            likes={values.likes}
-            usdPrice={values.price.usd}
-            ethPrice={values.price.eth}
-            listing={values.listing}
+            collection={collectionName}
+            name={name}
+            owner={username}
+            /// fake data
+
+            offers={fakeOffers}
+            likes={fakeLikes}
+            usdPrice={fakePrice.usd}
+            ethPrice={fakePrice.eth}
+            listing={fakeListing}
+
+            ///
           />
         </div>
       </div>
       <div className={styles.bottomSection}>
-        <BottomInfoWrapper activity={values.activity} />
+        <BottomInfoWrapper activity={fakeActivity} />
       </div>
     </div>
   );

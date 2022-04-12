@@ -6,13 +6,15 @@ import Link from "next/link";
 import cn from "classnames";
 //components
 import { Stat } from "../../../../components/Stat/Stat";
+import { Level } from "../../../../components/Level/Level";
 import { SmallProperty } from "./SmallProperty";
 //styles
 import styles from "./LeftSideInfoWrapper.module.css";
 
-export const LeftSideInfoWrapper = ({ owner, description, properties, stats, status, about }) => {
+export const LeftSideInfoWrapper = ({ owner, description, properties, stats, status, about, levels }) => {
   const [isPropertiesOpened, setIsPropertiesOpened] = useState(true);
   const [isDetailsOpened, setIsDetailsOpened] = useState(true);
+  const [isLevelsOpened, setIsLevelsOpened] = useState(true);
   const [isStatsOpened, setIsStatsOpened] = useState(true);
   const [isAboutOpened, setIsAboutOpened] = useState(true);
 
@@ -25,7 +27,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
       <div className={styles.section}>
         <div className={styles.ownedBy}>
           Owned by{" "}
-          <Link href="" passHref>
+          <Link href="/" passHref>
             <span className={styles.link}>{owner || "Some owner"}</span>
           </Link>
         </div>
@@ -99,7 +101,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
       >
         {stats && stats.length > 0 ? (
           stats.map(({ nftValue, name, id, maxValue }) => (
-            <Stat nftValue={nftValue} key={id} name={name} maxValue={maxValue} />
+            <Stat nftValue={nftValue} key={id} name={name} maxValue={maxValue} className={styles.stat} />
           ))
         ) : (
           <div className={styles.emptySection}>
@@ -109,6 +111,44 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
       </div>
       <div className={styles.sectionHeader}>
         <Image src="/view-token/Icon:Properties.svg" height={19} width={19} alt="description" />
+        <div>
+          <span>Levels</span>
+          {isLevelsOpened ? (
+            <Image
+              src="/view-token/Icon:ArrowUp.svg"
+              height={15}
+              width={30}
+              alt="arrow-down"
+              onClick={() => setIsLevelsOpened(false)}
+            />
+          ) : (
+            <Image
+              src="/view-token/Icon:ArrowDown.svg"
+              height={15}
+              width={30}
+              alt="arrow-up"
+              onClick={() => setIsLevelsOpened(true)}
+            />
+          )}
+        </div>
+      </div>
+      <div
+        className={cn(styles.section, styles.propertiesWrapper, {
+          [styles.propertiesClosed]: !isLevelsOpened,
+        })}
+      >
+        {levels && levels.length > 0 ? (
+          levels.map(({ nftValue, name, id, maxValue }) => (
+            <Level nftValue={nftValue} key={id} name={name} maxValue={maxValue} className={styles.stat} />
+          ))
+        ) : (
+          <div className={styles.emptySection}>
+            <span>No stats</span>
+          </div>
+        )}
+      </div>
+      <div className={styles.sectionHeader}>
+        <Image src="/view-token/Icon:About.svg" height={19} width={19} alt="description" />
         <div>
           <span>About</span>
           {isAboutOpened ? (

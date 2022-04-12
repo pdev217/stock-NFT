@@ -17,14 +17,14 @@ import styles from "../Settings.module.css";
 export const ImageUploadField = ({ text, form, profileImages, setProfileImages, type }) => {
   const dispatch = useDispatch();
 
-  const [assetUrl, setAssetUrl] = useState(`/noImage.png`);
+  const [assetUrl, setAssetUrl] = useState(`/create-token/empty-${type}.png`);
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef();
 
   useEffect(() => {
     profileImages[type]
       ? setAssetUrl(`${process.env.BACKEND_WITHOUT_API}/assets/${type + "s"}/${profileImages[type]}`)
-      : setAssetUrl("/noImage.png");
+      : setAssetUrl(`/create-token/empty-${type}.png`);
   }, [profileImages]);
 
   const handleUpload = async (e) => {
@@ -83,13 +83,13 @@ export const ImageUploadField = ({ text, form, profileImages, setProfileImages, 
         >
           {isLoading ? (
             <Oval
-            ariaLabel="loading-indicator"
-            height={70}
-            width={70}
-            strokeWidth={3}
-            color="var(--dark-grey)"
-            secondaryColor="var(--light-grey)"
-          />
+              ariaLabel="loading-indicator"
+              height={70}
+              width={70}
+              strokeWidth={3}
+              color="var(--dark-grey)"
+              secondaryColor="var(--light-grey)"
+            />
           ) : (
             <img src={assetUrl} alt="avatar" className={styles.image} />
           )}
