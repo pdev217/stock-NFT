@@ -58,20 +58,20 @@
 .searchButton {
 	/* hardcoding. to fix later. searchButton is positionned incorrect */
 	position: relative;
-	right: 22px;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
-	width: 553px;
+	width: 60%;
 	height: 49px;
-	margin: auto;
+	max-width: 590px;
 
 	cursor: pointer;
 
 	border: 1px solid var(--primary);
 	border-radius: 8px;
+	margin-right: 1.5%;
 }
 
 .searchButton div {
@@ -81,7 +81,6 @@
 
 	color: var(--white);
 
-	font: normal normal medium 16px/33px Poppins;
 	font-family: Poppins, sans-serif;
 	font-size: 16px;
 	line-height: 33px;
@@ -198,7 +197,6 @@
 
 	color: var(--white);
 
-	font: normal normal 600 18px/33px Poppins;
 	font-family: "Poppins", sans-serif;
 	font-size: 18px;
 	font-weight: 600;
@@ -227,6 +225,20 @@
 	height: fit-content;
 }
 
+.createButton {
+	padding: 10px 20px;
+	width: fit-content;
+	border: 1px solid var(--primary);
+	border-radius: 8px;
+	cursor: pointer;
+	margin-left: 1.5%;
+}
+
+.createButton a {
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
+	color: var(--white);
+}
 
 @media screen and (max-width: 1400px) {
 	.category {

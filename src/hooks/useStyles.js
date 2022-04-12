@@ -81,6 +81,26 @@ export const useStyles = makeStyles(
         color: "black",
       },
     },
+    selectLeftHalf: {
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        border: "2px solid var(--primary)",
+      },
+      "&.Mui-focused .MuiOutlinedInput-root": {
+        border: "2px solid var(--primary)",
+      },
+      "&.MuiOutlinedInput-root:hover fieldset": {
+        border: "1px solid var(--shadow)",
+        borderRadius: "7px 0 0 7px",
+      },
+
+      "&.MuiOutlinedInput-root fieldset": {
+        border: "1px solid var(--shadow)",
+        borderRadius: "7px 0 0 7px",
+      },
+      "&.Mui-disabled span": {
+        color: "black",
+      },
+    },
     textFieldLeftHalf: {
       borderRadius: "7px 0 0 7px",
       "& label.Mui-focused": {
@@ -102,6 +122,34 @@ export const useStyles = makeStyles(
         "&.Mui-focused fieldset": {
           borderColor: "var(--primary)",
           borderRadius: "7px 0 0 7px",
+        },
+      },
+    },
+    textFieldCenter: {
+      borderRadius: "0",
+      "& label.Mui-focused": {
+        color: "white",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "yellow",
+        borderRight: 'none',
+        borderLeft: 'none',
+        borderRadius: "0",
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "var(--shadow)",
+          borderRight: 'none',
+          borderLeft: 'none',
+          borderRadius: "0",
+        },
+        "&:hover fieldset": {
+          borderColor: "var(--shadow)",
+          borderRadius: "0",
+        },
+        "&.Mui-focused fieldset": {
+          border: "2px solid var(--primary)",
+          borderRadius: "0",
         },
       },
     },

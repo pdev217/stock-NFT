@@ -11,6 +11,7 @@ import { PriceHistory } from "./PriceHistory";
 import { getCorrectDateString, getExpirationString } from "./RightSideInfoWrapper.utils";
 //styles
 import styles from "./RightSideInfoWrapper.module.css";
+import { MakeOfferModal } from "../../../../modals/MakeOfferModal/MakeOfferModal";
 
 const fakeDate = new Date(2022, 6, 1, 2, 3, 4, 567);
 
@@ -33,6 +34,8 @@ export const RightSideInfoWrapper = ({
   const [isListingOpened, setIsListingOpened] = useState(true);
   const [isOffersOpened, setIsOffersOpened] = useState(true);
   const [isPriceHistoryOpened, setIsPriceHistoryOpened] = useState(true);
+
+  const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
 
   useEffect(() => {
     setSaleEnds(fakeDate);
@@ -66,7 +69,7 @@ export const RightSideInfoWrapper = ({
         </div>
         <div className={styles.ownerAndLikes}>
           <span className={styles.greySmallText}>
-            Owned by <span className={styles.link}>{owner || 'Some owner'}</span>
+            Owned by <span className={styles.link}>{owner || "Some owner"}</span>
           </span>
           <div className={styles.likes}>
             <Image src="/view-token/Icon:HeartFilled.svg" width={19} height={19} alt="heart-filled-icon" />
@@ -94,7 +97,12 @@ export const RightSideInfoWrapper = ({
           </div>
           <div>
             <CustButton color="primary" text="Buy now" />
-            <CustButton color="ghost" text="Make offer" className={styles.makeOfferButton} />
+            <CustButton
+              color="ghost"
+              text="Make offer"
+              onClick={() => setIsMakeOfferModalOpened(true)}
+              className={styles.makeOfferButton}
+            />
           </div>
         </div>
       </div>
@@ -171,9 +179,11 @@ export const RightSideInfoWrapper = ({
             </div>
           </>
         ) : (
-          <div className={cn(styles.emptySection, styles.opened, {
-            [styles.closed]: !isListingOpened,
-          })}>
+          <div
+            className={cn(styles.emptySection, styles.opened, {
+              [styles.closed]: !isListingOpened,
+            })}
+          >
             <span>No listings</span>
           </div>
         )}
@@ -288,6 +298,10 @@ export const RightSideInfoWrapper = ({
           <PriceHistory isPriceHistoryOpened={isPriceHistoryOpened} />
         </div>
       </div>
+      <MakeOfferModal
+        isOpened={isMakeOfferModalOpened}
+        handleClose={() => setIsMakeOfferModalOpened(false)}
+      />
     </div>
   );
 };

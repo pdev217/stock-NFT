@@ -48,7 +48,7 @@ export const PriceHistory = ({ isPriceHistoryOpened }) => {
                 height: "49px",
               }}
               IconComponent={() => (
-                <div style={{ marginRight: "16px" }}>
+                <div style={{ right: "16px", position: 'absolute', pointerEvents: 'none' }}>
                   <Image src="/view-token/Icon:ArrowDown.svg" height={8} width={16} alt="arrow-up" />
                 </div>
               )}

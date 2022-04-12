@@ -128,7 +128,7 @@ function AuthProvider({ children }) {
         account,
       },
     });
-    router.push("/");
+    router.pathname === '/' && router.push("/");
   };
 
   const logout = async () => {

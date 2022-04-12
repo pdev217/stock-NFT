@@ -100,35 +100,43 @@ export const Header = () => {
             </div>
           ))}
         </div>
-        <div className={styles.searchButton}>
-          <Image src="/search-icon.svg" height={18} width={16} alt="search-icon" />
-          <div>Search All NFTs</div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <div className={styles.searchButton}>
+            <Image src="/search-icon.svg" height={18} width={16} alt="search-icon" />
+            <div>Search All NFTs</div>
+          </div>
+          <div className={styles.createButton}>
+            <span>
+              <Link href="/create-nft" passHref>
+                Create NFT
+              </Link>
+            </span>
+          </div>
         </div>
       </div>
-      <div className={styles.userData}>
-        <div>
-          <Link href="/create-nft">Create</Link>
-        </div>
-        <div className={styles.profile} onClick={openProfilePopup}>
-          <div className={isAuthorized ? styles.authorisedIcon : styles.profileIcon}>
-            <img
-              src={isAuthorized ? avatar : "/profile-icon.svg"}
-              style={{ width: "100%", height: "100%" }}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div className={styles.userData}>
+          <div className={styles.profile} onClick={openProfilePopup}>
+            <div className={isAuthorized ? styles.authorisedIcon : styles.profileIcon}>
+              <img
+                src={isAuthorized ? avatar : "/profile-icon.svg"}
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
+            <div className={styles.profileText}>{isAuthorized ? username : "Profile"}</div>
+            <ProfilePopup
+              categories={profilePopupCategories}
+              className={cn(styles.profilePopup, {
+                [styles.popupActive]: isProfilePopupOpened,
+              })}
             />
           </div>
-          <div className={styles.profileText}>{isAuthorized ? username : "Profile"}</div>
-          <ProfilePopup
-            categories={profilePopupCategories}
-            className={cn(styles.profilePopup, {
-              [styles.popupActive]: isProfilePopupOpened,
-            })}
-          />
-        </div>
-        <div className={styles.wallet} onClick={openWalletPopup}>
-          <div className={styles.walletIcon}>
-            <Image src="/wallet-icon.svg" layout="fill" alt="profile-icon" />
+          <div className={styles.wallet} onClick={openWalletPopup}>
+            <div className={styles.walletIcon}>
+              <Image src="/wallet-icon.svg" layout="fill" alt="profile-icon" />
+            </div>
+            <div className={styles.walletText}>Wallet</div>
           </div>
-          <div className={styles.walletText}>Wallet</div>
         </div>
       </div>
     </header>

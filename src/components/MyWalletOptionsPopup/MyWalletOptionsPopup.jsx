@@ -29,7 +29,10 @@ export const MyWalletOptionsPopup = ({ className, walletName, src }) => {
     <div className={cn(className, styles.wrapper)} ref={ref}>
       <div className={styles.option}>
         <Image src={src} height={19} width={19} alt={walletName} />
-        <div className={styles.text}>{walletName}</div>
+        <div className={styles.text}>
+          <span>{walletName}</span>
+          <Image src="/Icon_Check.svg" width={19} height={19} alt="check-icon" />
+        </div>
       </div>
       <div className={styles.option}>
         <Image src="/signout-icon.svg" height={19} width={19} alt="signout-icon" />

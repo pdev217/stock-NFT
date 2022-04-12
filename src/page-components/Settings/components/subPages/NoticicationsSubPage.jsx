@@ -56,17 +56,7 @@ export const NoticicationsSubPage = () => {
     } else {
       setDidabledButton(true);
     }
-  }, [
-    notificationsData.itemsSold,
-    notificationsData.bidActivity,
-    notificationsData.priceChange,
-    notificationsData.auctionExpiration,
-    notificationsData.outbid,
-    notificationsData.ownedItemUpdates,
-    notificationsData.successfulPurchase,
-    notificationsData.openSeaNewsletter,
-    notificationsData.maxTheresold,
-  ]);
+  }, [{ ...notificationsData }]);
 
   const handleChange = (newValue, field) => {
     setNotificationsData({ ...notificationsData, [field]: newValue });

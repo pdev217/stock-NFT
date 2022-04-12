@@ -1,0 +1,102 @@
+.section {
+  overflow-y: scroll;
+
+  max-height: 70vh;
+  padding: 0 24px;
+
+  border-bottom: 1px solid var(--dark-grey);
+  font-family: "Poppins", sans-serif;
+}
+
+.fieldsWrapper {
+  width: 100%;
+}
+
+.cross {
+  margin-left: auto;
+
+  cursor: pointer;
+}
+
+.titles {
+  display: flex;
+}
+
+.titles > div:first-child {
+  width: calc(40% + 36px);
+}
+
+.row {
+  display: flex;
+}
+
+.select {
+  display: flex;
+
+  width: 100%;
+  margin-top: 16px;
+}
+
+.crossBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 56px;
+  height: 56px;
+  margin-top: 16px;
+
+  cursor: pointer;
+
+  border: 1px solid var(--shadow);
+  border-radius: 7px;
+}
+
+.addMoreButton {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.footer button {
+  display: flex;
+
+  margin: 24px 24px 24px auto;
+}
+
+.balance {
+  margin-top: 6px;
+  margin-bottom: 14px;
+  text-align: end;
+}
+
+.offerExpiration {
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.01px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.chooseBoxWrapper {
+	padding: 0 40px 40px;
+}
+
+.dateSelectsWrapper {
+  display: flex;
+}
+
+.termsOfService {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.marginLeft8 {
+  margin-left: 8px;
+  font-size: 16px;
+}
+
+.link {
+  cursor: pointer;
+  color: var(--primary);
+}
