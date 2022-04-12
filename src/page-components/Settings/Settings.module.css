@@ -1,213 +1,215 @@
 .wrapper {
-  display: flex;
+	display: flex;
 }
 
 .sidebar {
-  position: sticky;
-  top: 140px;
-  width: 40%;
-  max-width: 440px;
-  height: 100%;
-  z-index: 0;
+	position: sticky;
+	z-index: 0;
+	top: 140px;
 
-  border-bottom: 1px solid var(--dark-grey);
+	width: 40%;
+	max-width: 440px;
+	height: 100%;
+
+	border-bottom: 1px solid var(--dark-grey);
 }
 
 .sidebarRow {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 
-  padding: 27px 40px;
+	padding: 27px 40px;
 
-  border-bottom: 1px solid var(--dark-grey);
+	border-bottom: 1px solid var(--dark-grey);
 }
 
 .sidebarRow:first-child {
-  border-top: 1px solid var(--dark-grey);
+	border-top: 1px solid var(--dark-grey);
 }
 
 .sidebarIconWrapper {
-  position: relative;
+	position: relative;
 
-  width: 19px;
-  height: 19px;
-  margin-right: 12px;
+	width: 19px;
+	height: 19px;
+	margin-right: 12px;
 
-  cursor: pointer;
-  fill: white;
+	cursor: pointer;
+	fill: white;
 }
 
 .sidebarText {
-  cursor: pointer;
-  letter-spacing: 0.02px;
+	cursor: pointer;
+	letter-spacing: 0.02px;
 
-  color: var(--white);
+	color: var(--white);
 
-  font-family: "Poppins", sans-serif;
-  font-size: 18px;
-  font-weight: 600;
+	font-family: "Poppins", sans-serif;
+	font-size: 18px;
+	font-weight: 600;
 }
 
 .sidebarText:first-child {
-  cursor: auto;
+	cursor: auto;
 }
 
 .sidebarActiveRow .sidebarText,
 .sidebarActiveRow svg g path {
-  stroke: var(--purple);
+	stroke: var(--purple);
 
-  color: var(--purple);
+	color: var(--purple);
 }
 
 .contentWrapper {
-  width: 55%;
-  max-width: 560px;
-  padding-left: 40px;
-  border-left: 1px solid var(--dark-grey);
+	width: 55%;
+	max-width: 560px;
+	padding-left: 40px;
+
+	border-left: 1px solid var(--dark-grey);
 }
 
 .title {
-  padding: 48px 40px 40px 0px;
+	padding: 48px 40px 40px 0px;
 
-  letter-spacing: 0px;
+	letter-spacing: 0px;
 
-  color: #ffffff;
+	color: #FFFFFF;
 
-  font-family: "Poppins", sans-serif;
-  font-size: 36px;
-  font-weight: bold;
+	font-family: "Poppins", sans-serif;
+	font-size: 36px;
+	font-weight: bold;
 }
 
 .imageFieldWrapper {
-  margin-bottom: 24px;
+	margin-bottom: 24px;
 }
 
 .imageTitle {
-  margin-bottom: 8px;
+	margin-bottom: 8px;
 
-  letter-spacing: 0.01px;
+	letter-spacing: 0.01px;
 
-  color: #ffffff;
+	color: #FFFFFF;
 
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .imageButtonsWrapper {
-  display: flex;
+	display: flex;
 }
 
 .profileImage {
-  position: relative;
+	position: relative;
 
-  display: flex;
+	display: flex;
 
-  overflow: hidden;
-  align-items: center;
-  justify-content: center;
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
 
-  width: 28.57%;
-  margin-right: 7.14%;
+	width: 28.57%;
+	margin-right: 7.14%;
 
-  border: 1px solid var(--shadow);
-  aspect-ratio: 1 / 1;
+	border: 1px solid var(--shadow);
+	aspect-ratio: 1 / 1;
 }
 
 .imageRounded {
-  border-radius: 50%;
+	border-radius: 50%;
 }
 
 .imageSquare {
-  border-radius: 16px;
+	border-radius: 16px;
 }
 
 .profileImageButtons {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 
-  width: 64%;
+	width: 64%;
 }
 
 .imageButton {
-  width: 100%;
-  margin: 8px 0;
+	width: 100%;
+	margin: 8px 0;
 }
 
 .textField {
-  position: relative;
+	position: relative;
 
-  margin-bottom: 24px;
+	margin-bottom: 24px;
 }
 
 .textFieldTitle {
-  margin-bottom: 8px;
+	margin-bottom: 8px;
 
-  letter-spacing: 0.01px;
+	letter-spacing: 0.01px;
 
-  color: var(--white);
+	color: var(--white);
 
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .textFieldWithAdornment {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
 }
 
 .websiteImageWrapper {
-  position: relative;
+	position: relative;
 
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
 }
 
 .websiteImageContainer {
-  position: relative;
+	position: relative;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-  box-sizing: border-box;
-  width: 60px;
-  height: 56px;
+	box-sizing: border-box;
+	width: 60px;
+	height: 56px;
 
-  border: 1px solid var(--shadow);
-  border-right: 0;
+	border: 1px solid var(--shadow);
+	border-right: 0;
 }
 
 .websiteImageContainer:first-child {
-  border-top: 1px solid var(--shadow);
+	border-top: 1px solid var(--shadow);
 }
 
 .tooltip {
-  position: absolute;
-  top: 140%;
-  left: 50%;
+	position: absolute;
+	top: 140%;
+	left: 50%;
 
-  width: fit-content;
-  padding: 10px;
+	width: fit-content;
+	padding: 10px;
 
-  transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 
-  color: var(--white);
-  border-radius: 7px;
-  background-color: var(--light-grey);
+	color: var(--white);
+	border-radius: 7px;
+	background-color: var(--light-grey);
 
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .button {
-  width: fit-content;
-  margin-top: 40px;
+	width: fit-content;
+	margin-top: 40px;
 }
 
 /*  */
@@ -219,122 +221,122 @@
 /*  */
 
 .notificationSubPageTitle {
-  padding: 48px 40px 16px 0px;
+	padding: 48px 40px 16px 0px;
 
-  letter-spacing: 0px;
+	letter-spacing: 0px;
 
-  color: var(--white);
+	color: var(--white);
 
-  font-family: "Poppins", sans-serif;
-  font-size: 36px;
-  font-weight: bold;
+	font-family: "Poppins", sans-serif;
+	font-size: 36px;
+	font-weight: bold;
 }
 
 .titleDescription {
-  letter-spacing: 0.02px;
+	letter-spacing: 0.02px;
 
-  color: var(--light-grey);
+	color: var(--light-grey);
 
-  font-family: "Poppins", sans-serif;
-  font-size: 18px;
+	font-family: "Poppins", sans-serif;
+	font-size: 18px;
 }
 
 .underlinedSection {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 
-  padding: 21px 0;
+	padding: 21px 0;
 
-  border-bottom: 1px solid var(--dark-grey);
+	border-bottom: 1px solid var(--dark-grey);
 }
 
 .fieldsTitleDescriptionWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .notificationTitle {
-  margin-bottom: 4px;
+	margin-bottom: 4px;
 
-  letter-spacing: 0.01px;
+	letter-spacing: 0.01px;
 
-  color: var(--white);
+	color: var(--white);
 
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .notificationDescription {
-  letter-spacing: 0.01px;
+	letter-spacing: 0.01px;
 
-  color: var(--light-grey);
+	color: var(--light-grey);
 
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
+	font-family: "Poppins", sans-serif;
+	font-size: 14px;
 }
 
 .switch {
-  margin-left: auto;
+	margin-left: auto;
 }
 
 .minimumBit .fieldsTitleDescriptionWrapper {
-  margin: 40px 0 24px 0;
+	margin: 40px 0 24px 0;
 }
 
 .ethImageContainer {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 
-  width: 180px;
-  height: 56px;
-  padding-left: 10px;
+	width: 180px;
+	height: 56px;
+	padding-left: 10px;
 
-  border: 1px solid var(--shadow);
+	border: 1px solid var(--shadow);
 }
 
 .etheriumText {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-  margin-left: 8px;
+	margin-left: 8px;
 }
 
 .etheriumText > span:first-child {
-  letter-spacing: 0.02px;
+	letter-spacing: 0.02px;
 
-  color: var(--white);
+	color: var(--white);
 
-  font-family: "Poppins", sans-serif;
-  font-size: 17px;
-  font-weight: 600;
+	font-family: "Poppins", sans-serif;
+	font-size: 17px;
+	font-weight: 600;
 }
 
 .etheriumText > span:last-child {
-  letter-spacing: 0.01px;
+	letter-spacing: 0.01px;
 
-  color: var(--light-grey);
+	color: var(--light-grey);
 
-  font-family: "Poppins", sans-serif;
-  font-size: 15px;
+	font-family: "Poppins", sans-serif;
+	font-size: 15px;
 }
 
 .imageInput {
-  visibility: hidden;
+	visibility: hidden;
 
-  width: 0px;
-  height: 0px;
+	width: 0px;
+	height: 0px;
 }
 
 .image {
-  object-fit: cover;
+	object-fit: cover;
 
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 .star {
-  color: var(--red);
+	color: var(--red);
 }
 
 /*  */
@@ -348,63 +350,75 @@
 /*  */
 
 .paymentsTitleInfoWrapper {
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--dark-grey);
+	padding-bottom: 40px;
+
+	border-bottom: 1px solid var(--dark-grey);
 }
 
 .patmentsVerificationsWrapper {
-  border: 1px solid #ffffff4d;
-  border-radius: 7px;
-  margin-top: 40px;;
+	margin-top: 40px;
+
+	border: 1px solid #FFFFFF4D;
+	border-radius: 7px;;
 }
 
 .paymentsVerification {
-  padding: 16px;
+	padding: 16px;
 }
 
 .paymentsVerification:first-child {
-  border-bottom: 1px solid #ffffff4d;
+	border-bottom: 1px solid #FFFFFF4D;
 }
 
 .verificationTitle {
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  letter-spacing: 0.01px;
-  color: var(--white);
-  margin-bottom: 4px;
+	margin-bottom: 4px;
+
+	letter-spacing: 0.01px;
+
+	color: var(--white);
+
+	font-family: "Poppins", sans-serif;
+	font-size: 16px;
 }
 
 .verificationDescription {
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.01px;
-  color: var(--light-grey);
+	letter-spacing: 0.01px;
+
+	color: var(--light-grey);
+
+	font-family: "Poppins", sans-serif;
+	font-size: 14px;
 }
 
 .verificationList {
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.01px;
-  color: var(--white);
-  list-style-image: 'red';
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
+
+	list-style-image: 'red';
+
+	letter-spacing: 0.01px;
+
+	color: var(--white);
+
+	font-family: "Poppins", sans-serif;
+	font-size: 14px;
 }
 
 .verificationList div,
 .verificationList span {
-  margin-top: 8px;
+	margin-top: 8px;
 }
 
 .dot {
-  height: 9px;
-  width: 9px;
-  margin-right: 8px;
-  background-color: var(--primary);
-  border-radius: 50%;
+	width: 9px;
+	height: 9px;
+	margin-right: 8px;
+
+	border-radius: 50%;
+	background-color: var(--primary);
 }
 
 .verificationButton {
-  width: fit-content;
-  margin-top: 16px;
+	width: fit-content;
+	margin-top: 16px;
 }
