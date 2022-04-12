@@ -1,4 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
+import { pagesForUnauthorized } from "../helpers/pagesForUnauthorized";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useWeb3React } from "@web3-react/core";
@@ -65,7 +66,7 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     const initialize = async () => {
-      console.log('---initialization')
+      console.log("---initialization");
       try {
         const accessToken = localStorage.getItem("accessToken");
         const account = localStorage.getItem("account");
@@ -100,9 +101,11 @@ function AuthProvider({ children }) {
             error: { ...err.response?.data },
           },
         });
-        if (router.pathname !== "/") {
+
+        if (!pagesForUnauthorized.includes(router.pathname)) {
           router.replace("/connect-wallet");
         }
+
         dispatch({ type: "CLEAR_ERROR" });
       }
     };
@@ -133,7 +136,6 @@ function AuthProvider({ children }) {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("account");
     dispatch({ type: "LOGOUT" });
-    router.push("/connect-wallet");
   };
 
   return (

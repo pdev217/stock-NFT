@@ -24,6 +24,8 @@ import { ProfilePopup } from "../../src/components/ProfilePopup/ProfilePopup";
 import { routingCategories, profilePopupCategories } from "./Header.utils";
 //hook
 import useAuth from "../../src/hooks/useAuth";
+//helpers
+import { pagesForUnauthorized } from "../../src/helpers/pagesForUnauthorized";
 //styles
 import styles from "./Header.module.css";
 
@@ -35,7 +37,12 @@ export const Header = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { isAuthorized, error } = useAuth();
-  if (error && router.pathname !== "/" && router.pathname !== "/connect-wallet") {
+  if (
+    error &&
+    router.pathname !== "/" &&
+    router.pathname !== "/connect-wallet" &&
+    router.pathname !== "/token/[tokenId]"
+  ) {
     dispatch(
       openError(
         error.response?.data
@@ -57,8 +64,7 @@ export const Header = () => {
       dispatch(setImage(profileImage));
       dispatch(setUsername(username));
     } catch (e) {
-      router.pathname !== "/" &&
-        router.pathname !== "/connect-wallet" &&
+      !pagesForUnauthorized.includes(router.pathname) &&
         dispatch(
           openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
         );

@@ -12,14 +12,14 @@ export const userData = createSlice({
   reducers: {
     setImage: (state, action) => {
       if (action.payload === null) {
-        state.imageUrl = `/create-token/empty-profileImage.png`;
+        state.imageUrl = `/create-nft/empty-profileImage.png`;
       } else {
         state.imageUrl = `${process.env.BACKEND_WITHOUT_API}/assets/profileImages/${action.payload}`;
       }
     },
     setBanner: (state, action) => {
       if (action.payload === null) {
-        state.banner = `/create-token/empty-profileBanner.png`;
+        state.banner = `/create-nft/empty-profileBanner.png`;
       } else {
         state.banner = `${process.env.BACKEND_WITHOUT_API}/assets/profileBanner/${action.payload}`;
       }
