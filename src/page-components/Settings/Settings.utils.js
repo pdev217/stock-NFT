@@ -13,5 +13,10 @@ export const sidebarData = [
         text: 'Notifications',
         hasIcon: true,
         id: 'sett2',
+    },
+    {
+        text: 'Payments',
+        hasIcon: true,
+        id: 'sett3',
     }
 ]

@@ -6,9 +6,11 @@ import { sidebarData } from "./Settings.utils";
 //components
 import { ProfileSubPage } from "./components/subPages/ProfileSubPage";
 import { NoticicationsSubPage } from "./components/subPages/NoticicationsSubPage";
+import { PaymentsSubPage } from "./components/subPages/PaymentsSubPage";
 //icons
 import ProfileIcon from "./icons/profile.svg";
 import NotificationsIcon from "./icons/notifications.svg";
+import PaymentsIcon from './icons/payments.svg'
 //hooks
 import useAuth from "../../hooks/useAuth";
 //styles
@@ -24,6 +26,8 @@ export const Settings = () => {
         return <ProfileIcon />;
       case "Notifications":
         return <NotificationsIcon />;
+      case "Payments":
+        return <PaymentsIcon />;
     }
   };
 
@@ -53,9 +57,11 @@ export const Settings = () => {
           </div>
         ))}
       </div>
+      <div className={styles.pusherRight} />
       <div className={styles.contentWrapper}>
         {activeSidebarRow === "Profile" && <ProfileSubPage />}
         {activeSidebarRow === "Notifications" && <NoticicationsSubPage />}
+        {activeSidebarRow === "Payments" && <PaymentsSubPage />}
       </div>
     </div>
   );
