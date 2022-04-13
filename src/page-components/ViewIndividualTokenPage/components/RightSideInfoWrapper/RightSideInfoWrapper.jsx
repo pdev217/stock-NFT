@@ -312,7 +312,7 @@ export const RightSideInfoWrapper = ({
         setIsMakeOfferModalOpened={setIsMakeOfferModalOpened}
       />
       <AcceptOfferModal
-        isOpened={true}
+        isOpened={isAcceptOfferModalOpened}
         handleClose={() => setIsAcceptOfferModalOpened(false)}
       />
     </div>

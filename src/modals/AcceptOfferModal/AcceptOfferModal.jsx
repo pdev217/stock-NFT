@@ -25,7 +25,13 @@ import { styles as jsStyles } from "./AcceptOfferModal.utils";
 import cssStyles from "./AcceptOfferModal.module.css";
 
 export const AcceptOfferModal = ({ isOpened, handleClose }) => {
+  const [acceptantData, setAcceptantData] = useState({
+    
+  });
+  const [isImageLoading, setIsImageLoading] = useState(true);
   const { isAuthorized } = useAuth();
+
+  useEffect
 
   return (
     <Modal
@@ -58,7 +64,6 @@ export const AcceptOfferModal = ({ isOpened, handleClose }) => {
 
               </div>
               <div className={cssStyles.priceWrapper}>
-                
               </div>
             </div>
             
