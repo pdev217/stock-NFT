@@ -23,7 +23,13 @@ import { styles } from "../../components/CustButton/CustButton.utils";
 
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
-  return local.getHours() + ":" + local.getMinutes();
+  let hours = local.getHours();
+  let minutes = local.getMinutes();
+
+  if (hours < 10) hours = `0${hours}`;
+  if (minutes < 10) minutes = `0${minutes}`;
+
+  return `${hours}:${minutes}`;
 };
 
 export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "eth", amount: 2.1 } }) => {
@@ -38,7 +44,6 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
     offerExpirationTime: new Date().toDateInputValue(),
     agreed: false,
   });
-
   const muiClasses = useStyles();
 
   useEffect(() => {
@@ -47,9 +52,11 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
       modalData.amount &&
       modalData.pricePerItem &&
       modalData.agreed &&
-      (modalData.offerExpirationDays || modalData.offerExpirationTime)
+      (modalData.offerExpirationDays !== "None" || modalData.offerExpirationTime)
     ) {
       setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
     }
   }, [{ ...modalData }]);
 
@@ -134,8 +141,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
                     width: "67.5%",
                     marginLeft: "2.5%",
                     '& input[type="time"]::-webkit-calendar-picker-indicator': {
-                      filter:
-                        "invert(100%) sepia(0%)",
+                      filter: "invert(100%) sepia(0%)",
                     },
                   }}
                   className={muiClasses.textField}
