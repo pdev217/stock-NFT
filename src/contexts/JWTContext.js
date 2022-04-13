@@ -111,7 +111,7 @@ function AuthProvider({ children }) {
     };
 
     initialize();
-  }, [router.pathname]);
+  }, [router.pathname, initialState.isAuthorized]);
 
   const login = async (signature, account) => {
     const tokenRes = await axios.post(`${process.env.BACKEND_URL}/auth`, {
@@ -128,7 +128,7 @@ function AuthProvider({ children }) {
         account,
       },
     });
-    router.pathname === '/' && router.push("/");
+    router.pathname === '/connect-wallet' && router.push("/");
   };
 
   const logout = async () => {
@@ -136,6 +136,9 @@ function AuthProvider({ children }) {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("account");
     dispatch({ type: "LOGOUT" });
+    if (!pagesForUnauthorized.includes(router.pathname)) {
+      router.replace("/connect-wallet");
+    }
   };
 
   return (
