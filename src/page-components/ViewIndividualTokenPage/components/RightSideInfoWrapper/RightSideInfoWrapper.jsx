@@ -37,6 +37,7 @@ export const RightSideInfoWrapper = ({
   const [isPriceHistoryOpened, setIsPriceHistoryOpened] = useState(true);
 
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
+  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(true);
 
   useEffect(() => {
     setSaleEnds(fakeDate);
@@ -239,7 +240,7 @@ export const RightSideInfoWrapper = ({
                 [styles.closed]: !isOffersOpened,
               })}
             >
-              {offersData.map(({ price, user: {username}, expirationDate, id }) => (
+              {offersData.map(({ price, user: { username }, expirationDate, id }) => (
                 <div key={id} className={styles.tableRow}>
                   <div>
                     <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="eth-icon" />
@@ -303,7 +304,11 @@ export const RightSideInfoWrapper = ({
         isOpened={isMakeOfferModalOpened}
         handleClose={() => setIsMakeOfferModalOpened(false)}
       />
-      <TransferApprovalModal />
+      <TransferApprovalModal
+        isOpened={isTransferApprovalModalOpened}
+        handleClose={() => setIsTransferApprovalModalOpened(false)}
+        setIsMakeOfferModalOpened={setIsMakeOfferModalOpened}
+      />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import { useState } from "react";
 //redux
 import { useDispatch } from "react-redux";
 //next
@@ -29,7 +28,7 @@ export const TransferApprovalModal = ({ isOpened, handleClose, setIsMakeOfferMod
     >
       <Box sx={jsStyles.wrapper}>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.header}>
-          <span>Add Properties</span>
+          <span>Transfer approval</span>
           <div className={cssStyles.cross} onClick={handleClose}>
             <Image
               src="/create-nft/Icon-Close.svg"
@@ -41,11 +40,19 @@ export const TransferApprovalModal = ({ isOpened, handleClose, setIsMakeOfferMod
           </div>
         </Typography>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.description}>
-          Properties show up underneath your item, are clickable, and can be filtered in your
-          collection&apos;s sidebar.
+          To trade this token, you must first complete a free (plus gas) transaction. Confirm it in your
+          wallet and keep this tab open! 
+          <br />
+          <br />
+          You might notice a very large number being requested for approval - this is simply the maximum
+          amount, meaning you’ll never have to do this approval again. 
+          <br />
+          <br />
+          It also doesn’t allow us to transfer that amount for you - the amount you sign in the next step is
+          all that can be traded on your behalf.
         </Typography>
         <footer className={cssStyles.footer}>
-          <CustButton color="primary" onClick={handleSave} text="Save" />
+          <CustButton color="primary" onClick={() => {}} text="Got it" />
         </footer>
       </Box>
     </Modal>

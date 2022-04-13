@@ -25,7 +25,6 @@ import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
 //styles
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
-import { styles } from "../../components/CustButton/CustButton.utils";
 
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
@@ -64,7 +63,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      const response = await axios.post(
+      await axios.post(
         `${process.env.BACKEND_URL}/offers`,
         {
           price: Number(pricePerItem),
@@ -206,7 +205,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
                   checked={modalData.agreed}
                   onChange={({ target: { checked } }) => setModalData({ ...modalData, agreed: checked })}
                 />
-                <span className={styles.marginLeft8}>
+                <span className={cssStyles.marginLeft8}>
                   By checking this box, I agree to{" "}
                   <Link href="" passHref>
                     <span className={cssStyles.link}>Stoke’s Terms of Service</span>
