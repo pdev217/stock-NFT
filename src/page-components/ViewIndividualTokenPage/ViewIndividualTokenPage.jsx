@@ -8,7 +8,9 @@ import { useDispatch } from "react-redux";
 import { LeftSideInfoWrapper } from "./components/LeftSideInfoWrapper/LeftSideInfoWraper";
 import { RightSideInfoWrapper } from "./components/RightSideInfoWrapper/RightSideInfoWrapper";
 import { BottomInfoWrapper } from "./components/BottomInfoWrapper/BottomInfoWrapper";
-//fakeData
+//spinner
+import { Oval } from "react-loader-spinner";
+//utils
 import {
   audios,
   fakeActivity,
@@ -43,7 +45,7 @@ export const ViewIndividualTokenPage = ({
     tokenImage: false,
     blockchainTypeIcon: false,
   });
-
+  const [isLoading, setIsLoading] = useState(true);
   const [typeOfTokenFile, setTypeOfTokenFile] = useState();
   const [tokenFileLink, setTokenFileLink] = useState("/");
 
@@ -69,7 +71,7 @@ export const ViewIndividualTokenPage = ({
       setTypeOfTokenFile("audio");
     }
   }, [fileName]);
-  console.log("---typeOfTokenImage", typeOfTokenFile);
+  console.log("---isLoading", isLoading);
 
   return (
     <div className={styles.wrapper}>
@@ -100,27 +102,42 @@ export const ViewIndividualTokenPage = ({
             <div className={styles.tokenImageContainer}>
               <div className={styles.tokenImage}>
                 {typeOfTokenFile === "image" && imageErrors.tokenImage ? (
-                   <div className={styles.emptySection}>
-                   <span>No file</span>
-                 </div>
+                  <div className={styles.emptySection}>
+                    <span>No file</span>
+                  </div>
                 ) : (
-                  <Image
-                    src={tokenFileLink}
-                    loader={tokenImageLoader}
-                    alt="toke2n-image"
-                    objectFit="contain"
-                    layout="responsive"
-                    width="100%"
-                    height={`${ratio}%`}
-                    onError={() =>
-                      handleError("404 Token file is not found", () =>
-                        setImageErrors({ ...imageErrors, tokenImage: true })
-                      )
-                    }
-                    onLoadingComplete={({ naturalWidth, naturalHeight }) =>
-                      setRatio(100 / (naturalWidth / naturalHeight))
-                    }
-                  />
+                  <>
+                    {isLoading && (
+                      <div className={styles.spinner}>
+                        <Oval
+                          ariaLabel="loading-indicator"
+                          height={70}
+                          width={70}
+                          strokeWidth={3}
+                          color="var(--dark-grey)"
+                          secondaryColor="var(--light-grey)"
+                        />
+                      </div>
+                    )}
+                    <Image
+                      src={tokenFileLink}
+                      loader={tokenImageLoader}
+                      alt="toke2n-image"
+                      objectFit="contain"
+                      layout="responsive"
+                      width="100%"
+                      height={`${ratio}%`}
+                      onError={() =>
+                        handleError("404 Token file is not found", () =>
+                          setImageErrors({ ...imageErrors, tokenImage: true })
+                        )
+                      }
+                      onLoadingComplete={({ naturalWidth, naturalHeight }) => {
+                        setRatio(100 / (naturalWidth / naturalHeight));
+                        setIsLoading(false);
+                      }}
+                    />
+                  </>
                 )}
                 {typeOfTokenFile === "video" && (
                   <video
