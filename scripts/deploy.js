@@ -14,7 +14,7 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Stoke = await hre.ethers.getContractFactory("StokeNFT");
+  const Stoke = await hre.ethers.getContractFactory("LazyNFT");
   const stoke = await Stoke.deploy();
 
   await stoke.deployed();

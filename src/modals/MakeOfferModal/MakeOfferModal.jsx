@@ -20,6 +20,14 @@ import { daysSelectArray } from "./MakeOfferModal.utils";
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
 import { styles } from "../../components/CustButton/CustButton.utils";
+//contract
+import stokeNFTArtifacts from "../../../artifacts/contracts/LazyMint.sol/LazyNFT.json"
+import { injected } from "../../connectors";
+import { useWeb3React } from "@web3-react/core";
+import { ethers } from "ethers";
+import { LazyMinter } from "../../utils";
+
+const nftContractAddr = "0xe86651b7c186d98f9F20a9d41cA0269736e2Ff1A";
 
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
@@ -34,7 +42,7 @@ Date.prototype.toDateInputValue = function () {
 
 export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "eth", amount: 2.1 } }) => {
   const { isAuthorized } = useAuth();
-
+  const { account, activate, library } = useWeb3React();
   const [disabledButton, setDisabledButton] = useState(true);
   const [modalData, setModalData] = useState({
     currency: "ETH",
@@ -63,6 +71,24 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
   useEffect(() => {
     if (modalData.amount < 1) setModalData({ ...modalData, amount: 1 });
   }, [modalData.amount]);
+
+  useEffect(() => {
+    activate(injected);
+  }, [])
+
+  const handleOffer = async () => {
+    console.log(library)
+    const signer = await library.getSigner();
+    const IStoke = new ethers.ContractFactory(stokeNFTArtifacts.abi, stokeNFTArtifacts.deployedBytecode, signer)
+    const stokeContract = IStoke.attach(nftContractAddr);
+    console.log(stokeContract);
+
+    const lazyMinter = new LazyMinter({contractAddress:nftContractAddr, signer:signer});
+    const { voucher, signature } = await lazyMinter.createVoucher(0, "ipfs://lion");
+    console.log(voucher)
+    // await stokeContract.redeem("0x70997970C51812dc3A010C7d01b50e0d17dc79C8", voucher, signature);
+    await stokeContract.tranfer("0x70997970C51812dc3A010C7d01b50e0d17dc79C8", voucher, signature);
+  }
 
   return (
     <Modal
@@ -177,7 +203,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
               </div>
             </section>
             <footer className={cssStyles.footer}>
-              <CustButton color="primary" disabled={disabledButton} text="Make Offer" />
+              <CustButton color="primary" onClick={() => handleOffer()} text="Make Offer" />
             </footer>
           </>
         ) : (
