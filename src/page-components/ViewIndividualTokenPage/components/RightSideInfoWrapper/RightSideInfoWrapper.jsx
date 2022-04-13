@@ -13,6 +13,7 @@ import { TransferApprovalModal } from "../../../../modals/TransferApprovalModal/
 import { getCorrectDateString, getExpirationString } from "./RightSideInfoWrapper.utils";
 //styles
 import styles from "./RightSideInfoWrapper.module.css";
+import { AcceptOfferModal } from "../../../../modals/AcceptOfferModal/AcceptOfferModal";
 
 const fakeDate = new Date(2022, 6, 1, 2, 3, 4, 567);
 
@@ -37,7 +38,8 @@ export const RightSideInfoWrapper = ({
   const [isPriceHistoryOpened, setIsPriceHistoryOpened] = useState(true);
 
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
-  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(true);
+  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
+  const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
 
   useEffect(() => {
     setSaleEnds(fakeDate);
@@ -308,6 +310,10 @@ export const RightSideInfoWrapper = ({
         isOpened={isTransferApprovalModalOpened}
         handleClose={() => setIsTransferApprovalModalOpened(false)}
         setIsMakeOfferModalOpened={setIsMakeOfferModalOpened}
+      />
+      <AcceptOfferModal
+        isOpened={true}
+        handleClose={() => setIsAcceptOfferModalOpened(false)}
       />
     </div>
   );

@@ -35,6 +35,7 @@ export const ViewIndividualTokenPage = ({
   levels,
   stats,
   username,
+  userId,
   blockchainName,
   collectionName,
   offers,
@@ -199,6 +200,7 @@ export const ViewIndividualTokenPage = ({
             collection={collectionName}
             name={name}
             owner={username}
+            userId={userId}
             /// fake data
 
             offers={offers}
