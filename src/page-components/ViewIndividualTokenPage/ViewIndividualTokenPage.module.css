@@ -65,6 +65,7 @@
 .tokenImageContainer {
 	width: 100%;
 	height: auto;
+	position: relative;
 }
 
 .tokenImage {
@@ -80,10 +81,6 @@
 }
 
 .audio {
-	position: absolute;
-}
-
-.video {
 	position: absolute;
 }
 
@@ -110,4 +107,25 @@
 	left: 50%;
 	width: fit-content;
 	transform: translate(-50%);
+}
+
+.video {
+	position: absolute;
+
+	width: 100%;
+	min-height: 100%;
+}
+
+.videoContainer {
+	min-height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.audioContainer {
+	min-height: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

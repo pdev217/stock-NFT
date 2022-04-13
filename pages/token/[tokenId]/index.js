@@ -24,7 +24,7 @@ export const getServerSideProps = async ({ params }) => {
 
   return {
     props: {
-      username: data.user || null,
+      username: data.user?.username || null,
       collectionName: data.collection?.name || null,
       about: data.collection.description,
       blockchainName: data.blockchainType?.name || null,

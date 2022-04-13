@@ -1,9 +1,11 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 //next
 import Image from "next/image";
 //redux
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 import { useDispatch } from "react-redux";
+//classnames
+import cn from 'classnames'
 //components
 import { LeftSideInfoWrapper } from "./components/LeftSideInfoWrapper/LeftSideInfoWraper";
 import { RightSideInfoWrapper } from "./components/RightSideInfoWrapper/RightSideInfoWrapper";
@@ -39,7 +41,6 @@ export const ViewIndividualTokenPage = ({
   about,
 }) => {
   const dispatch = useDispatch();
-  console.log("---fileName", fileName);
 
   const [imageErrors, setImageErrors] = useState({
     tokenImage: false,
@@ -51,27 +52,44 @@ export const ViewIndividualTokenPage = ({
 
   const [ratio, setRatio] = useState(16 / 9);
 
+  const videoRef = useRef();
+  const audioRef = useRef();
+
   const handleError = (message, callback) => {
     callback();
     dispatch(openError(message));
+    setIsLoading(false)
+  };
+
+  const handleLoadImage = (width, height) => {
+    setRatio(100 / (width / height));
+    setIsLoading(false);
   };
 
   const tokenImageLoader = () => {
     return `${process.env.BACKEND_WITHOUT_API}/assets/nftMedia/${fileName}`;
   };
+  console.log('---typeOfToken/file', typeOfTokenFile)
 
   useEffect(() => {
     const end = fileName.substring(fileName.indexOf(".") + 1).toLowerCase();
-
     if (images.includes(end)) {
       setTypeOfTokenFile("image");
     } else if (videos.includes(end)) {
       setTypeOfTokenFile("video");
+      setTokenFileLink(`${process.env.BACKEND_WITHOUT_API}/assets/nftMedia/${fileName}`)
     } else if (audios.includes(end)) {
       setTypeOfTokenFile("audio");
+      setTokenFileLink(`${process.env.BACKEND_WITHOUT_API}/assets/nftMedia/${fileName}`)
     }
   }, [fileName]);
-  console.log("---isLoading", isLoading);
+
+  useEffect(() => {
+    console.log('---videoRed.current', videoRef)
+    if (audioRef.current?.src || videoRef.current?.src) {
+      setIsLoading(false);
+    }
+  }, [typeOfTokenFile]);
 
   return (
     <div className={styles.wrapper}>
@@ -99,45 +117,48 @@ export const ViewIndividualTokenPage = ({
                 <span>{fakeLikes}</span>
               </div>
             </div>
-            <div className={styles.tokenImageContainer}>
-              <div className={styles.tokenImage}>
-                {typeOfTokenFile === "image" && imageErrors.tokenImage ? (
+            <div className={cn(styles.tokenImageContainer, {
+              [styles.videoContainer] : typeOfTokenFile === "video",
+              [styles.audioContainer] : typeOfTokenFile === "audio",
+            })}>
+              <div className={cn(styles.tokenImage, {
+              [styles.videoContainer] : typeOfTokenFile === "video",
+              [styles.audioContainer] : typeOfTokenFile === "audio",
+            })}>
+                {isLoading && (
+                  <div className={styles.spinner}>
+                    <Oval
+                      ariaLabel="loading-indicator"
+                      height={70}
+                      width={70}
+                      strokeWidth={3}
+                      color="var(--dark-grey)"
+                      secondaryColor="var(--light-grey)"
+                    />
+                  </div>
+                )}
+                {typeOfTokenFile === "image" && (imageErrors.tokenImage ? (
                   <div className={styles.emptySection}>
                     <span>No file</span>
                   </div>
                 ) : (
-                  <>
-                    {isLoading && (
-                      <div className={styles.spinner}>
-                        <Oval
-                          ariaLabel="loading-indicator"
-                          height={70}
-                          width={70}
-                          strokeWidth={3}
-                          color="var(--dark-grey)"
-                          secondaryColor="var(--light-grey)"
-                        />
-                      </div>
-                    )}
-                    <Image
-                      src={tokenFileLink}
-                      loader={tokenImageLoader}
-                      alt="toke2n-image"
-                      objectFit="contain"
-                      layout="responsive"
-                      width="100%"
-                      height={`${ratio}%`}
-                      onError={() =>
-                        handleError("404 Token file is not found", () =>
-                          setImageErrors({ ...imageErrors, tokenImage: true })
-                        )
-                      }
-                      onLoadingComplete={({ naturalWidth, naturalHeight }) => {
-                        setRatio(100 / (naturalWidth / naturalHeight));
-                        setIsLoading(false);
-                      }}
-                    />
-                  </>
+                  <Image
+                    src={tokenFileLink}
+                    loader={tokenImageLoader}
+                    alt="token-image"
+                    objectFit="contain"
+                    layout="responsive"
+                    width="100%"
+                    height={`${ratio}%`}
+                    onError={() => 
+                      handleError("404 Token file is not found", () =>
+                        setImageErrors({ ...imageErrors, tokenImage: true })
+                      )
+                    }
+                    onLoadingComplete={({ naturalWidth, naturalHeight }) =>
+                      handleLoadImage(naturalWidth, naturalHeight)
+                    }
+                  />)
                 )}
                 {typeOfTokenFile === "video" && (
                   <video
@@ -145,6 +166,7 @@ export const ViewIndividualTokenPage = ({
                     controls="controls"
                     autoPlay="true"
                     alt="token-video"
+                    ref={videoRef}
                     className={styles.video}
                   />
                 )}
@@ -153,7 +175,8 @@ export const ViewIndividualTokenPage = ({
                     src={tokenFileLink}
                     controls="controls"
                     autoPlay="true"
-                    alt="token-video"
+                    alt="token-audio"
+                    ref={audioRef}
                     className={styles.audio}
                   />
                 )}
