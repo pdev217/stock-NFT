@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
+//redux
+import { useDispatch } from "react-redux";
+import { open } from "../../redux/slices/errorSnackbarSlice";
 //next
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+//axios
+import axios from "axios";
 //mui
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -15,7 +21,7 @@ import { ChooseWalletBox } from "../../components/ChooseWalletBox/ChooseWalletBo
 import useAuth from "../../hooks/useAuth";
 import { useStyles } from "../../hooks/useStyles";
 //utils
-import { daysSelectArray } from "./MakeOfferModal.utils";
+import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
 //styles
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
@@ -34,6 +40,8 @@ Date.prototype.toDateInputValue = function () {
 
 export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "eth", amount: 2.1 } }) => {
   const { isAuthorized } = useAuth();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const [disabledButton, setDisabledButton] = useState(true);
   const [modalData, setModalData] = useState({
@@ -45,6 +53,36 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
     agreed: false,
   });
   const muiClasses = useStyles();
+
+  const handleMakeOffer = async () => {
+    const {
+      query: { tokenId },
+    } = router;
+
+    const { offerExpirationDays, offerExpirationTime, pricePerItem } = modalData;
+
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+
+      const response = await axios.post(
+        `${process.env.BACKEND_URL}/offers`,
+        {
+          price: Number(pricePerItem),
+          expirationDate: getExpirationDate(offerExpirationDays, offerExpirationTime),
+          nftId: Number(tokenId),
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
+    } catch (e) {
+      dispatch(
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
+    }
+  };
 
   useEffect(() => {
     if (
@@ -177,7 +215,12 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
               </div>
             </section>
             <footer className={cssStyles.footer}>
-              <CustButton color="primary" disabled={disabledButton} text="Make Offer" />
+              <CustButton
+                color="primary"
+                disabled={disabledButton}
+                onClick={handleMakeOffer}
+                text="Make Offer"
+              />
             </footer>
           </>
         ) : (

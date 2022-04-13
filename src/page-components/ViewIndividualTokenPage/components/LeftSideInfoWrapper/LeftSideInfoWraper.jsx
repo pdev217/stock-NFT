@@ -143,7 +143,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
           ))
         ) : (
           <div className={styles.emptySection}>
-            <span>No stats</span>
+            <span>No levels</span>
           </div>
         )}
       </div>
