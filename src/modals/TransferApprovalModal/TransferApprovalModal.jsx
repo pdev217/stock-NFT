@@ -1,7 +1,3 @@
-//redux
-import { useDispatch, useSelector } from "react-redux";
-import { open as openSuccess } from "../../redux/slices/successSnackbarSlice";
-import { addOffer } from "../../redux/slices/offersSlice";
 //next
 import Image from "next/image";
 //mui
@@ -20,21 +16,12 @@ export const TransferApprovalModal = ({
   sendOfferToServer,
   setIsMakeOfferModalOpened,
 }) => {
-  const dispatch = useDispatch();
-  const offersData = useSelector((state) => state.offers.offers);
-
   const handleBack = () => {
     setIsMakeOfferModalOpened(true);
   };
 
   const handleGotIt = () => {
-    try {
-      sendOfferToServer().then((result) => {
-        dispatch(addOffer({ ...result.data }));
-        dispatch(openSuccess("Success"));
-        setTimeout(() => handleClose(), 200);
-      });
-    } catch (e) {}
+    sendOfferToServer().then(() => setTimeout(() => handleClose(), 200));
   };
 
   return (

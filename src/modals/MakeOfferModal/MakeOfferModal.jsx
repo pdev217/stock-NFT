@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 //redux
 import { useDispatch } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
+import { open as openSuccess } from "../../redux/slices/successSnackbarSlice";
+import { addOffer } from "../../redux/slices/offersSlice";
 //next
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +24,7 @@ import useAuth from "../../hooks/useAuth";
 import { useStyles } from "../../hooks/useStyles";
 //utils
 import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
+import { toHex } from "../../utils";
 //styles
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
@@ -29,9 +32,12 @@ import { TransferApprovalModal } from "../TransferApprovalModal/TransferApproval
 import { styles } from "../../components/CustButton/CustButton.utils";
 //contract
 import stokeNFTArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json";
+import marketPlaceArtifacts from "../../../artifacts/contracts/StokeMarketPlace.sol/StokeMarketplace.json"
 import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json";
+//web3
 import { injected } from "../../connectors";
 import { useWeb3React } from "@web3-react/core";
+//ethers
 import { ethers } from "ethers";
 
 Date.prototype.toDateInputValue = function () {
@@ -46,15 +52,23 @@ Date.prototype.toDateInputValue = function () {
 };
 
 const tokenAddr = "0x194194b1D78172446047e327476B811f5D365c21";
+const stokeMarketAddr = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const etherChain = process.env.ETHER_CHAIN;
+let tokenContract;
 
 export const MakeOfferModal = ({ isOpened, handleClose }) => {
-  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false)
+  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
   const { isAuthorized } = useAuth();
-  const { account, activate, library } = useWeb3React();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { account, activate, library, chainId } = useWeb3React();
   const [disabledButton, setDisabledButton] = useState(true);
-  const [balance, setBalance] = useState(0);
   const [modalData, setModalData] = useState({
     currency: "ETH",
+    balance: {
+      ETHBalance: 0,
+      WETHBalance: 0,
+    },
     amount: undefined,
     pricePerItem: undefined,
     offerExpirationDays: "3 days",
@@ -74,7 +88,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      response = await axios.post(
+      await axios.post(
         `${process.env.BACKEND_URL}/offers`,
         {
           price: Number(pricePerItem),
@@ -86,7 +100,10 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
             Authorization: "Bearer " + accessToken,
           },
         }
-      );
+      ).then((result) => {
+        dispatch(addOffer({ ...result.data }));
+        dispatch(openSuccess("Success"));
+      });
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
@@ -94,25 +111,78 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
     }
     return response;
   };
-  useEffect(() => {}, [balance]);
+
+  const getTokenBalance = async () => {
+    const tokenBalanceWei = await tokenContract.balanceOf(account);
+    const WETH = ethers.utils.formatEther(tokenBalanceWei);
+
+    async function getBalance() {
+      if (library) {
+        const signer = await library.getSigner();
+        const wei = await signer.getBalance();
+        const amount = ethers.utils.formatEther(wei);
+        return Number(amount).toFixed(1);
+      }
+    }
+    getBalance().then((result) =>
+      setModalData({ ...modalData, balance: { ETHBalance: result, WETHBalance: WETH } })
+    );
+  };
+
+  useEffect(() => {
+    if(library) {
+      const IToken = new ethers.ContractFactory(
+        tokenArtifacts.abi,
+        tokenArtifacts.deployedBytecode,
+        library?.getSigner()
+      );
+
+      tokenContract = IToken.attach(tokenAddr);
+      
+      if(chainId === etherChain) {
+        console.log("---account", account);
+        account && getTokenBalance();
+      }
+    }
+  }, [account, library]);
 
   const handleMakeOffer = async () => {
-    const IToken = new ethers.ContractFactory(
-      tokenArtifacts.abi,
-      tokenArtifacts.deployedBytecode,
-      library?.getSigner()
-    );
-    const tokenContract = IToken.attach(tokenAddr);
-    const tokenBalanceWei = await tokenContract.balanceOf(account);
-    const tokenBalance = ethers.utils.formatEther(tokenBalanceWei);
-    // await tokenContract.deposit({from:account, value:ethers.utils.parseUnits(String(0.01), 18)});
-    
-    if (true) {
-      setIsTransferApprovalModalOpened(true);
-    } else {
-      sendOfferToServer();
+    await handleApprove();
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const {
+        data: { isTransferApproved },
+      } = await axios.get(`${process.env.BACKEND_URL}/users/checkTransferApproval`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+
+      if (!isTransferApproved) {
+        setIsTransferApprovalModalOpened(true);
+      } else {
+        sendOfferToServer();
+      }
+    } catch (e) {
+      dispatch(
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
     }
   };
+
+  const handleApprove = async () => {
+    if(chainId !== etherChain) {
+      await switchNetwork(etherChain);
+    }
+    await tokenContract.approve(stokeMarketAddr, ethers.utils.parseUnits(String(modalData.amount), 18))
+  }
+
+  const switchNetwork = async (network) => {
+    await library.provider.request({
+        method:"wallet_switchEthereumChain",
+        params: [{chainId: toHex(network)}]
+    })
+}
 
   useEffect(() => {
     if (
@@ -158,9 +228,8 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
               Price
               <ComposedTextField modalData={modalData} setModalData={setModalData} />
               <div className={cssStyles.balance}>
-                <span>
-                  Balance: {balance} WETH
-                </span>
+                {modalData.currency === "ETH" && <span>Balance: {modalData.balance.ETHBalance} ETH</span>}
+                {modalData.currency === "WETH" && <span>Balance: {modalData.balance.WETHBalance} WETH</span>}
               </div>
               <div className={cssStyles.offerExpiration}>
                 <span>Offer Expiration</span>

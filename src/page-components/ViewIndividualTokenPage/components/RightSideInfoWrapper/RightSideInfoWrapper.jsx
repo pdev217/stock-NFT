@@ -50,7 +50,6 @@ export const RightSideInfoWrapper = ({
 
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
-  const [balance, setBalance] = useState(0);
 
   const handleAccept = (price) => {
     setAcceptModalData({ price, name, collection, tokenFileName });
@@ -74,18 +73,6 @@ export const RightSideInfoWrapper = ({
   useEffect(() => {
     dispatch(setOffers(offers));
   }, [offers]);
-
-  useEffect(() => {
-    async function getBalance() {
-      if(library) {
-        const signer = await library.getSigner();
-        const wei = await signer.getBalance();
-        const amount = ethers.utils.formatEther(wei);
-        setBalance(Number(amount).toFixed(3));
-      }
-    }
-    getBalance();
-  }, [library])
 
   return (
     <div className={styles.wrapper}>
@@ -267,7 +254,7 @@ export const RightSideInfoWrapper = ({
                 [styles.closed]: !isOffersOpened,
               })}
             >
-              {offersData.map(({ price, user: { username }, expirationDate, id }) => (
+              {/* {offersData.map(({ price, user: { username }, expirationDate, id }) => (
                 <div key={id} className={styles.tableRow}>
                   <div>
                     <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
@@ -286,7 +273,7 @@ export const RightSideInfoWrapper = ({
                     <CustButton text="buy" color="ghost" onClick={() => handleAccept(price)} />
                   </div>
                 </div>
-              ))}
+              ))} */}
             </div>
           </>
         ) : (
@@ -330,7 +317,6 @@ export const RightSideInfoWrapper = ({
       <MakeOfferModal
         isOpened={isMakeOfferModalOpened}
         handleClose={() => setIsMakeOfferModalOpened(false)}
-        balance={{ currency: 'eth', amount: balance }}
       />
       <AcceptOfferModal
         {...acceptModalData}

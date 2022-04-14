@@ -59,7 +59,6 @@ export const ChooseWalletBox = ({ className }) => {
 
   async function signMessage() {
     const accounts = await web3.eth.getAccounts();
-    console.log(123456789);
     const response = await axios.post(`${process.env.BACKEND_URL}/users/${accounts[0]}`);
     const nonce = response.data.nonce;
     const msg = `I am signing my one-time nonce: ${nonce}`;
