@@ -101,7 +101,10 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
       library?.getSigner()
     );
     const tokenContract = IToken.attach(tokenAddr);
+    console.log('---tokenContract', tokenContract)
+    console.log('---account', account)
     const tokenBalanceWei = await tokenContract.balanceOf(account);
+    console.log('---tokenBalanceWei', tokenBalanceWei)
     const tokenBalance = ethers.utils.formatEther(tokenBalanceWei);
     console.log(tokenBalance);
      // console.log(tokenContract);
@@ -110,8 +113,9 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
 
 
   useEffect(() => {
-    getTokenBalance()
-  }, [modalData.currency])
+    console.log('---account', account)
+    account && getTokenBalance()
+  }, [account])
 
   const handleMakeOffer = async () => {
    if (true) {
