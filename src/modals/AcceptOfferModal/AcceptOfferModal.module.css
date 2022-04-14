@@ -54,9 +54,11 @@
 .tokenFileWrapper {
   width: 70px;
   height: auto;
+  position: relative;
 
   border-radius: 8px;
   overflow: hidden;
+  border: 1px solid #707070;
 }
 
 .tokenInfoWrapper {
@@ -69,8 +71,17 @@
 }
 
 .video {
-  min-width: 200px;
-  min-height: 200px;
+  position: absolute;
+  top:0;
+  max-width: 70px;
+}
+
+.audio {
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .greySmallText {

@@ -45,12 +45,19 @@
 }
 
 .box {
-	overflow: hidden;
+	overflow: scroll;
 
 	border: 1px solid #FFFFFF33;
 	border-radius: 24px;
 	background-color: var(--dark-grey);
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
+
+.box::-webkit-scrollbar {
+	display: none;
+}
+
 
 .saleEndsPriceWrapper > div {
 	padding: 24px;

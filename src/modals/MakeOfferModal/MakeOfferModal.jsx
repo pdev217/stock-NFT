@@ -25,6 +25,7 @@ import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
 //styles
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
+import { TransferApprovalModal } from "../TransferApprovalModal/TransferApprovalModal";
 
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
@@ -42,6 +43,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
   const [modalData, setModalData] = useState({
     currency: "ETH",
@@ -53,18 +55,18 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
   });
   const muiClasses = useStyles();
 
-  const handleMakeOffer = async () => {
+  const sendOfferToServer = async () => {
     const {
       query: { tokenId },
     } = router;
 
     const { offerExpirationDays, offerExpirationTime, pricePerItem } = modalData;
-    const expirationDate = getExpirationDate(offerExpirationDays, offerExpirationTime)
-
+    const expirationDate = getExpirationDate(offerExpirationDays, offerExpirationTime);
+    let response;
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      await axios.post(
+      response = await axios.post(
         `${process.env.BACKEND_URL}/offers`,
         {
           price: Number(pricePerItem),
@@ -82,6 +84,16 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
       );
     }
+    return response;
+  };
+
+  const handleMakeOffer = async () => {
+    if (true) {
+      setIsTransferApprovalModalOpened(true)
+    } else {
+      sendOfferToServer();
+    }
+
   };
 
   useEffect(() => {
@@ -240,6 +252,12 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
             <ChooseWalletBox />
           </div>
         )}
+        <TransferApprovalModal
+          isOpened={isTransferApprovalModalOpened}
+          handleClose={() => setIsTransferApprovalModalOpened(false)}
+          setIsMakeOfferModalOpened={isOpened}
+          sendOfferToServer={sendOfferToServer}
+        />
       </Box>
     </Modal>
   );

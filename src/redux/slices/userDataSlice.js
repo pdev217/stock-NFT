@@ -30,7 +30,7 @@ export const userData = createSlice({
       } else {
         state.username = action.payload;
       }
-    },
+    }
   },
 });
 

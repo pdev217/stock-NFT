@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 //next
 import Image from "next/image";
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { setOffers } from "../../../../redux/slices/offersSlice";
 //classnames
 import cn from "classnames";
 //components
@@ -10,7 +13,8 @@ import { PriceHistory } from "./PriceHistory";
 import { MakeOfferModal } from "../../../../modals/MakeOfferModal/MakeOfferModal";
 import { TransferApprovalModal } from "../../../../modals/TransferApprovalModal/TransferApprovalModal";
 //utils
-import { getCorrectDateString, getExpirationString } from "./RightSideInfoWrapper.utils";
+import { getCorrectDateString } from "./RightSideInfoWrapper.utils";
+import { getExpirationString } from "../../../../helpers/getExpirationString";
 //styles
 import styles from "./RightSideInfoWrapper.module.css";
 import { AcceptOfferModal } from "../../../../modals/AcceptOfferModal/AcceptOfferModal";
@@ -28,11 +32,13 @@ export const RightSideInfoWrapper = ({
   tokenFileName,
   usdPrice,
 }) => {
+  const dispatch = useDispatch();
+
   const [saleEnds, setSaleEnds] = useState(undefined);
   const [saleEndsStringified, setSaleEndsStringified] = useState("");
 
+  const offersData = useSelector((state) => state.offers.offers);
   const [listingData, setListingData] = useState(undefined);
-  const [offersData, setOffersData] = useState(undefined);
   const [acceptModalData, setAcceptModalData] = useState(undefined);
 
   const [isListingOpened, setIsListingOpened] = useState(true);
@@ -40,7 +46,6 @@ export const RightSideInfoWrapper = ({
   const [isPriceHistoryOpened, setIsPriceHistoryOpened] = useState(true);
 
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
-  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
 
   const handleAccept = (price) => {
@@ -55,19 +60,16 @@ export const RightSideInfoWrapper = ({
 
   useEffect(() => {
     if (listing && listing.length > 0) {
-      const array = [...listing];
-      array.forEach((elem) => (elem.expiration = getExpirationString(elem.expiration)));
+      const array = listing.map((elem) => {
+        return { ...elem, expiration: getExpirationString(elem.expiration) };
+      });
       setListingData([...array]);
     }
   }, [listing]);
 
   useEffect(() => {
-    if (offers && offers.length > 0) {
-      const array = [...offers];
-      array.forEach((elem) => (elem.expirationDate = getExpirationString(elem.expirationDate)));
-      setOffersData([...array]);
-    }
-  }, []);
+    dispatch(setOffers(offers));
+  }, [offers]);
 
   return (
     <div className={styles.wrapper}>
@@ -312,11 +314,6 @@ export const RightSideInfoWrapper = ({
       <MakeOfferModal
         isOpened={isMakeOfferModalOpened}
         handleClose={() => setIsMakeOfferModalOpened(false)}
-      />
-      <TransferApprovalModal
-        isOpened={isTransferApprovalModalOpened}
-        handleClose={() => setIsTransferApprovalModalOpened(false)}
-        setIsMakeOfferModalOpened={setIsMakeOfferModalOpened}
       />
       <AcceptOfferModal
         {...acceptModalData}

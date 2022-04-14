@@ -123,7 +123,8 @@ export const ViewIndividualTokenPage = ({
               <div className={cn(styles.tokenImage, {
               [styles.videoContainer] : typeOfTokenFile === "video",
               [styles.audioContainer] : typeOfTokenFile === "audio",
-            })}>
+            })}
+            >
                 {isLoading && (
                   <div className={styles.spinner}>
                     <Oval

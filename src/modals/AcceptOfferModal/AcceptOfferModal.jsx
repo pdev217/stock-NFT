@@ -38,6 +38,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
   const [tokenFileLink, setTokenFileLink] = useState("/");
   const [isFileLoading, setIsFileLoading] = useState(true);
   const [typeOfTokenFile, setTypeOfTokenFile] = useState();
+  const [videoSizes, setVideoSizes] = useState();
 
   const { stokeFee, creatorRoyalty } = useSelector((state) => state.administration.fees);
 
@@ -53,11 +54,27 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
         setTypeOfTokenFile("video");
         setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${tokenFileName}`);
       } else if (audios.includes(end)) {
+        setIsFileLoading(false)
         setTypeOfTokenFile("audio");
-        setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${tokenFileName}`);
       }
     }
   }, [tokenFileName]);
+
+  useEffect(() => {
+    if (typeOfTokenFile === "video" && videoRef.current?.src) {
+      const width = videoRef.current.clientWidth;
+      const height = videoRef.current.clientHeight;
+      const ratio = width / height;
+      setVideoSizes({
+        width: "70px",
+        height: `${70 / ratio}px`,
+      });
+    }
+
+    if (audioRef.current?.src || videoRef.current?.src) {
+      setIsFileLoading(false);
+    }
+  }, [typeOfTokenFile]);
 
   const dispatch = useDispatch();
   const { isAuthorized } = useAuth();
@@ -103,7 +120,14 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
             </div>
             <div className={cssStyles.section}>
               <div className={cssStyles.tokenInfoWrapper}>
-                <div className={cssStyles.tokenFileWrapper}>
+                <div
+                  className={cssStyles.tokenFileWrapper}
+                  style={{
+                    height:
+                      (typeOfTokenFile === "video" && videoRef.current && videoSizes.height) ||
+                      (typeOfTokenFile === "audio" && "70px"),
+                  }}
+                >
                   {isFileLoading && (
                     <div className={cssStyles.spinner}>
                       <Oval
@@ -132,14 +156,13 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
                     />
                   )}
                   {typeOfTokenFile === "video" && (
-                    <video
-                      src={tokenFileLink}
-                      controls="controls"
-                      autoPlay={true}
-                      alt="token-video"
-                      ref={videoRef}
-                      className={cssStyles.video}
-                    />
+                    <video src={tokenFileLink} alt="token-video" ref={videoRef} className={cssStyles.video} />
+                  )}
+                  {typeOfTokenFile === "audio" && (
+                    <div className={cssStyles.audio}>
+                      <div>{tokenFileName.substring(tokenFileName.length - 3)}</div>
+                      <div>file</div>
+                    </div>
                   )}
                 </div>
                 <div className={cssStyles.tokenNameWrapper}>
@@ -174,10 +197,10 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
                 </div>
               </div>
               <div className={cssStyles.feeDataWrapper}>
-                <div className={cn(cssStyles.greySmallText, cssStyles.marginBottom16)}>
+                <div className={cn(cssStyles.whiteText, cssStyles.marginBottom16)}>
                   <span>{stokeFee}%</span>
                 </div>
-                <div className={cssStyles.greySmallText}>
+                <div className={cssStyles.whiteText}>
                   <span>{creatorRoyalty}%</span>
                 </div>
               </div>
@@ -191,7 +214,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
               <div className={cssStyles.feeDataWrapper}>
                 <div className={cn(cssStyles.bigWhiteText, cssStyles.marginBottom4)}>
                   <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="weth-icon" />
-                  <span className={cssStyles.marginLeft4}>{price}</span>
+                  <span className={cssStyles.marginLeft4}>fakeTotal</span>
                 </div>
                 <div className={cssStyles.greySmallText}>
                   <span>$fakeAmount</span>
@@ -199,7 +222,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
               </div>
             </div>
             <footer className={cssStyles.footer}>
-              <CustButton color="primary" text="Make Offer" />
+              <CustButton color="primary" text="Accept Offer" />
             </footer>
           </>
         ) : (
