@@ -47,12 +47,11 @@ Date.prototype.toDateInputValue = function () {
 
 const tokenAddr = "0x194194b1D78172446047e327476B811f5D365c21";
 
-export const MakeOfferModal = ({ isOpened, handleClose }) => {
+export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
   const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false)
   const { isAuthorized } = useAuth();
   const { account, activate, library } = useWeb3React();
   const [disabledButton, setDisabledButton] = useState(true);
-  const [balance, setBalance] = useState(0);
   const [modalData, setModalData] = useState({
     currency: "ETH",
     amount: undefined,
@@ -94,9 +93,8 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
     }
     return response;
   };
-  useEffect(() => {}, [balance]);
 
-  const handleMakeOffer = async () => {
+  const getTokenBalance = async () => {
     const IToken = new ethers.ContractFactory(
       tokenArtifacts.abi,
       tokenArtifacts.deployedBytecode,
@@ -106,9 +104,17 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
     const tokenBalanceWei = await tokenContract.balanceOf(account);
     const tokenBalance = ethers.utils.formatEther(tokenBalanceWei);
     console.log(tokenBalance);
-    // console.log(tokenContract);
+     // console.log(tokenContract);
     // await tokenContract.deposit({from:account, value:ethers.utils.parseUnits(String(0.01), 18)});
-    if (true) {
+  }
+
+
+  useEffect(() => {
+    getTokenBalance()
+  }, [modalData.currency])
+
+  const handleMakeOffer = async () => {
+   if (true) {
       setIsTransferApprovalModalOpened(true);
     } else {
       sendOfferToServer();

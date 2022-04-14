@@ -330,7 +330,7 @@ export const RightSideInfoWrapper = ({
       <MakeOfferModal
         isOpened={isMakeOfferModalOpened}
         handleClose={() => setIsMakeOfferModalOpened(false)}
-        balance={{ currency: 'eth', amount: balance }}
+        balance={balance}
       />
       <AcceptOfferModal
         {...acceptModalData}
