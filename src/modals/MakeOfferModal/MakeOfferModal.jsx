@@ -126,7 +126,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, ETHBalance }) => {
   useEffect(() => {
     console.log("---account", account);
     account && getTokenBalance();
-  }, [account, library, getTokenBalance]);
+  }, [account, library]);
 
   const handleMakeOffer = async () => {
     if (true) {
