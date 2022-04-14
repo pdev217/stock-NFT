@@ -101,7 +101,7 @@ export const RightSideInfoWrapper = ({
             Owned by <span className={styles.link}>{owner || "Some owner"}</span>
           </span>
           <div className={styles.likes}>
-            <Image src="/view-token/Icon:HeartFilled.svg" width={19} height={19} alt="heart-filled-icon" />
+            <Image src="/view-token/Icon-HeartFilled.svg" width={19} height={19} alt="heart-filled-icon" />
             <span className={styles.greySmallText}>{likes} Favorites</span>
           </div>
         </div>
@@ -118,7 +118,7 @@ export const RightSideInfoWrapper = ({
             <span className={styles.greySmallText}>Current Price</span>
           </div>
           <div className={styles.priceInfo}>
-            <Image src="/view-token/Icon:Weth.svg" width={19} height={19} alt="eth-icon" />
+            <Image src="/view-token/Icon-Weth.svg" width={19} height={19} alt="eth-icon" />
             <div className={styles.ethPrice}>
               <span>{ethPrice}</span>
             </div>
@@ -137,12 +137,12 @@ export const RightSideInfoWrapper = ({
       </div>
       <div className={cn(styles.box, styles.listingsWrapper)}>
         <div className={styles.sectionHeader}>
-          <Image src="/view-token/Icon:Description.svg" height={19} width={19} alt="description" />
+          <Image src="/view-token/Icon-Description.svg" height={19} width={19} alt="description" />
           <div>
             <span>Listing</span>
             {isListingOpened ? (
               <Image
-                src="/view-token/Icon:ArrowUp.svg"
+                src="/view-token/Icon-ArrowUp.svg"
                 height={15}
                 width={30}
                 alt="arrow-down"
@@ -150,7 +150,7 @@ export const RightSideInfoWrapper = ({
               />
             ) : (
               <Image
-                src="/view-token/Icon:ArrowDown.svg"
+                src="/view-token/Icon-ArrowDown.svg"
                 height={15}
                 width={30}
                 alt="arrow-up"
@@ -188,7 +188,7 @@ export const RightSideInfoWrapper = ({
               {listingData.map(({ price: { eth, usd }, owner, expiration, id }) => (
                 <div key={id} className={styles.tableRow}>
                   <div>
-                    <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="eth-icon" />
+                    <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
                     <span className={cn(styles.priceText, styles.marginLeft4)}>{eth} ETH</span>
                   </div>
                   <div>
@@ -219,12 +219,12 @@ export const RightSideInfoWrapper = ({
       </div>
       <div className={cn(styles.box, styles.listingsWrapper)}>
         <div className={styles.sectionHeader}>
-          <Image src="/view-token/Icon:Offers.svg" height={19} width={19} alt="description" />
+          <Image src="/view-token/Icon-Offers.svg" height={19} width={19} alt="description" />
           <div>
             <span>Offers</span>
             {isOffersOpened ? (
               <Image
-                src="/view-token/Icon:ArrowUp.svg"
+                src="/view-token/Icon-ArrowUp.svg"
                 height={15}
                 width={30}
                 alt="arrow-down"
@@ -232,7 +232,7 @@ export const RightSideInfoWrapper = ({
               />
             ) : (
               <Image
-                src="/view-token/Icon:ArrowDown.svg"
+                src="/view-token/Icon-ArrowDown.svg"
                 height={15}
                 width={30}
                 alt="arrow-up"
@@ -270,7 +270,7 @@ export const RightSideInfoWrapper = ({
               {offersData.map(({ price, user: { username }, expirationDate, id }) => (
                 <div key={id} className={styles.tableRow}>
                   <div>
-                    <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="eth-icon" />
+                    <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
                     <span className={cn(styles.priceText, styles.marginLeft4)}>{price} ETH</span>
                   </div>
                   <div>
@@ -301,12 +301,12 @@ export const RightSideInfoWrapper = ({
       </div>
       <div className={styles.box}>
         <div className={styles.sectionHeader}>
-          <Image src="/view-token/Icon:Activity.svg" height={19} width={19} alt="Activity" />
+          <Image src="/view-token/Icon-Activity.svg" height={19} width={19} alt="Activity" />
           <div>
             <span>Price History</span>
             {isPriceHistoryOpened ? (
               <Image
-                src="/view-token/Icon:ArrowUp.svg"
+                src="/view-token/Icon-ArrowUp.svg"
                 height={15}
                 width={30}
                 alt="arrow-down"
@@ -314,7 +314,7 @@ export const RightSideInfoWrapper = ({
               />
             ) : (
               <Image
-                src="/view-token/Icon:ArrowDown.svg"
+                src="/view-token/Icon-ArrowDown.svg"
                 height={15}
                 width={30}
                 alt="arrow-up"

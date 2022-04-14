@@ -49,7 +49,7 @@ export const PriceHistory = ({ isPriceHistoryOpened }) => {
               }}
               IconComponent={() => (
                 <div style={{ right: "16px", position: 'absolute', pointerEvents: 'none' }}>
-                  <Image src="/view-token/Icon:ArrowDown.svg" height={8} width={16} alt="arrow-up" />
+                  <Image src="/view-token/Icon-ArrowDown.svg" height={8} width={16} alt="arrow-up" />
                 </div>
               )}
               value={selectedPeriod}
@@ -67,7 +67,7 @@ export const PriceHistory = ({ isPriceHistoryOpened }) => {
             </Select>
             <div className={styles.averagePriceWrapper}>
               <div>
-                <Image src="/view-token/Icon:Weth.svg" width={19} height={19} alt="eth-icon" />
+                <Image src="/view-token/Icon-Weth.svg" width={19} height={19} alt="eth-icon" />
                 <span className={styles.marginLeft4}>{average}</span>
               </div>
               <div>

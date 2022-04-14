@@ -100,7 +100,7 @@ export const ViewIndividualTokenPage = ({
                 <Image src="/noImage.png" layout="fill" alt="token-image" />
               ) : (
                 <Image
-                  src={blockchainName === "Ethereum" ? "/view-token/Icon:Eth.svg" : "/view-token/Polygon.svg"}
+                  src={blockchainName === "Ethereum" ? "/view-token/Icon-Eth.svg" : "/view-token/Polygon.svg"}
                   width={19}
                   height={19}
                   alt="blockchain-type"
@@ -112,7 +112,7 @@ export const ViewIndividualTokenPage = ({
                 />
               )}
               <div className={styles.likesWrapper}>
-                <Image src="/view-token/Icon:Heart.svg" width={19} height={19} alt="likes" />
+                <Image src="/view-token/Icon-Heart.svg" width={19} height={19} alt="likes" />
                 <span>{fakeLikes}</span>
               </div>
             </div>

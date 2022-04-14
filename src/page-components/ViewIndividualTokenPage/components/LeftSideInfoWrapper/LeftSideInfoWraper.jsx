@@ -21,7 +21,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
   return (
     <div className={styles.wrapper}>
       <div className={styles.sectionHeader}>
-        <Image src="/view-token/Icon:Description.svg" height={19} width={19} alt="description" />
+        <Image src="/view-token/Icon-Description.svg" height={19} width={19} alt="description" />
         <span>Description</span>
       </div>
       <div className={styles.section}>
@@ -34,12 +34,12 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
         <div>{description}</div>
       </div>
       <div className={styles.sectionHeader}>
-        <Image src="/view-token/Icon:Properties.svg" height={19} width={19} alt="description" />
+        <Image src="/view-token/Icon-Properties.svg" height={19} width={19} alt="description" />
         <div>
           <span>Properties</span>
           {isPropertiesOpened ? (
             <Image
-              src="/view-token/Icon:ArrowUp.svg"
+              src="/view-token/Icon-ArrowUp.svg"
               height={15}
               width={30}
               alt="arrow-down"
@@ -47,7 +47,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
             />
           ) : (
             <Image
-              src="/view-token/Icon:ArrowDown.svg"
+              src="/view-token/Icon-ArrowDown.svg"
               height={15}
               width={30}
               alt="arrow-up"
@@ -72,12 +72,12 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
         )}
       </div>
       <div className={styles.sectionHeader}>
-        <Image src="/view-token/Icon:Properties.svg" height={19} width={19} alt="description" />
+        <Image src="/view-token/Icon-Properties.svg" height={19} width={19} alt="description" />
         <div>
           <span>Stats</span>
           {isStatsOpened ? (
             <Image
-              src="/view-token/Icon:ArrowUp.svg"
+              src="/view-token/Icon-ArrowUp.svg"
               height={15}
               width={30}
               alt="arrow-down"
@@ -85,7 +85,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
             />
           ) : (
             <Image
-              src="/view-token/Icon:ArrowDown.svg"
+              src="/view-token/Icon-ArrowDown.svg"
               height={15}
               width={30}
               alt="arrow-up"
@@ -110,12 +110,12 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
         )}
       </div>
       <div className={styles.sectionHeader}>
-        <Image src="/view-token/Icon:Properties.svg" height={19} width={19} alt="description" />
+        <Image src="/view-token/Icon-Properties.svg" height={19} width={19} alt="description" />
         <div>
           <span>Levels</span>
           {isLevelsOpened ? (
             <Image
-              src="/view-token/Icon:ArrowUp.svg"
+              src="/view-token/Icon-ArrowUp.svg"
               height={15}
               width={30}
               alt="arrow-down"
@@ -123,7 +123,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
             />
           ) : (
             <Image
-              src="/view-token/Icon:ArrowDown.svg"
+              src="/view-token/Icon-ArrowDown.svg"
               height={15}
               width={30}
               alt="arrow-up"
@@ -148,12 +148,12 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
         )}
       </div>
       <div className={styles.sectionHeader}>
-        <Image src="/view-token/Icon:About.svg" height={19} width={19} alt="description" />
+        <Image src="/view-token/Icon-About.svg" height={19} width={19} alt="description" />
         <div>
           <span>About</span>
           {isAboutOpened ? (
             <Image
-              src="/view-token/Icon:ArrowUp.svg"
+              src="/view-token/Icon-ArrowUp.svg"
               height={15}
               width={30}
               alt="arrow-down"
@@ -161,7 +161,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
             />
           ) : (
             <Image
-              src="/view-token/Icon:ArrowDown.svg"
+              src="/view-token/Icon-ArrowDown.svg"
               height={15}
               width={30}
               alt="arrow-up"
@@ -184,12 +184,12 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
         )}
       </div>
       <div className={styles.sectionHeader}>
-        <Image src="/view-token/Icon:About.svg" height={19} width={19} alt="description" />
+        <Image src="/view-token/Icon-About.svg" height={19} width={19} alt="description" />
         <div>
           <span>Details</span>
           {isDetailsOpened ? (
             <Image
-              src="/view-token/Icon:ArrowUp.svg"
+              src="/view-token/Icon-ArrowUp.svg"
               height={15}
               width={30}
               alt="arrow-down"
@@ -197,7 +197,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
             />
           ) : (
             <Image
-              src="/view-token/Icon:ArrowDown.svg"
+              src="/view-token/Icon-ArrowDown.svg"
               height={15}
               width={30}
               alt="arrow-up"

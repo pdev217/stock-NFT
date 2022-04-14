@@ -29,12 +29,12 @@ export const BottomInfoWrapper = ({ activity }) => {
   return (
     <div className={styles.box}>
       <div className={styles.sectionHeader}>
-        <Image src="/view-token/Icon:Activity.svg" height={19} width={19} alt="description" />
+        <Image src="/view-token/Icon-Activity.svg" height={19} width={19} alt="description" />
         <div>
           <span>Item Activity</span>
           {isActivityOpened ? (
             <Image
-              src="/view-token/Icon:ArrowUp.svg"
+              src="/view-token/Icon-ArrowUp.svg"
               height={15}
               width={30}
               alt="arrow-down"
@@ -42,7 +42,7 @@ export const BottomInfoWrapper = ({ activity }) => {
             />
           ) : (
             <Image
-              src="/view-token/Icon:ArrowDown.svg"
+              src="/view-token/Icon-ArrowDown.svg"
               height={15}
               width={30}
               alt="arrow-up"
@@ -69,7 +69,7 @@ export const BottomInfoWrapper = ({ activity }) => {
               }}
               IconComponent={() => (
                 <div style={{ right: "16px", position: 'absolute', pointerEvents: 'none' }}>
-                  <Image src="/view-token/Icon:ArrowDown.svg" height={8} width={16} alt="arrow-up" />
+                  <Image src="/view-token/Icon-ArrowDown.svg" height={8} width={16} alt="arrow-up" />
                 </div>
               )}
               value={selectedFilter}
@@ -113,7 +113,7 @@ export const BottomInfoWrapper = ({ activity }) => {
             {activityData.map(({ event, price: { eth, usd }, from, to, date, id }) => (
               <div key={id} className={styles.tableRow}>
                 <div className={cn(styles.activityEvent, styles.maxWidth150)}>
-                  <Image src="/view-token/Icon:Offers.svg" height={19} width={19} alt="eth-icon" />
+                  <Image src="/view-token/Icon-Offers.svg" height={19} width={19} alt="eth-icon" />
                   <span className={styles.marginLeft12}>{event}</span>
                 </div>
                 <div
@@ -125,7 +125,7 @@ export const BottomInfoWrapper = ({ activity }) => {
                   )}
                 >
                   <span className={styles.priceText}>
-                    <Image src="/view-token/Icon:Eth.svg" height={19} width={19} alt="eth-icon" />
+                    <Image src="/view-token/Icon-Eth.svg" height={19} width={19} alt="eth-icon" />
                     <span className={cn(styles.marginLeft4, styles.marginBottom4)}>{eth}</span>
                   </span>
                   <span className={styles.greySmallText}>${usd}</span>

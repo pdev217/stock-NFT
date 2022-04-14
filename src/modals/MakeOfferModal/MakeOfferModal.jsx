@@ -174,7 +174,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
                   variant="outlined"
                   IconComponent={() => (
                     <div style={{ right: "16px", position: "absolute", pointerEvents: "none" }}>
-                      <Image src="/view-token/Icon:ArrowDown.svg" height={8} width={16} alt="arrow-up" />
+                      <Image src="/view-token/Icon-ArrowDown.svg" height={8} width={16} alt="arrow-up" />
                     </div>
                   )}
                   sx={{ width: "30%", maxHeight: "56px", color: "white" }}

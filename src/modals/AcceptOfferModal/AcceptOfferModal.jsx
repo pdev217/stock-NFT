@@ -176,7 +176,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
               </div>
               <div className={cssStyles.priceWrapper}>
                 <div className={cssStyles.whiteText}>
-                  <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="weth-icon" />
+                  <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="weth-icon" />
                   <span className={cssStyles.marginLeft4}>{price}</span>
                 </div>
                 <div className={cn(cssStyles.greySmallText, cssStyles.marginTop4)}>
@@ -213,7 +213,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
               </div>
               <div className={cssStyles.feeDataWrapper}>
                 <div className={cn(cssStyles.bigWhiteText, cssStyles.marginBottom4)}>
-                  <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="weth-icon" />
+                  <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="weth-icon" />
                   <span className={cssStyles.marginLeft4}>fakeTotal</span>
                 </div>
                 <div className={cssStyles.greySmallText}>

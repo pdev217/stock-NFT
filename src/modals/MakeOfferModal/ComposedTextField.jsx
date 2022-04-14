@@ -23,7 +23,7 @@ export const ComposedTextField = ({modalData, setModalData}) => {
         variant="outlined"
         IconComponent={() => (
           <div style={{ right: "16px", position: "absolute", pointerEvents: "none" }}>
-            <Image src="/view-token/Icon:ArrowDown.svg" height={8} width={16} alt="arrow-up" />
+            <Image src="/view-token/Icon-ArrowDown.svg" height={8} width={16} alt="arrow-up" />
           </div>
         )}
         sx={{ width: "24%", maxHeight: "56px", color: "white" }}
@@ -38,7 +38,7 @@ export const ComposedTextField = ({modalData, setModalData}) => {
         <MenuItem value="ETH">
           <span>
             <span style={{ position: "relative", top: "3px" }}>
-              <Image src="/view-token/Icon:Eth.svg" width={31} height={31} alt="ethIcon" />
+              <Image src="/view-token/Icon-Eth.svg" width={31} height={31} alt="ethIcon" />
             </span>
             <span style={{ marginLeft: "20px", position: "relative", bottom: "6px" }}>ETH</span>
           </span>
@@ -46,7 +46,7 @@ export const ComposedTextField = ({modalData, setModalData}) => {
         <MenuItem value="WETH">
           <span>
             <span style={{ position: "relative", top: "3px" }}>
-              <Image src="/view-token/Icon:Weth.svg" width={31} height={31} alt="wethIcon" />
+              <Image src="/view-token/Icon-Weth.svg" width={31} height={31} alt="wethIcon" />
             </span>
             <span style={{ marginLeft: "20px", position: "relative", bottom: "6px" }}>WETH</span>
           </span>
