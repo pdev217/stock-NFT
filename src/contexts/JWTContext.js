@@ -3,6 +3,7 @@ import { pagesForUnauthorized } from "../helpers/pagesForUnauthorized";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useWeb3React } from "@web3-react/core";
+import { injected, coinbaseWallet, walletConnect } from "../connectors";
 
 const initialState = {
   isAuthorized: false,
@@ -62,7 +63,7 @@ const verifyUser = async (accessToken) => {
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const router = useRouter();
-  const { deactivate } = useWeb3React();
+  const { deactivate, activate } = useWeb3React();
 
   useEffect(() => {
     const initialize = async () => {
@@ -71,7 +72,9 @@ function AuthProvider({ children }) {
         const accessToken = localStorage.getItem("accessToken");
         const account = localStorage.getItem("account");
         const isValid = await verifyUser(accessToken);
+        const walletConnected = localStorage.getItem("walletConnected");
         // console.log(accessToken)
+        console.log("--walletConnected", walletConnected);
 
         if (accessToken && isValid?.data?.token) {
           dispatch({
@@ -81,6 +84,20 @@ function AuthProvider({ children }) {
               account,
             },
           });
+
+          switch (walletConnected) {
+            case "metamask":
+              activate(injected);
+              break;
+            
+            case "https://ropsten-infura.wallet.coinbase.com":
+              activate(coinbaseWallet);
+              break;
+          
+            default:
+              break;
+          }
+
         } else {
           dispatch({
             type: "INITIALIZE",

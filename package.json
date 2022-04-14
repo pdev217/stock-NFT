@@ -38,6 +38,7 @@
     "eth-sig-util": "^3.0.1",
     "ethereumjs-util": "^7.1.4",
     "ethers": "^5.6.1",
+    "ethers-eip712": "^0.2.0",
     "flatted": "^3.2.5",
     "hardhat-gas-reporter": "^1.0.8",
     "i": "^0.3.7",

@@ -35,9 +35,9 @@ contract WETH9 {
     // function() public payable {
     //     deposit();
     // }
-    function deposit(uint256 _amount) public payable {
-        balanceOf[msg.sender] += _amount;
-        emit Deposit(msg.sender, _amount);
+    function deposit() public payable {
+        balanceOf[msg.sender] += msg.value;
+        emit Deposit(msg.sender, msg.value);
     }
     function withdraw(uint wad) public {
         require(balanceOf[msg.sender] >= wad);

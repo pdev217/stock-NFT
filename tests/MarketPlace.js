@@ -31,15 +31,12 @@ describe("StokeMarketPlace contract", function () {
   })
 
   it("Start making offer", async function () {
-    await weth.connect(account1).deposit(ethers.utils.parseUnits(String(1000), 18));
-    await weth.connect(account2).deposit(ethers.utils.parseUnits(String(1000), 18));
-    await nftContract.connect(account1).createToken(0, account1.address, 'ipfs://lion');
+    await weth.connect(account1).deposit();
+    await weth.connect(account2).deposit();
     await weth.connect(account2).approve(marketContract.address, ethers.utils.parseUnits(String(1000), 18));
-    await marketContract.connect(account2).makeOffer(weth.address, ethers.utils.parseUnits(String(1000), 18), 0, nftContract.address,  Date.now("2022-04-11"));
   })
   
   it("Start accept offer", async function() {
-    await nftContract.connect(account1).approve(marketContract.address, 0);
-    await marketContract.connect(account1).acceptOffer(1);
+    await marketContract.connect(account1).acceptOffer(weth.address, account2.address, ethers.utils.parseUnits(String(1000), 18), Date.now("2022-04-15"), nftContract.address, 0, "ipfs:lion");
   })
 })

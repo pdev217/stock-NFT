@@ -138,9 +138,8 @@ module.exports = {
       accounts: ["95cd7ac56a15b471c1d479b6f109881606affab88d03c95cbc44076c7018f88a"]
     },
     rinkeby: {
-      url: process.env.RINKEBY_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      url: "https://rinkeby.infura.io/v3/a5b51678f5c248c5af6c10dc7c5501ea",
+      accounts: ['95cd7ac56a15b471c1d479b6f109881606affab88d03c95cbc44076c7018f88a']
     },
     bsctest: {
       url: process.env.BSCTEST_URL || "",

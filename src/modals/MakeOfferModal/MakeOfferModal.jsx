@@ -26,6 +26,13 @@ import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
 import { TransferApprovalModal } from "../TransferApprovalModal/TransferApprovalModal";
+import { styles } from "../../components/CustButton/CustButton.utils";
+//contract
+import stokeNFTArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json";
+import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json";
+import { injected } from "../../connectors";
+import { useWeb3React } from "@web3-react/core";
+import { ethers } from "ethers";
 
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
@@ -38,13 +45,13 @@ Date.prototype.toDateInputValue = function () {
   return `${hours}:${minutes}`;
 };
 
-export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "eth", amount: 2.1 } }) => {
-  const { isAuthorized } = useAuth();
-  const router = useRouter();
-  const dispatch = useDispatch();
+const tokenAddr = "0x194194b1D78172446047e327476B811f5D365c21";
 
-  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
+export const MakeOfferModal = ({ isOpened, handleClose }) => {
+  const { isAuthorized } = useAuth();
+  const { account, activate, library } = useWeb3React();
   const [disabledButton, setDisabledButton] = useState(true);
+  const [balance, setBalance] = useState(0);
   const [modalData, setModalData] = useState({
     currency: "ETH",
     amount: undefined,
@@ -86,14 +93,25 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
     }
     return response;
   };
+  useEffect(() => {}, [balance]);
 
   const handleMakeOffer = async () => {
+    const IToken = new ethers.ContractFactory(
+      tokenArtifacts.abi,
+      tokenArtifacts.deployedBytecode,
+      library?.getSigner()
+    );
+    const tokenContract = IToken.attach(tokenAddr);
+    const tokenBalanceWei = await tokenContract.balanceOf(account);
+    const tokenBalance = ethers.utils.formatEther(tokenBalanceWei);
+    console.log(tokenBalance);
+    // console.log(tokenContract);
+    // await tokenContract.deposit({from:account, value:ethers.utils.parseUnits(String(0.01), 18)});
     if (true) {
-      setIsTransferApprovalModalOpened(true)
+      setIsTransferApprovalModalOpened(true);
     } else {
       sendOfferToServer();
     }
-
   };
 
   useEffect(() => {
@@ -141,7 +159,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
               <ComposedTextField modalData={modalData} setModalData={setModalData} />
               <div className={cssStyles.balance}>
                 <span>
-                  Balance: {balance.amount} {balance.currency.toUpperCase()}
+                  Balance: {balance} WETH
                 </span>
               </div>
               <div className={cssStyles.offerExpiration}>
@@ -230,7 +248,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
               <CustButton
                 color="primary"
                 disabled={disabledButton}
-                onClick={handleMakeOffer}
+                onClick={() => handleMakeOffer()}
                 text="Make Offer"
               />
             </footer>
