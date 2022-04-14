@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 //redux
 import { useDispatch } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
+import { open as openSuccess } from "../../redux/slices/successSnackbarSlice";
+import { addOffer } from "../../redux/slices/offersSlice";
 //next
 import Image from "next/image";
 import Link from "next/link";
@@ -48,9 +50,11 @@ Date.prototype.toDateInputValue = function () {
 const tokenAddr = "0x194194b1D78172446047e327476B811f5D365c21";
 
 export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
-  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false)
   const { isAuthorized } = useAuth();
+  const dispatch = useDispatch();
+  const router = useRouter();
   const { account, activate, library } = useWeb3React();
+  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
   const [modalData, setModalData] = useState({
     currency: "ETH",
@@ -73,7 +77,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      response = await axios.post(
+      await axios.post(
         `${process.env.BACKEND_URL}/offers`,
         {
           price: Number(pricePerItem),
@@ -85,7 +89,10 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
             Authorization: "Bearer " + accessToken,
           },
         }
-      );
+      ).then((result) => {
+        dispatch(addOffer({ ...result.data }));
+        dispatch(openSuccess("Success"));
+      });
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
@@ -101,27 +108,41 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
       library?.getSigner()
     );
     const tokenContract = IToken.attach(tokenAddr);
-    console.log('---tokenContract', tokenContract)
-    console.log('---account', account)
+    console.log("---tokenContract", tokenContract);
+    console.log("---account", account);
     const tokenBalanceWei = await tokenContract.balanceOf(account);
-    console.log('---tokenBalanceWei', tokenBalanceWei)
+    console.log("---tokenBalanceWei", tokenBalanceWei);
     const tokenBalance = ethers.utils.formatEther(tokenBalanceWei);
     console.log(tokenBalance);
-     // console.log(tokenContract);
+    // console.log(tokenContract);
     // await tokenContract.deposit({from:account, value:ethers.utils.parseUnits(String(0.01), 18)});
-  }
-
+  };
 
   useEffect(() => {
-    console.log('---account', account)
-    account && getTokenBalance()
-  }, [account])
+    console.log("---account", account);
+    account && getTokenBalance();
+  }, [account]);
 
   const handleMakeOffer = async () => {
-   if (true) {
-      setIsTransferApprovalModalOpened(true);
-    } else {
-      sendOfferToServer();
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const {
+        data: { isTransferApproved },
+      } = await axios.get(`${process.env.BACKEND_URL}/users/checkTransferApproval`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+
+      if (!isTransferApproved) {
+        setIsTransferApprovalModalOpened(true);
+      } else {
+        sendOfferToServer();
+      }
+    } catch (e) {
+      dispatch(
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
     }
   };
 
@@ -169,9 +190,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
               Price
               <ComposedTextField modalData={modalData} setModalData={setModalData} />
               <div className={cssStyles.balance}>
-                <span>
-                  Balance: {balance} WETH
-                </span>
+                <span>Balance: {balance} WETH</span>
               </div>
               <div className={cssStyles.offerExpiration}>
                 <span>Offer Expiration</span>
