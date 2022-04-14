@@ -87,14 +87,6 @@ export const RightSideInfoWrapper = ({
     getBalance();
   }, [library])
 
-  useEffect(() => {
-    if (offers && offers.length > 0) {
-      const array = [...offers];
-      array.forEach((elem) => (elem.expirationDate = getExpirationString(elem.expirationDate)));
-      setOffersData([...array]);
-    }
-  }, []);
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.tokenNameInfoWrapper}>

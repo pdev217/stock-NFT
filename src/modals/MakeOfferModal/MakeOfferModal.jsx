@@ -48,6 +48,7 @@ Date.prototype.toDateInputValue = function () {
 const tokenAddr = "0x194194b1D78172446047e327476B811f5D365c21";
 
 export const MakeOfferModal = ({ isOpened, handleClose }) => {
+  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false)
   const { isAuthorized } = useAuth();
   const { account, activate, library } = useWeb3React();
   const [disabledButton, setDisabledButton] = useState(true);
