@@ -47,13 +47,17 @@ Date.prototype.toDateInputValue = function () {
 
 const tokenAddr = "0x194194b1D78172446047e327476B811f5D365c21";
 
-export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
-  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false)
+export const MakeOfferModal = ({ isOpened, handleClose, ETHBalance }) => {
+  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
   const { isAuthorized } = useAuth();
   const { account, activate, library } = useWeb3React();
   const [disabledButton, setDisabledButton] = useState(true);
   const [modalData, setModalData] = useState({
     currency: "ETH",
+    balance: {
+      ETHBalance: ETHBalance,
+      WETHBalance: 0,
+    },
     amount: undefined,
     pricePerItem: undefined,
     offerExpirationDays: "3 days",
@@ -61,6 +65,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
     agreed: false,
   });
   const muiClasses = useStyles();
+  console.log("---ETHBalance", ETHBalance);
 
   const sendOfferToServer = async () => {
     const {
@@ -101,24 +106,30 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
       library?.getSigner()
     );
     const tokenContract = IToken.attach(tokenAddr);
-    console.log('---tokenContract', tokenContract)
-    console.log('---account', account)
     const tokenBalanceWei = await tokenContract.balanceOf(account);
-    console.log('---tokenBalanceWei', tokenBalanceWei)
-    const tokenBalance = ethers.utils.formatEther(tokenBalanceWei);
-    console.log(tokenBalance);
-     // console.log(tokenContract);
-    // await tokenContract.deposit({from:account, value:ethers.utils.parseUnits(String(0.01), 18)});
-  }
+    const WETH = ethers.utils.formatEther(tokenBalanceWei);
 
+    async function getBalance() {
+      if (library) {
+        const signer = await library.getSigner();
+        const wei = await signer.getBalance();
+        const amount = ethers.utils.formatEther(wei);
+        return Number(amount).toFixed(1);
+      }
+    }
+    getBalance().then((result) =>
+      setModalData({ ...modalData, balance: { ETHBalance: result, WETHBalance: WETH } })
+    );
+    //await tokenContract.deposit({from:account, value:ethers.utils.parseUnits(String(0.01), 18)});
+  };
 
   useEffect(() => {
-    console.log('---account', account)
-    account && getTokenBalance()
-  }, [account])
+    console.log("---account", account);
+    account && getTokenBalance();
+  }, [account, library, getTokenBalance]);
 
   const handleMakeOffer = async () => {
-   if (true) {
+    if (true) {
       setIsTransferApprovalModalOpened(true);
     } else {
       sendOfferToServer();
@@ -169,9 +180,8 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
               Price
               <ComposedTextField modalData={modalData} setModalData={setModalData} />
               <div className={cssStyles.balance}>
-                <span>
-                  Balance: {balance} WETH
-                </span>
+                {modalData.currency === "ETH" && <span>Balance: {modalData.balance.ETHBalance} ETH</span>}
+                {modalData.currency === "WETH" && <span>Balance: {modalData.balance.WETHBalance} WETH</span>}
               </div>
               <div className={cssStyles.offerExpiration}>
                 <span>Offer Expiration</span>
