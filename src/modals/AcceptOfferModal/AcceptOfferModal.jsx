@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 //redux
-import { useDispatch } from "react-redux";
-import { open } from "../../redux/slices/errorSnackbarSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 //next
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+//classnames
+import cn from "classnames";
 //axios
 import axios from "axios";
 //mui
@@ -13,6 +15,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Select, MenuItem, TextField, Checkbox } from "@mui/material";
+//spinner
+import { Oval } from "react-loader-spinner";
 //components
 import { CustButton } from "../../components/CustButton/CustButton";
 import { ChooseWalletBox } from "../../components/ChooseWalletBox/ChooseWalletBox";
@@ -20,18 +24,56 @@ import { ChooseWalletBox } from "../../components/ChooseWalletBox/ChooseWalletBo
 import useAuth from "../../hooks/useAuth";
 import { useStyles } from "../../hooks/useStyles";
 //utils
+import {
+  images,
+  videos,
+  audios,
+} from "../../page-components/ViewIndividualTokenPage/ViewIndividualToken.utils";
 //styles
 import { styles as jsStyles } from "./AcceptOfferModal.utils";
 import cssStyles from "./AcceptOfferModal.module.css";
 
-export const AcceptOfferModal = ({ isOpened, handleClose }) => {
-  const [acceptantData, setAcceptantData] = useState({
-    
-  });
-  const [isImageLoading, setIsImageLoading] = useState(true);
+export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collection, tokenFileName }) => {
+  const [imageRatio, setImageRatio] = useState(16 / 9);
+  const [tokenFileLink, setTokenFileLink] = useState("/");
+  const [isFileLoading, setIsFileLoading] = useState(true);
+  const [typeOfTokenFile, setTypeOfTokenFile] = useState();
+
+  const { stokeFee, creatorRoyalty } = useSelector((state) => state.administration.fees);
+
+  const videoRef = useRef();
+  const audioRef = useRef();
+
+  useEffect(() => {
+    if (tokenFileName) {
+      const end = tokenFileName.substring(tokenFileName.indexOf(".") + 1).toLowerCase();
+      if (images.includes(end)) {
+        setTypeOfTokenFile("image");
+      } else if (videos.includes(end)) {
+        setTypeOfTokenFile("video");
+        setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${tokenFileName}`);
+      } else if (audios.includes(end)) {
+        setTypeOfTokenFile("audio");
+        setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${tokenFileName}`);
+      }
+    }
+  }, [tokenFileName]);
+
+  const dispatch = useDispatch();
   const { isAuthorized } = useAuth();
 
-  useEffect
+  const handleFileError = () => {
+    dispatch(openError("404 Token image is not found"));
+  };
+
+  const handleLoadImage = (width, height) => {
+    setImageRatio(width / height);
+  };
+
+  const imageLoader = ({ src }) => {
+    setIsFileLoading(false);
+    return `${process.env.BACKEND_ASSETS_URL}/nftMedia/${src}`;
+  };
 
   return (
     <Modal
@@ -60,13 +102,102 @@ export const AcceptOfferModal = ({ isOpened, handleClose }) => {
               <span>Subtotal</span>
             </div>
             <div className={cssStyles.section}>
-              <div className={cssStyles.userInfoWrapper}>
-
+              <div className={cssStyles.tokenInfoWrapper}>
+                <div className={cssStyles.tokenFileWrapper}>
+                  {isFileLoading && (
+                    <div className={cssStyles.spinner}>
+                      <Oval
+                        ariaLabel="loading-indicator"
+                        height={30}
+                        width={30}
+                        strokeWidth={3}
+                        color="var(--black)"
+                        secondaryColor="var(--light-grey)"
+                      />
+                    </div>
+                  )}
+                  {typeOfTokenFile === "image" && (
+                    <Image
+                      src={tokenFileName}
+                      loader={imageLoader}
+                      width={70}
+                      height={70 / imageRatio}
+                      objectFit="contain"
+                      layout="responsive"
+                      alt="token-image"
+                      onError={handleFileError}
+                      onLoadingComplete={({ naturalWidth, naturalHeight }) =>
+                        handleLoadImage(naturalWidth, naturalHeight)
+                      }
+                    />
+                  )}
+                  {typeOfTokenFile === "video" && (
+                    <video
+                      src={tokenFileLink}
+                      controls="controls"
+                      autoPlay={true}
+                      alt="token-video"
+                      ref={videoRef}
+                      className={cssStyles.video}
+                    />
+                  )}
+                </div>
+                <div className={cssStyles.tokenNameWrapper}>
+                  <div className={cssStyles.greySmallText}>
+                    <span>{collection}</span>
+                  </div>
+                  <div className={cn(cssStyles.whiteText, cssStyles.marginTop4)}>
+                    <span>{name}</span>
+                  </div>
+                </div>
               </div>
               <div className={cssStyles.priceWrapper}>
+                <div className={cssStyles.whiteText}>
+                  <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="weth-icon" />
+                  <span className={cssStyles.marginLeft4}>{price}</span>
+                </div>
+                <div className={cn(cssStyles.greySmallText, cssStyles.marginTop4)}>
+                  <span>$ fakeAmount</span>
+                </div>
               </div>
             </div>
-            
+            <div className={cn(cssStyles.section, cssStyles.columnDown)}>
+              <div className={cssStyles.feeNamesWrapper}>
+                <div className={cn(cssStyles.whiteText, cssStyles.marginBottom16)}>
+                  <span>Fees</span>
+                </div>
+                <div className={cn(cssStyles.greySmallText, cssStyles.marginBottom16)}>
+                  <span>Stoke Fee</span>
+                </div>
+                <div className={cssStyles.greySmallText}>
+                  <span>Creator royalty</span>
+                </div>
+              </div>
+              <div className={cssStyles.feeDataWrapper}>
+                <div className={cn(cssStyles.greySmallText, cssStyles.marginBottom16)}>
+                  <span>{stokeFee}%</span>
+                </div>
+                <div className={cssStyles.greySmallText}>
+                  <span>{creatorRoyalty}%</span>
+                </div>
+              </div>
+            </div>
+            <div className={cn(cssStyles.section, cssStyles.columnDown)}>
+              <div className={cssStyles.feeNamesWrapper}>
+                <div className={cn(cssStyles.whiteText, cssStyles.marginBottom16)}>
+                  <span>Total</span>
+                </div>
+              </div>
+              <div className={cssStyles.feeDataWrapper}>
+                <div className={cn(cssStyles.bigWhiteText, cssStyles.marginBottom4)}>
+                  <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="weth-icon" />
+                  <span className={cssStyles.marginLeft4}>{price}</span>
+                </div>
+                <div className={cssStyles.greySmallText}>
+                  <span>$fakeAmount</span>
+                </div>
+              </div>
+            </div>
             <footer className={cssStyles.footer}>
               <CustButton color="primary" text="Make Offer" />
             </footer>

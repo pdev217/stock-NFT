@@ -25,6 +25,7 @@ export const RightSideInfoWrapper = ({
   name,
   offers,
   owner,
+  tokenFileName,
   usdPrice,
 }) => {
   const [saleEnds, setSaleEnds] = useState(undefined);
@@ -32,6 +33,7 @@ export const RightSideInfoWrapper = ({
 
   const [listingData, setListingData] = useState(undefined);
   const [offersData, setOffersData] = useState(undefined);
+  const [acceptModalData, setAcceptModalData] = useState(undefined);
 
   const [isListingOpened, setIsListingOpened] = useState(true);
   const [isOffersOpened, setIsOffersOpened] = useState(true);
@@ -40,6 +42,11 @@ export const RightSideInfoWrapper = ({
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
+
+  const handleAccept = (price) => {
+    setAcceptModalData({ price, name, collection, tokenFileName });
+    setIsAcceptOfferModalOpened(true);
+  };
 
   useEffect(() => {
     setSaleEnds(fakeDate);
@@ -258,7 +265,7 @@ export const RightSideInfoWrapper = ({
                     <span className={styles.link}>{username}</span>
                   </div>
                   <div className={styles.buttonWrapper}>
-                    <CustButton text="buy" color="ghost" />
+                    <CustButton text="buy" color="ghost" onClick={() => handleAccept(price)} />
                   </div>
                 </div>
               ))}
@@ -312,6 +319,7 @@ export const RightSideInfoWrapper = ({
         setIsMakeOfferModalOpened={setIsMakeOfferModalOpened}
       />
       <AcceptOfferModal
+        {...acceptModalData}
         isOpened={isAcceptOfferModalOpened}
         handleClose={() => setIsAcceptOfferModalOpened(false)}
       />

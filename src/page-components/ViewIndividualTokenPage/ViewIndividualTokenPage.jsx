@@ -68,9 +68,8 @@ export const ViewIndividualTokenPage = ({
   };
 
   const tokenImageLoader = () => {
-    return `${process.env.BACKEND_WITHOUT_API}/assets/nftMedia/${fileName}`;
+    return `${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`;
   };
-  console.log('---typeOfToken/file', typeOfTokenFile)
 
   useEffect(() => {
     const end = fileName.substring(fileName.indexOf(".") + 1).toLowerCase();
@@ -78,10 +77,10 @@ export const ViewIndividualTokenPage = ({
       setTypeOfTokenFile("image");
     } else if (videos.includes(end)) {
       setTypeOfTokenFile("video");
-      setTokenFileLink(`${process.env.BACKEND_WITHOUT_API}/assets/nftMedia/${fileName}`)
+      setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`)
     } else if (audios.includes(end)) {
       setTypeOfTokenFile("audio");
-      setTokenFileLink(`${process.env.BACKEND_WITHOUT_API}/assets/nftMedia/${fileName}`)
+      setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`)
     }
   }, [fileName]);
 
@@ -198,6 +197,7 @@ export const ViewIndividualTokenPage = ({
         <div className={styles.rightSide}>
           <RightSideInfoWrapper
             collection={collectionName}
+            tokenFileName={fileName}
             name={name}
             owner={username}
             userId={userId}

@@ -7,6 +7,7 @@ import carouselReducer from "./slices/carouselSlice";
 import logoutModalReducer from "./slices/logoutModalSlice";
 import userDataReducer from "./slices/userDataSlice";
 import successSnackbarReducer from "./slices/successSnackbarSlice";
+import administrationReducer from "./slices/adminSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     successSnackbar: successSnackbarReducer,
     userData: userDataReducer,
     walletPopup: walletPopupReducer,
+    administration: administrationReducer
   },
 });

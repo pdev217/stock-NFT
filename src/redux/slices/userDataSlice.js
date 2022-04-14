@@ -14,14 +14,14 @@ export const userData = createSlice({
       if (action.payload === null) {
         state.imageUrl = `/create-nft/empty-profileImage.png`;
       } else {
-        state.imageUrl = `${process.env.BACKEND_WITHOUT_API}/assets/profileImages/${action.payload}`;
+        state.imageUrl = `${process.env.BACKEND_ASSETS_URL}/profileImages/${action.payload}`;
       }
     },
     setBanner: (state, action) => {
       if (action.payload === null) {
         state.banner = `/create-nft/empty-profileBanner.png`;
       } else {
-        state.banner = `${process.env.BACKEND_WITHOUT_API}/assets/profileBanner/${action.payload}`;
+        state.banner = `${process.env.BACKEND_ASSETS_URL}/profileBanner/${action.payload}`;
       }
     },
     setUsername: (state, action) => {

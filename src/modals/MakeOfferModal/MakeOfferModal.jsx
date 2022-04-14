@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 //redux
 import { useDispatch } from "react-redux";
-import { open } from "../../redux/slices/errorSnackbarSlice";
+import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 //next
 import Image from "next/image";
 import Link from "next/link";
@@ -59,6 +59,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
     } = router;
 
     const { offerExpirationDays, offerExpirationTime, pricePerItem } = modalData;
+    const expirationDate = getExpirationDate(offerExpirationDays, offerExpirationTime)
 
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -67,7 +68,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
         `${process.env.BACKEND_URL}/offers`,
         {
           price: Number(pricePerItem),
-          expirationDate: getExpirationDate(offerExpirationDays, offerExpirationTime),
+          expirationDate,
           nftId: Number(tokenId),
         },
         {

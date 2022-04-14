@@ -25,9 +25,12 @@
   margin: 24px 24px 24px auto;
 }
 
-.marginLeft8 {
-  margin-left: 8px;
-  font-size: 16px;
+.marginLeft4 {
+  margin-left: 4px;
+}
+
+.marginTop4 {
+  margin-top: 4px;
 }
 
 .link {
@@ -47,3 +50,81 @@
 
   border-bottom: 1px solid var(--dark-grey);
 }
+
+.tokenFileWrapper {
+  width: 70px;
+  height: auto;
+
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tokenInfoWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.tokenNameWrapper {
+  margin-left: 16px;
+}
+
+.video {
+  min-width: 200px;
+  min-height: 200px;
+}
+
+.greySmallText {
+  font-size: 16px;
+  letter-spacing: 0.01px;
+  color: var(--light-grey);
+  display: flex;
+  align-items: center;
+}
+
+.whiteText {
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.02px;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+}
+
+.bigWhiteText {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 33px;
+  letter-spacing: 0.02px;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+}
+
+.spinner {
+  position: relative;
+  left: 50%;
+  width: fit-content;
+  transform: translate(-50%);
+}
+
+.priceWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.marginBottom16 {
+  margin-bottom: 16px;
+}
+
+.columnDown {
+  align-items: flex-end;
+}
+
+.feeDataWrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
