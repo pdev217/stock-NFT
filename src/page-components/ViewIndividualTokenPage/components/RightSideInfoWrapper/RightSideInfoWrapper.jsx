@@ -7,11 +7,13 @@ import cn from "classnames";
 import { LeftTimeContainer } from "./LeftTimeContainer";
 import { CustButton } from "../../../../components/CustButton/CustButton";
 import { PriceHistory } from "./PriceHistory";
+import { MakeOfferModal } from "../../../../modals/MakeOfferModal/MakeOfferModal";
+import { TransferApprovalModal } from "../../../../modals/TransferApprovalModal/TransferApprovalModal";
 //utils
 import { getCorrectDateString, getExpirationString } from "./RightSideInfoWrapper.utils";
 //styles
 import styles from "./RightSideInfoWrapper.module.css";
-import { MakeOfferModal } from "../../../../modals/MakeOfferModal/MakeOfferModal";
+import { AcceptOfferModal } from "../../../../modals/AcceptOfferModal/AcceptOfferModal";
 
 const fakeDate = new Date(2022, 6, 1, 2, 3, 4, 567);
 
@@ -36,6 +38,8 @@ export const RightSideInfoWrapper = ({
   const [isPriceHistoryOpened, setIsPriceHistoryOpened] = useState(true);
 
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
+  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
+  const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
 
   useEffect(() => {
     setSaleEnds(fakeDate);
@@ -53,10 +57,10 @@ export const RightSideInfoWrapper = ({
   useEffect(() => {
     if (offers && offers.length > 0) {
       const array = [...offers];
-      array.length > 0 && array.forEach((elem) => (elem.expiration = getExpirationString(elem.expiration)));
+      array.forEach((elem) => (elem.expirationDate = getExpirationString(elem.expirationDate)));
       setOffersData([...array]);
     }
-  }, [offers]);
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -238,20 +242,20 @@ export const RightSideInfoWrapper = ({
                 [styles.closed]: !isOffersOpened,
               })}
             >
-              {offersData.map(({ price: { eth, usd }, owner, expiration, id }) => (
+              {offersData.map(({ price, user: { username }, expirationDate, id }) => (
                 <div key={id} className={styles.tableRow}>
                   <div>
                     <Image src="/view-token/Icon:Weth.svg" height={19} width={19} alt="eth-icon" />
-                    <span className={cn(styles.priceText, styles.marginLeft4)}>{eth} ETH</span>
+                    <span className={cn(styles.priceText, styles.marginLeft4)}>{price} ETH</span>
                   </div>
                   <div>
-                    <span className={styles.priceText}>${usd}</span>
+                    <span className={styles.priceText}>$ 9999</span>
                   </div>
                   <div>
-                    <span className={styles.greySmallText}>{expiration}</span>
+                    <span className={styles.greySmallText}>{expirationDate}</span>
                   </div>
                   <div>
-                    <span className={styles.link}>{owner}</span>
+                    <span className={styles.link}>{username}</span>
                   </div>
                   <div className={styles.buttonWrapper}>
                     <CustButton text="buy" color="ghost" />
@@ -301,6 +305,15 @@ export const RightSideInfoWrapper = ({
       <MakeOfferModal
         isOpened={isMakeOfferModalOpened}
         handleClose={() => setIsMakeOfferModalOpened(false)}
+      />
+      <TransferApprovalModal
+        isOpened={isTransferApprovalModalOpened}
+        handleClose={() => setIsTransferApprovalModalOpened(false)}
+        setIsMakeOfferModalOpened={setIsMakeOfferModalOpened}
+      />
+      <AcceptOfferModal
+        isOpened={isAcceptOfferModalOpened}
+        handleClose={() => setIsAcceptOfferModalOpened(false)}
       />
     </div>
   );

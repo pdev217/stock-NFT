@@ -1,4 +1,6 @@
 import { useState } from "react";
+//next
+import { useRouter } from "next/router";
 //classnames
 import cn from "classnames";
 //utils
@@ -10,14 +12,15 @@ import { PaymentsSubPage } from "./components/subPages/PaymentsSubPage";
 //icons
 import ProfileIcon from "./icons/profile.svg";
 import NotificationsIcon from "./icons/notifications.svg";
-import PaymentsIcon from './icons/payments.svg'
+import PaymentsIcon from "./icons/payments.svg";
 //hooks
 import useAuth from "../../hooks/useAuth";
 //styles
 import styles from "./Settings.module.css";
 
 export const Settings = () => {
-  const { error } = useAuth();
+  const { isAuthorized } = useAuth();
+
   const [activeSidebarRow, setActiveSidebarRow] = useState("Profile");
 
   const getIcon = (text) => {

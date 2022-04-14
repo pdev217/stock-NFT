@@ -18,7 +18,6 @@ import {
   fakeActivity,
   fakeLikes,
   fakeListing,
-  fakeOffers,
   fakePrice,
   images,
   videos,
@@ -36,8 +35,10 @@ export const ViewIndividualTokenPage = ({
   levels,
   stats,
   username,
+  userId,
   blockchainName,
   collectionName,
+  offers,
   about,
 }) => {
   const dispatch = useDispatch();
@@ -85,7 +86,6 @@ export const ViewIndividualTokenPage = ({
   }, [fileName]);
 
   useEffect(() => {
-    console.log('---videoRed.current', videoRef)
     if (audioRef.current?.src || videoRef.current?.src) {
       setIsLoading(false);
     }
@@ -101,7 +101,7 @@ export const ViewIndividualTokenPage = ({
                 <Image src="/noImage.png" layout="fill" alt="token-image" />
               ) : (
                 <Image
-                  src={blockchainName === "Etherium" ? "/view-token/Icon:Eth.svg" : "/view-token/Polygon.svg"}
+                  src={blockchainName === "Ethereum" ? "/view-token/Icon:Eth.svg" : "/view-token/Polygon.svg"}
                   width={19}
                   height={19}
                   alt="blockchain-type"
@@ -132,7 +132,7 @@ export const ViewIndividualTokenPage = ({
                       height={70}
                       width={70}
                       strokeWidth={3}
-                      color="var(--dark-grey)"
+                      color="var(--black)"
                       secondaryColor="var(--light-grey)"
                     />
                   </div>
@@ -164,7 +164,7 @@ export const ViewIndividualTokenPage = ({
                   <video
                     src={tokenFileLink}
                     controls="controls"
-                    autoPlay="true"
+                    autoPlay={true}
                     alt="token-video"
                     ref={videoRef}
                     className={styles.video}
@@ -174,7 +174,7 @@ export const ViewIndividualTokenPage = ({
                   <audio
                     src={tokenFileLink}
                     controls="controls"
-                    autoPlay="true"
+                    autoPlay={true}
                     alt="token-audio"
                     ref={audioRef}
                     className={styles.audio}
@@ -200,9 +200,10 @@ export const ViewIndividualTokenPage = ({
             collection={collectionName}
             name={name}
             owner={username}
+            userId={userId}
             /// fake data
 
-            offers={fakeOffers}
+            offers={offers}
             likes={fakeLikes}
             usdPrice={fakePrice.usd}
             ethPrice={fakePrice.eth}

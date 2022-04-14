@@ -1,0 +1,49 @@
+.cross {
+  margin-left: auto;
+
+  cursor: pointer;
+}
+
+.crossBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 56px;
+  height: 56px;
+  margin-top: 16px;
+
+  cursor: pointer;
+
+  border: 1px solid var(--shadow);
+  border-radius: 7px;
+}
+
+.footer button {
+  display: flex;
+
+  margin: 24px 24px 24px auto;
+}
+
+.marginLeft8 {
+  margin-left: 8px;
+  font-size: 16px;
+}
+
+.link {
+  cursor: pointer;
+  color: var(--primary);
+}
+
+.section {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.02px;
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+
+  border-bottom: 1px solid var(--dark-grey);
+}

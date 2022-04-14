@@ -679,49 +679,6 @@
         "WETH9"
       ]
     },
-    "D:\\New folder\\stoke-frontend\\contracts\\LazyMint.sol": {
-      "lastModificationDate": 1649846780157,
-      "contentHash": "967adb007e754044cd87b160e92b6bb2",
-      "sourceName": "contracts/LazyMint.sol",
-      "solcConfig": {
-        "version": "0.8.8",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "hardhat/console.sol",
-        "@openzeppelin/contracts/access/AccessControl.sol",
-        "@openzeppelin/contracts/token/ERC721/ERC721.sol",
-        "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
-        "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
-        "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "LazyNFT"
-      ]
-    },
     "D:\\New folder\\stoke-frontend\\node_modules\\hardhat\\console.sol": {
       "lastModificationDate": 1649846543156,
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
@@ -1288,8 +1245,8 @@
       ]
     },
     "D:\\New folder\\stoke-frontend\\contracts\\StokeNFT.sol": {
-      "lastModificationDate": 1649846113317,
-      "contentHash": "9372b8e165b62183c0b09c0a5bf8cae7",
+      "lastModificationDate": 1649912877358,
+      "contentHash": "470568a55a2e7106e0e79226d1d52b17",
       "sourceName": "contracts/StokeNFT.sol",
       "solcConfig": {
         "version": "0.8.8",
@@ -1365,8 +1322,8 @@
       ]
     },
     "D:\\New folder\\stoke-frontend\\contracts\\StokeMarketPlace.sol": {
-      "lastModificationDate": 1649846113316,
-      "contentHash": "71cac057f95434bea560298bb8b6bda8",
+      "lastModificationDate": 1649912887543,
+      "contentHash": "2bc1558d84cdd7638bfeab70bb13e468",
       "sourceName": "contracts/StokeMarketPlace.sol",
       "solcConfig": {
         "version": "0.8.8",
@@ -1480,7 +1437,7 @@
       ]
     },
     "D:\\New folder\\stoke-frontend\\contracts\\WETH.sol": {
-      "lastModificationDate": 1649846113317,
+      "lastModificationDate": 1649913386482,
       "contentHash": "81d18f150c2447541b0a5ec9db567171",
       "sourceName": "contracts/WETH.sol",
       "solcConfig": {

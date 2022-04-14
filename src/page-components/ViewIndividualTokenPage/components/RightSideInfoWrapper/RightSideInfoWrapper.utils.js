@@ -20,10 +20,13 @@ export const getCorrectDateString = (time) => {
 };
 
 export const getExpirationString = (expTime) => {
+  console.log('---expTime', expTime)
   const expDate = new Date(expTime);
   const nowDate = new Date();
+  console.log('---expDate', expDate)
 
   const difference = expDate - nowDate;
+  console.log('---difference', difference)
 
   const minutes = Math.floor(difference / 1000 / 60);
 

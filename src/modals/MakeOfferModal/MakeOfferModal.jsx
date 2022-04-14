@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
+//redux
+import { useDispatch } from "react-redux";
+import { open } from "../../redux/slices/errorSnackbarSlice";
 //next
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+//axios
+import axios from "axios";
 //mui
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -15,19 +21,16 @@ import { ChooseWalletBox } from "../../components/ChooseWalletBox/ChooseWalletBo
 import useAuth from "../../hooks/useAuth";
 import { useStyles } from "../../hooks/useStyles";
 //utils
-import { daysSelectArray } from "./MakeOfferModal.utils";
+import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
 //styles
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
 import { styles } from "../../components/CustButton/CustButton.utils";
 //contract
-import stokeNFTArtifacts from "../../../artifacts/contracts/LazyMint.sol/LazyNFT.json"
+import stokeNFTArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json"
 import { injected } from "../../connectors";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
-import { LazyMinter } from "../../utils";
-
-const nftContractAddr = "0xe86651b7c186d98f9F20a9d41cA0269736e2Ff1A";
 
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
@@ -54,6 +57,36 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
   });
   const muiClasses = useStyles();
 
+  const handleMakeOffer = async () => {
+    const {
+      query: { tokenId },
+    } = router;
+
+    const { offerExpirationDays, offerExpirationTime, pricePerItem } = modalData;
+
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+
+      await axios.post(
+        `${process.env.BACKEND_URL}/offers`,
+        {
+          price: Number(pricePerItem),
+          expirationDate: getExpirationDate(offerExpirationDays, offerExpirationTime),
+          nftId: Number(tokenId),
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
+    } catch (e) {
+      dispatch(
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
+    }
+  };
+
   useEffect(() => {
     if (
       modalData.currency &&
@@ -71,24 +104,6 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
   useEffect(() => {
     if (modalData.amount < 1) setModalData({ ...modalData, amount: 1 });
   }, [modalData.amount]);
-
-  useEffect(() => {
-    activate(injected);
-  }, [])
-
-  const handleOffer = async () => {
-    console.log(library)
-    const signer = await library.getSigner();
-    const IStoke = new ethers.ContractFactory(stokeNFTArtifacts.abi, stokeNFTArtifacts.deployedBytecode, signer)
-    const stokeContract = IStoke.attach(nftContractAddr);
-    console.log(stokeContract);
-
-    const lazyMinter = new LazyMinter({contractAddress:nftContractAddr, signer:signer});
-    const { voucher, signature } = await lazyMinter.createVoucher(0, "ipfs://lion");
-    console.log(voucher)
-    // await stokeContract.redeem("0x70997970C51812dc3A010C7d01b50e0d17dc79C8", voucher, signature);
-    await stokeContract.tranfer("0x70997970C51812dc3A010C7d01b50e0d17dc79C8", voucher, signature);
-  }
 
   return (
     <Modal
@@ -194,7 +209,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
                   checked={modalData.agreed}
                   onChange={({ target: { checked } }) => setModalData({ ...modalData, agreed: checked })}
                 />
-                <span className={styles.marginLeft8}>
+                <span className={cssStyles.marginLeft8}>
                   By checking this box, I agree to{" "}
                   <Link href="" passHref>
                     <span className={cssStyles.link}>Stoke’s Terms of Service</span>

@@ -85,6 +85,7 @@ export const Header = () => {
   const openWalletPopup = () => {
     dispatch(openWalletPopupReducer());
   };
+  console.log('---username', username)
 
   return (
     <header className={styles.header}>
@@ -100,7 +101,7 @@ export const Header = () => {
             </div>
           ))}
         </div>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <div className={styles.searchButton}>
             <Image src="/search-icon.svg" height={18} width={16} alt="search-icon" />
             <div>Search All NFTs</div>
@@ -123,7 +124,9 @@ export const Header = () => {
                 style={{ width: "100%", height: "100%" }}
               />
             </div>
-            <div className={styles.profileText}>{isAuthorized ? username : "Profile"}</div>
+            <div className={styles.profileText}>
+              {isAuthorized ? (username !== "" ? username : "Profile") : "Profile"}
+            </div>
             <ProfilePopup
               categories={profilePopupCategories}
               className={cn(styles.profilePopup, {

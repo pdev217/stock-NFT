@@ -28,24 +28,28 @@ contract StokeNFT is ERC721URIStorage {
 
         uint256 id = _tokenCounter.current();
 
-        _safeMint(recipient, _tokenId);
-        _setTokenURI(_tokenId, tokenURI);
+        // bool IsExist = statusForToken(_tokenId);
 
-        tokens[id] = Token(
-            _tokenId
-        );
+        bool IsExist = _exists(_tokenId);
+
+        if(IsExist) {
+            address nftOwner = ownerOf(_tokenId);
+            _transfer(nftOwner, recipient, _tokenId);
+        }else {
+            _safeMint(recipient, _tokenId);
+            _setTokenURI(_tokenId, tokenURI);
+
+            tokens[id] = Token(
+                _tokenId
+            );
+        }
 
         return _tokenId;
     }
 
-     function statusForToken(uint256 _tokenId) public view returns(bool){
-        bool state = false;
-        for(uint i = 1; i <= _tokenCounter.current(); i++) {
-            if(tokens[i].tokenId == _tokenId) {
-                state = true;
-            }
-        }
+     function IsExistToken(uint256 _tokenId) public view returns(bool){
+        bool state = _exists(_tokenId);
 
-       return state;
+        return state;
     }
 }
