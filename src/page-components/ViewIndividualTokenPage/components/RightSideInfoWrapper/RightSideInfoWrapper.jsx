@@ -50,7 +50,6 @@ export const RightSideInfoWrapper = ({
 
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
-  const [ETHBalance, setETHBalance] = useState();
 
   const handleAccept = (price) => {
     setAcceptModalData({ price, name, collection, tokenFileName });
@@ -318,7 +317,6 @@ export const RightSideInfoWrapper = ({
       <MakeOfferModal
         isOpened={isMakeOfferModalOpened}
         handleClose={() => setIsMakeOfferModalOpened(false)}
-        ETHBalance={ETHBalance}
       />
       <AcceptOfferModal
         {...acceptModalData}
