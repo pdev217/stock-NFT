@@ -55,7 +55,6 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { account, activate, library } = useWeb3React();
-  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
   const [modalData, setModalData] = useState({
     currency: "ETH",
