@@ -105,9 +105,8 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
     const tokenContract = IToken.attach(tokenAddr);
     const tokenBalanceWei = await tokenContract.balanceOf(account);
     const tokenBalance = ethers.utils.formatEther(tokenBalanceWei);
-    console.log(tokenBalance);
-    // console.log(tokenContract);
     // await tokenContract.deposit({from:account, value:ethers.utils.parseUnits(String(0.01), 18)});
+    
     if (true) {
       setIsTransferApprovalModalOpened(true);
     } else {
