@@ -88,10 +88,14 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
     //     openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
     //   );
     // }
-    // const IToken = new ethers.ContractFactory(tokenArtifacts.abi, tokenArtifacts.deployedBytecode, signer);
-    // const tokenContract = IToken.attach(tokenAddr);
+
+    const IToken = new ethers.ContractFactory(tokenArtifacts.abi, tokenArtifacts.deployedBytecode, library?.getSigner());
+    const tokenContract = IToken.attach(tokenAddr);
+    const tokenBalanceWei = await tokenContract.balanceOf(account);
+    const tokenBalance = ethers.utils.formatEther(tokenBalanceWei);
+    console.log(tokenBalance);
     // console.log(tokenContract);
-    // await tokenContract.deposit();
+    // await tokenContract.deposit({from:account, value:ethers.utils.parseUnits(String(0.01), 18)});
   };
 
   useEffect(() => {

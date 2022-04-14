@@ -31,8 +31,8 @@ describe("StokeMarketPlace contract", function () {
   })
 
   it("Start making offer", async function () {
-    await weth.connect(account1).deposit(ethers.utils.parseUnits(String(1000), 18));
-    await weth.connect(account2).deposit(ethers.utils.parseUnits(String(1000), 18));
+    await weth.connect(account1).deposit();
+    await weth.connect(account2).deposit();
     await weth.connect(account2).approve(marketContract.address, ethers.utils.parseUnits(String(1000), 18));
   })
   
