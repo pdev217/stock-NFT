@@ -27,7 +27,8 @@ import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
 import { styles } from "../../components/CustButton/CustButton.utils";
 //contract
-import stokeNFTArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json"
+import stokeNFTArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json";
+import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json"
 import { injected } from "../../connectors";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
@@ -43,7 +44,9 @@ Date.prototype.toDateInputValue = function () {
   return `${hours}:${minutes}`;
 };
 
-export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "eth", amount: 2.1 } }) => {
+const tokenAddr = "0x194194b1D78172446047e327476B811f5D365c21";
+
+export const MakeOfferModal = ({ isOpened, handleClose, balance }) => {
   const { isAuthorized } = useAuth();
   const { account, activate, library } = useWeb3React();
   const [disabledButton, setDisabledButton] = useState(true);
@@ -58,33 +61,37 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
   const muiClasses = useStyles();
 
   const handleMakeOffer = async () => {
-    const {
-      query: { tokenId },
-    } = router;
+    // const {
+    //   query: { tokenId },
+    // } = router;
 
-    const { offerExpirationDays, offerExpirationTime, pricePerItem } = modalData;
+    // const { offerExpirationDays, offerExpirationTime, pricePerItem } = modalData;
 
-    try {
-      const accessToken = localStorage.getItem("accessToken");
+    // try {
+    //   const accessToken = localStorage.getItem("accessToken");
 
-      await axios.post(
-        `${process.env.BACKEND_URL}/offers`,
-        {
-          price: Number(pricePerItem),
-          expirationDate: getExpirationDate(offerExpirationDays, offerExpirationTime),
-          nftId: Number(tokenId),
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + accessToken,
-          },
-        }
-      );
-    } catch (e) {
-      dispatch(
-        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
-      );
-    }
+    //   await axios.post(
+    //     `${process.env.BACKEND_URL}/offers`,
+    //     {
+    //       price: Number(pricePerItem),
+    //       expirationDate: getExpirationDate(offerExpirationDays, offerExpirationTime),
+    //       nftId: Number(tokenId),
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: "Bearer " + accessToken,
+    //       },
+    //     }
+    //   );
+    // } catch (e) {
+    //   dispatch(
+    //     openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+    //   );
+    // }
+    // const IToken = new ethers.ContractFactory(tokenArtifacts.abi, tokenArtifacts.deployedBytecode, signer);
+    // const tokenContract = IToken.attach(tokenAddr);
+    // console.log(tokenContract);
+    // await tokenContract.deposit();
   };
 
   useEffect(() => {
@@ -218,7 +225,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, balance = { currency: "e
               </div>
             </section>
             <footer className={cssStyles.footer}>
-              <CustButton color="primary" onClick={() => handleOffer()} text="Make Offer" />
+              <CustButton color="primary" onClick={() => handleMakeOffer()} text="Make Offer" />
             </footer>
           </>
         ) : (

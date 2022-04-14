@@ -1437,8 +1437,8 @@
       ]
     },
     "D:\\New folder\\stoke-frontend\\contracts\\WETH.sol": {
-      "lastModificationDate": 1649913386482,
-      "contentHash": "81d18f150c2447541b0a5ec9db567171",
+      "lastModificationDate": 1649920680215,
+      "contentHash": "95c0dfa740fb22524eb5caa6cc105ec3",
       "sourceName": "contracts/WETH.sol",
       "solcConfig": {
         "version": "0.5.16",

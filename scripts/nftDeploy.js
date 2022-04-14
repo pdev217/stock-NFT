@@ -14,12 +14,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Stoke = await hre.ethers.getContractFactory("LazyNFT");
-  const stoke = await Stoke.deploy();
+  const stoke = await hre.ethers.getContractFactory("StokeNFT");
+  const contract = await stoke.deploy();
 
-  await stoke.deployed();
+  await contract.deployed();
 
-  console.log("StokeNFT deployed to:", stoke.address);
+  console.log("Weth token deployed to:", contract.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

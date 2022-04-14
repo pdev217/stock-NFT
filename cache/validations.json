@@ -5,6 +5,116 @@
       "WETH9": {
         "src": "contracts\\WETH.sol:22",
         "version": {
+          "withMetadata": "8987408168f7df2aa558f620301341c9ef8d7c8dd4cddcfb06aff86847ebd932",
+          "withoutMetadata": "ed2ba3c5f74b6967f8d7b8a97a81449da46439ba2fb9e09632eae2ac85707ae8",
+          "linkedWithoutMetadata": "ed2ba3c5f74b6967f8d7b8a97a81449da46439ba2fb9e09632eae2ac85707ae8"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "deposit()",
+          "withdraw(uint256)",
+          "totalSupply()",
+          "approve(address,uint256)",
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "state-variable-assignment",
+            "name": "name",
+            "src": "contracts\\WETH.sol:23"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "symbol",
+            "src": "contracts\\WETH.sol:24"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "decimals",
+            "src": "contracts\\WETH.sol:25"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "name",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_string_storage",
+              "contract": "WETH9",
+              "src": "contracts\\WETH.sol:23"
+            },
+            {
+              "label": "symbol",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_string_storage",
+              "contract": "WETH9",
+              "src": "contracts\\WETH.sol:24"
+            },
+            {
+              "label": "decimals",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint8",
+              "contract": "WETH9",
+              "src": "contracts\\WETH.sol:25"
+            },
+            {
+              "label": "balanceOf",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "WETH9",
+              "src": "contracts\\WETH.sol:32"
+            },
+            {
+              "label": "allowance",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "WETH9",
+              "src": "contracts\\WETH.sol:33"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_string_storage": {
+              "label": "string",
+              "numberOfBytes": "32"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            },
+            "t_uint8": {
+              "label": "uint8",
+              "numberOfBytes": "1"
+            }
+          },
+          "layoutVersion": "1.1",
+          "flat": true
+        }
+      }
+    },
+    {
+      "WETH9": {
+        "src": "contracts\\WETH.sol:22",
+        "version": {
           "withMetadata": "f86c5d8d99262946d375b026accaa6bd8327e9ae6c3071094a82b2ec7d237c5f",
           "withoutMetadata": "7dfece128a8b87550c665c9aaee0243c7a08ab9677b9fa0074d695955de2908f",
           "linkedWithoutMetadata": "7dfece128a8b87550c665c9aaee0243c7a08ab9677b9fa0074d695955de2908f"

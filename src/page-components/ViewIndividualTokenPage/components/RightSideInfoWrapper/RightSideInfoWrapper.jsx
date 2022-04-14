@@ -14,6 +14,9 @@ import { getCorrectDateString, getExpirationString } from "./RightSideInfoWrappe
 //styles
 import styles from "./RightSideInfoWrapper.module.css";
 import { AcceptOfferModal } from "../../../../modals/AcceptOfferModal/AcceptOfferModal";
+import { useWeb3React } from "@web3-react/core";
+//ethers
+import { ethers } from "ethers";
 
 const fakeDate = new Date(2022, 6, 1, 2, 3, 4, 567);
 
@@ -27,6 +30,7 @@ export const RightSideInfoWrapper = ({
   owner,
   usdPrice,
 }) => {
+  const { library } = useWeb3React();
   const [saleEnds, setSaleEnds] = useState(undefined);
   const [saleEndsStringified, setSaleEndsStringified] = useState("");
 
@@ -40,6 +44,7 @@ export const RightSideInfoWrapper = ({
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
+  const [balance, setBalance] = useState(0);
 
   useEffect(() => {
     setSaleEnds(fakeDate);
@@ -53,6 +58,18 @@ export const RightSideInfoWrapper = ({
       setListingData([...array]);
     }
   }, [listing]);
+
+  useEffect(() => {
+    async function getBalance() {
+      if(library) {
+        const signer = await library.getSigner();
+        const wei = await signer.getBalance();
+        const amount = ethers.utils.formatEther(wei);
+        setBalance(Number(amount).toFixed(3));
+      }
+    }
+    getBalance();
+  }, [library])
 
   useEffect(() => {
     if (offers && offers.length > 0) {
@@ -305,6 +322,7 @@ export const RightSideInfoWrapper = ({
       <MakeOfferModal
         isOpened={isMakeOfferModalOpened}
         handleClose={() => setIsMakeOfferModalOpened(false)}
+        balance={{ currency: 'eth', amount: balance }}
       />
       <TransferApprovalModal
         isOpened={isTransferApprovalModalOpened}
