@@ -60,7 +60,7 @@
 .footer button {
   display: flex;
 
-  margin: 24px 24px 24px auto;
+  margin: 24px 0 24px auto;
 }
 
 .balance {

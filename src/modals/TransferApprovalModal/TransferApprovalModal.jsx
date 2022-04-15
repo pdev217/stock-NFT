@@ -14,11 +14,7 @@ export const TransferApprovalModal = ({
   handleClose,
   isOpened,
   sendOfferToServer,
-  setIsMakeOfferModalOpened,
 }) => {
-  const handleBack = () => {
-    setIsMakeOfferModalOpened(true);
-  };
 
   const handleGotIt = () => {
     sendOfferToServer().then(() => setTimeout(() => handleClose(), 200));
@@ -33,7 +29,12 @@ export const TransferApprovalModal = ({
     >
       <Box sx={jsStyles.wrapper}>
         <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.header}>
-          <span>Transfer approval</span>
+          <div className={cssStyles.displayFlex}>
+            <div className={cssStyles.backIcon} onClick={handleClose}>
+              <Image src="/view-token/Icon_BackArrow.svg" width={19} height={19} alt="back-icon" />
+            </div>
+            <span>Transfer approval</span>
+          </div>
           <div className={cssStyles.cross} onClick={handleClose}>
             <Image
               src="/create-nft/Icon-Close.svg"

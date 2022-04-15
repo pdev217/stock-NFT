@@ -326,7 +326,6 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
               <CustButton
                 color="primary"
                 disabled={disabledButton}
-                className={cssStyles.button}
                 onClick={() => handleMakeOffer()}
                 text="Make Offer"
               />
@@ -352,7 +351,6 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
         <TransferApprovalModal
           isOpened={isTransferApprovalModalOpened}
           handleClose={() => setIsTransferApprovalModalOpened(false)}
-          setIsMakeOfferModalOpened={isOpened}
           sendOfferToServer={sendOfferToServer}
         />
       </Box>
