@@ -173,12 +173,12 @@ export const CreateNFTPage = () => {
       if (values.properties.length > 0) body.properties = values.properties;
       if (values.levels.length > 0) body.levels = values.levels;
 
-      const { data } = await axios.post(`${process.env.BACKEND_URL}/nfts`, body, {
+      await axios.post(`${process.env.BACKEND_URL}/nfts`, body, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },
       });
-      dispatch(openSuccess(`NFT ${data.name} is successfully created`));
+      dispatch(openSuccess(`Thank you! Your NFT will be under review`));
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)

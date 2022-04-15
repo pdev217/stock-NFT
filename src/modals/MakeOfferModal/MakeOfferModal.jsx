@@ -102,6 +102,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
           }
         )
         .then((result) => {
+          console.log('---result.data', result.data)
           dispatch(addOffer({ ...result.data }));
           dispatch(openSuccess("Success"));
         });
@@ -325,6 +326,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
               <CustButton
                 color="primary"
                 disabled={disabledButton}
+                className={cssStyles.button}
                 onClick={() => handleMakeOffer()}
                 text="Make Offer"
               />

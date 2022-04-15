@@ -51,8 +51,8 @@ export const RightSideInfoWrapper = ({
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
 
-  const handleAccept = (price) => {
-    setAcceptModalData({ price, name, collection, tokenFileName });
+  const handleAccept = (price, id) => {
+    setAcceptModalData({ price, name, collection, tokenFileName, id });
     setIsAcceptOfferModalOpened(true);
   };
 
@@ -254,7 +254,7 @@ export const RightSideInfoWrapper = ({
                 [styles.closed]: !isOffersOpened,
               })}
             >
-              {/* {offersData.map(({ price, user: { username }, expirationDate, id }) => (
+              {offersData.map(({ price, user: { username }, expirationDate, id }) => (
                 <div key={id} className={styles.tableRow}>
                   <div>
                     <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
@@ -270,10 +270,10 @@ export const RightSideInfoWrapper = ({
                     <span className={styles.link}>{username}</span>
                   </div>
                   <div className={styles.buttonWrapper}>
-                    <CustButton text="buy" color="ghost" onClick={() => handleAccept(price)} />
+                    <CustButton text="buy" color="ghost" onClick={() => handleAccept(price, id)} />
                   </div>
                 </div>
-              ))} */}
+              ))}
             </div>
           </>
         ) : (

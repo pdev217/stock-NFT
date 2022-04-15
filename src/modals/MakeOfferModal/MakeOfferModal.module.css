@@ -100,3 +100,12 @@
   cursor: pointer;
   color: var(--primary);
 }
+
+.button {
+  width: fit-content;
+  margin-left: auto;
+}
+
+.footer {
+  padding-right: 24px;
+}

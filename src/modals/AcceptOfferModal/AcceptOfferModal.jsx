@@ -33,7 +33,7 @@ import {
 import { styles as jsStyles } from "./AcceptOfferModal.utils";
 import cssStyles from "./AcceptOfferModal.module.css";
 
-export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collection, tokenFileName }) => {
+export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collection, tokenFileName, id }) => {
   const [imageRatio, setImageRatio] = useState(16 / 9);
   const [tokenFileLink, setTokenFileLink] = useState("/");
   const [isFileLoading, setIsFileLoading] = useState(true);
@@ -54,7 +54,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
         setTypeOfTokenFile("video");
         setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${tokenFileName}`);
       } else if (audios.includes(end)) {
-        setIsFileLoading(false)
+        setIsFileLoading(false);
         setTypeOfTokenFile("audio");
       }
     }
@@ -85,6 +85,22 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
 
   const handleLoadImage = (width, height) => {
     setImageRatio(width / height);
+  };
+
+  const handleAccept = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+
+      await axios.post(`${process.env.BACKEND_URL}/offers/accept/${id}`, {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+    } catch (e) {
+      dispatch(
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
+    }
   };
 
   const imageLoader = ({ src }) => {
@@ -222,7 +238,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
               </div>
             </div>
             <footer className={cssStyles.footer}>
-              <CustButton color="primary" text="Accept Offer" />
+              <CustButton color="primary" text="Accept Offer" onClick={handleAccept} />
             </footer>
           </>
         ) : (
