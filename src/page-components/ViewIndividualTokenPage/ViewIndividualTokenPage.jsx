@@ -3,13 +3,14 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 //redux
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 //classnames
 import cn from 'classnames'
 //components
 import { LeftSideInfoWrapper } from "./components/LeftSideInfoWrapper/LeftSideInfoWraper";
 import { RightSideInfoWrapper } from "./components/RightSideInfoWrapper/RightSideInfoWrapper";
 import { BottomInfoWrapper } from "./components/BottomInfoWrapper/BottomInfoWrapper";
+import { SuccessfulOrderModal } from "../../modals/SuccessfulOrderModal/SuccessfulOrderModal";
 //spinner
 import { Oval } from "react-loader-spinner";
 //utils
@@ -217,6 +218,7 @@ export const ViewIndividualTokenPage = ({
       <div className={styles.bottomSection}>
         <BottomInfoWrapper activity={fakeActivity} />
       </div>
+      <SuccessfulOrderModal />
     </div>
   );
 };
