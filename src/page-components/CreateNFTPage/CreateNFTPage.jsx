@@ -37,6 +37,7 @@ export const CreateNFTPage = () => {
   const dispatch = useDispatch();
   const { account, error } = useAuth();
   const inputRef = useRef();
+  const videoRef = useRef();
 
   if (error) {
     dispatch(openError(`${error.statusCode + " " + error.message}`));
@@ -270,6 +271,21 @@ export const CreateNFTPage = () => {
     return () => URL.revokeObjectURL(objectUrl);
   }, [values.file]);
 
+  useEffect(() => {
+    console.log('---videoRef.current', videoRef.current)
+    if (previewFile && values.file?.type.startsWith("video") && videoRef.current?.src) {
+      console.log('---videoRef.current', videoRef.current)
+      const width = videoRef.current.clientWidth;
+      const height = videoRef.current.clientHeight;
+      const ratio = width / height;
+      setVideoSizes({
+        width: "360px",
+        height: `${360 / ratio}px`,
+      });
+    }
+  }, [values.file, previewFile]);
+
+  console.log('---videoSizes', videoSizes)
   const star = <span className={styles.star}>*</span>;
 
   return (
@@ -300,7 +316,7 @@ export const CreateNFTPage = () => {
                   background: previewFile ? "none" : 'url("/create-nft/Icon-Image.png") no-repeat center',
                   height:
                     (!previewFile && "100%") ||
-                    (previewFile && values.file?.type.startsWith("video") && "300px") ||
+                    (previewFile && values.file?.type.startsWith("video") && videoRef.current && videoSizes.height) ||
                     (previewFile && values.file?.type.startsWith("audio") && "200px"),
                 }}
               >
@@ -326,7 +342,13 @@ export const CreateNFTPage = () => {
                 accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
               />
               {previewFile && values.file?.type.startsWith("video") && (
-                <video src={previewFile} controls="controls" autoPlay="true" className={styles.video} />
+                <video
+                  src={previewFile}
+                  ref={videoRef}
+                  controls="controls"
+                  autoPlay="true"
+                  className={styles.video}
+                />
               )}
               {previewFile && values.file?.type.startsWith("audio") && (
                 <audio src={previewFile} controls="controls" autoPlay="true" className={styles.audio} />
@@ -335,7 +357,7 @@ export const CreateNFTPage = () => {
             <div className={styles.uploadButtonsWrapper}>
               <CustButton
                 color="primary"
-                text="Upload File"
+                text={previewFile? "Change File" : "Upload File"}
                 onClick={handleUploadButton}
                 className={styles.uploadButton}
                 fullWidth

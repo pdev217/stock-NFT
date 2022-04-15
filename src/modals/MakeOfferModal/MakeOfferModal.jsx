@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 //redux
 import { useDispatch } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
-import { open as openSuccess } from "../../redux/slices/successSnackbarSlice";
+import { open as openSuccess } from "../../redux/slices/successfulOrderSlice";
 import { addOffer } from "../../redux/slices/offersSlice";
 //next
 import Image from "next/image";
@@ -101,10 +101,16 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
             },
           }
         )
-        .then((result) => {
-          console.log('---result.data', result.data)
-          dispatch(addOffer({ ...result.data }));
-          dispatch(openSuccess("Success"));
+        .then(({ data }) => {
+          handleClose();
+          dispatch(addOffer({ ...data }));
+          dispatch(
+            openSuccess({
+              title: "Your order was successfully placed",
+              description:
+                "To trade this token, you must first complete a free (plus gas) transaction. <br/> Confirm it in your wallet and keep this tab open!",
+            })
+          );
         });
     } catch (e) {
       dispatch(

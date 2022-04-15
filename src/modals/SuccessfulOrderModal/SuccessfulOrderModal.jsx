@@ -14,7 +14,7 @@ import cssStyles from "./SuccessfulOrderModal.module.css";
 
 export const SuccessfulOrderModal = () => {
   const dispatch = useDispatch();
-  const isOpened = useSelector((state) => state.successfulOrderModal.isOpened);
+  const { isOpened, title, description } = useSelector((state) => state.successfulOrderModal);
 
   const handleClose = () => {
     dispatch(close());
@@ -35,11 +35,8 @@ export const SuccessfulOrderModal = () => {
         </div>
         <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Image src="/view-token/Icon_Success.svg" width={62} height={64} alt="success-icon" />
-          <span className={cssStyles.whiteText}>Your order was successfully placed</span>
-          <span className={cssStyles.greyText}>
-            To trade this token, you must first complete a free (plus gas) transaction.<br/> Confirm it in your
-            wallet and keep this tab open!
-          </span>
+          <span className={cssStyles.whiteText}>{title}</span>
+          <span className={cssStyles.greyText}>{description}</span>
         </Container>
       </Box>
     </Modal>

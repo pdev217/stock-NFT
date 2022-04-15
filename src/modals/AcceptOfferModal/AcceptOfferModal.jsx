@@ -1,11 +1,10 @@
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
+import { open as openSuccess } from "../../redux/slices/successfulOrderSlice";
 //next
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
 //classnames
 import cn from "classnames";
 //axios
@@ -14,7 +13,6 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Select, MenuItem, TextField, Checkbox } from "@mui/material";
 //spinner
 import { Oval } from "react-loader-spinner";
 //components
@@ -22,7 +20,6 @@ import { CustButton } from "../../components/CustButton/CustButton";
 import { ChooseWalletBox } from "../../components/ChooseWalletBox/ChooseWalletBox";
 //hooks
 import useAuth from "../../hooks/useAuth";
-import { useStyles } from "../../hooks/useStyles";
 //utils
 import {
   images,
@@ -91,11 +88,23 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      await axios.post(`${process.env.BACKEND_URL}/offers/accept/${id}`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      });
+      await axios.post(
+        `${process.env.BACKEND_URL}/offers/accept/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
+      handleClose();
+      dispatch(
+        openSuccess({
+          title: "Your order was successfully accepted",
+          description:
+            "To trade this token, you must first complete a free (plus gas) transaction. <br/> Confirm it in your wallet and keep this tab open!",
+        })
+      );
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
