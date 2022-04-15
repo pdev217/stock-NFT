@@ -1,4 +1,8 @@
 import { useEffect } from "react";
+//next
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 //classnames
 import cn from "classnames";
 //axios
@@ -9,10 +13,6 @@ import { open as openProfilePopupReducer } from "../../src/redux/slices/profileP
 import { open as openWalletPopupReducer } from "../../src/redux/slices/walletPopupSlice";
 import { open as openError } from "../../src/redux/slices/errorSnackbarSlice";
 import { setImage, setUsername } from "../../src/redux/slices/userDataSlice";
-//next
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
 // these are components for the second variant of header. I don't know exactly which one to implement
 // import { Username } from "../../src/components/Username/Username";
 // import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
@@ -89,7 +89,9 @@ export const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <Image src="/header-logo.png" height={106} width={267} alt="logo" />
+        <Link href="/" passHref>
+          <Image src="/header-logo.png" height={106} width={267} alt="logo" />
+        </Link>
       </div>
       <div className={styles.navigation}>
         <div className={styles.navigationCategories}>
