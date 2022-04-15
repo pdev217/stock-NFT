@@ -32,7 +32,7 @@ export const ProfilePopup = ({ categories, className }) => {
         <div key={id} className={styles.category}>
           <Link href={href} passHref>
             <a>
-              <div className={styles.icon}>
+              <div onClick={() => closePopup()} className={styles.icon}>
                 <Image src={src} alt={categoryName} layout="fill" />
               </div>
               <div className={styles.text}>{categoryName}</div>
@@ -43,8 +43,8 @@ export const ProfilePopup = ({ categories, className }) => {
       {isAuthorized && (
         <>
           <div className={styles.category}>
-            <Link href='/settings' passHref>
-              <a>
+            <Link href="/settings" passHref>
+              <a onClick={closePopup}>
                 <div className={styles.icon}>
                   <Image src="/settings-icon.svg" alt="settings-icon" layout="fill" />
                 </div>

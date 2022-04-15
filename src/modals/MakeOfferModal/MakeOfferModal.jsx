@@ -32,7 +32,7 @@ import { TransferApprovalModal } from "../TransferApprovalModal/TransferApproval
 import { styles } from "../../components/CustButton/CustButton.utils";
 //contract
 import stokeNFTArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json";
-import marketPlaceArtifacts from "../../../artifacts/contracts/StokeMarketPlace.sol/StokeMarketplace.json"
+import marketPlaceArtifacts from "../../../artifacts/contracts/StokeMarketPlace.sol/StokeMarketplace.json";
 import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json";
 //web3
 import { injected } from "../../connectors";
@@ -84,26 +84,27 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
 
     const { offerExpirationDays, offerExpirationTime, pricePerItem } = modalData;
     const expirationDate = getExpirationDate(offerExpirationDays, offerExpirationTime);
-    let response;
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      await axios.post(
-        `${process.env.BACKEND_URL}/offers`,
-        {
-          price: Number(pricePerItem),
-          expirationDate,
-          nftId: Number(tokenId),
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + accessToken,
+      await axios
+        .post(
+          `${process.env.BACKEND_URL}/offers`,
+          {
+            price: Number(pricePerItem),
+            expirationDate,
+            nftId: Number(tokenId),
           },
-        }
-      ).then((result) => {
-        dispatch(addOffer({ ...result.data }));
-        dispatch(openSuccess("Success"));
-      });
+          {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+            },
+          }
+        )
+        .then((result) => {
+          dispatch(addOffer({ ...result.data }));
+          dispatch(openSuccess("Success"));
+        });
     } catch (e) {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
@@ -130,7 +131,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   };
 
   useEffect(() => {
-    if(library) {
+    if (library) {
       const IToken = new ethers.ContractFactory(
         tokenArtifacts.abi,
         tokenArtifacts.deployedBytecode,
@@ -138,8 +139,8 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
       );
 
       tokenContract = IToken.attach(tokenAddr);
-      
-      if(chainId === etherChain) {
+
+      if (chainId === etherChain) {
         console.log("---account", account);
         account && getTokenBalance();
       }
@@ -171,18 +172,18 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   };
 
   const handleApprove = async () => {
-    if(chainId !== etherChain) {
+    if (chainId !== etherChain) {
       await switchNetwork(etherChain);
     }
-    await tokenContract.approve(stokeMarketAddr, ethers.utils.parseUnits(String(modalData.amount), 18))
-  }
+    await tokenContract.approve(stokeMarketAddr, ethers.utils.parseUnits(String(modalData.amount), 18));
+  };
 
   const switchNetwork = async (network) => {
     await library.provider.request({
-        method:"wallet_switchEthereumChain",
-        params: [{chainId: toHex(network)}]
-    })
-}
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: toHex(network) }],
+    });
+  };
 
   useEffect(() => {
     if (
@@ -196,7 +197,14 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
     } else {
       setDisabledButton(true);
     }
-  }, [{ ...modalData }]);
+  }, [
+    modalData.currency,
+    modalData.amount,
+    modalData.pricePerItem,
+    modalData.agreed,
+    modalData.offerExpirationDays,
+    modalData.offerExpirationTime,
+  ]);
 
   useEffect(() => {
     if (modalData.amount < 1) setModalData({ ...modalData, amount: 1 });

@@ -85,7 +85,6 @@ export const Header = () => {
   const openWalletPopup = () => {
     dispatch(openWalletPopupReducer());
   };
-  console.log('---username', username)
 
   return (
     <header className={styles.header}>
@@ -127,13 +126,13 @@ export const Header = () => {
             <div className={styles.profileText}>
               {isAuthorized ? (username !== "" ? username : "Profile") : "Profile"}
             </div>
-            <ProfilePopup
-              categories={profilePopupCategories}
-              className={cn(styles.profilePopup, {
-                [styles.popupActive]: isProfilePopupOpened,
-              })}
-            />
           </div>
+          <ProfilePopup
+            categories={profilePopupCategories}
+            className={cn(styles.profilePopup, {
+              [styles.popupActive]: isProfilePopupOpened,
+            })}
+          />
           <div className={styles.wallet} onClick={openWalletPopup}>
             <div className={styles.walletIcon}>
               <Image src="/wallet-icon.svg" layout="fill" alt="profile-icon" />
