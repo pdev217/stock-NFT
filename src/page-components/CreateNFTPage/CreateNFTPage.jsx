@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 //classnames
 import cn from "classnames";
 //next
@@ -36,6 +36,7 @@ export const CreateNFTPage = () => {
   const { active, library, chainId } = useWeb3React();
   const dispatch = useDispatch();
   const { account, error } = useAuth();
+  const inputRef = useRef();
 
   if (error) {
     dispatch(openError(`${error.statusCode + " " + error.message}`));
@@ -168,6 +169,18 @@ export const CreateNFTPage = () => {
     setRatio(width / height);
   };
 
+  const handleUploadButton = () => {
+    inputRef.current.click();
+  };
+
+  const handleDeleteButton = () => {
+    console.log("---inputRef.current.value", inputRef.current.value);
+    inputRef.current.value = null;
+    console.log("---inputRef.current.value", inputRef.current.value);
+    setPreviewFile(undefined);
+    setValues({ ...values, file: undefined });
+  };
+
   const pinFileToIPFS = async (file) => {
     let data = new FormData();
     data.append("file", file);
@@ -258,7 +271,6 @@ export const CreateNFTPage = () => {
   }, [values.file]);
 
   const star = <span className={styles.star}>*</span>;
-  console.log("---previewFile", previewFile);
 
   return (
     <div className={styles.pageWrapper}>
@@ -275,48 +287,61 @@ export const CreateNFTPage = () => {
               File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max size: 100 MB
             </span>
           </div>
-          <div
-            className={styles.dragPlaceholder}
-            style={{
-              height: previewFile ? "auto" : "200px",
-            }}
-          >
+          <div className={styles.uploadFileWrapper}>
             <div
-              className={styles.imageWrapper}
+              className={styles.dragPlaceholder}
               style={{
-                background: previewFile ? "none" : 'url("/create-nft/Icon-Image.png") no-repeat center',
-                height:
-                  (!previewFile && "100%") ||
-                  (previewFile && values.file?.type.startsWith("video") && "300px") ||
-                  (previewFile && values.file?.type.startsWith("audio") && "100px"),
+                height: previewFile ? "auto" : "200px",
               }}
             >
-              {previewFile && values.file?.type.startsWith("image") && (
-                <Image
-                  src={previewFile}
-                  alt="image"
-                  width={400}
-                  height={400 / ratio}
-                  layout="responsive"
-                  objectFit="contain"
-                  onLoadingComplete={({ naturalWidth, naturalHeight }) =>
-                    handleLoadImage(naturalWidth, naturalHeight)
-                  }
-                />
+              <div
+                className={styles.imageWrapper}
+                style={{
+                  background: previewFile ? "none" : 'url("/create-nft/Icon-Image.png") no-repeat center',
+                  height:
+                    (!previewFile && "100%") ||
+                    (previewFile && values.file?.type.startsWith("video") && "300px") ||
+                    (previewFile && values.file?.type.startsWith("audio") && "200px"),
+                }}
+              >
+                {previewFile && values.file?.type.startsWith("image") && (
+                  <Image
+                    src={previewFile}
+                    alt="image"
+                    width={400}
+                    height={400 / ratio}
+                    layout="responsive"
+                    objectFit="contain"
+                    onLoadingComplete={({ naturalWidth, naturalHeight }) =>
+                      handleLoadImage(naturalWidth, naturalHeight)
+                    }
+                  />
+                )}
+              </div>
+              <input
+                className={styles.uploadFileInput}
+                type="file"
+                ref={inputRef}
+                onChange={(e) => handleChange(e, "file", "file")}
+                accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
+              />
+              {previewFile && values.file?.type.startsWith("video") && (
+                <video src={previewFile} controls="controls" autoPlay="true" className={styles.video} />
+              )}
+              {previewFile && values.file?.type.startsWith("audio") && (
+                <audio src={previewFile} controls="controls" autoPlay="true" className={styles.audio} />
               )}
             </div>
-            <input
-              className={styles.uploadFileInput}
-              type="file"
-              onChange={(e) => handleChange(e, "file", "file")}
-              accept=".png, .jpg, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
-            />
-            {previewFile && values.file?.type.startsWith("video") && (
-              <video src={previewFile} controls="controls" autoPlay="true" className={styles.video} />
-            )}
-            {previewFile && values.file?.type.startsWith("audio") && (
-              <audio src={previewFile} controls="controls" autoPlay="true" className={styles.audio} />
-            )}
+            <div className={styles.uploadButtonsWrapper}>
+              <CustButton
+                color="primary"
+                text="Upload File"
+                onClick={handleUploadButton}
+                className={styles.uploadButton}
+                fullWidth
+              />
+              <CustButton color="red" text="Delete File" onClick={handleDeleteButton} fullWidth />
+            </div>
           </div>
         </div>
         {textFields.map(({ title, description, required, label, multiline, id, maxLength }) => (
