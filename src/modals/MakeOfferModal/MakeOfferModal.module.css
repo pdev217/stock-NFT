@@ -1,80 +1,85 @@
 .section {
-  overflow-y: scroll;
+	overflow-y: scroll;
 
-  max-height: 70vh;
-  padding: 0 24px;
+	max-height: 70vh;
+	padding: 0 24px;
 
-  border-bottom: 1px solid var(--dark-grey);
-  font-family: "Poppins", sans-serif;
+	border-bottom: 1px solid var(--dark-grey);
+
+	font-family: "Poppins", sans-serif;
 }
 
 .fieldsWrapper {
-  width: 100%;
+	width: 100%;
 }
 
 .cross {
-  margin-left: auto;
+	margin-left: auto;
 
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .titles {
-  display: flex;
+	display: flex;
 }
 
 .titles > div:first-child {
-  width: calc(40% + 36px);
+	width: calc(40% + 36px);
 }
 
 .row {
-  display: flex;
+	display: flex;
 }
 
 .select {
-  display: flex;
+	display: flex;
 
-  width: 100%;
-  margin-top: 16px;
+	width: 100%;
+	margin-top: 16px;
 }
 
 .crossBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-  width: 56px;
-  height: 56px;
-  margin-top: 16px;
+	width: 56px;
+	height: 56px;
+	margin-top: 16px;
 
-  cursor: pointer;
+	cursor: pointer;
 
-  border: 1px solid var(--shadow);
-  border-radius: 7px;
+	border: 1px solid var(--shadow);
+	border-radius: 7px;
 }
 
 .addMoreButton {
-  margin-top: 16px;
-  margin-bottom: 24px;
+	margin-top: 16px;
+	margin-bottom: 24px;
 }
 
 .footer button {
-  display: flex;
+	display: flex;
 
-  margin: 24px 0 24px auto;
+	margin: 24px 0 24px auto;
 }
 
 .balance {
-  margin-top: 6px;
-  margin-bottom: 14px;
-  text-align: end;
+	margin-top: 6px;
+	margin-bottom: 14px;
+
+	text-align: end;
 }
 
 .offerExpiration {
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.01px;
-  color: var(--white);
-  margin-bottom: 8px;
+	margin-bottom: 8px;
+
+	letter-spacing: 0.01px;
+
+	color: var(--white);
+
+	font-size: 16px;
+	font-weight: 600;
 }
 
 .chooseBoxWrapper {
@@ -82,30 +87,33 @@
 }
 
 .dateSelectsWrapper {
-  display: flex;
+	display: flex;
 }
 
 .termsOfService {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
+	display: flex;
+	align-items: center;
+
+	margin-top: 20px;
 }
 
 .marginLeft8 {
-  margin-left: 8px;
-  font-size: 16px;
+	margin-left: 8px;
+
+	font-size: 16px;
 }
 
 .link {
-  cursor: pointer;
-  color: var(--primary);
+	cursor: pointer;
+
+	color: var(--primary);
 }
 
 .button {
-  width: fit-content;
-  margin-left: auto;
+	width: fit-content;
+	margin-left: auto;
 }
 
 .footer {
-  padding-right: 24px;
+	padding-right: 24px;
 }

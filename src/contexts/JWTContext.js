@@ -23,7 +23,6 @@ const handlers = {
   },
   LOGIN: (state, action) => {
     const { account } = action.payload;
-    console.log(account);
 
     return {
       ...state,
@@ -73,8 +72,6 @@ function AuthProvider({ children }) {
         const account = localStorage.getItem("account");
         const isValid = await verifyUser(accessToken);
         const walletConnected = localStorage.getItem("walletConnected");
-        // console.log(accessToken)
-        console.log("--walletConnected", walletConnected);
 
         if (accessToken && isValid?.data?.token) {
           dispatch({

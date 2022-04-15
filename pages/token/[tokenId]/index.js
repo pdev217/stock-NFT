@@ -21,7 +21,6 @@ export const getServerSideProps = async ({ params }) => {
   const { data } = await axios.get(`${process.env.BACKEND_URL}/nfts/${params.tokenId}`, {
     httpsAgent,
   });
-  console.log('---data', data)
 
   return {
     props: {

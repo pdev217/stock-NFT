@@ -16,7 +16,6 @@ export const offers = createSlice({
       state.offers = array;
     },
     addOffer: (state, action) => {
-      console.log("---action.payload", action.payload);
       state.offers = [
         ...state.offers,
         {

@@ -175,9 +175,7 @@ export const CreateNFTPage = () => {
   };
 
   const handleDeleteButton = () => {
-    console.log("---inputRef.current.value", inputRef.current.value);
     inputRef.current.value = null;
-    console.log("---inputRef.current.value", inputRef.current.value);
     setPreviewFile(undefined);
     setValues({ ...values, file: undefined });
   };
@@ -272,9 +270,7 @@ export const CreateNFTPage = () => {
   }, [values.file]);
 
   useEffect(() => {
-    console.log('---videoRef.current', videoRef.current)
     if (previewFile && values.file?.type.startsWith("video") && videoRef.current?.src) {
-      console.log('---videoRef.current', videoRef.current)
       const width = videoRef.current.clientWidth;
       const height = videoRef.current.clientHeight;
       const ratio = width / height;
@@ -285,7 +281,6 @@ export const CreateNFTPage = () => {
     }
   }, [values.file, previewFile]);
 
-  console.log('---videoSizes', videoSizes)
   const star = <span className={styles.star}>*</span>;
 
   return (

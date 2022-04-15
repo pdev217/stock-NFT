@@ -1,141 +1,163 @@
 .cross {
-  margin-left: auto;
+	margin-left: auto;
 
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .crossBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-  width: 56px;
-  height: 56px;
-  margin-top: 16px;
+	width: 56px;
+	height: 56px;
+	margin-top: 16px;
 
-  cursor: pointer;
+	cursor: pointer;
 
-  border: 1px solid var(--shadow);
-  border-radius: 7px;
+	border: 1px solid var(--shadow);
+	border-radius: 7px;
 }
 
 .footer button {
-  display: flex;
+	display: flex;
 
-  margin: 24px 24px 24px auto;
+	margin: 24px 24px 24px auto;
 }
 
 .marginLeft4 {
-  margin-left: 4px;
+	margin-left: 4px;
 }
 
 .marginTop4 {
-  margin-top: 4px;
+	margin-top: 4px;
 }
 
 .link {
-  cursor: pointer;
-  color: var(--primary);
+	cursor: pointer;
+
+	color: var(--primary);
 }
 
 .section {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.02px;
-  color: var(--white);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
-  border-bottom: 1px solid var(--dark-grey);
+	padding: 24px;
+
+	letter-spacing: 0.02px;
+
+	color: var(--white);
+
+	border-bottom: 1px solid var(--dark-grey);
+
+	font-size: 18px;
+	font-weight: 600;
 }
 
 .tokenFileWrapper {
-  width: 70px;
-  height: auto;
-  position: relative;
+	position: relative;
 
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #707070;
+	overflow: hidden;
+
+	width: 70px;
+	height: auto;
+
+	border: 1px solid #707070;
+
+	border-radius: 8px;
 }
 
 .tokenInfoWrapper {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .tokenNameWrapper {
-  margin-left: 16px;
+	margin-left: 16px;
 }
 
 .video {
-  position: absolute;
-  top:0;
-  max-width: 70px;
+	position: absolute;
+	top:0;
+
+	max-width: 70px;
 }
 
 .audio {
 	display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+
+	height: 100%;
 }
 
 .greySmallText {
-  font-size: 16px;
-  letter-spacing: 0.01px;
-  color: var(--light-grey);
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
+
+	letter-spacing: 0.01px;
+
+	color: var(--light-grey);
+
+	font-size: 16px;
 }
 
 .whiteText {
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 0.02px;
-  color: var(--white);
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
+
+	letter-spacing: 0.02px;
+
+	color: var(--white);
+
+	font-size: 18px;
+	font-weight: 600;
 }
 
 .bigWhiteText {
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 33px;
-  letter-spacing: 0.02px;
-  color: var(--white);
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
+
+	letter-spacing: 0.02px;
+
+	color: var(--white);
+
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 33px;
 }
 
 .spinner {
-  position: relative;
-  left: 50%;
-  width: fit-content;
-  transform: translate(-50%);
+	position: relative;
+	left: 50%;
+
+	width: fit-content;
+
+	transform: translate(-50%);
 }
 
 .priceWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+	display: flex;
+	align-items: flex-end;
+	flex-direction: column;
 }
 
 .marginBottom16 {
-  margin-bottom: 16px;
+	margin-bottom: 16px;
 }
 
 .columnDown {
-  align-items: flex-end;
+	align-items: flex-end;
 }
 
 .feeDataWrapper {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+	display: flex;
+	align-items: flex-end;
+	flex-direction: column;
+
+	height: 100%;
 }
 

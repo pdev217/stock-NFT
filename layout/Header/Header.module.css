@@ -64,14 +64,14 @@
 	justify-content: center;
 
 	width: 60%;
-	height: 49px;
 	max-width: 590px;
+	height: 49px;
+	margin-right: 1.5%;
 
 	cursor: pointer;
 
 	border: 1px solid var(--primary);
 	border-radius: 8px;
-	margin-right: 1.5%;
 }
 
 .searchButton div {
@@ -225,18 +225,21 @@
 }
 
 .createButton {
-	padding: 10px 20px;
 	width: fit-content;
+	margin-left: 1.5%;
+	padding: 10px 20px;
+
+	cursor: pointer;
+
 	border: 1px solid var(--primary);
 	border-radius: 8px;
-	cursor: pointer;
-	margin-left: 1.5%;
 }
 
 .createButton a {
+	color: var(--white);
+
 	font-family: "Poppins", sans-serif;
 	font-size: 16px;
-	color: var(--white);
 }
 
 @media screen and (max-width: 1400px) {

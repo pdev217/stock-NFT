@@ -31,8 +31,9 @@
 }
 
 .text {
-	margin-left: 12px;
-	width: 100%;
 	display: flex;
 	justify-content: space-between;
+
+	width: 100%;
+	margin-left: 12px;
 }
