@@ -5,7 +5,7 @@ import Image from "next/image";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
 import { useDispatch, useSelector } from "react-redux";
 //classnames
-import cn from 'classnames'
+import cn from "classnames";
 //components
 import { LeftSideInfoWrapper } from "./components/LeftSideInfoWrapper/LeftSideInfoWraper";
 import { RightSideInfoWrapper } from "./components/RightSideInfoWrapper/RightSideInfoWrapper";
@@ -60,7 +60,7 @@ export const ViewIndividualTokenPage = ({
   const handleError = (message, callback) => {
     callback();
     dispatch(openError(message));
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const handleLoadImage = (width, height) => {
@@ -78,10 +78,10 @@ export const ViewIndividualTokenPage = ({
       setTypeOfTokenFile("image");
     } else if (videos.includes(end)) {
       setTypeOfTokenFile("video");
-      setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`)
+      setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`);
     } else if (audios.includes(end)) {
       setTypeOfTokenFile("audio");
-      setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`)
+      setTokenFileLink(`${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`);
     }
   }, [fileName]);
 
@@ -117,15 +117,19 @@ export const ViewIndividualTokenPage = ({
                 <span>{fakeLikes}</span>
               </div>
             </div>
-            <div className={cn(styles.tokenImageContainer, {
-              [styles.videoContainer] : typeOfTokenFile === "video",
-              [styles.audioContainer] : typeOfTokenFile === "audio",
-            })}>
-              <div className={cn(styles.tokenImage, {
-              [styles.videoContainer] : typeOfTokenFile === "video",
-              [styles.audioContainer] : typeOfTokenFile === "audio",
-            })}
+            <div
+              className={cn(styles.tokenImageContainer, {
+                [styles.videoContainer]: typeOfTokenFile === "video",
+                [styles.audioContainer]: typeOfTokenFile === "audio",
+              })}
+              
             >
+              <div
+                className={cn(styles.tokenImage, {
+                  [styles.videoContainer]: typeOfTokenFile === "video",
+                  [styles.audioContainer]: typeOfTokenFile === "audio",
+                })}
+              >
                 {isLoading && (
                   <div className={styles.spinner}>
                     <Oval
@@ -138,29 +142,30 @@ export const ViewIndividualTokenPage = ({
                     />
                   </div>
                 )}
-                {typeOfTokenFile === "image" && (imageErrors.tokenImage ? (
-                  <div className={styles.emptySection}>
-                    <span>No file</span>
-                  </div>
-                ) : (
-                  <Image
-                    src={tokenFileLink}
-                    loader={tokenImageLoader}
-                    alt="token-image"
-                    objectFit="contain"
-                    layout="responsive"
-                    width="100%"
-                    height={`${ratio}%`}
-                    onError={() => 
-                      handleError("404 Token file is not found", () =>
-                        setImageErrors({ ...imageErrors, tokenImage: true })
-                      )
-                    }
-                    onLoadingComplete={({ naturalWidth, naturalHeight }) =>
-                      handleLoadImage(naturalWidth, naturalHeight)
-                    }
-                  />)
-                )}
+                {typeOfTokenFile === "image" &&
+                  (imageErrors.tokenImage ? (
+                    <div className={styles.emptySection}>
+                      <span>No file</span>
+                    </div>
+                  ) : (
+                    <Image
+                      src={tokenFileLink}
+                      loader={tokenImageLoader}
+                      alt="token-image"
+                      objectFit="contain"
+                      layout="responsive"
+                      width="100%"
+                      height={`${ratio}%`}
+                      onError={() =>
+                        handleError("404 Token file is not found", () =>
+                          setImageErrors({ ...imageErrors, tokenImage: true })
+                        )
+                      }
+                      onLoadingComplete={({ naturalWidth, naturalHeight }) =>
+                        handleLoadImage(naturalWidth, naturalHeight)
+                      }
+                    />
+                  ))}
                 {typeOfTokenFile === "video" && (
                   <video
                     src={tokenFileLink}

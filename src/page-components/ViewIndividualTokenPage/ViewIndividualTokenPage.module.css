@@ -110,14 +110,13 @@
 }
 
 .video {
-	position: absolute;
+	position: relative;
 
 	width: 100%;
-	min-height: 100%;
+	max-height: 500px;
 }
 
 .videoContainer {
-	min-height: 400px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
