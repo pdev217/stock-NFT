@@ -59,6 +59,8 @@ export const CreateNFTPage = () => {
   });
 
   const [previewFile, setPreviewFile] = useState();
+  const [ratio, setRatio] = useState(16 / 9);
+  const [videoSizes, setVideoSizes] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
   const [enabledUnlockable, setEnsabledUnlockable] = useState(true);
   //modals open
@@ -116,30 +118,6 @@ export const CreateNFTPage = () => {
     }
   };
 
-  const pinFileToIPFS = async (file) => {
-    let data = new FormData();
-    data.append("file", file);
-
-    const responsive = await axios.post(`https://api.pinata.cloud/pinning/pinFileToIPFS`, data, {
-      maxBodyLength: "Infinity", //this is needed to prevent axios from erroring out with large files
-      headers: {
-        pinata_api_key: process.env.PINATA_API_KEY,
-        pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY,
-      },
-    });
-    return responsive.data.IpfsHash;
-  };
-
-  const pinJSONToIPFS = async (JSONBody) => {
-    const responsive = await axios.post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, JSONBody, {
-      headers: {
-        pinata_api_key: process.env.PINATA_API_KEY,
-        pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY,
-      },
-    });
-    return responsive.data.IpfsHash;
-  };
-
   const handleSave = async () => {
     const imageHash = await pinFileToIPFS(values.file); //use `https://ipfs.io/ipfs/${imageHash}` as image
     //code here.
@@ -185,6 +163,36 @@ export const CreateNFTPage = () => {
       );
     }
   };
+
+  const handleLoadImage = (width, height) => {
+    setRatio(width / height);
+  };
+
+  const pinFileToIPFS = async (file) => {
+    let data = new FormData();
+    data.append("file", file);
+
+    const responsive = await axios.post(`https://api.pinata.cloud/pinning/pinFileToIPFS`, data, {
+      maxBodyLength: "Infinity", //this is needed to prevent axios from erroring out with large files
+      headers: {
+        pinata_api_key: process.env.PINATA_API_KEY,
+        pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY,
+      },
+    });
+    return responsive.data.IpfsHash;
+  };
+
+  const pinJSONToIPFS = async (JSONBody) => {
+    const responsive = await axios.post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, JSONBody, {
+      headers: {
+        pinata_api_key: process.env.PINATA_API_KEY,
+        pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY,
+      },
+    });
+    return responsive.data.IpfsHash;
+  };
+
+  //fetch functions
 
   const fetchCollections = async () => {
     try {
@@ -250,6 +258,7 @@ export const CreateNFTPage = () => {
   }, [values.file]);
 
   const star = <span className={styles.star}>*</span>;
+  console.log("---previewFile", previewFile);
 
   return (
     <div className={styles.pageWrapper}>
@@ -266,15 +275,34 @@ export const CreateNFTPage = () => {
               File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max size: 100 MB
             </span>
           </div>
-          <div className={styles.dragPlaceholder}>
+          <div
+            className={styles.dragPlaceholder}
+            style={{
+              height: previewFile ? "auto" : "200px",
+            }}
+          >
             <div
               className={styles.imageWrapper}
               style={{
                 background: previewFile ? "none" : 'url("/create-nft/Icon-Image.png") no-repeat center',
+                height:
+                  (!previewFile && "100%") ||
+                  (previewFile && values.file?.type.startsWith("video") && "300px") ||
+                  (previewFile && values.file?.type.startsWith("audio") && "100px"),
               }}
             >
               {previewFile && values.file?.type.startsWith("image") && (
-                <Image src={previewFile} alt="image" layout="fill" objectFit="contain" />
+                <Image
+                  src={previewFile}
+                  alt="image"
+                  width={400}
+                  height={400 / ratio}
+                  layout="responsive"
+                  objectFit="contain"
+                  onLoadingComplete={({ naturalWidth, naturalHeight }) =>
+                    handleLoadImage(naturalWidth, naturalHeight)
+                  }
+                />
               )}
             </div>
             <input
