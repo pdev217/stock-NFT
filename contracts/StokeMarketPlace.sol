@@ -36,7 +36,7 @@ contract StokeMarketplace is ReentrancyGuard {
 
         //calc service fee - 2.5%
         uint marketFeePercentage = 25;
-        uint commissionDenominator  = 1000;
+        uint commissionDenominator = 1000;
         uint serviceFee = _amount * marketFeePercentage / commissionDenominator;
 
         require(IERC20(_token).allowance(_sender, address(this)) == _amount, "insufficient amount");

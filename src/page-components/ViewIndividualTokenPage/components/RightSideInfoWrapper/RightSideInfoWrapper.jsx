@@ -311,7 +311,7 @@ export const RightSideInfoWrapper = ({
           </div>
         </div>
         <div>
-          <PriceHistory isPriceHistoryOpened={isPriceHistoryOpened} />
+         <PriceHistory isPriceHistoryOpened={isPriceHistoryOpened} />
         </div>
       </div>
       <MakeOfferModal
