@@ -35,8 +35,8 @@ import stokeNFTArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNF
 import marketPlaceArtifacts from "../../../artifacts/contracts/StokeMarketPlace.sol/StokeMarketplace.json";
 import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json";
 //web3
-import { injected } from "../../connectors";
 import { useWeb3React } from "@web3-react/core";
+import { switchNetwork } from "../../utils";
 //ethers
 import { ethers } from "ethers";
 
@@ -51,8 +51,8 @@ Date.prototype.toDateInputValue = function () {
   return `${hours}:${minutes}`;
 };
 
-const tokenAddr = "0x194194b1D78172446047e327476B811f5D365c21";
-const stokeMarketAddr = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const tokenAddr = process.env.TOKEN_ADDR;
+const stokeMarketAddr = process.env.MARKET_ADDR;
 const etherChain = process.env.ETHER_CHAIN;
 let tokenContract;
 
@@ -117,7 +117,6 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
       );
     }
-    return response;
   };
 
   const getTokenBalance = async () => {
@@ -156,6 +155,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
 
   const handleMakeOffer = async () => {
     await handleApprove();
+    
     try {
       const accessToken = localStorage.getItem("accessToken");
       const {
@@ -180,16 +180,9 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
 
   const handleApprove = async () => {
     if (chainId !== etherChain) {
-      await switchNetwork(etherChain);
+      await switchNetwork(etherChain, library);
     }
     await tokenContract.approve(stokeMarketAddr, ethers.utils.parseUnits(String(modalData.amount), 18));
-  };
-
-  const switchNetwork = async (network) => {
-    await library.provider.request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId: toHex(network) }],
-    });
   };
 
   useEffect(() => {
@@ -214,7 +207,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   ]);
 
   useEffect(() => {
-    if (modalData.amount < 1) setModalData({ ...modalData, amount: 1 });
+    if (modalData.amount < 0) setModalData({ ...modalData, amount: 0 });
   }, [modalData.amount]);
 
   return (

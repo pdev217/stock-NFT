@@ -24,6 +24,8 @@ module.exports = {
     PINATA_SECRET_API_KEY: '12bc6c92c377a63574ac6307bff4213da8adf58b604148fb3313018948f1b864',
     TOKEN_URL: '0x194194b1D78172446047e327476B811f5D365c21',
     ETHER_CHAIN: 4, //rinkeby test network, we can chain it to mainnet later
-    POLYGON_CHAIN: 8001 //mumbai test network, we can chain it to mainnet later
+    POLYGON_CHAIN: 8001, //mumbai test network, we can chain it to mainnet later
+    TOKEN_ADDR: "0x194194b1D78172446047e327476B811f5D365c21",
+    MARKET_ADDR: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
   },
 }
