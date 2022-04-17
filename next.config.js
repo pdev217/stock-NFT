@@ -25,7 +25,7 @@ module.exports = {
     TOKEN_URL: '0x194194b1D78172446047e327476B811f5D365c21',
     ETHER_CHAIN: 4, //rinkeby test network, we can chain it to mainnet later
     POLYGON_CHAIN: 8001, //mumbai test network, we can chain it to mainnet later
-    TOKEN_ADDR: "0x194194b1D78172446047e327476B811f5D365c21",
+    TOKEN_ADDR: "0x889E39c7d55562f9acD4Bf21eE3F257B545F2A30",
     MARKET_ADDR: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
   },
 }

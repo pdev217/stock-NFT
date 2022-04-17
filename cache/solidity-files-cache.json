@@ -1245,7 +1245,7 @@
       ]
     },
     "D:\\New folder\\stoke-frontend\\contracts\\StokeNFT.sol": {
-      "lastModificationDate": 1649912877358,
+      "lastModificationDate": 1650205721176,
       "contentHash": "470568a55a2e7106e0e79226d1d52b17",
       "sourceName": "contracts/StokeNFT.sol",
       "solcConfig": {
@@ -1322,8 +1322,8 @@
       ]
     },
     "D:\\New folder\\stoke-frontend\\contracts\\StokeMarketPlace.sol": {
-      "lastModificationDate": 1649912887543,
-      "contentHash": "2bc1558d84cdd7638bfeab70bb13e468",
+      "lastModificationDate": 1650206905952,
+      "contentHash": "0c851ca0a2505dcf800193ad95926763",
       "sourceName": "contracts/StokeMarketPlace.sol",
       "solcConfig": {
         "version": "0.8.8",
@@ -1437,8 +1437,8 @@
       ]
     },
     "D:\\New folder\\stoke-frontend\\contracts\\WETH.sol": {
-      "lastModificationDate": 1649920680215,
-      "contentHash": "95c0dfa740fb22524eb5caa6cc105ec3",
+      "lastModificationDate": 1650202900669,
+      "contentHash": "8cf78e54d7cb6aea40ba73b28b104486",
       "sourceName": "contracts/WETH.sol",
       "solcConfig": {
         "version": "0.5.16",
@@ -1464,7 +1464,9 @@
           }
         }
       },
-      "imports": [],
+      "imports": [
+        "hardhat/console.sol"
+      ],
       "versionPragmas": [
         "^0.5.0"
       ],

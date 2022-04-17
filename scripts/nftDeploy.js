@@ -19,7 +19,7 @@ async function main() {
 
   await contract.deployed();
 
-  console.log("Weth token deployed to:", contract.address);
+  console.log("nft contract deployed to:", contract.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

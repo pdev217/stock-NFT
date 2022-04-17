@@ -1,17 +1,22 @@
+const { Offer } = require("../src/utils/offer")
+
 const {
   expect
 } = require("chai");
 const web3Abi = require("web3-eth-abi");
+const { ethers } = require("hardhat");
+
+const provider = waffle.provider;
 
 let WETH, weth;
 let nftArtifact, nftContract;
 let marketContract;
 let MarketPlace;
-let owner, account1, account2;
+let owner, account1, account2, account3, account4;
 
 describe("StokeMarketPlace contract", function () {
   it("Deploy contracts", async function () {
-    [owner, account1, account2] = await ethers.getSigners();
+    [owner, account1, account2, account3, account4] = await ethers.getSigners();
 
     MarketPlace = await  ethers.getContractFactory('StokeMarketplace');
     marketContract = await MarketPlace.deploy();
@@ -30,13 +35,35 @@ describe("StokeMarketPlace contract", function () {
     console.log("WETH deployed to:", weth.address);
   })
 
-  it("Start making offer", async function () {
-    await weth.connect(account1).deposit();
-    await weth.connect(account2).deposit();
-    await weth.connect(account2).approve(marketContract.address, ethers.utils.parseUnits(String(1000), 18));
+  it("Start making offer", async() => {
+    const offerClass = new Offer({contractAddress: weth.address, signer:account1, library:provider})
+    const nonce = await weth.nonces(account1.address);
+    const {offer, signature} = await offerClass.makeOffer(account1.address, marketContract.address, 1, Number(ethers.utils.formatUnits(nonce))*10**18, Date.now("2022-04-20"));
+    const signData = ethers.utils.splitSignature(signature);
+    const { v,r,s} = signData;
+    await weth.permit(offer.owner, offer.spender, offer.value, offer.deadline, v,r,s);
   })
-  
-  it("Start accept offer", async function() {
-    await marketContract.connect(account1).acceptOffer(weth.address, account2.address, ethers.utils.parseUnits(String(1000), 18), Date.now("2022-04-15"), nftContract.address, 0, "ipfs:lion");
+
+  it("Accept", async() => {
+    await weth.connect(account4).deposit({from:account4.address, value: ethers.utils.parseEther("1")})
+    const offerClass = new Offer({contractAddress: weth.address, signer:account4, library:provider})
+    const nonce = await weth.nonces(account4.address);
+    const {offer, signature} = await offerClass.makeOffer(account4.address, marketContract.address, 1000000000000000, Number(ethers.utils.formatUnits(nonce))*10**18, Date.now("2022-04-20"));
+    // const signData = ethers.utils.splitSignature(signature);
+    // const { v,r,s} = signData;
+    const offerC = {
+      sender: offer.owner,
+      amount:offer.value,
+      expiresAt: offer.deadline
+    }
+    const Token = {
+      tokenId: 0,
+      tokenURI: "ipfs:lion"
+    }
+    // await weth.permit(offer.owner, offer.spender, offer.value, offer.deadline, v,r,s);
+    // await marketContract.accept(offerC, weth.address, nftContract.address, Token, v,r,s);
+    await marketContract.accept(offerC, weth.address, nftContract.address, Token);
+    const amount = await weth.allowance(account4.address, marketContract.address);
+    console.log(ethers.utils.formatUnits(amount))
   })
 })

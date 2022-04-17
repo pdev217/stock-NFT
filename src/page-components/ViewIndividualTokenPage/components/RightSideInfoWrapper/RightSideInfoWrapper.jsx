@@ -21,8 +21,18 @@ import { AcceptOfferModal } from "../../../../modals/AcceptOfferModal/AcceptOffe
 import { useWeb3React } from "@web3-react/core";
 //ethers
 import { ethers } from "ethers";
+//contract
+import stokeNFTArtifacts from "../../../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json";
+import marketPlaceArtifacts from "../../../../../artifacts/contracts/StokeMarketPlace.sol/StokeMarketplace.json";
+import tokenArtifacts from "../../../../../artifacts/contracts/WETH.sol/WETH9.json";
 
 const fakeDate = new Date(2022, 6, 1, 2, 3, 4, 567);
+const tokenAddr = "0x889E39c7d55562f9acD4Bf21eE3F257B545F2A30";
+const stokeMarketAddr = "0x0c22b85331C9a5c9Ef2Cb12fe762f07e40835D2d";
+const nftAddr = "0xF692a377d9F16a120F935fe44dfbd13191567988";
+let tokenContract;
+let marketContract;
+let nftContract;
 
 export const RightSideInfoWrapper = ({
   collection,
@@ -36,7 +46,7 @@ export const RightSideInfoWrapper = ({
   usdPrice,
 }) => {
   const dispatch = useDispatch();
-  const { library } = useWeb3React();
+  const { account, library } = useWeb3React();
   const [saleEnds, setSaleEnds] = useState(undefined);
   const [saleEndsStringified, setSaleEndsStringified] = useState("");
 
@@ -51,9 +61,29 @@ export const RightSideInfoWrapper = ({
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
 
-  const handleAccept = (price, id) => {
+  const handleAccept = async (price, id) => {
     setAcceptModalData({ price, name, collection, tokenFileName, id });
     setIsAcceptOfferModalOpened(true);
+    // const wei = await tokenContract.balanceOf("0xdD2FD4581271e230360230F9337D5c0430Bf44C0");
+    // const balance = ethers.utils.formatUnits(wei);
+    // console.log(Number(balance))
+    // if(Number(balance) === 0) {
+    //   await tokenContract.deposit({from: account, value: ethers.utils.parseEther("0.01")})
+    // }
+    // const offerC = {
+    //   sender: "0xdD2FD4581271e230360230F9337D5c0430Bf44C0",
+    //   amount:1000000000000000,
+    //   expiresAt: Date.now("2022-04-20")
+    // }
+    // const Token = {
+    //   tokenId: 11125,
+    //   tokenURI: "ipfs:lion"
+    // }
+
+    // const nftOwner = await nftContract.IsExistToken(1112);
+    // console.log(nftOwner)
+
+    // await marketContract.accept(offerC, tokenAddr, nftAddr, Token);
   };
 
   useEffect(() => {
@@ -69,6 +99,31 @@ export const RightSideInfoWrapper = ({
       setListingData([...array]);
     }
   }, [listing]);
+
+  //get contract
+  useEffect(() => {
+    const IToken = new ethers.ContractFactory(
+      tokenArtifacts.abi,
+      tokenArtifacts.deployedBytecode,
+      library?.getSigner()
+    );
+
+    tokenContract = IToken.attach(tokenAddr);
+
+    const IMarket = new ethers.ContractFactory(
+      marketPlaceArtifacts.abi,
+      marketPlaceArtifacts.deployedBytecode,
+      library?.getSigner()
+    )
+    marketContract = IMarket.attach(stokeMarketAddr);
+
+    const IStokeNFT = new ethers.ContractFactory(
+      stokeNFTArtifacts.abi,
+      stokeNFTArtifacts.deployedBytecode,
+      library?.getSigner()
+    )
+    nftContract = IStokeNFT.attach(nftAddr);
+  }, [account, library]);
 
   useEffect(() => {
     dispatch(setOffers(offers));
@@ -254,7 +309,7 @@ export const RightSideInfoWrapper = ({
                 [styles.closed]: !isOffersOpened,
               })}
             >
-              {offersData.map(({ price, user: { username }, expirationDate, id }) => (
+              {offersData.map(({ price, user, expirationDate, id }) => (
                 <div key={id} className={styles.tableRow}>
                   <div>
                     <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
@@ -267,7 +322,7 @@ export const RightSideInfoWrapper = ({
                     <span className={styles.greySmallText}>{expirationDate}</span>
                   </div>
                   <div>
-                    <span className={styles.link}>{username}</span>
+                    <span className={styles.link}>{user.username?user.username:(user.publicAddress)?.slice(0,5)}</span>
                   </div>
                   <div className={styles.buttonWrapper}>
                     <CustButton text="buy" color="ghost" onClick={() => handleAccept(price, id)} />

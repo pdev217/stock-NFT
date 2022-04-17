@@ -24,21 +24,19 @@ import useAuth from "../../hooks/useAuth";
 import { useStyles } from "../../hooks/useStyles";
 //utils
 import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
-import { toHex } from "../../utils";
+import { toHex, Offer } from "../../utils";
 //styles
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
 import { TransferApprovalModal } from "../TransferApprovalModal/TransferApprovalModal";
 import { styles } from "../../components/CustButton/CustButton.utils";
-//contract
-import stokeNFTArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json";
-import marketPlaceArtifacts from "../../../artifacts/contracts/StokeMarketPlace.sol/StokeMarketplace.json";
-import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json";
 //web3
 import { useWeb3React } from "@web3-react/core";
 import { switchNetwork } from "../../utils";
 //ethers
 import { ethers } from "ethers";
+//contracts
+import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json"
 
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
@@ -51,10 +49,10 @@ Date.prototype.toDateInputValue = function () {
   return `${hours}:${minutes}`;
 };
 
-const tokenAddr = process.env.TOKEN_ADDR;
-const stokeMarketAddr = process.env.MARKET_ADDR;
 const etherChain = process.env.ETHER_CHAIN;
 let tokenContract;
+const tokenAddr = process.env.TOKEN_ADDR;
+const stokeMarketAddr = "0x0c22b85331C9a5c9Ef2Cb12fe762f07e40835D2d";
 
 export const MakeOfferModal = ({ isOpened, handleClose }) => {
   const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
@@ -138,15 +136,15 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
 
   useEffect(() => {
     if (library) {
-      const IToken = new ethers.ContractFactory(
-        tokenArtifacts.abi,
-        tokenArtifacts.deployedBytecode,
-        library?.getSigner()
-      );
-
-      tokenContract = IToken.attach(tokenAddr);
-
       if (chainId === etherChain) {
+        const IToken = new ethers.ContractFactory(
+          tokenArtifacts.abi,
+          tokenArtifacts.deployedBytecode,
+          library?.getSigner()
+        );
+
+        tokenContract = IToken.attach(tokenAddr);
+
         console.log("---account", account);
         account && getTokenBalance();
       }
@@ -182,7 +180,12 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
     if (chainId !== etherChain) {
       await switchNetwork(etherChain, library);
     }
-    await tokenContract.approve(stokeMarketAddr, ethers.utils.parseUnits(String(modalData.amount), 18));
+    const value = modalData.amount;
+    const offerClass = new Offer({contractAddress: tokenAddr, signer:library?.getSigner(), library })
+    const nonce = await tokenContract.nonces(account);
+    const { offer, signature } = await offerClass.makeOffer(account, stokeMarketAddr, value*10**18, ethers.utils.formatUnits(nonce)*10**18, Date.now("2022-04-20"));
+    const signData = ethers.utils.splitSignature(signature);
+    const { v,r,s} = signData;
   };
 
   useEffect(() => {

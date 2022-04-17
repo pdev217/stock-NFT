@@ -1,4 +1,5 @@
 import { LazyMinter } from "./lazyMinter";
+import { Offer } from "./offer";
 
 export const toHex = (num) => {
     const val = Number(num);
@@ -12,4 +13,4 @@ export const switchNetwork = async (network, library) => {
     });
 };
 
-export { LazyMinter }
+export { LazyMinter, Offer }
