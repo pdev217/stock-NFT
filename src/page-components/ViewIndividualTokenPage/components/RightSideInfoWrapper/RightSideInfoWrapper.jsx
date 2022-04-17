@@ -27,9 +27,9 @@ import marketPlaceArtifacts from "../../../../../artifacts/contracts/StokeMarket
 import tokenArtifacts from "../../../../../artifacts/contracts/WETH.sol/WETH9.json";
 
 const fakeDate = new Date(2022, 6, 1, 2, 3, 4, 567);
-const tokenAddr = "0x889E39c7d55562f9acD4Bf21eE3F257B545F2A30";
-const stokeMarketAddr = "0x0c22b85331C9a5c9Ef2Cb12fe762f07e40835D2d";
-const nftAddr = "0xF692a377d9F16a120F935fe44dfbd13191567988";
+const tokenAddr = process.env.TOKEN_ADDR;
+const stokeMarketAddr = process.env.MARKET_ADDR;
+const nftAddr = process.env.NFT_ADDR;
 let tokenContract;
 let marketContract;
 let nftContract;
@@ -61,6 +61,7 @@ export const RightSideInfoWrapper = ({
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
 
+  console.log(offersData);
   const handleAccept = async (price, id) => {
     setAcceptModalData({ price, name, collection, tokenFileName, id });
     setIsAcceptOfferModalOpened(true);

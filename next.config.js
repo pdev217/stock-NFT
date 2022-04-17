@@ -26,6 +26,7 @@ module.exports = {
     ETHER_CHAIN: 4, //rinkeby test network, we can chain it to mainnet later
     POLYGON_CHAIN: 8001, //mumbai test network, we can chain it to mainnet later
     TOKEN_ADDR: "0x889E39c7d55562f9acD4Bf21eE3F257B545F2A30",
-    MARKET_ADDR: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    MARKET_ADDR: "0x0c22b85331C9a5c9Ef2Cb12fe762f07e40835D2d",
+    NFT_ADDR: "0x0c22b85331C9a5c9Ef2Cb12fe762f07e40835D2d"
   },
 }

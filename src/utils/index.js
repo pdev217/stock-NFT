@@ -1,5 +1,6 @@
 import { LazyMinter } from "./lazyMinter";
 import { Offer } from "./offer";
+import axios from "axios";
 
 export const toHex = (num) => {
     const val = Number(num);
@@ -12,5 +13,11 @@ export const switchNetwork = async (network, library) => {
       params: [{ chainId: toHex(network) }],
     });
 };
+
+export const getEtherPrice = async () => {
+  const cryptoData = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd");
+  const ethereum = cryptoData.data[1];
+  return ethereum.current_price;
+}
 
 export { LazyMinter, Offer }

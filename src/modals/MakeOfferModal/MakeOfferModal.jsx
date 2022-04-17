@@ -24,7 +24,7 @@ import useAuth from "../../hooks/useAuth";
 import { useStyles } from "../../hooks/useStyles";
 //utils
 import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
-import { toHex, Offer } from "../../utils";
+import { toHex, Offer, getEtherPrice } from "../../utils";
 //styles
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
@@ -50,9 +50,9 @@ Date.prototype.toDateInputValue = function () {
 };
 
 const etherChain = process.env.ETHER_CHAIN;
-let tokenContract;
 const tokenAddr = process.env.TOKEN_ADDR;
-const stokeMarketAddr = "0x0c22b85331C9a5c9Ef2Cb12fe762f07e40835D2d";
+const stokeMarketAddr = process.env.MARKET_ADDR;
+let tokenContract;
 
 export const MakeOfferModal = ({ isOpened, handleClose }) => {
   const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
@@ -149,6 +149,8 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
         account && getTokenBalance();
       }
     }
+
+    // const etherPrice = await getEtherPrice();
   }, [account, library]);
 
   const handleMakeOffer = async () => {
