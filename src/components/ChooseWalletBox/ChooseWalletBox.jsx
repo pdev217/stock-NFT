@@ -51,6 +51,7 @@ export const ChooseWalletBox = ({ className }) => {
   const connect = async (connector, id) => {
     await onConnect(connector, id);
     provider = await connector.getProvider();
+    console.log(provider)
     if (provider) {
       web3 = new Web3(provider);
       signMessage();
@@ -62,13 +63,17 @@ export const ChooseWalletBox = ({ className }) => {
     const response = await axios.post(`${process.env.BACKEND_URL}/users/${accounts[0]}`);
     const nonce = response.data.nonce;
     const msg = `I am signing my one-time nonce: ${nonce}`;
-
-    await web3.eth.personal
-      .sign(web3.utils.utf8ToHex(msg), accounts[0])
-      .then((signature) => {
-        handleAuthenticate(signature, accounts[0]);
-      })
-      .catch((err) => setIsSelect(false));
+    console.log(accounts[0])
+    if(accounts[0]) {
+      await web3.eth.personal
+        .sign(web3.utils.utf8ToHex(msg), accounts[0])
+        .then((signature) => {
+          handleAuthenticate(signature, accounts[0]);
+        })
+        .catch((err) => setIsSelect(false));
+    }else {
+      setIsSelect(false);
+    }
   }
 
   const handleAuthenticate = async (signature, address) => {
