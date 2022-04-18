@@ -153,41 +153,44 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   }, [account, library]);
 
   const handleMakeOffer = async () => {
-    await handleApprove();
-    
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      const {
-        data: { isTransferApproved },
-      } = await axios.get(`${process.env.BACKEND_URL}/users/checkTransferApproval`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      });
 
-      if (!isTransferApproved) {
-        setIsTransferApprovalModalOpened(true);
-      } else {
-        sendOfferToServer();
-      }
-    } catch (e) {
-      dispatch(
-        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
-      );
-    }
-  };
-
-  const handleApprove = async () => {
     if (chainId !== etherChain) {
       await switchNetwork(etherChain, library);
+      dispatch(
+        openSuccess({
+          title: "The network has been changed successfully."
+        })
+      );
+    }else {
+      // console.log(modalData)
+      const value = modalData.amount;
+      const offerClass = new Offer({contractAddress: tokenAddr, signer:library?.getSigner(), library })
+      const nonce = await tokenContract.nonces(account);
+      const { offer, signature } = await offerClass.makeOffer(account, stokeMarketAddr, value*10**18, ethers.utils.formatUnits(nonce)*10**18, Date.now("2022-04-20"));
+      const signData = ethers.utils.splitSignature(signature);
+      const { v,r,s} = signData;
+
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        const {
+          data: { isTransferApproved },
+        } = await axios.get(`${process.env.BACKEND_URL}/users/checkTransferApproval`, {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        });
+  
+        if (!isTransferApproved) {
+          setIsTransferApprovalModalOpened(true);
+        } else {
+          sendOfferToServer();
+        }
+      } catch (e) {
+        dispatch(
+          openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+        );
+      }
     }
-    // console.log(modalData)
-    const value = modalData.amount;
-    const offerClass = new Offer({contractAddress: tokenAddr, signer:library?.getSigner(), library })
-    const nonce = await tokenContract.nonces(account);
-    const { offer, signature } = await offerClass.makeOffer(account, stokeMarketAddr, value*10**18, ethers.utils.formatUnits(nonce)*10**18, Date.now("2022-04-20"));
-    const signData = ethers.utils.splitSignature(signature);
-    const { v,r,s} = signData;
   };
 
   useEffect(() => {
