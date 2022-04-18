@@ -1,0 +1,10 @@
+.cross {
+	margin-left: auto;
+
+	cursor: pointer;
+}
+
+
+.chooseBoxWrapper {
+	padding: 0 40px 40px;
+}

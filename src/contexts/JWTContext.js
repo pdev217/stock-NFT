@@ -1,7 +1,13 @@
 import { createContext, useEffect, useReducer } from "react";
-import { pagesForUnauthorized } from "../helpers/pagesForUnauthorized";
-import axios from "axios";
+//next
 import { useRouter } from "next/router";
+//redux
+import { Provider } from "react-redux";
+import { useSelector } from "react-redux";
+import { store } from "../redux/store";
+//axios
+import axios from "axios";
+//web3
 import { useWeb3React } from "@web3-react/core";
 import { injected, coinbaseWallet, walletConnect } from "../connectors";
 
@@ -61,6 +67,7 @@ const verifyUser = async (accessToken) => {
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const pagesForUnauthorized = useSelector((state) => state.administration.pagesForUnauthorized);
   const router = useRouter();
   const { deactivate, activate } = useWeb3React();
 
@@ -86,15 +93,14 @@ function AuthProvider({ children }) {
             case "metamask":
               activate(injected);
               break;
-            
+
             case "https://ropsten-infura.wallet.coinbase.com":
               activate(coinbaseWallet);
               break;
-          
+
             default:
               break;
           }
-
         } else {
           dispatch({
             type: "INITIALIZE",
@@ -142,7 +148,7 @@ function AuthProvider({ children }) {
         account,
       },
     });
-    router.pathname === '/connect-wallet' && router.push("/");
+    router.pathname === "/connect-wallet" && router.push("/");
   };
 
   const logout = async () => {
@@ -156,16 +162,16 @@ function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        ...state,
-        method: "jwt",
-        login,
-        logout,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+      <AuthContext.Provider
+        value={{
+          ...state,
+          method: "jwt",
+          login,
+          logout,
+        }}
+      >
+        {children}
+      </AuthContext.Provider>
   );
 }
 

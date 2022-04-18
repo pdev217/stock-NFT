@@ -18,7 +18,8 @@ import { Select, MenuItem, TextField, Checkbox } from "@mui/material";
 //components
 import { CustButton } from "../../components/CustButton/CustButton";
 import { ComposedTextField } from "./ComposedTextField";
-import { ChooseWalletBox } from "../../components/ChooseWalletBox/ChooseWalletBox";
+import { ConnectWalletModal } from "../ConnectWalletModal/ConnectWalletModal";
+import { TransferApprovalModal } from "../TransferApprovalModal/TransferApprovalModal";
 //hooks
 import useAuth from "../../hooks/useAuth";
 import { useStyles } from "../../hooks/useStyles";
@@ -28,15 +29,13 @@ import { toHex, Offer, getEtherPrice } from "../../utils";
 //styles
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
-import { TransferApprovalModal } from "../TransferApprovalModal/TransferApprovalModal";
-import { styles } from "../../components/CustButton/CustButton.utils";
 //web3
 import { useWeb3React } from "@web3-react/core";
 import { switchNetwork } from "../../utils";
 //ethers
 import { ethers } from "ethers";
 //contracts
-import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json"
+import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json";
 
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
@@ -155,7 +154,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
 
   const handleMakeOffer = async () => {
     await handleApprove();
-    
+
     try {
       const accessToken = localStorage.getItem("accessToken");
       const {
@@ -182,7 +181,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
     if (chainId !== etherChain) {
       await switchNetwork(etherChain, library);
     }
-    console.log(modalData)
+    console.log(modalData);
     // const value = modalData.amount;
     // const offerClass = new Offer({contractAddress: tokenAddr, signer:library?.getSigner(), library })
     // const nonce = await tokenContract.nonces(account);
@@ -217,15 +216,15 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   }, [modalData.amount]);
 
   return (
-    <Modal
-      open={isOpened}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={jsStyles.wrapper}>
-        {isAuthorized ? (
-          <>
+    <>
+      {isAuthorized ? (
+        <Modal
+          open={isOpened}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={jsStyles.wrapper}>
             <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.header}>
               <span>Make an offer</span>
               <div className={cssStyles.cross} onClick={handleClose}>
@@ -335,30 +334,18 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
                 text="Make Offer"
               />
             </footer>
-          </>
-        ) : (
-          <div className={cssStyles.chooseBoxWrapper}>
-            <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.header}>
-              <span>Please connect wallet</span>
-              <div className={cssStyles.cross} onClick={handleClose}>
-                <Image
-                  src="/create-nft/Icon-Close.svg"
-                  alt="close-icon"
-                  width={15}
-                  height={15}
-                  onClick={handleClose}
-                />
-              </div>
-            </Typography>
-            <ChooseWalletBox />
-          </div>
-        )}
-        <TransferApprovalModal
-          isOpened={isTransferApprovalModalOpened}
-          handleClose={() => setIsTransferApprovalModalOpened(false)}
-          sendOfferToServer={sendOfferToServer}
-        />
-      </Box>
-    </Modal>
+            <TransferApprovalModal
+              isOpened={isTransferApprovalModalOpened}
+              handleClose={() => setIsTransferApprovalModalOpened(false)}
+              sendOfferToServer={sendOfferToServer}
+            />
+          </Box>
+        </Modal>
+      ) : (
+        <ConnectWalletModal 
+          open={isOpened}
+          onClose={handleClose} />
+      )}
+    </>
   );
 };

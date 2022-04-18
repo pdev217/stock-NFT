@@ -17,6 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { CustSwitch } from "../../components/CustSwitch/CustSwitch";
 import { CustButton } from "../../components/CustButton/CustButton";
 import { AddStatsOrLevelsModal } from "../../modals/AddToNFTModal/AddStatsOrLevelsModal";
+import { ConnectWalletModal } from "../../modals/ConnectWalletModal/ConnectWalletModal";
 import { Stat } from "../../components/Stat/Stat";
 import { Level } from "../../components/Level/Level";
 import { Property } from "../../components/Property/Property";
@@ -35,13 +36,13 @@ var contractAddress;
 export const CreateNFTPage = () => {
   const { active, library, chainId } = useWeb3React();
   const dispatch = useDispatch();
-  const { account, error } = useAuth();
+  const { account, error, isAuthorized } = useAuth();
   const inputRef = useRef();
   const videoRef = useRef();
 
-  if (error) {
-    dispatch(openError(`${error.statusCode + " " + error.message}`));
-  }
+  // if (error) {
+  //   dispatch(openError(`${error.statusCode + " " + error.message}`));
+  // }
 
   const [values, setValues] = useState({
     file: undefined,
@@ -69,6 +70,7 @@ export const CreateNFTPage = () => {
   const [isAddStatsOpened, setIsAddStatsOpened] = useState(false);
   const [isAddLevelsOpened, setIsAddLevelsOpened] = useState(false);
   const [isAddPropertiesOpened, setIsAddPropertiesOpened] = useState(false);
+  const [isConnectWalletOpened, setIsConnectWalletOpened] = useState(false);
   //fetched data with useEffect
   const [collections, setCollections] = useState([]);
   const [blockchainTypes, setBlockchainTypes] = useState([]);
@@ -120,7 +122,7 @@ export const CreateNFTPage = () => {
     }
   };
 
-  const handleSave = async () => {
+  const sendDataToServer = async () => {
     const imageHash = await pinFileToIPFS(values.file); //use `https://ipfs.io/ipfs/${imageHash}` as image
     //code here.
     const blockchainTypeId = blockchainTypes.find((type) => type.name === values.blockchainType)?.id || 0;
@@ -163,6 +165,14 @@ export const CreateNFTPage = () => {
       dispatch(
         openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
       );
+    }
+  };
+
+  const handleSave = async () => {
+    if (isAuthorized) {
+      sendDataToServer();
+    } else {
+      setIsConnectWalletOpened(true)
     }
   };
 
@@ -245,9 +255,13 @@ export const CreateNFTPage = () => {
   // useEffects
 
   useEffect(() => {
-    !error && fetchCollections();
+    isAuthorized && !error && fetchCollections();
     !error && fetchBlockchainTypes();
   }, []);
+
+  useEffect(() => {
+    isAuthorized && setIsConnectWalletOpened(false);
+  }, [isAuthorized])
 
   useEffect(() => {
     if (values.file && values.name && values.blockchainType !== "none" && values.description) {
@@ -311,7 +325,10 @@ export const CreateNFTPage = () => {
                   background: previewFile ? "none" : 'url("/create-nft/Icon-Image.png") no-repeat center',
                   height:
                     (!previewFile && "100%") ||
-                    (previewFile && values.file?.type.startsWith("video") && videoRef.current && videoSizes.height) ||
+                    (previewFile &&
+                      values.file?.type.startsWith("video") &&
+                      videoRef.current &&
+                      videoSizes.height) ||
                     (previewFile && values.file?.type.startsWith("audio") && "200px"),
                 }}
               >
@@ -352,7 +369,7 @@ export const CreateNFTPage = () => {
             <div className={styles.uploadButtonsWrapper}>
               <CustButton
                 color="primary"
-                text={previewFile? "Change File" : "Upload File"}
+                text={previewFile ? "Change File" : "Upload File"}
                 onClick={handleUploadButton}
                 className={styles.uploadButton}
                 fullWidth
@@ -567,6 +584,10 @@ export const CreateNFTPage = () => {
           setData={setValues}
         />
       </div>
+      <ConnectWalletModal
+        isOpened={isConnectWalletOpened}
+        handleClose={() => setIsConnectWalletOpened(false)}
+      />
     </div>
   );
 };

@@ -24,8 +24,6 @@ import { ProfilePopup } from "../../src/components/ProfilePopup/ProfilePopup";
 import { routingCategories, profilePopupCategories } from "./Header.utils";
 //hook
 import useAuth from "../../src/hooks/useAuth";
-//helpers
-import { pagesForUnauthorized } from "../../src/helpers/pagesForUnauthorized";
 //styles
 import styles from "./Header.module.css";
 
@@ -37,12 +35,9 @@ export const Header = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { isAuthorized, error } = useAuth();
-  if (
-    error &&
-    router.pathname !== "/" &&
-    router.pathname !== "/connect-wallet" &&
-    router.pathname !== "/token/[tokenId]"
-  ) {
+  const pagesForUnauthorized = useSelector((state) => state.administration.pagesForUnauthorized)
+
+  if (error && !pagesForUnauthorized.includes(router.pathname)) {
     dispatch(
       openError(
         error.response?.data

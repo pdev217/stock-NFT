@@ -27,7 +27,7 @@ import {
   audios,
 } from "../../page-components/ViewIndividualTokenPage/ViewIndividualToken.utils";
 //styles
-import { styles as jsStyles } from "./AcceptOfferModal.utils";
+import { styles as jsStyles } from "../modalStyles/modalJsStyles";
 import cssStyles from "./AcceptOfferModal.module.css";
 
 export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collection, tokenFileName, id }) => {
