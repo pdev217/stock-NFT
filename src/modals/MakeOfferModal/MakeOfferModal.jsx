@@ -18,7 +18,8 @@ import { Select, MenuItem, TextField, Checkbox } from "@mui/material";
 //components
 import { CustButton } from "../../components/CustButton/CustButton";
 import { ComposedTextField } from "./ComposedTextField";
-import { ChooseWalletBox } from "../../components/ChooseWalletBox/ChooseWalletBox";
+import { ConnectWalletModal } from "../ConnectWalletModal/ConnectWalletModal";
+import { TransferApprovalModal } from "../TransferApprovalModal/TransferApprovalModal";
 //hooks
 import useAuth from "../../hooks/useAuth";
 import { useStyles } from "../../hooks/useStyles";
@@ -26,16 +27,14 @@ import { useStyles } from "../../hooks/useStyles";
 import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
 import { toHex, Offer, getEtherPrice, switchNetwork } from "../../utils";
 //styles
-import { styles as jsStyles } from "./MakeOfferModal.utils";
+import { styles as jsStyles } from "../modalStyles/modalJsStyles";
 import cssStyles from "./MakeOfferModal.module.css";
-import { TransferApprovalModal } from "../TransferApprovalModal/TransferApprovalModal";
-import { styles } from "../../components/CustButton/CustButton.utils";
 //web3
 import { useWeb3React } from "@web3-react/core";
 //ethers
 import { ethers } from "ethers";
 //contracts
-import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json"
+import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json";
 
 Date.prototype.toDateInputValue = function () {
   const local = new Date(this);
@@ -66,8 +65,8 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
       ETHBalance: 0,
       WETHBalance: 0,
     },
-    amount: undefined,
-    pricePerItem: undefined,
+    amount: 0,
+    pricePerItem: '$0',
     offerExpirationDays: "3 days",
     offerExpirationTime: new Date().toDateInputValue(),
     agreed: false,
@@ -79,7 +78,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
       query: { tokenId },
     } = router;
 
-    const { offerExpirationDays, offerExpirationTime, pricePerItem } = modalData;
+    const { offerExpirationDays, offerExpirationTime, amount } = modalData;
     const expirationDate = getExpirationDate(offerExpirationDays, offerExpirationTime);
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -88,7 +87,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
         .post(
           `${process.env.BACKEND_URL}/offers`,
           {
-            price: Number(pricePerItem),
+            price: Number(amount),
             expirationDate,
             nftId: Number(tokenId),
           },
@@ -132,43 +131,31 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
       setModalData({ ...modalData, balance: { ETHBalance: result, WETHBalance: WETH } })
     );
   };
-
-  useEffect(() => {
-    if (library) {
-      if (chainId === etherChain) {
-        const IToken = new ethers.ContractFactory(
-          tokenArtifacts.abi,
-          tokenArtifacts.deployedBytecode,
-          library?.getSigner()
-        );
-
-        tokenContract = IToken.attach(tokenAddr);
-
-        console.log("---account", account);
-        account && getTokenBalance();
-      }
-    }
-
-    // const etherPrice = await getEtherPrice();
-  }, [account, library]);
+  const getPricePerItem = async () => {
+    return await getEtherPrice();
+  };
 
   const handleMakeOffer = async () => {
-
     if (chainId !== etherChain) {
       await switchNetwork(etherChain, library);
       dispatch(
         openSuccess({
-          title: "The network has been changed successfully."
+          title: "The network has been changed successfully.",
         })
       );
-    }else {
-      // console.log(modalData)
+    } else {
       const value = modalData.amount;
-      const offerClass = new Offer({contractAddress: tokenAddr, signer:library?.getSigner(), library })
+      const offerClass = new Offer({ contractAddress: tokenAddr, signer: library?.getSigner(), library });
       const nonce = await tokenContract.nonces(account);
-      const { offer, signature } = await offerClass.makeOffer(account, stokeMarketAddr, value*10**18, ethers.utils.formatUnits(nonce)*10**18, Date.now("2022-04-20"));
+      const { offer, signature } = await offerClass.makeOffer(
+        account,
+        stokeMarketAddr,
+        value * 10 ** 18,
+        ethers.utils.formatUnits(nonce) * 10 ** 18,
+        Date.now("2022-04-20")
+      );
       const signData = ethers.utils.splitSignature(signature);
-      const { v,r,s} = signData;
+      const { v, r, s } = signData;
 
       try {
         const accessToken = localStorage.getItem("accessToken");
@@ -179,7 +166,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
             Authorization: "Bearer " + accessToken,
           },
         });
-  
+
         if (!isTransferApproved) {
           setIsTransferApprovalModalOpened(true);
         } else {
@@ -215,19 +202,43 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   ]);
 
   useEffect(() => {
+    if (library) {
+      if (chainId === etherChain) {
+        const IToken = new ethers.ContractFactory(
+          tokenArtifacts.abi,
+          tokenArtifacts.deployedBytecode,
+          library?.getSigner()
+        );
+
+        tokenContract = IToken.attach(tokenAddr);
+
+        console.log("---account", account);
+        account && getTokenBalance();
+      }
+    }
+  }, [account, library]);
+
+  useEffect(() => {
     if (modalData.amount < 0) setModalData({ ...modalData, amount: 0 });
   }, [modalData.amount]);
 
+  useEffect(() => {
+    getPricePerItem().then((result) => {
+      console.log('---result', result)
+      setModalData({ ...modalData, pricePerItem: `$${modalData.amount * result}` });
+    });
+  }, [modalData.amount]);
+
   return (
-    <Modal
-      open={isOpened}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={jsStyles.wrapper}>
-        {isAuthorized ? (
-          <>
+    <>
+      {isAuthorized ? (
+        <Modal
+          open={isOpened}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={jsStyles.wrapper}>
             <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.header}>
               <span>Make an offer</span>
               <div className={cssStyles.cross} onClick={handleClose}>
@@ -337,30 +348,16 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
                 text="Make Offer"
               />
             </footer>
-          </>
-        ) : (
-          <div className={cssStyles.chooseBoxWrapper}>
-            <Typography id="modal-modal-title" variant="h6" component="h2" style={jsStyles.header}>
-              <span>Please connect wallet</span>
-              <div className={cssStyles.cross} onClick={handleClose}>
-                <Image
-                  src="/create-nft/Icon-Close.svg"
-                  alt="close-icon"
-                  width={15}
-                  height={15}
-                  onClick={handleClose}
-                />
-              </div>
-            </Typography>
-            <ChooseWalletBox />
-          </div>
-        )}
-        <TransferApprovalModal
-          isOpened={isTransferApprovalModalOpened}
-          handleClose={() => setIsTransferApprovalModalOpened(false)}
-          sendOfferToServer={sendOfferToServer}
-        />
-      </Box>
-    </Modal>
+            <TransferApprovalModal
+              isOpened={isTransferApprovalModalOpened}
+              handleClose={() => setIsTransferApprovalModalOpened(false)}
+              sendOfferToServer={sendOfferToServer}
+            />
+          </Box>
+        </Modal>
+      ) : (
+        <ConnectWalletModal open={isOpened} onClose={handleClose} />
+      )}
+    </>
   );
 };

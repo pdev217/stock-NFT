@@ -10,8 +10,7 @@ import cssStyles from "./MakeOfferModal.module.css";
 //hooks
 import { useStyles } from "../../hooks/useStyles";
 
-export const ComposedTextField = ({modalData, setModalData}) => {
-
+export const ComposedTextField = ({ modalData, setModalData }) => {
   const muiClasses = useStyles();
 
   return (
@@ -70,17 +69,15 @@ export const ComposedTextField = ({modalData, setModalData}) => {
       <TextField
         fullWidth
         id=""
-        type="number"
-        placeholder="$3 406.65"
+        type="text"
         variant="outlined"
         sx={{ width: "26%" }}
         className={muiClasses.textFieldRightHalf}
         value={modalData.pricePerItem}
-        onChange={({ target: { value } }) => setModalData({ ...modalData, pricePerItem: value })}
         InputLabelProps={{
           style: { color: "var(--shadow)" },
         }}
-        InputProps={{ style: { color: "white" } }}
+        InputProps={{ style: { color: "white" }, readOnly: true }}
       />
     </div>
   );

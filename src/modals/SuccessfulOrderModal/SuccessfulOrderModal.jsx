@@ -6,10 +6,9 @@ import { close } from "../../redux/slices/successfulOrderSlice";
 //mui
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 //styles
-import { styles as jsStyles } from "../AddToNFTModal/AddToNFTModal.utils";
+import { styles as jsStyles } from "../modalStyles/modalJsStyles";
 import cssStyles from "./SuccessfulOrderModal.module.css";
 
 export const SuccessfulOrderModal = () => {

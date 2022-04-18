@@ -7,7 +7,7 @@ import Modal from "@mui/material/Modal";
 //components
 import { CustButton } from "../../components/CustButton/CustButton";
 //styles
-import { styles as jsStyles } from "../AddToNFTModal/AddToNFTModal.utils";
+import { styles as jsStyles } from "../modalStyles/modalJsStyles";
 import cssStyles from "../AddToNFTModal/AddToNFTModal.module.css";
 
 export const TransferApprovalModal = ({

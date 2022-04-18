@@ -27,6 +27,7 @@ import marketPlaceArtifacts from "../../../../../artifacts/contracts/StokeMarket
 import tokenArtifacts from "../../../../../artifacts/contracts/WETH.sol/WETH9.json";
 
 const fakeDate = new Date(2022, 6, 1, 2, 3, 4, 567);
+console.log('---', process.env.TOKEN_ADDR)
 const tokenAddr = process.env.TOKEN_ADDR;
 const stokeMarketAddr = process.env.MARKET_ADDR;
 const nftAddr = process.env.NFT_ADDR;
@@ -108,6 +109,7 @@ export const RightSideInfoWrapper = ({
       library?.getSigner()
     );
 
+    console.log('---tokenAddr', tokenAddr)
     tokenContract = IToken.attach(tokenAddr);
 
     const IMarket = new ethers.ContractFactory(

@@ -12,7 +12,7 @@ import Modal from "@mui/material/Modal";
 import { CustButton } from "../../components/CustButton/CustButton";
 import { StatsOrLevelsRow } from "./StatsOrLevelsRow";
 //styles
-import { styles as jsStyles } from "./AddToNFTModal.utils";
+import {styles as jsStyles} from '../modalStyles/modalJsStyles'
 import cssStyles from "./AddToNFTModal.module.css";
 //utils
 import { getEmptyLevelOrStat } from "./AddToNFTModal.utils";

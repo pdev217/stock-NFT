@@ -1,3 +1,3 @@
 export const pagesForUnauthorized = [
-    '/', '/connect-wallet', '/token/[tokenId]'
+    '/', '/connect-wallet', '/token/[tokenId]', '/create-nft'
 ]
