@@ -52,6 +52,7 @@ export const RightSideInfoWrapper = ({
   const [saleEndsStringified, setSaleEndsStringified] = useState("");
 
   const offersData = useSelector((state) => state.offers.offers);
+  console.log('---offersData', offersData)
   const [listingData, setListingData] = useState(undefined);
   const [acceptModalData, setAcceptModalData] = useState(undefined);
 

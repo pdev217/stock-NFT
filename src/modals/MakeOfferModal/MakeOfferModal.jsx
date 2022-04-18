@@ -53,11 +53,13 @@ const stokeMarketAddr = process.env.MARKET_ADDR;
 let tokenContract;
 
 export const MakeOfferModal = ({ isOpened, handleClose }) => {
-  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
+  const { account, activate, library, chainId } = useWeb3React();
+  
   const { isAuthorized } = useAuth();
   const dispatch = useDispatch();
   const router = useRouter();
-  const { account, activate, library, chainId } = useWeb3React();
+  
+  const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
   const [modalData, setModalData] = useState({
     currency: "ETH",

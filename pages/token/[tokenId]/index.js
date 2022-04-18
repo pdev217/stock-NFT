@@ -22,8 +22,13 @@ export const getServerSideProps = async ({ params }) => {
     httpsAgent,
   });
 
+  const adaptedOffers = data.offers.map((offer) => {
+    return {...offer, type: 'offer'}
+  })
+
   return {
     props: {
+      offers: adaptedOffers,
       username: data.user?.username || null,
       userId: data.user?.id || null,
       collectionName: data.collection?.name || null,

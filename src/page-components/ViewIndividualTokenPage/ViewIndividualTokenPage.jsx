@@ -221,7 +221,7 @@ export const ViewIndividualTokenPage = ({
         </div>
       </div>
       <div className={styles.bottomSection}>
-        <BottomInfoWrapper activity={fakeActivity} />
+        <BottomInfoWrapper activity={offers.concat(fakeListing)} />
       </div>
       <SuccessfulOrderModal />
     </div>

@@ -9,21 +9,15 @@ export const fakePrice = {
 
 export const fakeListing = [
   {
-    price: {
-      eth: 1.0577,
-      usd: 667.75,
-    },
-    expiration: new Date(2022, 6, 1, 2, 3, 4, 567),
-    owner: "CreVthor",
+    price: 1,
+    updatedAt: new Date(2022, 0, 1, 2, 3, 4, 567),
+    user: {username: "CreVthor"},
     id: "1",
   },
   {
-    price: {
-      eth: 1.0677,
-      usd: 687.75,
-    },
-    expiration: new Date(2022, 3, 15, 1, 3, 4, 567),
-    owner: "Darth Vader",
+    price: 2,
+    updatedAt: new Date(2022, 3, 15, 1, 3, 4, 567),
+    user: {username: "Darth Vader"},
     id: "2",
   },
 ];

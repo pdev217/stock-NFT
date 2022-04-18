@@ -9,19 +9,27 @@ import { Select, MenuItem } from "@mui/material";
 import { useStyles } from "../../../../hooks/useStyles";
 //utils
 import { getDate, filterOptions } from "./BottomInfoWrapper.utils";
+import { getEtherPrice } from "../../../../utils";
 //styles
 import styles from "../RightSideInfoWrapper/RightSideInfoWrapper.module.css";
 
 export const BottomInfoWrapper = ({ activity }) => {
   const [isActivityOpened, setIsActivityOpened] = useState(true);
-  const [selectedFilter, setSelectedFilter] = useState('none')
+  const [selectedFilter, setSelectedFilter] = useState("none");
   const [activityData, setActivityData] = useState(undefined);
 
   const muiClasses = useStyles();
+  
+  const adapterFunction = (initial) => {
+    const newArray = [...initial].map((elem) => {
+      return { ...elem, date: getDate(elem.updatedAt) };
+    });
+  }
 
   useEffect(() => {
-    const newArray = [...activity];
-    newArray.forEach((elem) => (elem.date = getDate(elem.date)));
+    const newArray = [...activity].map((elem) => {
+      return { ...elem, date: getDate(elem.updatedAt) };
+    });
 
     setActivityData([...newArray]);
   }, [activity]);
@@ -68,7 +76,7 @@ export const BottomInfoWrapper = ({ activity }) => {
                 height: "49px",
               }}
               IconComponent={() => (
-                <div style={{ right: "16px", position: 'absolute', pointerEvents: 'none' }}>
+                <div style={{ right: "16px", position: "absolute", pointerEvents: "none" }}>
                   <Image src="/view-token/Icon-ArrowDown.svg" height={8} width={16} alt="arrow-up" />
                 </div>
               )}
@@ -110,10 +118,10 @@ export const BottomInfoWrapper = ({ activity }) => {
               [styles.closed]: !isActivityOpened,
             })}
           >
-            {activityData.map(({ event, price: { eth, usd }, from, to, date, id }) => (
+            {activityData.map(({ event, price, from, to, date, id }) => (
               <div key={id} className={styles.tableRow}>
                 <div className={cn(styles.activityEvent, styles.maxWidth150)}>
-                  <Image src="/view-token/Icon-Offers.svg" height={19} width={19} alt="eth-icon" />
+                  {<Image src="/view-token/Icon-Offers.svg" height={19} width={19} alt="eth-icon" />}
                   <span className={styles.marginLeft12}>{event}</span>
                 </div>
                 <div
@@ -126,9 +134,9 @@ export const BottomInfoWrapper = ({ activity }) => {
                 >
                   <span className={styles.priceText}>
                     <Image src="/view-token/Icon-Eth.svg" height={19} width={19} alt="eth-icon" />
-                    <span className={cn(styles.marginLeft4, styles.marginBottom4)}>{eth}</span>
+                    <span className={cn(styles.marginLeft4, styles.marginBottom4)}>{price}</span>
                   </span>
-                  <span className={styles.greySmallText}>${usd}</span>
+                  <span className={styles.greySmallText}></span>
                 </div>
                 <div>
                   <span className={styles.link}>{from}</span>
