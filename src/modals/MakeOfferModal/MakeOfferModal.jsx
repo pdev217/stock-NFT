@@ -27,7 +27,7 @@ import { useStyles } from "../../hooks/useStyles";
 import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
 import { toHex, Offer, getEtherPrice, switchNetwork } from "../../utils";
 //styles
-import { styles as jsStyles } from "./MakeOfferModal.utils";
+import { styles as jsStyles } from "../modalStyles/modalJsStyles";
 import cssStyles from "./MakeOfferModal.module.css";
 //web3
 import { useWeb3React } from "@web3-react/core";
@@ -65,8 +65,8 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
       ETHBalance: 0,
       WETHBalance: 0,
     },
-    amount: undefined,
-    pricePerItem: undefined,
+    amount: 0,
+    pricePerItem: '$0',
     offerExpirationDays: "3 days",
     offerExpirationTime: new Date().toDateInputValue(),
     agreed: false,
@@ -78,7 +78,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
       query: { tokenId },
     } = router;
 
-    const { offerExpirationDays, offerExpirationTime, pricePerItem } = modalData;
+    const { offerExpirationDays, offerExpirationTime, amount } = modalData;
     const expirationDate = getExpirationDate(offerExpirationDays, offerExpirationTime);
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -87,7 +87,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
         .post(
           `${process.env.BACKEND_URL}/offers`,
           {
-            price: Number(pricePerItem),
+            price: Number(amount),
             expirationDate,
             nftId: Number(tokenId),
           },
@@ -131,25 +131,9 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
       setModalData({ ...modalData, balance: { ETHBalance: result, WETHBalance: WETH } })
     );
   };
-
-  useEffect(() => {
-    if (library) {
-      if (chainId === etherChain) {
-        const IToken = new ethers.ContractFactory(
-          tokenArtifacts.abi,
-          tokenArtifacts.deployedBytecode,
-          library?.getSigner()
-        );
-
-        tokenContract = IToken.attach(tokenAddr);
-
-        console.log("---account", account);
-        account && getTokenBalance();
-      }
-    }
-
-    // const etherPrice = await getEtherPrice();
-  }, [account, library]);
+  const getPricePerItem = async () => {
+    return await getEtherPrice();
+  };
 
   const handleMakeOffer = async () => {
     if (chainId !== etherChain) {
@@ -218,7 +202,31 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   ]);
 
   useEffect(() => {
+    if (library) {
+      if (chainId === etherChain) {
+        const IToken = new ethers.ContractFactory(
+          tokenArtifacts.abi,
+          tokenArtifacts.deployedBytecode,
+          library?.getSigner()
+        );
+
+        tokenContract = IToken.attach(tokenAddr);
+
+        console.log("---account", account);
+        account && getTokenBalance();
+      }
+    }
+  }, [account, library]);
+
+  useEffect(() => {
     if (modalData.amount < 0) setModalData({ ...modalData, amount: 0 });
+  }, [modalData.amount]);
+
+  useEffect(() => {
+    getPricePerItem().then((result) => {
+      console.log('---result', result)
+      setModalData({ ...modalData, pricePerItem: `$${modalData.amount * result}` });
+    });
   }, [modalData.amount]);
 
   return (
