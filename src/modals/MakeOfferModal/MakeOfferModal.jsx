@@ -51,6 +51,7 @@ const etherChain = process.env.ETHER_CHAIN;
 const tokenAddr = process.env.TOKEN_ADDR;
 const stokeMarketAddr = process.env.MARKET_ADDR;
 let tokenContract;
+let etherPrice;
 
 export const MakeOfferModal = ({ isOpened, handleClose }) => {
   const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
@@ -223,11 +224,15 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   }, [modalData.amount]);
 
   useEffect(() => {
-    getPricePerItem().then((result) => {
-      console.log('---result', result)
-      setModalData({ ...modalData, pricePerItem: `$${modalData.amount * result}` });
-    });
+      console.log('---result', etherPrice)
+      setModalData({ ...modalData, pricePerItem: `$${modalData.amount * etherPrice}` });
   }, [modalData.amount]);
+
+  useEffect(() => {
+    getPricePerItem().then((result) => {
+      etherPrice = result;
+    })
+  }, [])
 
   return (
     <>

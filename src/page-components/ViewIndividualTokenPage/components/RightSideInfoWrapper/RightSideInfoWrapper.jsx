@@ -27,13 +27,6 @@ import marketPlaceArtifacts from "../../../../../artifacts/contracts/StokeMarket
 import tokenArtifacts from "../../../../../artifacts/contracts/WETH.sol/WETH9.json";
 
 const fakeDate = new Date(2022, 6, 1, 2, 3, 4, 567);
-console.log('---', process.env.TOKEN_ADDR)
-const tokenAddr = process.env.TOKEN_ADDR;
-const stokeMarketAddr = process.env.MARKET_ADDR;
-const nftAddr = process.env.NFT_ADDR;
-let tokenContract;
-let marketContract;
-let nftContract;
 
 export const RightSideInfoWrapper = ({
   collection,
@@ -65,26 +58,6 @@ export const RightSideInfoWrapper = ({
   const handleAccept = async (price, id) => {
     setAcceptModalData({ price, name, collection, tokenFileName, id });
     setIsAcceptOfferModalOpened(true);
-    // const wei = await tokenContract.balanceOf("0xdD2FD4581271e230360230F9337D5c0430Bf44C0");
-    // const balance = ethers.utils.formatUnits(wei);
-    // console.log(Number(balance))
-    // if(Number(balance) === 0) {
-    //   await tokenContract.deposit({from: account, value: ethers.utils.parseEther("0.01")})
-    // }
-    // const offerC = {
-    //   sender: "0xdD2FD4581271e230360230F9337D5c0430Bf44C0",
-    //   amount:1000000000000000,
-    //   expiresAt: Date.now("2022-04-20")
-    // }
-    // const Token = {
-    //   tokenId: 11125,
-    //   tokenURI: "ipfs:lion"
-    // }
-
-    // const nftOwner = await nftContract.IsExistToken(1112);
-    // console.log(nftOwner)
-
-    // await marketContract.accept(offerC, tokenAddr, nftAddr, Token);
   };
 
   useEffect(() => {
@@ -100,32 +73,6 @@ export const RightSideInfoWrapper = ({
       setListingData([...array]);
     }
   }, [listing]);
-
-  //get contract
-  useEffect(() => {
-    const IToken = new ethers.ContractFactory(
-      tokenArtifacts.abi,
-      tokenArtifacts.deployedBytecode,
-      library?.getSigner()
-    );
-
-    console.log('---tokenAddr', tokenAddr)
-    tokenContract = IToken.attach(tokenAddr);
-
-    const IMarket = new ethers.ContractFactory(
-      marketPlaceArtifacts.abi,
-      marketPlaceArtifacts.deployedBytecode,
-      library?.getSigner()
-    )
-    marketContract = IMarket.attach(stokeMarketAddr);
-
-    const IStokeNFT = new ethers.ContractFactory(
-      stokeNFTArtifacts.abi,
-      stokeNFTArtifacts.deployedBytecode,
-      library?.getSigner()
-    )
-    nftContract = IStokeNFT.attach(nftAddr);
-  }, [account, library]);
 
   useEffect(() => {
     dispatch(setOffers(offers));

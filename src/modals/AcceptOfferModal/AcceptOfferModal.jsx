@@ -1,4 +1,6 @@
 import { useEffect, useState, useRef } from "react";
+//next
+import { useRouter } from 'next/router'
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
@@ -29,6 +31,21 @@ import {
 //styles
 import { styles as jsStyles } from "../modalStyles/modalJsStyles";
 import cssStyles from "./AcceptOfferModal.module.css";
+//ethers
+import { ethers } from "ethers";
+//web3
+import { useWeb3React } from "@web3-react/core";
+//contract
+import stokeNFTArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json";
+import marketPlaceArtifacts from "../../../artifacts/contracts/StokeMarketPlace.sol/StokeMarketplace.json";
+import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json";
+
+const tokenAddr = process.env.TOKEN_ADDR;
+const stokeMarketAddr = process.env.MARKET_ADDR;
+const nftAddr = process.env.NFT_ADDR;
+let tokenContract;
+let marketContract;
+let nftContract;
 
 export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collection, tokenFileName, id }) => {
   const [imageRatio, setImageRatio] = useState(16 / 9);
@@ -36,11 +53,14 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
   const [isFileLoading, setIsFileLoading] = useState(true);
   const [typeOfTokenFile, setTypeOfTokenFile] = useState();
   const [videoSizes, setVideoSizes] = useState();
+  const offersData = useSelector((state) => state.offers.offers);
 
   const { stokeFee, creatorRoyalty } = useSelector((state) => state.administration.fees);
+  const { account, library } = useWeb3React();
 
   const videoRef = useRef();
   const audioRef = useRef();
+  const router = useRouter();
 
   useEffect(() => {
     if (tokenFileName) {
@@ -84,32 +104,84 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
     setImageRatio(width / height);
   };
 
-  const handleAccept = async () => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
+  //get contract
+  useEffect(() => {
+    const IToken = new ethers.ContractFactory(
+      tokenArtifacts.abi,
+      tokenArtifacts.deployedBytecode,
+      library?.getSigner()
+    );
 
-      await axios.post(
-        `${process.env.BACKEND_URL}/offers/accept/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + accessToken,
-          },
-        }
-      );
-      handleClose();
+    console.log('---tokenAddr', tokenAddr)
+    tokenContract = IToken.attach(tokenAddr);
+
+    const IMarket = new ethers.ContractFactory(
+      marketPlaceArtifacts.abi,
+      marketPlaceArtifacts.deployedBytecode,
+      library?.getSigner()
+    )
+    marketContract = IMarket.attach(stokeMarketAddr);
+
+    const IStokeNFT = new ethers.ContractFactory(
+      stokeNFTArtifacts.abi,
+      stokeNFTArtifacts.deployedBytecode,
+      library?.getSigner()
+    )
+    nftContract = IStokeNFT.attach(nftAddr);
+  }, [account, library]);
+
+  const handleAccept = async () => {
+    const offer = offersData.find((offer) => offer.id == id)
+    const sender = offer.user.publicAddress;
+    console.log(offer)
+    const wei = await tokenContract.balanceOf(sender);
+    const balance = ethers.utils.formatUnits(wei);
+    console.log(Number(balance))
+
+    if(Number(balance) >= price) {
+      const offerC = {
+        sender,
+        amount:ethers.utils.parseEther(String(price)),
+        expiresAt: Date.now("2022-04-20")
+      }
+      const tokenId = router.query.tokenId;
+      const Token = {
+        tokenId: Number(tokenId),
+        tokenURI: `${process.env.BACKEND_URL}/nfts/metadata/${tokenId}`
+      }
+      console.log(Token);
+      await marketContract.accept(offerC, tokenAddr, nftAddr, Token);
+    }else {
       dispatch(
-        openSuccess({
-          title: "Your order was successfully accepted",
-          description:
-            "To trade this token, you must first complete a free (plus gas) transaction. <br/> Confirm it in your wallet and keep this tab open!",
-        })
-      );
-    } catch (e) {
-      dispatch(
-        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
-      );
+        openError("Offer's owner has not enough balance")
+      )
     }
+
+    // try {
+    //   const accessToken = localStorage.getItem("accessToken");
+
+    //   await axios.post(
+    //     `${process.env.BACKEND_URL}/offers/accept/${id}`,
+    //     {},
+    //     {
+    //       headers: {
+    //         Authorization: "Bearer " + accessToken,
+    //       },
+    //     }
+    //   );
+    //   handleClose();
+    //   dispatch(
+    //     openSuccess({
+    //       title: "Your order was successfully accepted",
+    //       description:
+    //         "To trade this token, you must first complete a free (plus gas) transaction. <br/> Confirm it in your wallet and keep this tab open!",
+    //     })
+    //   );
+    // } catch (e) {
+    //   dispatch(
+    //     openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+    //   );
+    // }
   };
 
   const imageLoader = ({ src }) => {
