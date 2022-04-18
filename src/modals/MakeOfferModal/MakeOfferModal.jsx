@@ -182,12 +182,13 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
     if (chainId !== etherChain) {
       await switchNetwork(etherChain, library);
     }
-    const value = modalData.amount;
-    const offerClass = new Offer({contractAddress: tokenAddr, signer:library?.getSigner(), library })
-    const nonce = await tokenContract.nonces(account);
-    const { offer, signature } = await offerClass.makeOffer(account, stokeMarketAddr, value*10**18, ethers.utils.formatUnits(nonce)*10**18, Date.now("2022-04-20"));
-    const signData = ethers.utils.splitSignature(signature);
-    const { v,r,s} = signData;
+    console.log(modalData)
+    // const value = modalData.amount;
+    // const offerClass = new Offer({contractAddress: tokenAddr, signer:library?.getSigner(), library })
+    // const nonce = await tokenContract.nonces(account);
+    // const { offer, signature } = await offerClass.makeOffer(account, stokeMarketAddr, value*10**18, ethers.utils.formatUnits(nonce)*10**18, Date.now("2022-04-20"));
+    // const signData = ethers.utils.splitSignature(signature);
+    // const { v,r,s} = signData;
   };
 
   useEffect(() => {

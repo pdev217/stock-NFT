@@ -35,16 +35,16 @@ describe("StokeMarketPlace contract", function () {
     console.log("WETH deployed to:", weth.address);
   })
 
-  it("Start making offer", async() => {
+  it("Start make offer", async() => {
     const offerClass = new Offer({contractAddress: weth.address, signer:account1, library:provider})
     const nonce = await weth.nonces(account1.address);
     const {offer, signature} = await offerClass.makeOffer(account1.address, marketContract.address, 1, Number(ethers.utils.formatUnits(nonce))*10**18, Date.now("2022-04-20"));
     const signData = ethers.utils.splitSignature(signature);
     const { v,r,s} = signData;
-    await weth.permit(offer.owner, offer.spender, offer.value, offer.deadline, v,r,s);
+    // await weth.permit(offer.owner, offer.spender, offer.value, offer.deadline, v,r,s);
   })
 
-  it("Accept", async() => {
+  it("Start accept offer", async() => {
     await weth.connect(account4).deposit({from:account4.address, value: ethers.utils.parseEther("1")})
     const offerClass = new Offer({contractAddress: weth.address, signer:account4, library:provider})
     const nonce = await weth.nonces(account4.address);

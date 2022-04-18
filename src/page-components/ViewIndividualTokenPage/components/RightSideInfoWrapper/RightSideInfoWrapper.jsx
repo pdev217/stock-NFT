@@ -61,7 +61,6 @@ export const RightSideInfoWrapper = ({
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
 
-  console.log(offersData);
   const handleAccept = async (price, id) => {
     setAcceptModalData({ price, name, collection, tokenFileName, id });
     setIsAcceptOfferModalOpened(true);

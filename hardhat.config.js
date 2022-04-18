@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+require('@nomiclabs/hardhat-ethers');
 require("@nomiclabs/hardhat-etherscan");
 require("@nomiclabs/hardhat-waffle");
 require("hardhat-gas-reporter");
@@ -167,6 +168,8 @@ module.exports = {
     currency: "USD",
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: {
+      rinkeby: 'WTSDCZYJP4JSCF8YYTGTRI1YK9BAIRZE92'
+    }
   }
 };
