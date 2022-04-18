@@ -11,11 +11,11 @@ export const offers = createSlice({
   reducers: {
     setOffers: (state, action) => {
       const array = [...action.payload].map((elem) => {
-        const expirationDateToParce = new Date(elem.expirationDate);
+        const expirationDateToParse = new Date(elem.expirationDate);
         return {
           ...elem,
           expirationDate: getExpirationString(elem.expirationDate),
-          expirationDateParsed: Date.parse(expirationDateToParce),
+          expirationDateParsed: Date.parse(expirationDateToParse),
         };
       });
       state.offers = array;

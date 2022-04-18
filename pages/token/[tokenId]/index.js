@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import https from "https";
 import axios from "axios";
 import { withLayout } from "../../../layout/Layout";
+import { getEtherPrice } from "../../../src/utils";
 
 const ViewIndividualToken = (props) => <ViewIndividualTokenPage {...props} />;
 
@@ -22,19 +23,29 @@ export const getServerSideProps = async ({ params }) => {
     httpsAgent,
   });
 
-  const adaptedOffers = data.offers.map((offer) => {
-    return {...offer, type: 'offer'}
-  })
+  const adaptPriceAndType = async (array, type) => {
+    const newArray = Promise.all(array.map(
+      async (elem) =>
+        await getEtherPrice().then((result) => {
+          console.log('---result', result)
+          return { ...elem, usdPrice: `$${(elem.price * result).toFixed(3)}`, type };
+        })
+    ));
+
+    return newArray;
+  };
+
+  const adaptedOffers = await adaptPriceAndType(data.offers, 'Offers')
 
   return {
     props: {
+      ...data,
       offers: adaptedOffers,
       username: data.user?.username || null,
       userId: data.user?.id || null,
       collectionName: data.collection?.name || null,
       about: data.collection.description,
       blockchainName: data.blockchainType?.name || null,
-      ...data,
     },
   };
 };

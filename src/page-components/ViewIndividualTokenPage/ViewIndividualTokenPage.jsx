@@ -71,6 +71,7 @@ export const ViewIndividualTokenPage = ({
   const tokenImageLoader = () => {
     return `${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`;
   };
+  console.log('---offers', offers)
 
   useEffect(() => {
     const end = fileName.substring(fileName.indexOf(".") + 1).toLowerCase();
