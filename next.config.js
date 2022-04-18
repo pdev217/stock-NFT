@@ -27,6 +27,6 @@ module.exports = {
     POLYGON_CHAIN: 8001, //mumbai test network, we can chain it to mainnet later
     TOKEN_ADDR: "0x889E39c7d55562f9acD4Bf21eE3F257B545F2A30",
     MARKET_ADDR: "0x0c22b85331C9a5c9Ef2Cb12fe762f07e40835D2d",
-    NFT_ADDR: "0x0c22b85331C9a5c9Ef2Cb12fe762f07e40835D2d"
+    NFT_ADDR: "0x37A70817106e3BCD7b14Cb5a53f232C79F076CAE"
   },
 }

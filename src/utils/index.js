@@ -15,7 +15,11 @@ export const switchNetwork = async (network, library) => {
 };
 
 export const getEtherPrice = async () => {
-  const cryptoData = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd");
+  const cryptoData = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd", {
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    }
+  });
   const ethereum = cryptoData.data[1];
   return ethereum.current_price;
 }
