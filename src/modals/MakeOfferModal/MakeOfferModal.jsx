@@ -24,7 +24,7 @@ import useAuth from "../../hooks/useAuth";
 import { useStyles } from "../../hooks/useStyles";
 //utils
 import { daysSelectArray, getExpirationDate } from "./MakeOfferModal.utils";
-import { toHex, Offer, getEtherPrice } from "../../utils";
+import { toHex, Offer, getEtherPrice, switchNetwork } from "../../utils";
 //styles
 import { styles as jsStyles } from "./MakeOfferModal.utils";
 import cssStyles from "./MakeOfferModal.module.css";
@@ -32,7 +32,6 @@ import { TransferApprovalModal } from "../TransferApprovalModal/TransferApproval
 import { styles } from "../../components/CustButton/CustButton.utils";
 //web3
 import { useWeb3React } from "@web3-react/core";
-import { switchNetwork } from "../../utils";
 //ethers
 import { ethers } from "ethers";
 //contracts
@@ -182,13 +181,13 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
     if (chainId !== etherChain) {
       await switchNetwork(etherChain, library);
     }
-    console.log(modalData)
-    // const value = modalData.amount;
-    // const offerClass = new Offer({contractAddress: tokenAddr, signer:library?.getSigner(), library })
-    // const nonce = await tokenContract.nonces(account);
-    // const { offer, signature } = await offerClass.makeOffer(account, stokeMarketAddr, value*10**18, ethers.utils.formatUnits(nonce)*10**18, Date.now("2022-04-20"));
-    // const signData = ethers.utils.splitSignature(signature);
-    // const { v,r,s} = signData;
+    // console.log(modalData)
+    const value = modalData.amount;
+    const offerClass = new Offer({contractAddress: tokenAddr, signer:library?.getSigner(), library })
+    const nonce = await tokenContract.nonces(account);
+    const { offer, signature } = await offerClass.makeOffer(account, stokeMarketAddr, value*10**18, ethers.utils.formatUnits(nonce)*10**18, Date.now("2022-04-20"));
+    const signData = ethers.utils.splitSignature(signature);
+    const { v,r,s} = signData;
   };
 
   useEffect(() => {
