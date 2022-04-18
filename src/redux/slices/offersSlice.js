@@ -15,7 +15,7 @@ export const offers = createSlice({
         return {
           ...elem,
           expirationDate: getExpirationString(elem.expirationDate),
-          expirationDateParced: Date.parse(expirationDateToParce),
+          expirationDateParsed: Date.parse(expirationDateToParce),
         };
       });
       state.offers = array;
