@@ -40,6 +40,7 @@ export const RightSideInfoWrapper = ({
   const { account, library } = useWeb3React();
   const [saleEnds, setSaleEnds] = useState(undefined);
   const [saleEndsStringified, setSaleEndsStringified] = useState("");
+  const [tokenOwner, setTokenOwner] = useState();
 
   const offersData = useSelector((state) => state.offers.offers);
   console.log('---offersData', offersData)
@@ -57,10 +58,17 @@ export const RightSideInfoWrapper = ({
   //network ether or polygon
   const [tokenNetwork, setTokenNetwork] = useState('');
 
+  const profileName = useSelector((state) => state.userData.username);
+
   const handleAccept = async (price, id) => {
     setAcceptModalData({ price, name, collection, tokenFileName, id });
     setIsAcceptOfferModalOpened(true);
   };
+
+  useEffect(() => {
+    if (owner === profileName) setTokenOwner("you");
+    else setTokenOwner(owner);
+  }, [owner, profileName]);
 
   useEffect(() => {
     setSaleEnds(fakeDate);
@@ -70,7 +78,7 @@ export const RightSideInfoWrapper = ({
   useEffect(() => {
     if (listing && listing.length > 0) {
       const array = listing.map((elem) => {
-        return { ...elem, expiration: getExpirationString(elem.expiration) };
+        return { ...elem, expirationDate: getExpirationString(elem.expirationDate) };
       });
       setListingData([...array]);
     }
@@ -101,7 +109,7 @@ export const RightSideInfoWrapper = ({
         </div>
         <div className={styles.ownerAndLikes}>
           <span className={styles.greySmallText}>
-            Owned by <span className={styles.link}>{owner || "Some owner"}</span>
+            Owned by <span className={styles.link}>{tokenOwner}</span>
           </span>
           <div className={styles.likes}>
             <Image src="/view-token/Icon-HeartFilled.svg" width={19} height={19} alt="heart-filled-icon" />
@@ -109,35 +117,37 @@ export const RightSideInfoWrapper = ({
           </div>
         </div>
       </div>
-      <div className={cn(styles.box, styles.saleEndsPriceWrapper)}>
-        <div className={styles.saleEnds}>
-          <div>
-            <span className={styles.greySmallText}>Sale ends {saleEndsStringified}</span>
-          </div>
-          <LeftTimeContainer endTime={saleEnds} />
-        </div>
-        <div className={styles.currentPriceWrapper}>
-          <div>
-            <span className={styles.greySmallText}>Current Price</span>
-          </div>
-          <div className={styles.priceInfo}>
-            <Image src="/view-token/Icon-Weth.svg" width={19} height={19} alt="eth-icon" />
-            <div className={styles.ethPrice}>
-              <span>{ethPrice}</span>
+      {owner !== profileName && (
+        <div className={cn(styles.box, styles.saleEndsPriceWrapper)}>
+          <div className={styles.saleEnds}>
+            <div>
+              <span className={styles.greySmallText}>Sale ends {saleEndsStringified}</span>
             </div>
-            <span className={styles.greySmallText}>(${usdPrice})</span>
+            <LeftTimeContainer endTime={saleEnds} />
           </div>
-          <div>
-            <CustButton color="primary" text="Buy now" />
-            <CustButton
-              color="ghost"
-              text="Make offer"
-              onClick={() => setIsMakeOfferModalOpened(true)}
-              className={styles.makeOfferButton}
-            />
+          <div className={styles.currentPriceWrapper}>
+            <div>
+              <span className={styles.greySmallText}>Current Price</span>
+            </div>
+            <div className={styles.priceInfo}>
+              <Image src="/view-token/Icon-Weth.svg" width={19} height={19} alt="eth-icon" />
+              <div className={styles.ethPrice}>
+                <span>{ethPrice}</span>
+              </div>
+              <span className={styles.greySmallText}>(${usdPrice})</span>
+            </div>
+            <div>
+              <CustButton color="primary" text="Buy now" />
+              <CustButton
+                color="ghost"
+                text="Make offer"
+                onClick={() => setIsMakeOfferModalOpened(true)}
+                className={styles.makeOfferButton}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className={cn(styles.box, styles.listingsWrapper)}>
         <div className={styles.sectionHeader}>
           <Image src="/view-token/Icon-Description.svg" height={19} width={19} alt="description" />
@@ -188,26 +198,28 @@ export const RightSideInfoWrapper = ({
                 [styles.closed]: !isListingOpened,
               })}
             >
-              {listingData.map(({ price: { eth, usd }, owner, expiration, id }) => (
-                <div key={id} className={styles.tableRow}>
-                  <div>
-                    <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
-                    <span className={cn(styles.priceText, styles.marginLeft4)}>{eth} ETH</span>
+              {listingData.map(
+                ({ price, usdPrice, buyer: { username, publicAddress }, expirationDate, id }) => (
+                  <div key={id} className={styles.tableRow}>
+                    <div>
+                      <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
+                      <span className={cn(styles.priceText, styles.marginLeft4)}>{price} ETH</span>
+                    </div>
+                    <div>
+                      <span className={styles.priceText}>${usdPrice}</span>
+                    </div>
+                    <div>
+                      <span className={styles.greySmallText}>{expirationDate}</span>
+                    </div>
+                    <div>
+                      <span className={styles.link}>{username || publicAddress}</span>
+                    </div>
+                    <div className={styles.buttonWrapper}>
+                      <CustButton text="buy" color="ghost" />
+                    </div>
                   </div>
-                  <div>
-                    <span className={styles.priceText}>${usd}</span>
-                  </div>
-                  <div>
-                    <span className={styles.greySmallText}>{expiration}</span>
-                  </div>
-                  <div>
-                    <span className={styles.link}>{owner}</span>
-                  </div>
-                  <div className={styles.buttonWrapper}>
-                    <CustButton text="buy" color="ghost" />
-                  </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           </>
         ) : (
@@ -270,26 +282,28 @@ export const RightSideInfoWrapper = ({
                 [styles.closed]: !isOffersOpened,
               })}
             >
-              {offersData.map(({ price, user, expirationDate, id }) => (
-                <div key={id} className={styles.tableRow}>
-                  <div>
-                    <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
-                    <span className={cn(styles.priceText, styles.marginLeft4)}>{price} ETH</span>
+              {offersData.map(
+                ({ price, buyer: { username, publicAddress }, expirationDate, id, usdPrice }) => (
+                  <div key={id} className={styles.tableRow}>
+                    <div>
+                      <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
+                      <span className={cn(styles.priceText, styles.marginLeft4)}>{price} ETH</span>
+                    </div>
+                    <div>
+                      <span className={styles.priceText}>{usdPrice}</span>
+                    </div>
+                    <div>
+                      <span className={styles.greySmallText}>{expirationDate}</span>
+                    </div>
+                    <div>
+                      <span className={styles.link}>{username || publicAddress}</span>
+                    </div>
+                    <div className={styles.buttonWrapper}>
+                      <CustButton text="Accept" color="ghost" onClick={() => handleAccept(price, id)} />
+                    </div>
                   </div>
-                  <div>
-                    <span className={styles.priceText}>$ 9999</span>
-                  </div>
-                  <div>
-                    <span className={styles.greySmallText}>{expirationDate}</span>
-                  </div>
-                  <div>
-                    <span className={styles.link}>{user?.username?user.username:(user?.publicAddress)?.slice(0,5)}</span>
-                  </div>
-                  <div className={styles.buttonWrapper}>
-                    <CustButton text="buy" color="ghost" onClick={() => handleAccept(price, id)} />
-                  </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           </>
         ) : (
@@ -327,7 +341,7 @@ export const RightSideInfoWrapper = ({
           </div>
         </div>
         <div>
-         <PriceHistory isPriceHistoryOpened={isPriceHistoryOpened} />
+          <PriceHistory isPriceHistoryOpened={isPriceHistoryOpened} />
         </div>
       </div>
       <MakeOfferModal

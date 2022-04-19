@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 //redux
 import { useDispatch } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
@@ -61,26 +61,31 @@ let supportNetwork;
 
 export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
   const { account, activate, library, chainId } = useWeb3React();
-  
+
   const { isAuthorized } = useAuth();
   const dispatch = useDispatch();
   const router = useRouter();
-  
+
   const [isTransferApprovalModalOpened, setIsTransferApprovalModalOpened] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
+  const [currencyTypes, setCurrencyTypes] = useState([]);
   const [modalData, setModalData] = useState({
-    currency: "ETH",
+    currency: {},
     balance: {
       ETHBalance: 0,
       WETHBalance: 0,
     },
     amount: 0,
-    pricePerItem: '$0',
+    pricePerItem: "$0",
     offerExpirationDays: "3 days",
     offerExpirationTime: new Date().toDateInputValue(),
     agreed: false,
   });
   const muiClasses = useStyles();
+
+  const loadIcon = ({src}) => {
+    return `${process.env.BACKEND_ASSETS_URL}/nftMedia/${src}`;
+  }
 
   const sendOfferToServer = async () => {
     const {
@@ -89,6 +94,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
 
     const { offerExpirationDays, offerExpirationTime, amount } = modalData;
     const expirationDate = getExpirationDate(offerExpirationDays, offerExpirationTime);
+
     try {
       const accessToken = localStorage.getItem("accessToken");
 
@@ -99,6 +105,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
             price: Number(amount),
             expirationDate,
             nftId: Number(tokenId),
+            currencyId: modalData.currency.id,
           },
           {
             headers: {
@@ -106,9 +113,12 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
             },
           }
         )
-        .then(({ data }) => {
+        .then(async ({ data }) => {
           handleClose();
-          dispatch(addOffer({ ...data }));
+
+          const ethPrice = await getEtherPrice();
+          dispatch(addOffer({ ...data, usdPrice: (ethPrice * Number(amount)).toFixed(3) }));
+
           dispatch(
             openSuccess({
               title: "Your order was successfully placed",
@@ -140,14 +150,31 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
       setModalData({ ...modalData, balance: { ETHBalance: result, WETHBalance: WETH } })
     );
   };
+
+  const getCurrencies = async () => {
+    try {
+      const { data } = await axios.get(`${process.env.BACKEND_URL}/offers/currencyTypes/all`);
+      setCurrencyTypes([...data]);
+      setModalData({ ...modalData, currency: data[0] });
+    } catch (e) {
+      dispatch(
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
+    }
+  };
+
   const getPricePerItem = async () => {
     return await getEtherPrice();
   };
 
   const handleMakeOffer = async () => {
-    if (chainId !== supportNetwork) {
-      console.log(supportNetwork)
-      await switchNetwork(supportNetwork, library);
+    if (modalData.currency.name === "ETH") {
+      dispatch(openError("Offers must use wrapped ETH or an ERC-20 token"));
+      return;
+    }
+
+    if (chainId !== etherChain) {
+      await switchNetwork(etherChain, library);
       dispatch(
         openSuccess({
           title: "The network has been changed successfully.",
@@ -168,6 +195,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
         ethers.utils.formatUnits(nonce) * 10 ** 18,
         Date.now("2022-04-20")
       );
+
       const signData = ethers.utils.splitSignature(signature);
       const { v, r, s } = signData;
 
@@ -248,15 +276,16 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
   }, [modalData.amount]);
 
   useEffect(() => {
-      console.log('---result', etherPrice)
-      setModalData({ ...modalData, pricePerItem: `$${modalData.amount * etherPrice}` });
+    setModalData({ ...modalData, pricePerItem: `$${(modalData.amount * etherPrice).toFixed(3)}` });
   }, [modalData.amount]);
 
   useEffect(() => {
     getPricePerItem().then((result) => {
       etherPrice = result;
-    })
-  }, [])
+    });
+
+    getCurrencies();
+  }, []);
 
   return (
     <>
@@ -282,10 +311,18 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
             </Typography>
             <section className={cssStyles.section}>
               Price
-              <ComposedTextField modalData={modalData} setModalData={setModalData} />
+              <ComposedTextField
+                modalData={modalData}
+                currencies={currencyTypes}
+                setModalData={setModalData}
+              />
               <div className={cssStyles.balance}>
-                {modalData.currency === "ETH" && <span>Balance: {modalData.balance.ETHBalance} ETH</span>}
-                {modalData.currency === "WETH" && <span>Balance: {modalData.balance.WETHBalance} WETH</span>}
+                {modalData.currency.name === "ETH" && (
+                  <span>Balance: {modalData.balance.ETHBalance} ETH</span>
+                )}
+                {modalData.currency.name === "WETH" && (
+                  <span>Balance: {modalData.balance.WETHBalance} WETH</span>
+                )}
               </div>
               <div className={cssStyles.offerExpiration}>
                 <span>Offer Expiration</span>
@@ -385,7 +422,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
           </Box>
         </Modal>
       ) : (
-        <ConnectWalletModal open={isOpened} onClose={handleClose} />
+        <ConnectWalletModal isOpened={isOpened} onClose={handleClose} />
       )}
     </>
   );

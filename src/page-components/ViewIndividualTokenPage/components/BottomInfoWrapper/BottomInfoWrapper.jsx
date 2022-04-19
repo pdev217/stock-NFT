@@ -19,19 +19,21 @@ export const BottomInfoWrapper = ({ activity }) => {
   const [activityData, setActivityData] = useState(undefined);
 
   const muiClasses = useStyles();
-  
+
   const adapterFunction = (initial) => {
     const newArray = [...initial].map((elem) => {
-      return { ...elem, date: getDate(elem.updatedAt) };
+      return {
+        ...elem,
+        date: getDate(elem.updatedAt),
+      };
     });
-  }
+
+    return newArray;
+  };
 
   useEffect(() => {
-    const newArray = [...activity].map((elem) => {
-      return { ...elem, date: getDate(elem.updatedAt) };
-    });
-
-    setActivityData([...newArray]);
+    const adapted = adapterFunction(activity);
+    setActivityData([...adapted]);
   }, [activity]);
 
   return (
@@ -118,11 +120,11 @@ export const BottomInfoWrapper = ({ activity }) => {
               [styles.closed]: !isActivityOpened,
             })}
           >
-            {activityData.map(({ event, price, from, to, date, id }) => (
+            {activityData.map(({ type, buyer, seller, price, usdPrice, date, id }) => (
               <div key={id} className={styles.tableRow}>
                 <div className={cn(styles.activityEvent, styles.maxWidth150)}>
                   {<Image src="/view-token/Icon-Offers.svg" height={19} width={19} alt="eth-icon" />}
-                  <span className={styles.marginLeft12}>{event}</span>
+                  <span className={styles.marginLeft12}>{type}</span>
                 </div>
                 <div
                   className={cn(
@@ -133,16 +135,16 @@ export const BottomInfoWrapper = ({ activity }) => {
                   )}
                 >
                   <span className={styles.priceText}>
-                    <Image src="/view-token/Icon-Eth.svg" height={19} width={19} alt="eth-icon" />
+                    <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
                     <span className={cn(styles.marginLeft4, styles.marginBottom4)}>{price}</span>
                   </span>
-                  <span className={styles.greySmallText}></span>
+                  <span className={styles.greySmallText}>{usdPrice}</span>
                 </div>
                 <div>
-                  <span className={styles.link}>{from}</span>
+                  <span className={styles.link}>{buyer.username || buyer.publicAddress}</span>
                 </div>
                 <div>
-                  <span className={styles.link}>{to}</span>
+                  <span className={styles.link}>{seller.username || seller.publicAddress}</span>
                 </div>
                 <div className={styles.maxWidth150}>
                   <span className={styles.activityDateText}>{date}</span>

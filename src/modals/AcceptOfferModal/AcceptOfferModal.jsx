@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 //next
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
@@ -154,14 +154,13 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
 
   const handleAccept = async () => {
 
-    const offer = offersData.find((offer) => offer.id == id)
-    const sender = offer.user.publicAddress;
+    const offer = offersData.find((offer) => offer.id == id);
+    const sender = offer.buyer.publicAddress;
     console.log(offer)
     const wei = await tokenContract.balanceOf(sender);
     const balance = ethers.utils.formatUnits(wei);
-    console.log(Number(balance))
 
-    if(Number(balance) >= price) {
+    if (Number(balance) >= price) {
       const offerC = {
         sender,
         amount:ethers.utils.parseEther(String(price)),
@@ -170,14 +169,12 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
       const tokenId = router.query.tokenId;
       const Token = {
         tokenId: Number(tokenId),
-        tokenURI: `${process.env.BACKEND_URL}/nfts/metadata/${tokenId}`
-      }
+        tokenURI: `${process.env.BACKEND_URL}/nfts/metadata/${tokenId}`,
+      };
       console.log(Token);
       await marketContract.accept(offerC, tokenAddr, nftAddr, Token);
-    }else {
-      dispatch(
-        openError("Offer's owner has not enough balance")
-      )
+    } else {
+      dispatch(openError("Offer's owner has not enough balance"));
     }
 
     try {
@@ -214,7 +211,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
 
   return (
     <Modal
-      open={true}
+      open={isOpened}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

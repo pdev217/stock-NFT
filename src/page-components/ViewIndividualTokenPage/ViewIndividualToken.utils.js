@@ -11,59 +11,22 @@ export const fakeListing = [
   {
     price: 1,
     updatedAt: new Date(2022, 0, 1, 2, 3, 4, 567),
-    user: {username: "CreVthor"},
+    expirationDate: new Date(2022, 5, 1, 2, 3, 4, 567),
+    buyer: { username: "CreVthor" },
+    seller: { username: "Darth Vader" }, 
     id: "1",
+    usdPrice: '$987',
+    type: "Listing",
   },
   {
     price: 2,
     updatedAt: new Date(2022, 3, 15, 1, 3, 4, 567),
-    user: {username: "Darth Vader"},
+    expirationDate: new Date(2022, 5, 1, 2, 3, 4, 567),
+    buyer: { username: "Darth Vader" },
+    seller: { username: "CreVthor" }, 
     id: "2",
-  },
-];
-
-export const fakeOffers = [
-  {
-    price: {
-      eth: 1.0577,
-      usd: 667.75,
-    },
-    expiration: new Date(2022, 6, 1, 2, 3, 4, 567),
-    owner: "CreVthor",
-    id: "1",
-  },
-  {
-    price: {
-      eth: 1.0677,
-      usd: 687.75,
-    },
-    expiration: new Date(2022, 3, 14, 1, 3, 4, 567),
-    owner: "Darth Vader",
-    id: "2",
-  },
-];
-export const fakeActivity = [
-  {
-    event: "Offers",
-    price: {
-      eth: 6.95,
-      usd: 19494.06,
-    },
-    from: "Birds_of_Pray",
-    to: "Son fo Anarchy Chris",
-    date: new Date(2022, 1, 1, 2, 3, 4, 567),
-    id: "1",
-  },
-  {
-    event: "Offers",
-    price: {
-      eth: 6.95,
-      usd: 19494.06,
-    },
-    from: "Birds_of_Pray",
-    to: "Son fo Anarchy Chris",
-    date: new Date(2022, 0, 1, 2, 3, 4, 567),
-    id: "2",
+    usdPrice: '$987',
+    type: "Listing",
   },
 ];
 

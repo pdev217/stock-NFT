@@ -155,7 +155,7 @@ export const CreateNFTPage = () => {
       if (values.properties.length > 0) body.properties = values.properties;
       if (values.levels.length > 0) body.levels = values.levels;
 
-      await axios.post(`${process.env.BACKEND_URL}/nfts`, body, {
+      const res = await axios.post(`${process.env.BACKEND_URL}/nfts`, body, {
         headers: {
           Authorization: "Bearer " + accessToken,
         },

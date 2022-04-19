@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //next
 import Image from "next/image";
 import Link from "next/link";
+//redux
+import { useSelector } from "react-redux";
 //classnames
 import cn from "classnames";
 //components
@@ -17,6 +19,17 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
   const [isLevelsOpened, setIsLevelsOpened] = useState(true);
   const [isStatsOpened, setIsStatsOpened] = useState(true);
   const [isAboutOpened, setIsAboutOpened] = useState(true);
+  const [username, setUsername] = useState();
+
+  const profileName = useSelector((state) => state.userData.username);
+
+  useEffect(() => {
+    if (owner === profileName) {
+      setUsername("you");
+    } else {
+      setUsername(owner);
+    }
+  }, [owner, profileName]);
 
   return (
     <div className={styles.wrapper}>
@@ -28,7 +41,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
         <div className={styles.ownedBy}>
           Owned by{" "}
           <Link href="/" passHref>
-            <span className={styles.link}>{owner || "Some owner"}</span>
+            <span className={styles.link}>{username}</span>
           </Link>
         </div>
         <div>{description}</div>
