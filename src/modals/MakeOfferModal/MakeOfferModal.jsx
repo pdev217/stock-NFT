@@ -180,7 +180,7 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
           title: "The network has been changed successfully.",
         })
       );
-    } else {
+    }else {
       // await tokenContract.deposit({from: account, value:ethers.utils.parseEther('0.1')})
       const value = modalData.amount;
       const offerClass = new Offer({ contractAddress: tokenAddr, signer: library?.getSigner(), library });

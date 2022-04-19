@@ -28,6 +28,7 @@ import {
   videos,
   audios,
 } from "../../page-components/ViewIndividualTokenPage/ViewIndividualToken.utils";
+import { toHex, Offer, switchNetwork } from "../../utils";
 //styles
 import { styles as jsStyles } from "../modalStyles/modalJsStyles";
 import cssStyles from "./AcceptOfferModal.module.css";
@@ -54,6 +55,7 @@ let marketContract;
 let tokenAddr;
 let stokeMarketAddr;
 let nftAddr;
+let supportNetwork;
 
 export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collection, tokenFileName, id, tokenNetwork }) => {
   const [imageRatio, setImageRatio] = useState(16 / 9);
@@ -64,7 +66,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
   const offersData = useSelector((state) => state.offers.offers);
 
   const { stokeFee, creatorRoyalty } = useSelector((state) => state.administration.fees);
-  const { account, library } = useWeb3React();
+  const { account, library, chainId } = useWeb3React();
 
   const videoRef = useRef();
   const audioRef = useRef();
@@ -120,10 +122,12 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
         tokenAddr = eth_tokenAddr;
         stokeMarketAddr = eth_stokeMarketAddr;
         nftAddr = eth_nftAddr;
+        supportNetwork = etherChain;
       }else if(tokenNetwork === "polygon") {
         tokenAddr = pol_tokenAddr;
         stokeMarketAddr = pol_stokeMarketAddr;
         nftAddr = pol_nftAddr;
+        supportNetwork = polygonChain;
       }
 
       const IToken = new ethers.ContractFactory(
@@ -152,50 +156,60 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
   }, [account, library]);
 
   const handleAccept = async () => {
-    const offer = offersData.find((offer) => offer.id == id);
-    const sender = offer.buyer.publicAddress;
-    const wei = await tokenContract.balanceOf(sender);
-    const balance = ethers.utils.formatUnits(wei);
-    if (Number(balance) >= price) {
-      const offerC = {
-        sender,
-        amount:ethers.utils.parseEther(String(price)),
-        expiresAt: offer.expirationDateParsed
-      }
-      const tokenId = router.query.tokenId;
-      const Token = {
-        tokenId: Number(tokenId),
-        tokenURI: `${process.env.BACKEND_URL}/nfts/metadata/${tokenId}`,
-      };
-      await marketContract.accept(offerC, tokenAddr, nftAddr, Token);
-    } else {
-      dispatch(openError("Offer's owner has not enough balance"));
-    }
-
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-
-      await axios.post(
-        `${process.env.BACKEND_URL}/offers/accept/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + accessToken,
-          },
-        }
-      );
-      handleClose();
+    console.log(supportNetwork)
+    if(chainId !== supportNetwork) {
+      await switchNetwork(supportNetwork, library);
       dispatch(
         openSuccess({
-          title: "Your order was successfully accepted",
-          description:
-            "To trade this token, you must first complete a free (plus gas) transaction. <br/> Confirm it in your wallet and keep this tab open!",
+          title: "The network has been changed successfully.",
         })
       );
-    } catch (e) {
-      dispatch(
-        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
-      );
+    }else {
+      const offer = offersData.find((offer) => offer.id == id);
+      const sender = offer.buyer.publicAddress;
+      const wei = await tokenContract.balanceOf(sender);
+      const balance = ethers.utils.formatUnits(wei);
+      if (Number(balance) >= price) {
+        const offerC = {
+          sender,
+          amount:ethers.utils.parseEther(String(price)),
+          expiresAt: offer.expirationDateParsed
+        }
+        const tokenId = router.query.tokenId;
+        const Token = {
+          tokenId: Number(tokenId),
+          tokenURI: `${process.env.BACKEND_URL}/nfts/metadata/${tokenId}`,
+        };
+        await marketContract.accept(offerC, tokenAddr, nftAddr, Token);
+      } else {
+        dispatch(openError("Offer's owner has not enough balance"));
+      }
+  
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+  
+        await axios.post(
+          `${process.env.BACKEND_URL}/offers/accept/${id}`,
+          {},
+          {
+            headers: {
+              Authorization: "Bearer " + accessToken,
+            },
+          }
+        );
+        handleClose();
+        dispatch(
+          openSuccess({
+            title: "Your order was successfully accepted",
+            description:
+              "To trade this token, you must first complete a free (plus gas) transaction. <br/> Confirm it in your wallet and keep this tab open!",
+          })
+        );
+      } catch (e) {
+        dispatch(
+          openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+        );
+      }
     }
   };
 
