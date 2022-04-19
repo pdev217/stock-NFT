@@ -35,7 +35,6 @@ export const BottomInfoWrapper = ({ activity }) => {
     const adapted = adapterFunction(activity);
     setActivityData([...adapted]);
   }, [activity]);
-  console.log("---activityData", activityData);
 
   return (
     <div className={styles.box}>

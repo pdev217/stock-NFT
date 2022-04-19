@@ -36,7 +36,6 @@ export const getServerSideProps = async ({ params }) => {
   };
 
   const adaptedOffers = await adaptPriceAndType(data.offers, 'Offers')
-  console.log('---data', data)
 
   return {
     props: {

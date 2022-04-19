@@ -77,6 +77,10 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   });
   const muiClasses = useStyles();
 
+  const loadIcon = ({src}) => {
+    return `${process.env.BACKEND_ASSETS_URL}/nftMedia/${src}`;
+  }
+
   const sendOfferToServer = async () => {
     const {
       query: { tokenId },
@@ -108,7 +112,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
 
           const ethPrice = await getEtherPrice();
           dispatch(addOffer({ ...data, usdPrice: (ethPrice * Number(amount)).toFixed(3) }));
-          
+
           dispatch(
             openSuccess({
               title: "Your order was successfully placed",

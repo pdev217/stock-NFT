@@ -13,6 +13,10 @@ import { useStyles } from "../../hooks/useStyles";
 export const ComposedTextField = ({ modalData, setModalData, currencies }) => {
   const muiClasses = useStyles();
 
+  const loadIcon = ({src}) => {
+    return `${process.env.BACKEND_ASSETS_URL}/icons/${src}`;
+  }
+
   return (
     <div className={cssStyles.select}>
       <Select
@@ -36,11 +40,11 @@ export const ComposedTextField = ({ modalData, setModalData, currencies }) => {
           setModalData({ ...modalData, currency: currencies.find((elem) => elem.name === value) })
         }
       >
-        {currencies.map(({ name, id }) => (
+        {currencies.map(({ name, id, icon }) => (
           <MenuItem value={name} key={id}>
             <span>
               <span style={{ position: "relative", top: "3px" }}>
-                <Image src="/view-token/Icon-Eth.svg" width={31} height={31} alt="ethIcon" />
+                <Image src={icon} loader={loadIcon} width={31} height={31} alt="currency-icon" />
               </span>
               <span style={{ marginLeft: "20px", position: "relative", bottom: "6px" }}>{name}</span>
             </span>

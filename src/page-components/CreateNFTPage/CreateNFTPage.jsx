@@ -160,7 +160,6 @@ export const CreateNFTPage = () => {
           Authorization: "Bearer " + accessToken,
         },
       });
-      console.log('---response', res)
       dispatch(openSuccess(`Thank you! Your NFT will be under review`));
     } catch (e) {
       dispatch(

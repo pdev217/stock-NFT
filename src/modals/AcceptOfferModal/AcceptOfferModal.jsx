@@ -133,10 +133,8 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
   const handleAccept = async () => {
     const offer = offersData.find((offer) => offer.id == id);
     const sender = offer.buyer.publicAddress;
-    console.log(offer);
     const wei = await tokenContract.balanceOf(sender);
     const balance = ethers.utils.formatUnits(wei);
-    console.log(Number(balance));
 
     if (Number(balance) >= price) {
       const offerC = {
