@@ -95,7 +95,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
             price: Number(amount),
             expirationDate,
             nftId: Number(tokenId),
-            currencyId: modalData.currency.id
+            currencyId: modalData.currency.id,
           },
           {
             headers: {
@@ -103,9 +103,12 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
             },
           }
         )
-        .then(({ data }) => {
+        .then(async ({ data }) => {
           handleClose();
-          dispatch(addOffer({ ...data }));
+
+          const ethPrice = await getEtherPrice();
+          dispatch(addOffer({ ...data, usdPrice: (ethPrice * Number(amount)).toFixed(3) }));
+          
           dispatch(
             openSuccess({
               title: "Your order was successfully placed",
@@ -157,7 +160,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   const handleMakeOffer = async () => {
     if (modalData.currency.name === "ETH") {
       dispatch(openError("Offers must use wrapped ETH or an ERC-20 token"));
-      return
+      return;
     }
 
     if (chainId !== etherChain) {
@@ -178,7 +181,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
         ethers.utils.formatUnits(nonce) * 10 ** 18,
         Date.now("2022-04-20")
       );
-      
+
       const signData = ethers.utils.splitSignature(signature);
       const { v, r, s } = signData;
 

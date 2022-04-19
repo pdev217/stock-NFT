@@ -42,8 +42,6 @@ export const getServerSideProps = async ({ params }) => {
     props: {
       ...data,
       offers: adaptedOffers,
-      buyer: data.buyer || null,
-      seller: data.seller || null,
       collectionName: data.collection?.name || null,
       about: data.collection.description,
       blockchainName: data.blockchainType?.name || null,

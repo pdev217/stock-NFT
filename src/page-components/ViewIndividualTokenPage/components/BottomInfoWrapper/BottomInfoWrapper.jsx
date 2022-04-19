@@ -121,7 +121,7 @@ export const BottomInfoWrapper = ({ activity }) => {
               [styles.closed]: !isActivityOpened,
             })}
           >
-            {activityData.map(({ type, buyer, seller, price, usdPrice, from, to, date, id }) => (
+            {activityData.map(({ type, buyer, seller, price, usdPrice, date, id }) => (
               <div key={id} className={styles.tableRow}>
                 <div className={cn(styles.activityEvent, styles.maxWidth150)}>
                   {<Image src="/view-token/Icon-Offers.svg" height={19} width={19} alt="eth-icon" />}
@@ -142,10 +142,10 @@ export const BottomInfoWrapper = ({ activity }) => {
                   <span className={styles.greySmallText}>{usdPrice}</span>
                 </div>
                 <div>
-                  <span className={styles.link}>{buyer}</span>
+                  <span className={styles.link}>{buyer.username || buyer.publicAddress}</span>
                 </div>
                 <div>
-                  <span className={styles.link}>{seller}</span>
+                  <span className={styles.link}>{seller.username || seller.publicAddress}</span>
                 </div>
                 <div className={styles.maxWidth150}>
                   <span className={styles.activityDateText}>{date}</span>

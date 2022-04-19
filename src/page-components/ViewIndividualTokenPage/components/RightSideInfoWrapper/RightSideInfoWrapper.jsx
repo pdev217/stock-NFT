@@ -43,6 +43,7 @@ export const RightSideInfoWrapper = ({
   const { account, library } = useWeb3React();
   const [saleEnds, setSaleEnds] = useState(undefined);
   const [saleEndsStringified, setSaleEndsStringified] = useState("");
+  const [tokenOwner, setTokenOwner] = useState();
 
   const offersData = useSelector((state) => state.offers.offers);
   const [listingData, setListingData] = useState(undefined);
@@ -55,10 +56,17 @@ export const RightSideInfoWrapper = ({
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
 
+  const profileName = useSelector((state) => state.userData.username);
+
   const handleAccept = async (price, id) => {
     setAcceptModalData({ price, name, collection, tokenFileName, id });
     setIsAcceptOfferModalOpened(true);
   };
+
+  useEffect(() => {
+    if (owner === profileName) setTokenOwner("you");
+    else setTokenOwner(owner);
+  }, [owner, profileName]);
 
   useEffect(() => {
     setSaleEnds(fakeDate);
@@ -89,7 +97,7 @@ export const RightSideInfoWrapper = ({
         </div>
         <div className={styles.ownerAndLikes}>
           <span className={styles.greySmallText}>
-            Owned by <span className={styles.link}>{owner || "Some owner"}</span>
+            Owned by <span className={styles.link}>{tokenOwner}</span>
           </span>
           <div className={styles.likes}>
             <Image src="/view-token/Icon-HeartFilled.svg" width={19} height={19} alt="heart-filled-icon" />
@@ -176,26 +184,28 @@ export const RightSideInfoWrapper = ({
                 [styles.closed]: !isListingOpened,
               })}
             >
-              {listingData.map(({ price, usdPrice, user: { username }, expirationDate, id }) => (
-                <div key={id} className={styles.tableRow}>
-                  <div>
-                    <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
-                    <span className={cn(styles.priceText, styles.marginLeft4)}>{price} ETH</span>
+              {listingData.map(
+                ({ price, usdPrice, buyer: { username, publicAddress }, expirationDate, id }) => (
+                  <div key={id} className={styles.tableRow}>
+                    <div>
+                      <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
+                      <span className={cn(styles.priceText, styles.marginLeft4)}>{price} ETH</span>
+                    </div>
+                    <div>
+                      <span className={styles.priceText}>${usdPrice}</span>
+                    </div>
+                    <div>
+                      <span className={styles.greySmallText}>{expirationDate}</span>
+                    </div>
+                    <div>
+                      <span className={styles.link}>{username || publicAddress}</span>
+                    </div>
+                    <div className={styles.buttonWrapper}>
+                      <CustButton text="buy" color="ghost" />
+                    </div>
                   </div>
-                  <div>
-                    <span className={styles.priceText}>${usdPrice}</span>
-                  </div>
-                  <div>
-                    <span className={styles.greySmallText}>{expirationDate}</span>
-                  </div>
-                  <div>
-                    <span className={styles.link}>{username}</span>
-                  </div>
-                  <div className={styles.buttonWrapper}>
-                    <CustButton text="buy" color="ghost" />
-                  </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           </>
         ) : (
@@ -258,28 +268,28 @@ export const RightSideInfoWrapper = ({
                 [styles.closed]: !isOffersOpened,
               })}
             >
-              {offersData.map(({ price, buyer, expirationDate, id, usdPrice }) => (
-                <div key={id} className={styles.tableRow}>
-                  <div>
-                    <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
-                    <span className={cn(styles.priceText, styles.marginLeft4)}>{price} ETH</span>
+              {offersData.map(
+                ({ price, buyer: { username, publicAddress }, expirationDate, id, usdPrice }) => (
+                  <div key={id} className={styles.tableRow}>
+                    <div>
+                      <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
+                      <span className={cn(styles.priceText, styles.marginLeft4)}>{price} ETH</span>
+                    </div>
+                    <div>
+                      <span className={styles.priceText}>{usdPrice}</span>
+                    </div>
+                    <div>
+                      <span className={styles.greySmallText}>{expirationDate}</span>
+                    </div>
+                    <div>
+                      <span className={styles.link}>{username || publicAddress}</span>
+                    </div>
+                    <div className={styles.buttonWrapper}>
+                      <CustButton text="Accept" color="ghost" onClick={() => handleAccept(price, id)} />
+                    </div>
                   </div>
-                  <div>
-                    <span className={styles.priceText}>{usdPrice}</span>
-                  </div>
-                  <div>
-                    <span className={styles.greySmallText}>{expirationDate}</span>
-                  </div>
-                  <div>
-                    <span className={styles.link}>
-                      {buyer ? buyer : `Some seller`}
-                    </span>
-                  </div>
-                  <div className={styles.buttonWrapper}>
-                    <CustButton text="Accept" color="ghost" onClick={() => handleAccept(price, id)} />
-                  </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           </>
         ) : (

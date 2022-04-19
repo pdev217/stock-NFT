@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 //redux
 import { open as openError } from "../../redux/slices/errorSnackbarSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 //classnames
 import cn from "classnames";
 //components
@@ -35,8 +35,7 @@ export const ViewIndividualTokenPage = ({
   properties,
   levels,
   stats,
-  username,
-  userId,
+  user,
   blockchainName,
   collectionName,
   offers,
@@ -71,7 +70,6 @@ export const ViewIndividualTokenPage = ({
   const tokenImageLoader = () => {
     return `${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`;
   };
-  console.log('---offers', offers)
 
   useEffect(() => {
     const end = fileName.substring(fileName.indexOf(".") + 1).toLowerCase();
@@ -192,7 +190,7 @@ export const ViewIndividualTokenPage = ({
           </div>
           <div className={styles.leftSideInfoWrapper}>
             <LeftSideInfoWrapper
-              owner={username}
+              owner={user.username}
               description={description}
               properties={properties}
               levels={levels}
@@ -207,11 +205,10 @@ export const ViewIndividualTokenPage = ({
             collection={collectionName}
             tokenFileName={fileName}
             name={name}
-            owner={username}
-            userId={userId}
-            /// fake data
-
+            owner={user.username}
+            userId={user.userId}
             offers={offers}
+            /// fake data
             likes={fakeLikes}
             usdPrice={fakePrice.usd}
             ethPrice={fakePrice.eth}

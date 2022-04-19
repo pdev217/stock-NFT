@@ -26,7 +26,6 @@ export const offers = createSlice({
         {
           ...action.payload,
           expirationDate: getExpirationString(action.payload.expirationDate),
-          user: { username: action.payload.user.username },
         },
       ];
     },
