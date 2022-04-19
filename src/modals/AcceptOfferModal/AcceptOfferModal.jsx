@@ -40,14 +40,22 @@ import stokeNFTArtifacts from "../../../artifacts/contracts/StokeNFT.sol/StokeNF
 import marketPlaceArtifacts from "../../../artifacts/contracts/StokeMarketPlace.sol/StokeMarketplace.json";
 import tokenArtifacts from "../../../artifacts/contracts/WETH.sol/WETH9.json";
 
-const tokenAddr = process.env.TOKEN_ADDR;
-const stokeMarketAddr = process.env.MARKET_ADDR;
-const nftAddr = process.env.NFT_ADDR;
+const etherChain = process.env.ETHER_CHAIN;
+const polygonChain = process.env.POLYGON_CHAIN;
+const eth_tokenAddr = process.env.ETH_TOKEN;
+const eth_stokeMarketAddr = process.env.ETH_MARKET;
+const eth_nftAddr = process.env.ETH_NFT
+const pol_tokenAddr = process.env.POL_TOKEN;
+const pol_stokeMarketAddr = process.env.POL_MARKET;
+const pol_nftAddr = process.env.POL_NFT
 let tokenContract;
-let marketContract;
 let nftContract;
+let marketContract;
+let tokenAddr;
+let stokeMarketAddr;
+let nftAddr;
 
-export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collection, tokenFileName, id }) => {
+export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collection, tokenFileName, id, tokenNetwork }) => {
   const [imageRatio, setImageRatio] = useState(16 / 9);
   const [tokenFileLink, setTokenFileLink] = useState("/");
   const [isFileLoading, setIsFileLoading] = useState(true);
@@ -106,31 +114,46 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
 
   //get contract
   useEffect(() => {
-    const IToken = new ethers.ContractFactory(
-      tokenArtifacts.abi,
-      tokenArtifacts.deployedBytecode,
-      library?.getSigner()
-    );
+    if(library) {
+      console.log(tokenNetwork);
+      if(tokenNetwork === "ethereum") {
+        tokenAddr = eth_tokenAddr;
+        stokeMarketAddr = eth_stokeMarketAddr;
+        nftAddr = eth_nftAddr;
+      }else if(tokenNetwork === "polygon") {
+        tokenAddr = pol_tokenAddr;
+        stokeMarketAddr = pol_stokeMarketAddr;
+        nftAddr = pol_nftAddr;
+      }
 
-    console.log('---tokenAddr', tokenAddr)
-    tokenContract = IToken.attach(tokenAddr);
-
-    const IMarket = new ethers.ContractFactory(
-      marketPlaceArtifacts.abi,
-      marketPlaceArtifacts.deployedBytecode,
-      library?.getSigner()
-    )
-    marketContract = IMarket.attach(stokeMarketAddr);
-
-    const IStokeNFT = new ethers.ContractFactory(
-      stokeNFTArtifacts.abi,
-      stokeNFTArtifacts.deployedBytecode,
-      library?.getSigner()
-    )
-    nftContract = IStokeNFT.attach(nftAddr);
+      const IToken = new ethers.ContractFactory(
+        tokenArtifacts.abi,
+        tokenArtifacts.deployedBytecode,
+        library?.getSigner()
+      );
+      
+      console.log(tokenAddr, stokeMarketAddr, nftAddr)
+      console.log('---tokenAddr', tokenAddr)
+      tokenContract = IToken.attach(tokenAddr);
+  
+      const IMarket = new ethers.ContractFactory(
+        marketPlaceArtifacts.abi,
+        marketPlaceArtifacts.deployedBytecode,
+        library?.getSigner()
+      )
+      marketContract = IMarket.attach(stokeMarketAddr);
+  
+      const IStokeNFT = new ethers.ContractFactory(
+        stokeNFTArtifacts.abi,
+        stokeNFTArtifacts.deployedBytecode,
+        library?.getSigner()
+      )
+      nftContract = IStokeNFT.attach(nftAddr);
+    }
   }, [account, library]);
 
   const handleAccept = async () => {
+
     const offer = offersData.find((offer) => offer.id == id)
     const sender = offer.user.publicAddress;
     console.log(offer)
@@ -142,7 +165,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
       const offerC = {
         sender,
         amount:ethers.utils.parseEther(String(price)),
-        expiresAt: Date.now("2022-04-20")
+        expiresAt: offer.expirationDateParsed
       }
       const tokenId = router.query.tokenId;
       const Token = {
@@ -157,31 +180,31 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
       )
     }
 
-    // try {
-    //   const accessToken = localStorage.getItem("accessToken");
+    try {
+      const accessToken = localStorage.getItem("accessToken");
 
-    //   await axios.post(
-    //     `${process.env.BACKEND_URL}/offers/accept/${id}`,
-    //     {},
-    //     {
-    //       headers: {
-    //         Authorization: "Bearer " + accessToken,
-    //       },
-    //     }
-    //   );
-    //   handleClose();
-    //   dispatch(
-    //     openSuccess({
-    //       title: "Your order was successfully accepted",
-    //       description:
-    //         "To trade this token, you must first complete a free (plus gas) transaction. <br/> Confirm it in your wallet and keep this tab open!",
-    //     })
-    //   );
-    // } catch (e) {
-    //   dispatch(
-    //     openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
-    //   );
-    // }
+      await axios.post(
+        `${process.env.BACKEND_URL}/offers/accept/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+          },
+        }
+      );
+      handleClose();
+      dispatch(
+        openSuccess({
+          title: "Your order was successfully accepted",
+          description:
+            "To trade this token, you must first complete a free (plus gas) transaction. <br/> Confirm it in your wallet and keep this tab open!",
+        })
+      );
+    } catch (e) {
+      dispatch(
+        openError(e.response?.data ? `${e.response.data.statusCode} ${e.response.data.message}` : e.message)
+      );
+    }
   };
 
   const imageLoader = ({ src }) => {
@@ -191,7 +214,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
 
   return (
     <Modal
-      open={isOpened}
+      open={true}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

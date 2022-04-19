@@ -48,12 +48,18 @@ Date.prototype.toDateInputValue = function () {
 };
 
 const etherChain = process.env.ETHER_CHAIN;
-const tokenAddr = process.env.TOKEN_ADDR;
-const stokeMarketAddr = process.env.MARKET_ADDR;
+const polygonChain = process.env.POLYGON_CHAIN;
+const eth_tokenAddr = process.env.ETH_TOKEN;
+const eth_stokeMarketAddr = process.env.ETH_MARKET;
+const pol_tokenAddr = process.env.POL_TOKEN;
+const pol_stokeMarketAddr = process.env.POL_MARKET;
 let tokenContract;
 let etherPrice;
+let tokenAddr;
+let stokeMarketAddr;
+let supportNetwork;
 
-export const MakeOfferModal = ({ isOpened, handleClose }) => {
+export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
   const { account, activate, library, chainId } = useWeb3React();
   
   const { isAuthorized } = useAuth();
@@ -139,17 +145,22 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
   };
 
   const handleMakeOffer = async () => {
-    if (chainId !== etherChain) {
-      await switchNetwork(etherChain, library);
+    if (chainId !== supportNetwork) {
+      console.log(supportNetwork)
+      await switchNetwork(supportNetwork, library);
       dispatch(
         openSuccess({
           title: "The network has been changed successfully.",
         })
       );
     } else {
+      // await tokenContract.deposit({from: account, value:ethers.utils.parseEther('0.1')})
+      console.log(new Date(modalData.offerExpirationDays))
+      console.log(modalData.offerExpirationDays)
       const value = modalData.amount;
       const offerClass = new Offer({ contractAddress: tokenAddr, signer: library?.getSigner(), library });
       const nonce = await tokenContract.nonces(account);
+      console.log(modalData)
       const { offer, signature } = await offerClass.makeOffer(
         account,
         stokeMarketAddr,
@@ -206,7 +217,17 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
 
   useEffect(() => {
     if (library) {
-      if (chainId === etherChain) {
+      if(tokenNetwork === "ethereum") {
+        tokenAddr = eth_tokenAddr;
+        stokeMarketAddr = eth_stokeMarketAddr;
+        supportNetwork = etherChain
+      }else if(tokenNetwork === "polygon") {
+        tokenAddr = pol_tokenAddr;
+        stokeMarketAddr = pol_stokeMarketAddr;
+        supportNetwork = polygonChain;
+      }
+
+      if (chainId === supportNetwork) {
         const IToken = new ethers.ContractFactory(
           tokenArtifacts.abi,
           tokenArtifacts.deployedBytecode,
@@ -218,6 +239,7 @@ export const MakeOfferModal = ({ isOpened, handleClose }) => {
         console.log("---account", account);
         account && getTokenBalance();
       }
+
     }
   }, [account, library]);
 
