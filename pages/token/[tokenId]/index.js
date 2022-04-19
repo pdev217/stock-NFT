@@ -30,7 +30,6 @@ export const getServerSideProps = async ({ params }) => {
           return { ...elem, usdPrice: `$${(elem.price * result).toFixed(3)}`, type };
         })
     ));
-
     return newArray;
   };
 
