@@ -258,7 +258,7 @@ export const RightSideInfoWrapper = ({
                 [styles.closed]: !isOffersOpened,
               })}
             >
-              {offersData.map(({ price, user, expirationDate, id, usdPrice }) => (
+              {offersData.map(({ price, buyer, expirationDate, id, usdPrice }) => (
                 <div key={id} className={styles.tableRow}>
                   <div>
                     <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
@@ -272,11 +272,11 @@ export const RightSideInfoWrapper = ({
                   </div>
                   <div>
                     <span className={styles.link}>
-                      {user.username ? user.username : user.publicAddress?.slice(0, 5)}
+                      {buyer ? buyer : `Some seller`}
                     </span>
                   </div>
                   <div className={styles.buttonWrapper}>
-                    <CustButton text="buy" color="ghost" onClick={() => handleAccept(price, id)} />
+                    <CustButton text="Accept" color="ghost" onClick={() => handleAccept(price, id)} />
                   </div>
                 </div>
               ))}

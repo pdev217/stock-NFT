@@ -121,7 +121,7 @@ export const BottomInfoWrapper = ({ activity }) => {
               [styles.closed]: !isActivityOpened,
             })}
           >
-            {activityData.map(({ type, user: { username }, price, usdPrice, from, to, date, id }) => (
+            {activityData.map(({ type, buyer, seller, price, usdPrice, from, to, date, id }) => (
               <div key={id} className={styles.tableRow}>
                 <div className={cn(styles.activityEvent, styles.maxWidth150)}>
                   {<Image src="/view-token/Icon-Offers.svg" height={19} width={19} alt="eth-icon" />}
@@ -136,16 +136,16 @@ export const BottomInfoWrapper = ({ activity }) => {
                   )}
                 >
                   <span className={styles.priceText}>
-                    <Image src="/view-token/Icon-Eth.svg" height={19} width={19} alt="eth-icon" />
+                    <Image src="/view-token/Icon-Weth.svg" height={19} width={19} alt="eth-icon" />
                     <span className={cn(styles.marginLeft4, styles.marginBottom4)}>{price}</span>
                   </span>
                   <span className={styles.greySmallText}>{usdPrice}</span>
                 </div>
                 <div>
-                  <span className={styles.link}>{username}</span>
+                  <span className={styles.link}>{buyer}</span>
                 </div>
                 <div>
-                  <span className={styles.link}>{to}</span>
+                  <span className={styles.link}>{seller}</span>
                 </div>
                 <div className={styles.maxWidth150}>
                   <span className={styles.activityDateText}>{date}</span>

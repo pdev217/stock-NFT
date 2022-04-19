@@ -36,13 +36,14 @@ export const getServerSideProps = async ({ params }) => {
   };
 
   const adaptedOffers = await adaptPriceAndType(data.offers, 'Offers')
+  console.log('---data', data)
 
   return {
     props: {
       ...data,
       offers: adaptedOffers,
-      username: data.user?.username || null,
-      userId: data.user?.id || null,
+      buyer: data.buyer || null,
+      seller: data.seller || null,
       collectionName: data.collection?.name || null,
       about: data.collection.description,
       blockchainName: data.blockchainType?.name || null,
