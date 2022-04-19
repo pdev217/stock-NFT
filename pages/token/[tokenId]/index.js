@@ -27,7 +27,6 @@ export const getServerSideProps = async ({ params }) => {
     const newArray = Promise.all(array.map(
       async (elem) =>
         await getEtherPrice().then((result) => {
-          console.log('---result', result)
           return { ...elem, usdPrice: `$${(elem.price * result).toFixed(3)}`, type };
         })
     ));

@@ -105,35 +105,37 @@ export const RightSideInfoWrapper = ({
           </div>
         </div>
       </div>
-      <div className={cn(styles.box, styles.saleEndsPriceWrapper)}>
-        <div className={styles.saleEnds}>
-          <div>
-            <span className={styles.greySmallText}>Sale ends {saleEndsStringified}</span>
-          </div>
-          <LeftTimeContainer endTime={saleEnds} />
-        </div>
-        <div className={styles.currentPriceWrapper}>
-          <div>
-            <span className={styles.greySmallText}>Current Price</span>
-          </div>
-          <div className={styles.priceInfo}>
-            <Image src="/view-token/Icon-Weth.svg" width={19} height={19} alt="eth-icon" />
-            <div className={styles.ethPrice}>
-              <span>{ethPrice}</span>
+      {owner !== profileName && (
+        <div className={cn(styles.box, styles.saleEndsPriceWrapper)}>
+          <div className={styles.saleEnds}>
+            <div>
+              <span className={styles.greySmallText}>Sale ends {saleEndsStringified}</span>
             </div>
-            <span className={styles.greySmallText}>(${usdPrice})</span>
+            <LeftTimeContainer endTime={saleEnds} />
           </div>
-          <div>
-            <CustButton color="primary" text="Buy now" />
-            <CustButton
-              color="ghost"
-              text="Make offer"
-              onClick={() => setIsMakeOfferModalOpened(true)}
-              className={styles.makeOfferButton}
-            />
+          <div className={styles.currentPriceWrapper}>
+            <div>
+              <span className={styles.greySmallText}>Current Price</span>
+            </div>
+            <div className={styles.priceInfo}>
+              <Image src="/view-token/Icon-Weth.svg" width={19} height={19} alt="eth-icon" />
+              <div className={styles.ethPrice}>
+                <span>{ethPrice}</span>
+              </div>
+              <span className={styles.greySmallText}>(${usdPrice})</span>
+            </div>
+            <div>
+              <CustButton color="primary" text="Buy now" />
+              <CustButton
+                color="ghost"
+                text="Make offer"
+                onClick={() => setIsMakeOfferModalOpened(true)}
+                className={styles.makeOfferButton}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className={cn(styles.box, styles.listingsWrapper)}>
         <div className={styles.sectionHeader}>
           <Image src="/view-token/Icon-Description.svg" height={19} width={19} alt="description" />
