@@ -132,7 +132,6 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
         library?.getSigner()
       );
       
-      console.log(tokenAddr, stokeMarketAddr, nftAddr)
       console.log('---tokenAddr', tokenAddr)
       tokenContract = IToken.attach(tokenAddr);
   
@@ -153,13 +152,10 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
   }, [account, library]);
 
   const handleAccept = async () => {
-
     const offer = offersData.find((offer) => offer.id == id);
     const sender = offer.buyer.publicAddress;
-    console.log(offer)
     const wei = await tokenContract.balanceOf(sender);
     const balance = ethers.utils.formatUnits(wei);
-
     if (Number(balance) >= price) {
       const offerC = {
         sender,
@@ -171,7 +167,6 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
         tokenId: Number(tokenId),
         tokenURI: `${process.env.BACKEND_URL}/nfts/metadata/${tokenId}`,
       };
-      console.log(Token);
       await marketContract.accept(offerC, tokenAddr, nftAddr, Token);
     } else {
       dispatch(openError("Offer's owner has not enough balance"));

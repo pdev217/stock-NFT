@@ -173,8 +173,8 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
       return;
     }
 
-    if (chainId !== etherChain) {
-      await switchNetwork(etherChain, library);
+    if (chainId !== supportNetwork) {
+      await switchNetwork(supportNetwork, library);
       dispatch(
         openSuccess({
           title: "The network has been changed successfully.",
@@ -182,8 +182,6 @@ export const MakeOfferModal = ({ isOpened, handleClose, tokenNetwork }) => {
       );
     } else {
       // await tokenContract.deposit({from: account, value:ethers.utils.parseEther('0.1')})
-      console.log(new Date(modalData.offerExpirationDays))
-      console.log(modalData.offerExpirationDays)
       const value = modalData.amount;
       const offerClass = new Offer({ contractAddress: tokenAddr, signer: library?.getSigner(), library });
       const nonce = await tokenContract.nonces(account);
