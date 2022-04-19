@@ -15,7 +15,7 @@ export const fakeListing = [
     buyer: { username: "CreVthor" },
     seller: { username: "Darth Vader" }, 
     id: "1",
-    usdPrice: '$987',
+    usdPrice: '987',
     type: "Listing",
   },
   {
@@ -25,7 +25,7 @@ export const fakeListing = [
     buyer: { username: "Darth Vader" },
     seller: { username: "CreVthor" }, 
     id: "2",
-    usdPrice: '$987',
+    usdPrice: '987',
     type: "Listing",
   },
 ];

@@ -28,10 +28,22 @@ export const ProfilePopup = ({ categories, className }) => {
 
   return (
     <div className={cn(className, styles.wrapper)} ref={ref}>
+      {isAuthorized && (
+        <div className={styles.category}>
+          <Link href="/profile" passHref>
+            <a onClick={closePopup}>
+              <div onClick={() => closePopup()} className={styles.icon}>
+                <Image src="/profile-without-circle.svg" alt="profile-without-circle" layout="fill" />
+              </div>
+              <div className={styles.text}>Profile</div>
+            </a>
+          </Link>
+        </div>
+      )}
       {categories.map(({ categoryName, src, href, id }) => (
         <div key={id} className={styles.category}>
           <Link href={href} passHref>
-            <a>
+            <a onClick={closePopup}>
               <div onClick={() => closePopup()} className={styles.icon}>
                 <Image src={src} alt={categoryName} layout="fill" />
               </div>

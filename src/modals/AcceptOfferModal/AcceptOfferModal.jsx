@@ -132,6 +132,7 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
 
   const handleAccept = async () => {
     const offer = offersData.find((offer) => offer.id == id);
+
     const sender = offer.buyer.publicAddress;
     const wei = await tokenContract.balanceOf(sender);
     const balance = ethers.utils.formatUnits(wei);

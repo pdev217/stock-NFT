@@ -1,0 +1,34 @@
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chartOptions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.chartOptions > span {
+  font-size: 16px;
+  letter-spacing: 0.01px;
+  color: #ffffff;
+}
+
+.periods {
+  display: flex;
+  align-items: flex-end;
+}
+
+.period {
+  margin-left: 16px;
+  font-size: 12px;
+  letter-spacing: 0.01px;
+  color: var(--light-grey);
+  cursor: pointer;
+}
+
+.choosenPeriod {
+    color: var(--white);
+}
