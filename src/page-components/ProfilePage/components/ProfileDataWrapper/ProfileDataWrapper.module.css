@@ -1,130 +1,157 @@
 .wrapper {
-  width: 100%;
-  aspect-ratio: 1/ 0.25;
-  padding: 90px 3.28%;
-  display: flex;
-  background-color: var(--dark-grey);
-  position: relative;
-  font-size: "Poppins", sans-serif;
+	position: relative;
+
+	display: flex;
+
+	width: 100%;
+	padding: 90px 3.28%;
+
+	background-color: var(--dark-grey);
+
+	font-size: "Poppins", sans-serif;
+	aspect-ratio: 1/ 0.25;
 }
 
 .gradient {
-  position: absolute;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: transparent linear-gradient(180deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 100%;
+
+	background: transparent linear-gradient(180deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
 }
 
 .profileImageWrapper {
-  border: 1px solid var(--primary);
-  border-radius: 50%;
-  width: 15.5%;
-  aspect-ratio: 1 / 1.035;
-  position: relative;
-  overflow: hidden;
-  height: fit-content;
+	position: relative;
+
+	overflow: hidden;
+
+	width: 15.5%;
+	height: fit-content;
+
+	border: 1px solid var(--primary);
+	border-radius: 50%;
+	aspect-ratio: 1 / 1.035;
 }
 
 .spinner {
-  position: relative;
-  left: 50%;
-  top: 50%;
+	position: relative;
+	top: 50%;
+	left: 50%;
 
-  width: fit-content;
-  padding: 20px;
+	width: fit-content;
+	padding: 20px;
 
-  transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 .middleSection {
-  position: relative;
-  margin-left: 3.8%;
-  z-index: 11;
-  width: 40.1%;
+	position: relative;
+	z-index: 11;
+
+	width: 40.1%;
+	margin-left: 3.8%;
 }
 
 .account {
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.01px;
-  color: var(--light-grey);
+	letter-spacing: 0.01px;
+
+	color: var(--light-grey);
+
+	font-size: 14px;
+	font-style: italic;
 }
 
 .username {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  font-weight: 600;
-  font-size: 48px;
-  color: var(--white);
+	overflow: hidden;
+
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	color: var(--white);
+
+	font-size: 48px;
+	font-weight: 600;
 }
 
 .bio {
-  font-size: 14px;
-  letter-spacing: 0.01px;
-  color: var(--light-grey);
-  max-height: 81px;
-  overflow-y: scroll;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--light-grey);
+	overflow-y: scroll;
+
+	max-height: 81px;
+	padding-bottom: 16px;
+
+	letter-spacing: 0.01px;
+
+	color: var(--light-grey);
+	border-bottom: 1px solid var(--light-grey);
+
+	font-size: 14px;
 }
 
 .midlleSectionBottom {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
+	display: flex;
+	justify-content: space-between;
+
+	margin-top: 16px;
 }
 
 .midlleSectionBottom > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }
 
 .dataWithIcon span {
-  margin-left: 8px;
+	margin-left: 8px;
 }
 
 .middleSectionBottomNumbers {
-  font-weight: 800;
-  font-size: 24px;
-  text-align: center;
-  color: var(--white);
+	text-align: center;
+
+	color: var(--white);
+
+	font-size: 24px;
+	font-weight: 800;
 }
 
 .middleSectionBottomDescription {
-  text-align: center;
-  font-size: 16px;
-  letter-spacing: 0.01px;
+	text-align: center;
+	letter-spacing: 0.01px;
 
-  color: var(--white);
+	color: var(--white);
+
+	font-size: 16px;
 }
 
 .rightSection {
-  position: relative;
-  margin-left: 3.8%;
-  z-index: 11;
-  width: 37%;
+	position: relative;
+	z-index: 11;
+
+	width: 37%;
+	margin-left: 3.8%;
 }
 
 .actionsTitle {
-  font-size: 14px;
-  letter-spacing: 0.01px;
-  color: var(--white);
-  margin-bottom: 9px;
+	margin-bottom: 9px;
+
+	letter-spacing: 0.01px;
+
+	color: var(--white);
+
+	font-size: 14px;
 }
 
 .buttonsWrapper {
-  display: flex;
+	display: flex;
 }
 
 .buttonsWrapper > div:first-child {
-  margin-right: 16px;
+	margin-right: 16px;
 }
 
 .chart {
-  margin-top: 21px;
+	margin-top: 21px;
 }
