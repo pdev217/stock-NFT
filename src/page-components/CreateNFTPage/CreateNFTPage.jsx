@@ -24,13 +24,13 @@ import { Property } from "../../components/Property/Property";
 import { AddPropertiesModal } from "../../modals/AddToNFTModal/AddPropertiesModal";
 //utils
 import { textFields, selects, uploadAndSwitchFields } from "./CreateNFTPage.utils";
-//styles
-import styles from "./CreateNFTPage.module.css";
 //web3
 import { useWeb3React } from "@web3-react/core";
 //hooks
 import { useStyles } from "../../hooks/useStyles";
 import useAuth from "../../hooks/useAuth";
+//styles
+import styles from "./CreateNFTPage.module.css";
 
 var contractAddress;
 export const CreateNFTPage = () => {
@@ -172,7 +172,7 @@ export const CreateNFTPage = () => {
     if (isAuthorized) {
       sendDataToServer();
     } else {
-      setIsConnectWalletOpened(true)
+      setIsConnectWalletOpened(true);
     }
   };
 
@@ -234,12 +234,7 @@ export const CreateNFTPage = () => {
 
   const fetchBlockchainTypes = async () => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
-      const { data } = await axios.get(`${process.env.BACKEND_URL}/nfts/blockchainTypes/all`, {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      });
+      const { data } = await axios.get(`${process.env.BACKEND_URL}/nfts/blockchainTypes/all`);
       const array = [];
       data.forEach(({ name, id }) => {
         array.push({ name, id });
@@ -261,7 +256,7 @@ export const CreateNFTPage = () => {
 
   useEffect(() => {
     isAuthorized && setIsConnectWalletOpened(false);
-  }, [isAuthorized])
+  }, [isAuthorized]);
 
   useEffect(() => {
     if (values.file && values.name && values.blockchainType !== "none" && values.description) {

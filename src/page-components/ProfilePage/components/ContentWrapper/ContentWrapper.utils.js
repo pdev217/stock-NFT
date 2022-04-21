@@ -25,5 +25,4 @@ export const chooseSections = [
         text: 'Offers',
         icon: <OfferIcon />,
     },
-
 ]
