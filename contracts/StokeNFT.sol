@@ -28,8 +28,6 @@ contract StokeNFT is ERC721URIStorage {
 
         uint256 id = _tokenCounter.current();
 
-        // bool IsExist = statusForToken(_tokenId);
-
         bool IsExist = _exists(_tokenId);
 
         if(IsExist) {
