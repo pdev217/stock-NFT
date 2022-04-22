@@ -13,7 +13,7 @@ const initialState = {
   selectedOnSaleIn: { filter: "", rows: [] },
   filterText: "",
   itemsSelect: "Single Items",
-  readyFilterOption: "Price: High to Low",
+  readyFilterOption: { text: "Price: High to Low", sortOrder: "ASC", sortBy: "price" },
   tokensGridScale: "large",
   isShownAllOffers: true,
 };

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+//redux
+import { useSelector } from "react-redux";
 //axios
-import axios from 'axios';
+import axios from "axios";
 //classnames
 import cn from "classnames";
 //components
@@ -16,10 +18,34 @@ import styles from "./ContentWrapper.module.scss";
 export const ContentWrapper = () => {
   const [choosenSection, setChoosenSection] = useState("created");
   const [isSidebarOpened, setIsSidebarOpened] = useState(true);
+  const [tokens, setTokens] = useState([]);
 
-const getTokens = async () => {
-  
-}
+  const { readyFilterOption } = useSelector((state) => state.profileFiltration);
+
+  const getTokens = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const { sortOrder, sortBy } = readyFilterOption;
+    console.log("---readyFilterOption", readyFilterOption);
+
+    const {
+      data: { data },
+    } = await axios.get(
+      `${process.env.BACKEND_URL}/users/account/assets?tab=${choosenSection}&sortOrder=${sortOrder}&sortBy=${sortBy}`,
+      {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      }
+    );
+
+    return data;
+  };
+
+  useEffect(() => {
+    getTokens().then((result) => setTokens(result));
+  }, []);
+
+  console.log("---tokens", tokens);
 
   return (
     <div className={styles.wrapper}>

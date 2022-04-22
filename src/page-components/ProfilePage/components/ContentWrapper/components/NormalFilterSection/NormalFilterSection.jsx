@@ -72,13 +72,15 @@ export const NormalFilterSection = () => {
         style={{
           color: "white",
         }}
-        onChange={({ target: { value } }) => dispatch(setData({ field: "readyFilterOption", data: value }))}
-        value={readyFilterOption}
+        onChange={({ target: { value } }) =>
+          dispatch(setData({ field: "readyFilterOption", data: { text: value } }))
+        }
+        value={readyFilterOption.text}
         className={muiClasses.select}
       >
-        {readyFilterOptions.map((elem) => (
-          <MenuItem key={elem} value={elem}>
-            <span>{elem}</span>
+        {readyFilterOptions.map(({ text }) => (
+          <MenuItem key={text} value={text}>
+            <span>{text}</span>
           </MenuItem>
         ))}
       </Select>
