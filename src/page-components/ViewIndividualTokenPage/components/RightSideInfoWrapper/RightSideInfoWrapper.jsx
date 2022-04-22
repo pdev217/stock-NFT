@@ -41,6 +41,7 @@ export const RightSideInfoWrapper = ({
 }) => {
   const dispatch = useDispatch();
   const { account, library } = useWeb3React();
+  const [userAccount, setUserAccount] = useState("");
   const [saleEnds, setSaleEnds] = useState(undefined);
   const [saleEndsStringified, setSaleEndsStringified] = useState("");
   const [tokenOwner, setTokenOwner] = useState();
@@ -64,8 +65,21 @@ export const RightSideInfoWrapper = ({
   };
 
   useEffect(() => {
-    if (owner === profileName) setTokenOwner("you");
-    else setTokenOwner(owner);
+    const account = localStorage.getItem("account");
+    setUserAccount(account);
+  }, [])
+
+  useEffect(() => {
+    if (owner.publicAddress === userAccount) {
+      setTokenOwner("you");
+    } else if (!owner.username) {
+      const { publicAddress } = owner;
+      setTokenOwner(
+        `${publicAddress.substring(0, 6)}...${publicAddress.substring(publicAddress.length - 6)}`
+      );
+    } else {
+      setTokenOwner(owner.username);
+    }
   }, [owner, profileName]);
 
   useEffect(() => {
@@ -105,7 +119,7 @@ export const RightSideInfoWrapper = ({
           </div>
         </div>
       </div>
-      {owner !== profileName && (
+      {owner.publicAddress !== userAccount && (
         <div className={cn(styles.box, styles.saleEndsPriceWrapper)}>
           <div className={styles.saleEnds}>
             <div>

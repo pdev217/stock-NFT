@@ -34,7 +34,7 @@ export const getServerSideProps = async ({ params }) => {
     return newArray;
   };
 
-  const adaptedOffers = await adaptPriceAndType(data.offers, 'Offers')
+  const adaptedOffers = await adaptPriceAndType(data.offers, 'Offers');
 
   return {
     props: {

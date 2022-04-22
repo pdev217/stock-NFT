@@ -24,8 +24,13 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
   const profileName = useSelector((state) => state.userData.username);
 
   useEffect(() => {
-    if (owner === profileName) {
+    const account = localStorage.getItem("account");
+
+    if (owner.publicAddress === account) {
       setUsername("you");
+    } else if (!owner.username) {
+      const { publicAddress } = owner;
+      setUsername(`${publicAddress.substring(0, 6)}...${publicAddress.substring(publicAddress.length - 6)}`);
     } else {
       setUsername(owner);
     }
