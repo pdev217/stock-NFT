@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+//axios
+import axios from 'axios';
 //classnames
 import cn from "classnames";
 //components
@@ -12,18 +14,22 @@ import { chooseSections } from "./ContentWrapper.utils";
 import styles from "./ContentWrapper.module.scss";
 
 export const ContentWrapper = () => {
-  const [choosenSection, setChoosenSection] = useState("Created");
+  const [choosenSection, setChoosenSection] = useState("created");
   const [isSidebarOpened, setIsSidebarOpened] = useState(true);
+
+const getTokens = async () => {
+  
+}
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.chooseSectionWrapper}>
-        {chooseSections.map(({ text, icon }) => (
+        {chooseSections.map(({ text, icon, nameForBE }) => (
           <div
             className={cn(styles.chooseSection, {
-              [styles.chooseSectionActive]: choosenSection === text,
+              [styles.chooseSectionActive]: choosenSection === nameForBE,
             })}
-            onClick={() => setChoosenSection(text)}
+            onClick={() => setChoosenSection(nameForBE)}
             key={text}
           >
             {icon}
@@ -31,10 +37,10 @@ export const ContentWrapper = () => {
           </div>
         ))}
       </div>
-      {chooseSections.map(({ text }) => (
+      {chooseSections.map(({ nameForBE }) => (
         <>
-          {choosenSection === text && (
-            <div key={text} className={styles.bottomSideWrapper}>
+          {choosenSection === nameForBE && (
+            <div key={nameForBE} className={styles.bottomSideWrapper}>
               <Sidebar
                 choosenTopSection={choosenSection}
                 handleToggleSidebar={() => setIsSidebarOpened(!isSidebarOpened)}
