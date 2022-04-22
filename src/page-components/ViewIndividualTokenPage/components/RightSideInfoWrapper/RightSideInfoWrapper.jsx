@@ -226,7 +226,12 @@ export const RightSideInfoWrapper = ({
                       <span className={styles.greySmallText}>{expirationDate}</span>
                     </div>
                     <div>
-                      <span className={styles.link}>{username || publicAddress}</span>
+                      <span className={styles.link}>
+                        {username ||
+                          `${publicAddress.substting(0, 6)}...${publicAddress.substring(
+                            publicAddress.length - 6
+                          )}`}
+                      </span>
                     </div>
                     <div className={styles.buttonWrapper}>
                       <CustButton text="buy" color="ghost" />
@@ -310,7 +315,12 @@ export const RightSideInfoWrapper = ({
                       <span className={styles.greySmallText}>{expirationDate}</span>
                     </div>
                     <div>
-                      <span className={styles.link}>{username || publicAddress}</span>
+                      <span className={styles.link}>
+                        {username ||
+                          `${publicAddress.substting(0, 6)}...${publicAddress.substring(
+                            publicAddress.length - 6
+                          )}`}
+                      </span>
                     </div>
                     {owner.publicAddress === userAccount && (
                       <div className={styles.buttonWrapper}>
