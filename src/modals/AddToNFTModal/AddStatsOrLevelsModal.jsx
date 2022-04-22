@@ -12,7 +12,7 @@ import Modal from "@mui/material/Modal";
 import { CustButton } from "../../components/CustButton/CustButton";
 import { StatsOrLevelsRow } from "./StatsOrLevelsRow";
 //styles
-import {styles as jsStyles} from '../modalStyles/modalJsStyles'
+import { styles as jsStyles } from "../modalStyles/modalJsStyles";
 import cssStyles from "./AddToNFTModal.module.css";
 //utils
 import { getEmptyLevelOrStat } from "./AddToNFTModal.utils";
@@ -36,7 +36,7 @@ export const AddStatsOrLevelsModal = ({
 
   const handleAdd = () => {
     if (modalData.length === 50) {
-      dispatch(openError('Only 50 values can be added'))
+      dispatch(openError("Only 50 values can be added"));
     }
 
     setModalData([...modalData, { ...getEmptyLevelOrStat() }]);
@@ -45,7 +45,7 @@ export const AddStatsOrLevelsModal = ({
   const handleDelete = (id) => {
     if (modalData.length === 1) {
       setModalData([{ ...getEmptyLevelOrStat() }]);
-      
+
       return;
     }
 
@@ -54,11 +54,15 @@ export const AddStatsOrLevelsModal = ({
 
   const handleSave = () => {
     const newData = [...modalData];
+
     const filtered = newData.filter((elem) => elem.name !== "" && elem.nftValue && elem.maxValue);
-    
+    const result = filtered.map((elem) => {
+      return { ...elem, nftValue: Number(elem.nftValue), maxValue: Number(elem.maxValue) };
+    });
+
     title === "Add Stats"
-      ? setData({ ...data, stats: [...filtered] })
-      : setData({ ...data, levels: [...filtered] });
+      ? setData({ ...data, stats: [...result] })
+      : setData({ ...data, levels: [...result] });
     setIsModalOpened(false);
   };
 
@@ -112,7 +116,7 @@ export const AddStatsOrLevelsModal = ({
           <CustButton color="ghost" onClick={handleAdd} text="Add More" className={cssStyles.addMoreButton} />
         </section>
         <footer className={cssStyles.footer}>
-          <CustButton color="primary" onClick={handleSave} text="Save" />
+          <CustButton color="primary" onClick={handleSave} text="Save" className={cssStyles.button} />
         </footer>
       </Box>
     </Modal>
