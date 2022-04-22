@@ -43,8 +43,8 @@ export const ContentWrapper = () => {
               <div className={styles.rightBottomSide}>
                 {choosenSection !== "Activity" && choosenSection !== "Offers" && <NormalFilterSection />}
                 {choosenSection === "Offers" && <OffersFilterSection />}
+                <TagsWrapper choosenSection={choosenSection} />
               </div>
-              <TagsWrapper choosenSection={choosenSection} />
             </div>
           )}
         </>

@@ -59,11 +59,12 @@ export const Sidebar = ({ isOpened, handleToggleSidebar, choosenTopSection }) =>
   const handleToggleSection = (section) =>
     setOpenedSections({ ...openedSections, [section]: !openedSections[section] });
 
-  const handleToggleStatus = (status) => {
-    if (selectedStatuses.includes(status)) {
-      dispatch(deleteFromArray({ field: "selectedStatuses", data: status }));
+  const handleToggleStatus = (status, text) => {
+    const statusesStringsArray = selectedStatuses.map((elem) => elem.name);
+    if (statusesStringsArray.includes(status)) {
+      dispatch(deleteFromArrayOfObjects({ field: "selectedStatuses", objectField: "name", data: status }));
     } else {
-      dispatch(setData({ field: "selectedStatuses", data: [...selectedStatuses, status] }));
+      dispatch(setData({ field: "selectedStatuses", data: [...selectedStatuses, { name: status, text }] }));
     }
   };
 
@@ -202,10 +203,10 @@ export const Sidebar = ({ isOpened, handleToggleSidebar, choosenTopSection }) =>
               {statuses.map(({ text, status }) => (
                 <div
                   className={cn(styles.status, {
-                    [styles.statusChoosen]: selectedStatuses.includes(status),
+                    [styles.statusChoosen]: selectedStatuses.map((elem) => elem.name).includes(status),
                   })}
                   key={status}
-                  onClick={() => handleToggleStatus(status)}
+                  onClick={() => handleToggleStatus(status, text)}
                 >
                   <span>{text}</span>
                 </div>

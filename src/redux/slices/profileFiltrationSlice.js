@@ -6,6 +6,7 @@ const initialState = {
     min: undefined,
     max: undefined,
     currency: "usd",
+    text: "USD",
   },
   selectedCollections: { filter: "", rows: [] },
   selectedChains: [],
@@ -26,16 +27,16 @@ export const profileFiltration = createSlice({
     },
     deleteFromArray: (state, { payload: { field, data } }) => {
       if (data.rows) {
-        state[field] = { ...state[field], rows: state[field].rows.filter((elem) => elem !== data.rows)  };
+        state[field] = { ...state[field], rows: state[field].rows.filter((elem) => elem !== data.rows) };
       } else {
         state[field] = state[field].filter((elem) => elem !== data);
       }
     },
     deleteFromArrayOfObjects: (state, { payload: { field, objectField, data } }) => {
       if (data.rows) {
-        state[field] = { ...state[field], rows: state[field].rows.filter((elem) => elem.name !== data.rows)  };
+        state[field] = { ...state[field], rows: state[field].rows.filter((elem) => elem.name !== data.rows) };
       } else {
-        state[field] = state[field].filter(elem => elem[objectField] !== data)
+        state[field] = state[field].filter((elem) => elem[objectField] !== data);
       }
     },
     deletePrice: (state) => {
@@ -43,11 +44,25 @@ export const profileFiltration = createSlice({
         min: undefined,
         max: undefined,
         currency: "usd",
+        text: "USD",
       };
+    },
+    deleteAll: (state) => {
+      state.selectedStatuses = [];
+      state.selectedPrice = {
+        min: undefined,
+        max: undefined,
+        currency: "usd",
+        text: "USD",
+      };
+      state.selectedCollections = { filter: "", rows: [] };
+      state.selectedChains = [];
+      state.selectedOnSaleIn = { filter: "", rows: [] };
     },
   },
 });
 
-export const { setData, deleteFromArray, deletePrice, deleteFromArrayOfObjects } = profileFiltration.actions;
+export const { setData, deleteFromArray, deletePrice, deleteFromArrayOfObjects, deleteAll } =
+  profileFiltration.actions;
 
 export default profileFiltration.reducer;
