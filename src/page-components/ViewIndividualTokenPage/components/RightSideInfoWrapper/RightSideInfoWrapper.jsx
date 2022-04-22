@@ -44,7 +44,7 @@ export const RightSideInfoWrapper = ({
   const [tokenOwner, setTokenOwner] = useState();
 
   const offersData = useSelector((state) => state.offers.offers);
-  console.log('---offersData', offersData)
+  console.log("---offersData", offersData);
   const router = useRouter();
 
   const [listingData, setListingData] = useState(undefined);
@@ -57,7 +57,7 @@ export const RightSideInfoWrapper = ({
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
   //network ether or polygon
-  const [tokenNetwork, setTokenNetwork] = useState('');
+  const [tokenNetwork, setTokenNetwork] = useState("");
 
   const profileName = useSelector((state) => state.userData.username);
 
@@ -69,7 +69,7 @@ export const RightSideInfoWrapper = ({
   useEffect(() => {
     const account = localStorage.getItem("account");
     setUserAccount(account);
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (owner.publicAddress === userAccount) {
@@ -106,11 +106,11 @@ export const RightSideInfoWrapper = ({
     const { tokenId } = router.query;
     async function getNftInfo() {
       const response = await axios.get(`${process.env.BACKEND_URL}/nfts/${tokenId}`);
-      const { blockchainType } = response.data
+      const { blockchainType } = response.data;
       setTokenNetwork(String(blockchainType.name).toLowerCase());
     }
     getNftInfo();
-  }, [])
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -289,7 +289,7 @@ export const RightSideInfoWrapper = ({
               <div>
                 <span>From</span>
               </div>
-              <div className={styles.buttonWrapper}></div>
+              {owner.publicAddress === userAccount && <div className={styles.buttonWrapper}></div>}
             </div>
             <div
               className={cn(styles.opened, {
@@ -312,9 +312,11 @@ export const RightSideInfoWrapper = ({
                     <div>
                       <span className={styles.link}>{username || publicAddress}</span>
                     </div>
-                    <div className={styles.buttonWrapper}>
-                      <CustButton text="Accept" color="ghost" onClick={() => handleAccept(price, id)} />
-                    </div>
+                    {owner.publicAddress === userAccount && (
+                      <div className={styles.buttonWrapper}>
+                        <CustButton text="Accept" color="ghost" onClick={() => handleAccept(price, id)} />
+                      </div>
+                    )}
                   </div>
                 )
               )}

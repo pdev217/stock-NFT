@@ -32,7 +32,7 @@ export const LeftSideInfoWrapper = ({ owner, description, properties, stats, sta
       const { publicAddress } = owner;
       setUsername(`${publicAddress.substring(0, 6)}...${publicAddress.substring(publicAddress.length - 6)}`);
     } else {
-      setUsername(owner);
+      setUsername(owner.username);
     }
   }, [owner, profileName]);
 
