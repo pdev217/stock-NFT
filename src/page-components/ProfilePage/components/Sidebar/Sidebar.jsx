@@ -3,7 +3,11 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { setData, deleteFromArray } from "../../../../redux/slices/profileFiltrationSlice";
+import {
+  setData,
+  deleteFromArray,
+  deleteFromArrayOfObjects,
+} from "../../../../redux/slices/profileFiltrationSlice";
 import { open as openError } from "../../../../redux/slices/errorSnackbarSlice";
 import { clearError, getAllChains } from "../../../../redux/slices/generalDataSlice";
 //mui
@@ -63,11 +67,13 @@ export const Sidebar = ({ isOpened, handleToggleSidebar, choosenTopSection }) =>
     }
   };
 
-  const handleToggleChains = (chain) => {
-    if (selectedChains.includes(chain)) {
-      dispatch(deleteFromArray({ field: "selectedChains", data: chain }));
+  const handleToggleChains = (chain, icon) => {
+    const chainsStringsArray = selectedChains.map((elem) => elem.name);
+
+    if (chainsStringsArray.includes(chain)) {
+      dispatch(deleteFromArrayOfObjects({ field: "selectedChains", objectField: "name", data: chain }));
     } else {
-      dispatch(setData({ field: "selectedChains", data: [...selectedChains, chain] }));
+      dispatch(setData({ field: "selectedChains", data: [...selectedChains, { name: chain, icon }] }));
     }
   };
 
@@ -84,16 +90,22 @@ export const Sidebar = ({ isOpened, handleToggleSidebar, choosenTopSection }) =>
     }
   };
 
-  const handleToggleCollections = (collection) => {
-    if (selectedCollections.rows.includes(collection)) {
+  const handleToggleCollections = (collection, icon) => {
+    const collectionsStringsArray = selectedCollections.rows.map((elem) => elem.name);
+
+    if (collectionsStringsArray.includes(collection)) {
       dispatch(
-        deleteFromArray({ field: "selectedCollections", data: { ...selectedCollections, rows: collection } })
+        deleteFromArrayOfObjects({
+          field: "selectedCollections",
+          objectField: "name",
+          data: { rows: collection },
+        })
       );
     } else {
       dispatch(
         setData({
           field: "selectedCollections",
-          data: { ...selectedCollections, rows: [...selectedCollections.rows, collection] },
+          data: { ...selectedCollections, rows: [...selectedCollections.rows, { name: collection, icon }] },
         })
       );
     }
@@ -211,8 +223,8 @@ export const Sidebar = ({ isOpened, handleToggleSidebar, choosenTopSection }) =>
           )}
           {section === "collections" && (
             <div
-              className={cn(styles.sectionContent, styles.withMaxHeight, {
-                [styles.sectionClosed]: !openedSections.chains,
+              className={cn(styles.sectionContent, {
+                [styles.sectionClosed]: !openedSections.collections,
               })}
             >
               <TextField
@@ -222,22 +234,24 @@ export const Sidebar = ({ isOpened, handleToggleSidebar, choosenTopSection }) =>
                 type="text"
                 variant="outlined"
                 className={muiClasses.textField}
-                value={onSalesInSearch}
+                value={collectionsSearch}
                 onChange={({ target: { value } }) => setCollectionsSearch(value)}
                 InputProps={{ style: { color: "white" } }}
               />
-              {collectionsRows.map(({ name }) => (
-                <div key={name} className={styles.collection} onClick={() => handleToggleCollections(name)}>
-                  <div className={styles.collectionIcon}>
-                    {selectedCollections.rows.includes(name) ? (
-                      <Image src="/Icon_Check.svg" width={19} height={19} alt="icon-checked" />
-                    ) : (
-                      <Image src='/' loader={iconLoader} width={19} height={19} alt="icon-collection" />
-                    )}
+              <div className={styles.scrollable}>
+                {collectionsRows.map(({ name }) => (
+                  <div key={name} className={styles.collection} onClick={() => handleToggleCollections(name)}>
+                    <div className={styles.collectionIcon}>
+                      {selectedCollections.rows.map((elem) => elem.name).includes(name) ? (
+                        <Image src="/Icon_Check.svg" width={19} height={19} alt="icon-checked" />
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <span>{name}</span>
                   </div>
-                  <span>{name}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           )}
           {section === "chains" && (
@@ -247,9 +261,9 @@ export const Sidebar = ({ isOpened, handleToggleSidebar, choosenTopSection }) =>
               })}
             >
               {chains.map(({ name, icon }) => (
-                <div key={name} className={styles.chain} onClick={() => handleToggleChains(name)}>
+                <div key={name} className={styles.chain} onClick={() => handleToggleChains(name, icon)}>
                   <div className={styles.chainIcon}>
-                    {selectedChains.includes(name) ? (
+                    {selectedChains.map((elem) => elem.name).includes(name) ? (
                       <Image src="/Icon_Check.svg" width={19} height={19} alt="icon-checked" />
                     ) : (
                       <Image src={icon} loader={iconLoader} width={19} height={19} alt="icon-chain" />

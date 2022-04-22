@@ -31,11 +31,7 @@ export const userData = createSlice({
       }
     },
     setUsername: (state, action) => {
-      if (action.payload === "") {
-        state.username = "Profile";
-      } else {
         state.username = action.payload;
-      }
     },
     setUserBio: (state, action) => {
       state.bio = action.payload

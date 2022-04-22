@@ -190,7 +190,7 @@ export const ViewIndividualTokenPage = ({
           </div>
           <div className={styles.leftSideInfoWrapper}>
             <LeftSideInfoWrapper
-              owner={user.username}
+              owner={user?.username}
               description={description}
               properties={properties}
               levels={levels}

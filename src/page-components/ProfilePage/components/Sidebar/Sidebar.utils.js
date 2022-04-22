@@ -1,4 +1,4 @@
-const normalSections = [
+export const normalSections = [
   {
     text: "Status",
     section: "status",
@@ -25,7 +25,7 @@ const normalSections = [
   },
 ];
 
-const activitySections = [
+export const activitySections = [
   {
     text: "Event Type",
     section: "eventType",
@@ -40,16 +40,17 @@ const activitySections = [
   },
 ];
 
-const onlyCollections = [
+export const onlyCollections = [
   {
     text: "Collections",
     section: "collections",
   },
 ];
 
+export const forNormal = ["Created", "Collected", "Favorited", "Hidden"];
+export const forCollectionsOnly = ["Offers", "Listings"];
+
 export const getSections = (choosenTopSection) => {
-  const forNormal = ["Created", "Collected", "Favorited", "Hidden"];
-  const forCollectionsOnly = ["Offers", "Listings"];
 
   if (forNormal.includes(choosenTopSection)) return normalSections;
 

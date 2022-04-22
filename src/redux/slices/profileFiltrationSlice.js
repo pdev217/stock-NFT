@@ -31,6 +31,13 @@ export const profileFiltration = createSlice({
         state[field] = state[field].filter((elem) => elem !== data);
       }
     },
+    deleteFromArrayOfObjects: (state, { payload: { field, objectField, data } }) => {
+      if (data.rows) {
+        state[field] = { ...state[field], rows: state[field].rows.filter((elem) => elem.name !== data.rows)  };
+      } else {
+        state[field] = state[field].filter(elem => elem[objectField] !== data)
+      }
+    },
     deletePrice: (state) => {
       state.selectedPrice = {
         min: undefined,
@@ -41,6 +48,6 @@ export const profileFiltration = createSlice({
   },
 });
 
-export const { setData, deleteFromArray, deletePrice } = profileFiltration.actions;
+export const { setData, deleteFromArray, deletePrice, deleteFromArrayOfObjects } = profileFiltration.actions;
 
 export default profileFiltration.reducer;

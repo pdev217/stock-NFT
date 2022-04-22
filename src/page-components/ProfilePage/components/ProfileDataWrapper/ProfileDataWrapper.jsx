@@ -99,7 +99,7 @@ export const ProfileDataWrapper = () => {
           </span>
         </div>
         <div className={styles.username}>
-          <span>{username}</span>
+          <span>{username ? username : 'Profile'}</span>
         </div>
         <div className={styles.bio}>
           <span>{bio}</span>

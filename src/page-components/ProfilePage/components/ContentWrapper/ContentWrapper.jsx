@@ -4,11 +4,12 @@ import cn from "classnames";
 //components
 import { Sidebar } from "../Sidebar/Sidebar";
 import { NormalFilterSection } from "./components/NormalFilterSection/NormalFilterSection";
+import { OffersFilterSection } from "./components/OffersFilterSection/OffersFilterSection";
+import { TagsWrapper } from "./components/TagsWrapper/TagsWrapper";
 //utils
 import { chooseSections } from "./ContentWrapper.utils";
 //styles
 import styles from "./ContentWrapper.module.scss";
-import { OffersFilterSection } from "./components/OffersFilterSection/OffersFilterSection";
 
 export const ContentWrapper = () => {
   const [choosenSection, setChoosenSection] = useState("Created");
@@ -40,13 +41,10 @@ export const ContentWrapper = () => {
                 isOpened={isSidebarOpened}
               />
               <div className={styles.rightBottomSide}>
-                {choosenSection !== "Activity" && choosenSection !== "Offers" && (
-                    <NormalFilterSection />
-                )}
-                {choosenSection === "Offers" && (
-                    <OffersFilterSection />
-                )}
+                {choosenSection !== "Activity" && choosenSection !== "Offers" && <NormalFilterSection />}
+                {choosenSection === "Offers" && <OffersFilterSection />}
               </div>
+              <TagsWrapper choosenSection={choosenSection} />
             </div>
           )}
         </>

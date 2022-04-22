@@ -8,21 +8,26 @@ export const chooseSections = [
     {
         text: 'Collected',
         icon: <CollectedIcon />,
+        nameForBE: 'collected'
     },
     {
         text: 'Created',
         icon: <CreatedIcon />,
+        nameForBE: 'created'
     },
     {
         text: 'Favorited',
         icon: <FavoritedIcon />,
+        nameForBE: 'favorited'
     },
     {
         text: 'Activity',
         icon: <ActivityIcon />,
+        nameForBE: 'activity'
     },
     {
         text: 'Offers',
         icon: <OfferIcon />,
+        nameForBE: 'offers'
     },
 ]
