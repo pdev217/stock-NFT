@@ -141,14 +141,14 @@ export const BottomInfoWrapper = ({ activity }) => {
                   <span className={styles.greySmallText}>{usdPrice}</span>
                 </div>
                 <div>
-                  <span className={styles.link}>{byuer.username ||
-                          `${byuer.publicAddress.substting(0, 6)}...${byuer.publicAddress.substring(
-                            byuer.publicAddress.length - 6
+                  <span className={styles.link}>{buyer.username ||
+                          `${buyer.publicAddress.substring(0, 6)}...${buyer.publicAddress.substring(
+                            buyer.publicAddress.length - 6
                           )}`}</span>
                 </div>
                 <div>
                   <span className={styles.link}>{seller.username ||
-                          `${seller.publicAddress.substting(0, 6)}...${seller.publicAddress.substring(
+                          `${seller.publicAddress.substring(0, 6)}...${seller.publicAddress.substring(
                             seller.publicAddress.length - 6
                           )}`}</span>
                 </div>

@@ -228,7 +228,7 @@ export const RightSideInfoWrapper = ({
                     <div>
                       <span className={styles.link}>
                         {username ||
-                          `${publicAddress.substting(0, 6)}...${publicAddress.substring(
+                          `${publicAddress.substring(0, 6)}...${publicAddress.substring(
                             publicAddress.length - 6
                           )}`}
                       </span>
@@ -317,7 +317,7 @@ export const RightSideInfoWrapper = ({
                     <div>
                       <span className={styles.link}>
                         {username ||
-                          `${publicAddress.substting(0, 6)}...${publicAddress.substring(
+                          `${publicAddress.substring(0, 6)}...${publicAddress.substring(
                             publicAddress.length - 6
                           )}`}
                       </span>
