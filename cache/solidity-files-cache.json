@@ -1322,8 +1322,8 @@
       ]
     },
     "D:\\New folder\\stoke-frontend\\contracts\\StokeMarketPlace.sol": {
-      "lastModificationDate": 1650206905952,
-      "contentHash": "0c851ca0a2505dcf800193ad95926763",
+      "lastModificationDate": 1650442079842,
+      "contentHash": "0a9f768d3c4e388aa469cff2768ccf5c",
       "sourceName": "contracts/StokeMarketPlace.sol",
       "solcConfig": {
         "version": "0.8.8",

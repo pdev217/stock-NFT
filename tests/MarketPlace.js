@@ -66,4 +66,8 @@ describe("StokeMarketPlace contract", function () {
     const amount = await weth.allowance(account4.address, marketContract.address);
     console.log(ethers.utils.formatUnits(amount))
   })
+
+  it("Buy feature", async() => {
+    await marketContract.connect(account1).transferAmount(account2.address, {value: 10000000});
+  })
 })
