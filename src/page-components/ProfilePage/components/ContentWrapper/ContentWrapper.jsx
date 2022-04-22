@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 //redux
 import { useSelector } from "react-redux";
 //axios
@@ -22,10 +22,9 @@ export const ContentWrapper = () => {
 
   const { readyFilterOption } = useSelector((state) => state.profileFiltration);
 
-  const getTokens = async () => {
+  const getTokens = useCallback(async () => {
     const accessToken = localStorage.getItem("accessToken");
     const { sortOrder, sortBy } = readyFilterOption;
-    console.log("---readyFilterOption", readyFilterOption);
 
     const {
       data: { data },
@@ -39,13 +38,11 @@ export const ContentWrapper = () => {
     );
 
     return data;
-  };
+  }, [choosenSection, readyFilterOption]);
 
   useEffect(() => {
     getTokens().then((result) => setTokens(result));
-  }, []);
-
-  console.log("---tokens", tokens);
+  }, [getTokens]);
 
   return (
     <div className={styles.wrapper}>
