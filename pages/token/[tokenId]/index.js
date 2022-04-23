@@ -22,6 +22,7 @@ export const getServerSideProps = async ({ params }) => {
   const { data } = await axios.get(`${process.env.BACKEND_URL}/nfts/${params.tokenId}`, {
     httpsAgent,
   });
+  console.log('---data', data)
 
   const adaptPriceAndType = async (array, type) => {
     const newArray = Promise.all(array.map(
@@ -33,14 +34,15 @@ export const getServerSideProps = async ({ params }) => {
     return newArray;
   };
 
-  const adaptedOffers = await adaptPriceAndType(data.offers, 'Offers')
+  const adaptedOffers = await adaptPriceAndType(data.offers, 'Offers');
 
   return {
     props: {
       ...data,
       offers: adaptedOffers,
+      user: data.owner,
       collectionName: data.collection?.name || null,
-      about: data.collection.description,
+      about: data.collection?.description,
       blockchainName: data.blockchainType?.name || null,
     },
   };

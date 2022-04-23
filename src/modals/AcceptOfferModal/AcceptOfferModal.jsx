@@ -45,10 +45,10 @@ const etherChain = process.env.ETHER_CHAIN;
 const polygonChain = process.env.POLYGON_CHAIN;
 const eth_tokenAddr = process.env.ETH_TOKEN;
 const eth_stokeMarketAddr = process.env.ETH_MARKET;
-const eth_nftAddr = process.env.ETH_NFT
+const eth_nftAddr = process.env.ETH_NFT;
 const pol_tokenAddr = process.env.POL_TOKEN;
 const pol_stokeMarketAddr = process.env.POL_MARKET;
-const pol_nftAddr = process.env.POL_NFT
+const pol_nftAddr = process.env.POL_NFT;
 let tokenContract;
 let nftContract;
 let marketContract;
@@ -57,7 +57,16 @@ let stokeMarketAddr;
 let nftAddr;
 let supportNetwork;
 
-export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collection, tokenFileName, id, tokenNetwork }) => {
+export const AcceptOfferModal = ({
+  isOpened,
+  handleClose,
+  price,
+  name,
+  collection,
+  tokenFileName,
+  id,
+  tokenNetwork,
+}) => {
   const [imageRatio, setImageRatio] = useState(16 / 9);
   const [tokenFileLink, setTokenFileLink] = useState("/");
   const [isFileLoading, setIsFileLoading] = useState(true);
@@ -116,14 +125,14 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
 
   //get contract
   useEffect(() => {
-    if(library) {
+    if (library) {
       console.log(tokenNetwork);
-      if(tokenNetwork === "ethereum") {
+      if (tokenNetwork === "ethereum") {
         tokenAddr = eth_tokenAddr;
         stokeMarketAddr = eth_stokeMarketAddr;
         nftAddr = eth_nftAddr;
         supportNetwork = etherChain;
-      }else if(tokenNetwork === "polygon") {
+      } else if (tokenNetwork === "polygon") {
         tokenAddr = pol_tokenAddr;
         stokeMarketAddr = pol_stokeMarketAddr;
         nftAddr = pol_nftAddr;
@@ -135,36 +144,36 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
         tokenArtifacts.deployedBytecode,
         library?.getSigner()
       );
-      
-      console.log('---tokenAddr', tokenAddr)
+
+      console.log("---tokenAddr", tokenAddr);
       tokenContract = IToken.attach(tokenAddr);
-  
+
       const IMarket = new ethers.ContractFactory(
         marketPlaceArtifacts.abi,
         marketPlaceArtifacts.deployedBytecode,
         library?.getSigner()
-      )
+      );
       marketContract = IMarket.attach(stokeMarketAddr);
-  
+
       const IStokeNFT = new ethers.ContractFactory(
         stokeNFTArtifacts.abi,
         stokeNFTArtifacts.deployedBytecode,
         library?.getSigner()
-      )
+      );
       nftContract = IStokeNFT.attach(nftAddr);
     }
   }, [account, library]);
 
   const handleAccept = async () => {
-    console.log(supportNetwork)
-    if(chainId !== supportNetwork) {
+    console.log(supportNetwork);
+    if (chainId !== supportNetwork) {
       await switchNetwork(supportNetwork, library);
       dispatch(
         openSuccess({
           title: "The network has been changed successfully.",
         })
       );
-    }else {
+    } else {
       const offer = offersData.find((offer) => offer.id == id);
       const sender = offer.buyer.publicAddress;
       const wei = await tokenContract.balanceOf(sender);
@@ -172,9 +181,9 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
       if (Number(balance) >= price) {
         const offerC = {
           sender,
-          amount:ethers.utils.parseEther(String(price)),
-          expiresAt: offer.expirationDateParsed
-        }
+          amount: ethers.utils.parseEther(String(price)),
+          expiresAt: offer.expirationDateParsed,
+        };
         const tokenId = router.query.tokenId;
         const Token = {
           tokenId: Number(tokenId),
@@ -184,10 +193,10 @@ export const AcceptOfferModal = ({ isOpened, handleClose, price, name, collectio
       } else {
         dispatch(openError("Offer's owner has not enough balance"));
       }
-  
+
       try {
         const accessToken = localStorage.getItem("accessToken");
-  
+
         await axios.post(
           `${process.env.BACKEND_URL}/offers/accept/${id}`,
           {},

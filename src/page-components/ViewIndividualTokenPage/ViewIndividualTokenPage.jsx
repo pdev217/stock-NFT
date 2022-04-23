@@ -190,7 +190,7 @@ export const ViewIndividualTokenPage = ({
           </div>
           <div className={styles.leftSideInfoWrapper}>
             <LeftSideInfoWrapper
-              owner={user.username}
+              owner={user}
               description={description}
               properties={properties}
               levels={levels}
@@ -205,7 +205,7 @@ export const ViewIndividualTokenPage = ({
             collection={collectionName}
             tokenFileName={fileName}
             name={name}
-            owner={user.username}
+            owner={user}
             userId={user.userId}
             offers={offers}
             /// fake data

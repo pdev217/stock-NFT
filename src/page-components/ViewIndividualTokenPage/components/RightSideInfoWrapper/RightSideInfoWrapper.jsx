@@ -38,12 +38,13 @@ export const RightSideInfoWrapper = ({
 }) => {
   const dispatch = useDispatch();
   const { account, library } = useWeb3React();
+  const [userAccount, setUserAccount] = useState("");
   const [saleEnds, setSaleEnds] = useState(undefined);
   const [saleEndsStringified, setSaleEndsStringified] = useState("");
   const [tokenOwner, setTokenOwner] = useState();
 
   const offersData = useSelector((state) => state.offers.offers);
-  console.log('---offersData', offersData)
+  console.log("---offersData", offersData);
   const router = useRouter();
 
   const [listingData, setListingData] = useState(undefined);
@@ -56,7 +57,7 @@ export const RightSideInfoWrapper = ({
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
   //network ether or polygon
-  const [tokenNetwork, setTokenNetwork] = useState('');
+  const [tokenNetwork, setTokenNetwork] = useState("");
 
   const profileName = useSelector((state) => state.userData.username);
 
@@ -66,8 +67,21 @@ export const RightSideInfoWrapper = ({
   };
 
   useEffect(() => {
-    if (owner === profileName) setTokenOwner("you");
-    else setTokenOwner(owner);
+    const account = localStorage.getItem("account");
+    setUserAccount(account);
+  }, []);
+
+  useEffect(() => {
+    if (owner.publicAddress === userAccount) {
+      setTokenOwner("you");
+    } else if (!owner.username) {
+      const { publicAddress } = owner;
+      setTokenOwner(
+        `${publicAddress.substring(0, 6)}...${publicAddress.substring(publicAddress.length - 6)}`
+      );
+    } else {
+      setTokenOwner(owner.username);
+    }
   }, [owner, profileName]);
 
   useEffect(() => {
@@ -92,11 +106,11 @@ export const RightSideInfoWrapper = ({
     const { tokenId } = router.query;
     async function getNftInfo() {
       const response = await axios.get(`${process.env.BACKEND_URL}/nfts/${tokenId}`);
-      const { blockchainType } = response.data
+      const { blockchainType } = response.data;
       setTokenNetwork(String(blockchainType.name).toLowerCase());
     }
     getNftInfo();
-  }, [])
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -117,7 +131,7 @@ export const RightSideInfoWrapper = ({
           </div>
         </div>
       </div>
-      {owner !== profileName && (
+      {owner.publicAddress !== userAccount && (
         <div className={cn(styles.box, styles.saleEndsPriceWrapper)}>
           <div className={styles.saleEnds}>
             <div>
@@ -212,7 +226,12 @@ export const RightSideInfoWrapper = ({
                       <span className={styles.greySmallText}>{expirationDate}</span>
                     </div>
                     <div>
-                      <span className={styles.link}>{username || publicAddress}</span>
+                      <span className={styles.link}>
+                        {username ||
+                          `${publicAddress.substring(0, 6)}...${publicAddress.substring(
+                            publicAddress.length - 6
+                          )}`}
+                      </span>
                     </div>
                     <div className={styles.buttonWrapper}>
                       <CustButton text="buy" color="ghost" />
@@ -275,7 +294,7 @@ export const RightSideInfoWrapper = ({
               <div>
                 <span>From</span>
               </div>
-              <div className={styles.buttonWrapper}></div>
+              {owner.publicAddress === userAccount && <div className={styles.buttonWrapper}></div>}
             </div>
             <div
               className={cn(styles.opened, {
@@ -296,11 +315,18 @@ export const RightSideInfoWrapper = ({
                       <span className={styles.greySmallText}>{expirationDate}</span>
                     </div>
                     <div>
-                      <span className={styles.link}>{username || publicAddress}</span>
+                      <span className={styles.link}>
+                        {username ||
+                          `${publicAddress.substring(0, 6)}...${publicAddress.substring(
+                            publicAddress.length - 6
+                          )}`}
+                      </span>
                     </div>
-                    <div className={styles.buttonWrapper}>
-                      <CustButton text="Accept" color="ghost" onClick={() => handleAccept(price, id)} />
-                    </div>
+                    {owner.publicAddress === userAccount && (
+                      <div className={styles.buttonWrapper}>
+                        <CustButton text="Accept" color="ghost" onClick={() => handleAccept(price, id)} />
+                      </div>
+                    )}
                   </div>
                 )
               )}

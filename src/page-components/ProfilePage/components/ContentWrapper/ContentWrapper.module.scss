@@ -1,0 +1,50 @@
+.wrapper {
+	font-family: "Poppins", sans-serif;
+}
+
+.chooseSectionWrapper {
+	display: flex;
+
+	border-bottom: 1px solid var(--dark-grey);
+}
+
+.chooseSection {
+	display: flex;
+	align-items: center;
+
+	padding: 40px;
+
+	cursor: pointer;
+	letter-spacing: 0.01px;
+
+	color: var(--light-grey);
+
+	font-size: 16px;
+
+	span {
+		margin-left: 8px;
+	}
+}
+
+.chooseSectionActive {
+	color: var(--purple);
+	box-shadow:  0px -8px 0px -4px var(--purple) inset;;
+
+	svg {
+		fill: var(--purple);
+		stroke: var(--purple);
+	}
+}
+
+.bottomSideWrapper {
+	display: flex;
+}
+
+.rightBottomSide {
+	width: 100%;
+	padding: 2%;
+}
+
+.topFiltrationSection {
+	width: inherit;
+}

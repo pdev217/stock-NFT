@@ -7,12 +7,6 @@ export const routingCategories = [
 
 export const profilePopupCategories = [
   {
-    categoryName: "Profile",
-    href: "#",
-    src: "/profile-without-circle.svg",
-    id: "1",
-  },
-  {
     categoryName: "Favourites",
     href: "#",
     src: "/favourites-icon.svg",

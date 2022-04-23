@@ -3,7 +3,8 @@
 		"stylelint-order-config-standard"
 	],
 	"plugins": [
-		"stylelint-order"
+		"stylelint-order",
+		"stylelint-scss"
 	],
 	"rules": {
 		"indentation": [

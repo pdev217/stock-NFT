@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
+  <g id="CirclesThreePlus" transform="translate(-4 -4)">
+    <path id="Контур_45" data-name="Контур 45" d="M8.34,12.679A4.34,4.34,0,1,0,4,8.34,4.34,4.34,0,0,0,8.34,12.679Z" fill="#fc3aaa"/>
+    <path id="Контур_46" data-name="Контур 46" d="M21.34,12.679A4.34,4.34,0,1,0,17,8.34,4.34,4.34,0,0,0,21.34,12.679Z" transform="translate(-2.679)" fill="#fc3aaa"/>
+    <path id="Контур_47" data-name="Контур 47" d="M8.34,25.679A4.34,4.34,0,1,0,4,21.34,4.34,4.34,0,0,0,8.34,25.679Z" transform="translate(0 -2.679)" fill="#fc3aaa"/>
+    <path id="Контур_48" data-name="Контур 48" d="M24.312,20.762H22.34V18.789a.789.789,0,0,0-1.578,0v1.973H18.789a.789.789,0,0,0,0,1.578h1.973v1.973a.789.789,0,0,0,1.578,0V22.34h1.973a.789.789,0,0,0,0-1.578Z" transform="translate(-2.89 -2.89)" fill="#fc3aaa"/>
+  </g>
+</svg>

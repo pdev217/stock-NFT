@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { open as openProfilePopupReducer } from "../../src/redux/slices/profilePopupSlice";
 import { open as openWalletPopupReducer } from "../../src/redux/slices/walletPopupSlice";
 import { open as openError } from "../../src/redux/slices/errorSnackbarSlice";
-import { setImage, setUsername } from "../../src/redux/slices/userDataSlice";
+import { setImage, setUsername, setBanner, setUserBio } from "../../src/redux/slices/userDataSlice";
 // these are components for the second variant of header. I don't know exactly which one to implement
 // import { Username } from "../../src/components/Username/Username";
 // import { AmountWithIcon } from "../../src/components/AmountWithIcon/AmountWithIcon";
@@ -35,7 +35,7 @@ export const Header = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { isAuthorized, error } = useAuth();
-  const pagesForUnauthorized = useSelector((state) => state.administration.pagesForUnauthorized)
+  const pagesForUnauthorized = useSelector((state) => state.administration.pagesForUnauthorized);
 
   if (error && !pagesForUnauthorized.includes(router.pathname)) {
     dispatch(
@@ -51,13 +51,14 @@ export const Header = () => {
     const accessToken = localStorage.getItem("accessToken");
     const publicAddress = localStorage.getItem("account");
     try {
-      const {
-        data: { profileImage, username },
-      } = await axios.get(`${process.env.BACKEND_URL}/users/${publicAddress}`, {
+      const { data } = await axios.get(`${process.env.BACKEND_URL}/users/${publicAddress}`, {
         headers: { Authorization: "Bearer " + accessToken },
       });
-      dispatch(setImage(profileImage));
-      dispatch(setUsername(username));
+      console.log("---data", data);
+      dispatch(setImage(data.profileImage));
+      dispatch(setBanner(data.profileBanner));
+      dispatch(setUsername(data.username));
+      dispatch(setUserBio(data.bio));
     } catch (e) {
       !pagesForUnauthorized.includes(router.pathname) &&
         dispatch(
@@ -80,6 +81,7 @@ export const Header = () => {
   const openWalletPopup = () => {
     dispatch(openWalletPopupReducer());
   };
+  console.log("---username", username);
 
   return (
     <header className={styles.header}>
@@ -121,7 +123,7 @@ export const Header = () => {
               />
             </div>
             <div className={styles.profileText}>
-              {isAuthorized ? (username !== "" ? username : "Profile") : "Profile"}
+              {isAuthorized ? (username && username !== "" ? username : "Profile") : "Profile"}
             </div>
           </div>
           <ProfilePopup

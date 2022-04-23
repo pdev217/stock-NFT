@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  imageUrl: "/",
+  imageUrl: undefined,
   username: "Profile",
-  banner: "",
+  banner: undefined,
+  bio: '',
+  nfts: 0,
+  totalValue: 0,
+  highestValue: 0,
+  mostCompleteCollection: 0,
+  volumeTraded: 0
 };
 
 export const userData = createSlice({
@@ -21,19 +27,18 @@ export const userData = createSlice({
       if (action.payload === null) {
         state.banner = `/create-nft/empty-profileBanner.png`;
       } else {
-        state.banner = `${process.env.BACKEND_ASSETS_URL}/profileBanner/${action.payload}`;
+        state.banner = `${process.env.BACKEND_ASSETS_URL}/profileBanners/${action.payload}`;
       }
     },
     setUsername: (state, action) => {
-      if (action.payload === "") {
-        state.username = "Profile";
-      } else {
         state.username = action.payload;
-      }
+    },
+    setUserBio: (state, action) => {
+      state.bio = action.payload
     }
   },
 });
 
-export const { setImage, setUsername, setBanner } = userData.actions;
+export const { setImage, setUsername, setBanner, setUserBio } = userData.actions;
 
 export default userData.reducer;

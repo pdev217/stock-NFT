@@ -1,0 +1,20 @@
+.textfields {
+	display: flex;
+
+	margin-top: 16px;
+}
+
+.between {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 35px;
+
+	color: var(--shadow);
+}
+
+.button {
+	margin-top: 16px;
+	width: fit-content;
+}
