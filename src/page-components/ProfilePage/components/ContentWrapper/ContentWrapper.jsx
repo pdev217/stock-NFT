@@ -10,6 +10,7 @@ import { Sidebar } from "../Sidebar/Sidebar";
 import { NormalFilterSection } from "./components/NormalFilterSection/NormalFilterSection";
 import { OffersFilterSection } from "./components/OffersFilterSection/OffersFilterSection";
 import { TagsWrapper } from "./components/TagsWrapper/TagsWrapper";
+import { SquareNFTCard } from "../../../../components/SquareNFTCard/SquareNFTCard";
 //utils
 import { chooseSections } from "./ContentWrapper.utils";
 //styles
@@ -43,6 +44,7 @@ export const ContentWrapper = () => {
   useEffect(() => {
     getTokens().then((result) => setTokens(result));
   }, [getTokens]);
+  console.log("---tokens", tokens);
 
   return (
     <div className={styles.wrapper}>
@@ -73,6 +75,17 @@ export const ContentWrapper = () => {
                 {choosenSection !== "Activity" && choosenSection !== "Offers" && <NormalFilterSection />}
                 {choosenSection === "Offers" && <OffersFilterSection />}
                 <TagsWrapper choosenSection={choosenSection} />
+                {tokens.map(({ name, category, status, price, username, fileName, id }) => (
+                  <SquareNFTCard
+                    key={id}
+                    name={name}
+                    category={category}
+                    status={status}
+                    price={price}
+                    username={username}
+                    fileName={fileName}
+                  />
+                ))}
               </div>
             </div>
           )}
