@@ -1,14 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 //next
 import Image from "next/image";
+//classnames
+import cn from "classnames";
 //spinner
 import { Oval } from "react-loader-spinner";
+//components
+import { Tag } from "../Tag/Tag";
+import { AmountWithIcon } from "../AmountWithIcon/AmountWithIcon";
+import { AmountDifference } from "../AmountDifference/AmountDifference";
 //utils
 import { videos, audios, images } from "../../helpers/extentions";
 //styles
 import styles from "./SquareNFTCard.module.scss";
 
-export const SquareNFTCard = ({ name, category, status, price, username, fileName }) => {
+export const SquareNFTCard = ({ name, category, status, price, owner, fileName }) => {
   const [tokenFileError, setTokenFileError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [typeOfTokenFile, setTypeOfTokenFile] = useState();
@@ -38,58 +44,90 @@ export const SquareNFTCard = ({ name, category, status, price, username, fileNam
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.imageWrapper}>
-        {isLoading && (
-          <div className={styles.spinner}>
-            <Oval
-              ariaLabel="loading-indicator"
-              color="var(--black)"
-              height={70}
-              secondaryColor="var(--light-grey)"
-              strokeWidth={3}
-              width={70}
-            />
+      <div className={styles.imageWrapperWrapper}>
+        <div
+          className={cn(styles.imageWrapper, {
+            [styles.blur]: status === "pending" && typeOfTokenFile !== "audio",
+          })}
+        >
+          {isLoading && (
+            <div className={styles.spinner}>
+              <Oval
+                ariaLabel="loading-indicator"
+                color="var(--black)"
+                height={70}
+                secondaryColor="var(--light-grey)"
+                strokeWidth={3}
+                width={70}
+              />
+            </div>
+          )}
+          {tokenFileError ? (
+            <div className={styles.emptySection}>
+              <span>No file</span>
+            </div>
+          ) : (
+            <>
+              {typeOfTokenFile === "image" && (
+                <>
+                  <Image
+                    alt="token-image"
+                    layout="fill"
+                    objectFit="cover"
+                    loader={imageLoader}
+                    onError={() => setTokenFileError(true)}
+                    onLoadingComplete={() => setIsLoading(false)}
+                    src={fileName}
+                  />
+                </>
+              )}
+              {typeOfTokenFile === "video" && (
+                <video
+                  alt="token-video"
+                  autoPlay={false}
+                  className={styles.video}
+                  controls={status !== "pending" ? "controls" : false}
+                  onError={() => setTokenFileError(true)}
+                  ref={videoRef}
+                  src={`${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`}
+                />
+              )}
+              {typeOfTokenFile === "audio" && (
+                <audio
+                  alt="token-audio"
+                  autoPlay={false}
+                  className={styles.audio}
+                  controls="controls"
+                  ref={audioRef}
+                  src={`${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`}
+                />
+              )}
+            </>
+          )}
+        </div>
+      </div>
+      <div className={styles.infoWrapper}>
+        <div className={styles.name}>
+          <span>{name}</span>
+        </div>
+        {price && <div className={styles.price}>
+          <AmountWithIcon amount={1500} color="red" />
+          <AmountDifference direction="down" percent="12" />
+        </div>}
+        <div className={styles.bottomSection}>
+          <div className={styles.bottomLeft}>
+            <div className={styles.collection}>
+              <span>Collection</span>
+            </div>
+            <div className={styles.address}>
+              {owner.publicAddress.substring(0, 6)}...
+              {owner.publicAddress.substring(owner.publicAddress.length - 6)}
+            </div>
           </div>
-        )}
-        {tokenFileError ? (
-          <div className={styles.emptySection}>
-            <span>No file</span>
+          <div className={styles.bottomRight}>
+            <Tag text={status === 'pending' ? status : category} />
           </div>
-        ) : (
-          <>
-            {typeOfTokenFile === "image" && (
-              <Image
-                alt="token-image"
-                layout="fill"
-                loader={imageLoader}
-                onError={() => setTokenFileError(true)}
-                onLoadingComplete={() => setIsLoading(false)}
-                src={fileName}
-              />
-            )}
-            {typeOfTokenFile === "video" && (
-              <video
-                alt="token-video"
-                autoPlay={false}
-                className={styles.video}
-                controls="controls"
-                onError={() => setTokenFileError(true)}
-                ref={videoRef}
-                src={`${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`}
-              />
-            )}
-            {typeOfTokenFile === "audio" && (
-              <audio
-                alt="token-audio"
-                autoPlay={false}
-                className={styles.audio}
-                controls="controls"
-                ref={audioRef}
-                src={`${process.env.BACKEND_ASSETS_URL}/nftMedia/${fileName}`}
-              />
-            )}
-          </>
-        )}
+        </div>
       </div>
     </div>
   );

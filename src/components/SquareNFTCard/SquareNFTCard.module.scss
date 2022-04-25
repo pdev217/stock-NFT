@@ -1,4 +1,139 @@
 .wrapper {
-    width: 100%;
-    aspect-ratio: 1 / 0.9112;
+  width: 100%;
+  aspect-ratio: 1 / 0.9112;
+  background-color: var(--dark-grey);
+  border: 1px solid var(--white);
+  border-radius: 30px;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+.imageWrapperWrapper {
+  height: 61%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+.imageWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black);
+  height: 100%;
+}
+
+.video {
+  position: absolute;
+  width: 100%;
+}
+
+.audio {
+  position: absolute;
+  width: 90%;
+  max-width: 350px;
+}
+
+.blur {
+  filter: blur(16px);
+  overflow: hidden;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.02px;
+  color: var(--white);
+
+  @media screen and (max-width: 1700px) {
+    font-size: 16px;
+  }
+}
+
+.infoWrapper {
+  padding: 6.15% 5.63%;
+  height: 39%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  @media screen and (max-width: 1800px) {
+    padding: 4.5% 5.63%;
+  }
+
+  @media screen and (max-width: 1700px) {
+    padding: 3.5% 5.63%;
+  }
+}
+
+.price {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+
+  @media screen and (max-width: 1700px) {
+    margin-top: 6px;
+  }
+
+  @media screen and (max-width: 1550px) {
+    font-size: 14px;
+    margin-top: 2px;
+
+    div:first-child {
+      height: 16px;
+      width: 16px;
+    }
+  }
+
+  @media screen and (max-width: 1450px) {
+    margin-top: 0;
+
+    div:first-child {
+      height: 14px;
+      width: 14px;
+    }
+  }
+}
+
+.bottomSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.collection {
+  color: var(--azur);
+  font-size: 12px;
+  margin-top: 9px;
+  letter-spacing: 0.01px;
+
+  @media screen and (max-width: 1700px) {
+    margin-top: 6px;
+  }
+
+  @media screen and (max-width: 1550px) {
+    margin-top: 2px;
+  }
+
+  @media screen and (max-width: 1450px) {
+    margin-top: 0;
+    font-size: 10px;
+  }
+}
+
+.address {
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.01px;
+  color: var(--light-grey);
+  margin-top: 4px;
+
+  @media screen and (max-width: 1550px) {
+    margin-top: 2px;
+  }
+  @media screen and (max-width: 1450px) {
+    margin-top: 0;
+    font-size: 10px;
+  }
 }

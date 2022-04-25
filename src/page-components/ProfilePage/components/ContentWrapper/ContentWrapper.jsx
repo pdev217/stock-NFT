@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
+//next
+import Image from "next/image";
 //redux
 import { useSelector } from "react-redux";
 //axios
@@ -17,16 +19,17 @@ import { chooseSections } from "./ContentWrapper.utils";
 import styles from "./ContentWrapper.module.scss";
 
 export const ContentWrapper = () => {
-  const [choosenSection, setChoosenSection] = useState("created");
+  const [choosenSection, setChoosenSection] = useState("collected");
   const [isSidebarOpened, setIsSidebarOpened] = useState(true);
   const [tokens, setTokens] = useState([]);
 
-  const { readyFilterOption } = useSelector((state) => state.profileFiltration);
+  const { readyFilterOption, tokensGridScale } = useSelector((state) => state.profileFiltration);
 
   const getTokens = useCallback(async () => {
     const accessToken = localStorage.getItem("accessToken");
     const { sortOrder, sortBy } = readyFilterOption;
 
+    console.log('---readyFilterOption', readyFilterOption)
     const {
       data: { data },
     } = await axios.get(
@@ -40,11 +43,11 @@ export const ContentWrapper = () => {
 
     return data;
   }, [choosenSection, readyFilterOption]);
+  console.log('---tokensGridScale', tokensGridScale)
 
   useEffect(() => {
     getTokens().then((result) => setTokens(result));
   }, [getTokens]);
-  console.log("---tokens", tokens);
 
   return (
     <div className={styles.wrapper}>
@@ -75,17 +78,33 @@ export const ContentWrapper = () => {
                 {choosenSection !== "Activity" && choosenSection !== "Offers" && <NormalFilterSection />}
                 {choosenSection === "Offers" && <OffersFilterSection />}
                 <TagsWrapper choosenSection={choosenSection} />
-                {tokens.map(({ name, category, status, price, username, fileName, id }) => (
-                  <SquareNFTCard
-                    key={id}
-                    name={name}
-                    category={category}
-                    status={status}
-                    price={price}
-                    username={username}
-                    fileName={fileName}
-                  />
-                ))}
+                {tokens && tokens.length > 0 && (
+                  <div
+                    className={cn(styles.tokensGrid, {
+                      [styles.tokensGridSmall]: tokensGridScale === "small",
+                      [styles.tokensGridLarge]: tokensGridScale === "large",
+                    })}
+                  >
+                    {tokens.map(({ name, category, status, price, owner, fileName, id }) => (
+                      <SquareNFTCard
+                        key={id}
+                        name={name}
+                        category={category}
+                        status={status}
+                        price={price}
+                        owner={owner}
+                        fileName={fileName}
+                      />
+                    ))}
+                  </div>
+                )}
+                {!tokens ||
+                  (tokens.length === 0 && (
+                    <div className={styles.emptyTokens}>
+                      <Image src="/profile/Icon-Empty.svg" height={156} width={160} alt="no-items" />
+                      <span>No Items to display</span>
+                    </div>
+                  ))}
               </div>
             </div>
           )}

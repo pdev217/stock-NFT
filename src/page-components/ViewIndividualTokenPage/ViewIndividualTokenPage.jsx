@@ -205,7 +205,6 @@ export const ViewIndividualTokenPage = ({
             usdPrice={fakePrice.usd}
             ethPrice={fakePrice.eth}
             listing={fakeListing}
-
             ///
           />
         </div>

@@ -15,6 +15,7 @@ import { useStyles } from "../../../../../../hooks/useStyles";
 import { readyFilterOptions } from "./NormalFilterSection.utils";
 //styles
 import styles from "./NormalFilterSection.module.scss";
+import Image from "next/image";
 
 export const NormalFilterSection = () => {
   const dispatch = useDispatch();
@@ -86,17 +87,21 @@ export const NormalFilterSection = () => {
       </Select>
       <div className={styles.styleButtons}>
         <div
-          className={cn({
+          className={cn(styles.styleButton, {
             [styles.activeButton]: tokensGridScale === "large",
           })}
           onClick={() => dispatch(setData({ field: "tokensGridScale", data: "large" }))}
-        />
+        >
+          <Image src="/profile/SquaresFour.svg" width={27} height={27} alt="squares" />
+        </div>
         <div
-          className={cn({
-            [styles.activeButton]: tokensGridScale === "medium",
+          className={cn(styles.styleButton, {
+            [styles.activeButton]: tokensGridScale === "small",
           })}
-          onClick={() => dispatch(setData({ field: "tokensGridScale", data: "medium" }))}
-        />
+          onClick={() => dispatch(setData({ field: "tokensGridScale", data: "small" }))}
+        >
+          <Image src="/profile/SquaresFour-1.svg" width={27} height={27} alt="squares" />
+        </div>
       </div>
     </div>
   );
