@@ -37,8 +37,15 @@ export const NormalFilterSection = () => {
       <TextField
         className={muiClasses.textField}
         id="search"
-        InputProps={{ style: { color: "white" } }}
-        label="Search"
+        InputProps={{
+          style: { color: "white" },
+          startAdornment: (
+            <span style={{ marginRight: "8px", display: "flex", alignItems: "center" }}>
+              <Image src="/search-icon.svg" width={19} height={19} alt="search" />
+            </span>
+          ),
+        }}
+        placeholder="Search"
         onChange={({ target: { value } }) => setSearchText(value)}
         type="text"
         sx={{ width: "39%" }}
