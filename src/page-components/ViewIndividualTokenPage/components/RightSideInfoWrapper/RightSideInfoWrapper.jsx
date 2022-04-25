@@ -19,12 +19,9 @@ import { getExpirationString } from "../../../../helpers/getExpirationString";
 import styles from "./RightSideInfoWrapper.module.css";
 import { AcceptOfferModal } from "../../../../modals/AcceptOfferModal/AcceptOfferModal";
 import { useWeb3React } from "@web3-react/core";
-//ethers
-import { ethers } from "ethers";
-//contract
-import stokeNFTArtifacts from "../../../../../artifacts/contracts/StokeNFT.sol/StokeNFT.json";
-import marketPlaceArtifacts from "../../../../../artifacts/contracts/StokeMarketPlace.sol/StokeMarketplace.json";
-import tokenArtifacts from "../../../../../artifacts/contracts/WETH.sol/WETH9.json";
+import axios from "axios";
+//next
+import { useRouter } from "next/router";
 
 const fakeDate = new Date(2022, 6, 1, 2, 3, 4, 567);
 
@@ -47,6 +44,9 @@ export const RightSideInfoWrapper = ({
   const [tokenOwner, setTokenOwner] = useState();
 
   const offersData = useSelector((state) => state.offers.offers);
+  console.log("---offersData", offersData);
+  const router = useRouter();
+
   const [listingData, setListingData] = useState(undefined);
   const [acceptModalData, setAcceptModalData] = useState(undefined);
 
@@ -56,6 +56,8 @@ export const RightSideInfoWrapper = ({
 
   const [isMakeOfferModalOpened, setIsMakeOfferModalOpened] = useState(false);
   const [isAcceptOfferModalOpened, setIsAcceptOfferModalOpened] = useState(false);
+  //network ether or polygon
+  const [tokenNetwork, setTokenNetwork] = useState("");
 
   const profileName = useSelector((state) => state.userData.username);
 
@@ -67,7 +69,7 @@ export const RightSideInfoWrapper = ({
   useEffect(() => {
     const account = localStorage.getItem("account");
     setUserAccount(account);
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (owner.publicAddress === userAccount) {
@@ -99,6 +101,16 @@ export const RightSideInfoWrapper = ({
   useEffect(() => {
     dispatch(setOffers(offers));
   }, [offers]);
+
+  useEffect(() => {
+    const { tokenId } = router.query;
+    async function getNftInfo() {
+      const response = await axios.get(`${process.env.BACKEND_URL}/nfts/${tokenId}`);
+      const { blockchainType } = response.data;
+      setTokenNetwork(String(blockchainType.name).toLowerCase());
+    }
+    getNftInfo();
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -214,7 +226,12 @@ export const RightSideInfoWrapper = ({
                       <span className={styles.greySmallText}>{expirationDate}</span>
                     </div>
                     <div>
-                      <span className={styles.link}>{username || publicAddress}</span>
+                      <span className={styles.link}>
+                        {username ||
+                          `${publicAddress.substring(0, 6)}...${publicAddress.substring(
+                            publicAddress.length - 6
+                          )}`}
+                      </span>
                     </div>
                     <div className={styles.buttonWrapper}>
                       <CustButton text="buy" color="ghost" />
@@ -277,7 +294,7 @@ export const RightSideInfoWrapper = ({
               <div>
                 <span>From</span>
               </div>
-              <div className={styles.buttonWrapper}></div>
+              {owner.publicAddress === userAccount && <div className={styles.buttonWrapper}></div>}
             </div>
             <div
               className={cn(styles.opened, {
@@ -298,11 +315,18 @@ export const RightSideInfoWrapper = ({
                       <span className={styles.greySmallText}>{expirationDate}</span>
                     </div>
                     <div>
-                      <span className={styles.link}>{username || publicAddress}</span>
+                      <span className={styles.link}>
+                        {username ||
+                          `${publicAddress.substring(0, 6)}...${publicAddress.substring(
+                            publicAddress.length - 6
+                          )}`}
+                      </span>
                     </div>
-                    <div className={styles.buttonWrapper}>
-                      <CustButton text="Accept" color="ghost" onClick={() => handleAccept(price, id)} />
-                    </div>
+                    {owner.publicAddress === userAccount && (
+                      <div className={styles.buttonWrapper}>
+                        <CustButton text="Accept" color="ghost" onClick={() => handleAccept(price, id)} />
+                      </div>
+                    )}
                   </div>
                 )
               )}
@@ -348,12 +372,17 @@ export const RightSideInfoWrapper = ({
       </div>
       <MakeOfferModal
         isOpened={isMakeOfferModalOpened}
-        handleClose={() => setIsMakeOfferModalOpened(false)}
+        handleClose={() => {
+          console.log("aa");
+          setIsMakeOfferModalOpened(false);
+        }}
+        tokenNetwork={tokenNetwork}
       />
       <AcceptOfferModal
         {...acceptModalData}
         isOpened={isAcceptOfferModalOpened}
         handleClose={() => setIsAcceptOfferModalOpened(false)}
+        tokenNetwork={tokenNetwork}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import { styles } from "./CustButton.utils";
 
-export const CustButton = ({ text, onClick, color, className, disabled, fullWidth }) => {
+export const CustButton = ({ text, onClick, color, className, disabled, fullWidth}) => {
   if (fullWidth) {
     styles.width = "100%";
   }

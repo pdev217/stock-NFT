@@ -70,47 +70,16 @@ contract StokeMarketplace is ReentrancyGuard {
         IERC20(WETH).transferFrom(offer.sender, msg.sender, (offer.amount - serviceFee));
         IERC20(WETH).transferFrom(offer.sender, marketowner, serviceFee);
     }
-    
 
-    // function test(
-    //     address sender,
-    //     uint256 amount,
-    //     uint256 deadline,
-    //     address WETH,
-    //     uint8 v,
-    //     bytes32 r,
-    //     bytes32 s
-    // ) public {
-    //     // (bool success,) = WETH.call(abi.encodeWithSignature("permit(address,address,uint256,uint256,uint8,bytes32,bytes32)", sender, address(this), amount, deadline, v, r, s));
-    //     (bool success,) = WETH.call(abi.encodeWithSignature("_approve(address,address,uint256)", sender, address(this), amount));
-    //     console.log(success);
-    //     require(IERC20(WETH).allowance(sender, address(this)) == amount, "insfluience amount");
-    //     // (bool success,) = WETH.call(abi.encodeWithSignature("test(address,uint256)", sender, amount));
-    // }
+    function transferAmount(address payable _recipient) external payable {
+        _recipient.transfer(msg.value);
+    }
 
-    // function acceptOffer(
-    //     address _token,
-    //     address _sender,
-    //     uint256 _amount,
-    //     uint256 _expiresAt,
-    //     address _nftContract,
-    //     uint256 _tokenId,
-    //     string memory _tokenURI
-    // ) public nonReentrant {
-
-    //     require(_expiresAt >= block.timestamp, "Marketplace: the offer expired");
-
-    //     //calc service fee - 2.5%
-    //     uint marketFeePercentage = 25;
-    //     uint commissionDenominator = 1000;
-    //     uint serviceFee = _amount * marketFeePercentage / commissionDenominator;
-
-    //     require(IERC20(_token).allowance(_sender, address(this)) == _amount, "insufficient amount");
-    //     IERC20(_token).transferFrom(_sender, msg.sender, (_amount-serviceFee));
-    //     IERC20(_token).transferFrom(_sender, marketowner, serviceFee);
-
-    //     (bool success, bytes memory result) = _nftContract.call(abi.encodeWithSignature("createToken(uint256,address,string)", _tokenId, _sender, _tokenURI));
-        
-    //     console.log(success);
-    // }
+    function buyOrder(address payable _recipient, uint256 _tokenId, address _nftContract) public payable {
+        require(IERC721(_nftContract).getApproved(_tokenId) == address(this), "MarketPlace: The token must be approved to marketplace");
+        //transfer NFT
+        IERC721(_nftContract).transferFrom(_recipient, msg.sender, _tokenId);
+        //transfer ETH
+        _recipient.transfer(msg.value);
+    }
 }

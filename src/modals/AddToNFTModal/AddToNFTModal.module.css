@@ -69,10 +69,13 @@
 .addMoreButton {
 	margin-top: 16px;
 	margin-bottom: 24px;
+	width: fit-content;
 }
+
 
 .footer button {
 	display: flex; 
+	width: fit-content;
 
 	margin: 24px 24px 24px auto;
 }
