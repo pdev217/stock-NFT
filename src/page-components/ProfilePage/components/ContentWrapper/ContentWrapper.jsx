@@ -14,39 +14,43 @@ import { OffersFilterSection } from "./components/OffersFilterSection/OffersFilt
 import { TagsWrapper } from "./components/TagsWrapper/TagsWrapper";
 import { SquareNFTCard } from "../../../../components/SquareNFTCard/SquareNFTCard";
 import { SmallNFTCard } from "../../../../components/SmallNFTCard/SmallNFTCard";
-//utils
-import { chooseSections } from "./ContentWrapper.utils";
+//utils & helpers
+import { chooseSections, fakeActivities } from "./ContentWrapper.utils";
+import { getDateAgo } from "../../../../helpers/getDateAgo";
 //styles
 import styles from "./ContentWrapper.module.scss";
 
 export const ContentWrapper = () => {
-  const [choosenSection, setChoosenSection] = useState("collected");
+  const [choosenSection, setChoosenSection] = useState("activity");
   const [isSidebarOpened, setIsSidebarOpened] = useState(true);
-  const [tokens, setTokens] = useState([]);
+  const [tokens, setTokens] = useState(fakeActivities);
 
   const { readyFilterOption, tokensGridScale } = useSelector((state) => state.profileFiltration);
 
-  const getTokens = useCallback(async () => {
-    const accessToken = localStorage.getItem("accessToken");
-    const { sortOrder, sortBy } = readyFilterOption;
+  //later it should be changed to icons, not nftMedia
+  const imageLoader = ({ src }) => `${process.env.BACKEND_ASSETS_URL}/nftMedia/${src}`;
 
-    const {
-      data: { data },
-    } = await axios.get(
-      `${process.env.BACKEND_URL}/users/account/assets?tab=${choosenSection}&sortOrder=${sortOrder}&sortBy=${sortBy}`,
-      {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      }
-    );
+  // const getTokens = useCallback(async () => {
+  //   const accessToken = localStorage.getItem("accessToken");
+  //   const { sortOrder, sortBy } = readyFilterOption;
 
-    return data;
-  }, [choosenSection, readyFilterOption]);
+  //   const {
+  //     data: { data },
+  //   } = await axios.get(
+  //     `${process.env.BACKEND_URL}/users/account/assets?tab=${choosenSection}&sortOrder=${sortOrder}&sortBy=${sortBy}`,
+  //     {
+  //       headers: {
+  //         Authorization: "Bearer " + accessToken,
+  //       },
+  //     }
+  //   );
+  //     console.log('---data', data)
+  //   return data;
+  // }, [choosenSection, readyFilterOption]);
 
-  useEffect(() => {
-    getTokens().then((result) => setTokens(result));
-  }, [getTokens]);
+  // useEffect(() => {
+  //   getTokens().then((result) => setTokens(result));
+  // }, [getTokens]);
 
   return (
     <div className={styles.wrapper}>
@@ -74,17 +78,17 @@ export const ContentWrapper = () => {
                 isOpened={isSidebarOpened}
               />
               <div className={styles.rightBottomSide}>
-                {choosenSection !== "Activity" && choosenSection !== "Offers" && <NormalFilterSection />}
-                {choosenSection === "Offers" && <OffersFilterSection />}
+                {choosenSection !== "activity" && choosenSection !== "offers" && <NormalFilterSection />}
+                {choosenSection === "offers" && <OffersFilterSection />}
                 <TagsWrapper choosenSection={choosenSection} />
-                {choosenSection !== "Activity" && tokens && tokens.length > 0 && (
+                {choosenSection !== "activity" && tokens && tokens.length > 0 && (
                   <div
                     className={cn(styles.tokensGrid, {
                       [styles.tokensGridSmall]: tokensGridScale === "small",
                       [styles.tokensGridLarge]: tokensGridScale === "large",
                     })}
                   >
-                    {choosenSection !== "Offers" &&
+                    {choosenSection !== "offers" &&
                       tokensGridScale === "large" &&
                       tokens.map(({ name, category, status, price, collection, owner, fileName, id }) => (
                         <SquareNFTCard
@@ -98,7 +102,7 @@ export const ContentWrapper = () => {
                           collection={collection}
                         />
                       ))}
-                    {choosenSection !== "Offers" &&
+                    {choosenSection !== "offers" &&
                       tokensGridScale === "small" &&
                       tokens.map(({ name, category, status, price, collection, owner, fileName, id }) => (
                         <SmallNFTCard
@@ -114,9 +118,91 @@ export const ContentWrapper = () => {
                       ))}
                   </div>
                 )}
-                {choosenSection !== "Activity" && tokens && tokens.length > 0 && (
+                {choosenSection === "activity" && tokens && tokens.length > 0 && (
                   <div className={styles.activitiesWrapper}>
-                    
+                    <div className={styles.activitiesHead}>
+                      <div className={styles.actionColumn} />
+                      <div className={styles.itemColumn}>
+                        <span>Item</span>
+                      </div>
+                      <div className={styles.priceColumn}>
+                        <span>Price</span>
+                      </div>
+                      <div className={styles.quantityColumn}>
+                        <span>Quantity</span>
+                      </div>
+                      <div className={styles.fromColumn}>
+                        <span>From</span>
+                      </div>
+                      <div className={styles.toColumn}>
+                        <span>To</span>
+                      </div>
+                      <div className={styles.timeColumn}>
+                        <span>Time</span>
+                      </div>
+                    </div>
+                    {fakeActivities.map(({ buyer, seller, id, nft, action, quantity, date }) => (
+                      <div className={styles.activityRow} key={id}>
+                        <div className={cn(styles.actionColumn, styles.activity)}>
+                          <Image
+                            src={action.icon}
+                            loader={imageLoader}
+                            alt={action.name}
+                            width={19}
+                            height={19}
+                          />
+                          <span>{action.name}</span>
+                        </div>
+                        <div className={cn(styles.itemColumn, styles.item)}>
+                          <div className={styles.itemDisplayFlex}>
+                            <div className={styles.itemImageWrapper}>
+                              <Image
+                                src={nft.fileName}
+                                alt="token-preview"
+                                layout="fill"
+                                loader={imageLoader}
+                              />
+                            </div>
+                            <div className={styles.tokenInfoWrapper}>
+                              <div className={styles.activityRowCollectionName}>
+                                <span>{nft.collection.name}</span>
+                              </div>
+                              <div>
+                                <span>{nft.name}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className={cn(styles.activityRowPriceWrapper, styles.priceColumn)}>
+                          {nft.price ? (
+                            <div className={styles.activityRowEthPriceWrapper}>
+                              <Image
+                                src={nft.price.currency.icon}
+                                alt={`${nft.price.currency}-icon`}
+                                loader={imageLoader}
+                                width={19}
+                                height={19}
+                              />
+                              <span>{nft.price.amount}</span>
+                            </div>
+                          ) : (
+                            <span>———</span>
+                          )}
+                        </div>
+                        <div className={styles.quantityColumn}>
+                          <span>Quantity</span>
+                        </div>
+                        <div className={styles.fromColumn}>
+                          <span>From</span>
+                        </div>
+                        <div className={styles.toColumn}>
+                          <span>To</span>
+                        </div>
+                        <div className={styles.timeColumn}>
+                          <span>Time</span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
                 {(!tokens || tokens.length === 0) && (

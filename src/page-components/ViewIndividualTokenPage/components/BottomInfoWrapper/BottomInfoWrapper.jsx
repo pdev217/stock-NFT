@@ -8,7 +8,8 @@ import { Select, MenuItem } from "@mui/material";
 //hooks
 import { useStyles } from "../../../../hooks/useStyles";
 //utils
-import { getDate, filterOptions } from "./BottomInfoWrapper.utils";
+import { filterOptions } from "./BottomInfoWrapper.utils";
+import { getDateAgo } from "../../../../helpers/getDateAgo";
 import { getEtherPrice } from "../../../../utils";
 //styles
 import styles from "../RightSideInfoWrapper/RightSideInfoWrapper.module.css";
@@ -24,7 +25,7 @@ export const BottomInfoWrapper = ({ activity }) => {
     const newArray = [...initial].map((elem) => {
       return {
         ...elem,
-        date: getDate(elem.updatedAt),
+        date: getDateAgo(elem.updatedAt),
       };
     });
 

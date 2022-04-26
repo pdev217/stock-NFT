@@ -32,7 +32,7 @@ export const Price = () => {
   }, [min, max]);
 
   const handleClick = () => {
-    const text = choosenCurrency === "usd" && "USD";
+    const text = choosenCurrency === "usd" ? "USD" : "ETH";
     dispatch(
       setData({
         field: "selectedPrice",
