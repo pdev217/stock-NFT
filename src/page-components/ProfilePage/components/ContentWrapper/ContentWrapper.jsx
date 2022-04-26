@@ -13,6 +13,7 @@ import { NormalFilterSection } from "./components/NormalFilterSection/NormalFilt
 import { OffersFilterSection } from "./components/OffersFilterSection/OffersFilterSection";
 import { TagsWrapper } from "./components/TagsWrapper/TagsWrapper";
 import { SquareNFTCard } from "../../../../components/SquareNFTCard/SquareNFTCard";
+import { SmallNFTCard } from "../../../../components/SmallNFTCard/SmallNFTCard";
 //utils
 import { chooseSections } from "./ContentWrapper.utils";
 //styles
@@ -29,7 +30,7 @@ export const ContentWrapper = () => {
     const accessToken = localStorage.getItem("accessToken");
     const { sortOrder, sortBy } = readyFilterOption;
 
-    console.log('---readyFilterOption', readyFilterOption)
+    console.log("---readyFilterOption", readyFilterOption);
     const {
       data: { data },
     } = await axios.get(
@@ -43,7 +44,6 @@ export const ContentWrapper = () => {
 
     return data;
   }, [choosenSection, readyFilterOption]);
-  console.log('---tokensGridScale', tokensGridScale)
 
   useEffect(() => {
     getTokens().then((result) => setTokens(result));
@@ -85,17 +85,36 @@ export const ContentWrapper = () => {
                       [styles.tokensGridLarge]: tokensGridScale === "large",
                     })}
                   >
-                    {tokens.map(({ name, category, status, price, owner, fileName, id }) => (
-                      <SquareNFTCard
-                        key={id}
-                        name={name}
-                        category={category}
-                        status={status}
-                        price={price}
-                        owner={owner}
-                        fileName={fileName}
-                      />
-                    ))}
+                    {choosenSection !== "Activity" &&
+                      choosenSection !== "Offers" &&
+                      tokensGridScale === "large" &&
+                      tokens.map(({ name, category, status, price, collection, owner, fileName, id }) => (
+                        <SquareNFTCard
+                          key={id}
+                          name={name}
+                          category={category}
+                          status={status}
+                          price={price}
+                          owner={owner}
+                          fileName={fileName}
+                          collection={collection}
+                        />
+                      ))}
+                    {choosenSection !== "Activity" &&
+                      choosenSection !== "Offers" &&
+                      tokensGridScale === "small" &&
+                      tokens.map(({ name, category, status, price, collection, owner, fileName, id }) => (
+                        <SmallNFTCard
+                          key={id}
+                          name={name}
+                          category={category}
+                          status={status}
+                          price={price}
+                          owner={owner}
+                          fileName={fileName}
+                          collection={collection}
+                        />
+                      ))}
                   </div>
                 )}
                 {!tokens ||

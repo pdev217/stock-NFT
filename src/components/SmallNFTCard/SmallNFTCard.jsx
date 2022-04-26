@@ -12,9 +12,9 @@ import { AmountDifference } from "../AmountDifference/AmountDifference";
 //utils
 import { videos, audios, images } from "../../helpers/extentions";
 //styles
-import styles from "./SquareNFTCard.module.scss";
+import styles from "./SmallNFTCard.module.scss";
 
-export const SquareNFTCard = ({ name, category, status, price, owner, fileName, collection }) => {
+export const SmallNFTCard = ({ name, category, status, price, owner, fileName, collection }) => {
   const [tokenFileError, setTokenFileError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [typeOfTokenFile, setTypeOfTokenFile] = useState();

@@ -55,16 +55,16 @@
 }
 
 .tokensGridSmall {
-  //   grid-template-columns: 1fr 1fr 1fr;
-  //   gap: 60px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 40px;
 
-  //   @media screen and (max-width: 1550px) {
-  //     gap: 40px;
-  //   }
+    @media screen and (max-width: 1550px) {
+      gap: 40px;
+    }
 
-  //   @media screen and (max-width: 1400px) {
-  //     gap: 35px;
-  //   }
+    @media screen and (max-width: 1400px) {
+      gap: 35px;
+    }
 }
 
 .tokensGridLarge {
