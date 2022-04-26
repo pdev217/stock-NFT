@@ -77,15 +77,14 @@ export const ContentWrapper = () => {
                 {choosenSection !== "Activity" && choosenSection !== "Offers" && <NormalFilterSection />}
                 {choosenSection === "Offers" && <OffersFilterSection />}
                 <TagsWrapper choosenSection={choosenSection} />
-                {tokens && tokens.length > 0 && (
+                {choosenSection !== "Activity" && tokens && tokens.length > 0 && (
                   <div
                     className={cn(styles.tokensGrid, {
                       [styles.tokensGridSmall]: tokensGridScale === "small",
                       [styles.tokensGridLarge]: tokensGridScale === "large",
                     })}
                   >
-                    {choosenSection !== "Activity" &&
-                      choosenSection !== "Offers" &&
+                    {choosenSection !== "Offers" &&
                       tokensGridScale === "large" &&
                       tokens.map(({ name, category, status, price, collection, owner, fileName, id }) => (
                         <SquareNFTCard
@@ -99,8 +98,7 @@ export const ContentWrapper = () => {
                           collection={collection}
                         />
                       ))}
-                    {choosenSection !== "Activity" &&
-                      choosenSection !== "Offers" &&
+                    {choosenSection !== "Offers" &&
                       tokensGridScale === "small" &&
                       tokens.map(({ name, category, status, price, collection, owner, fileName, id }) => (
                         <SmallNFTCard
@@ -116,13 +114,17 @@ export const ContentWrapper = () => {
                       ))}
                   </div>
                 )}
-                {!tokens ||
-                  (tokens.length === 0 && (
-                    <div className={styles.emptyTokens}>
-                      <Image src="/profile/Icon-Empty.svg" height={156} width={160} alt="no-items" />
-                      <span>No Items to display</span>
-                    </div>
-                  ))}
+                {choosenSection !== "Activity" && tokens && tokens.length > 0 && (
+                  <div className={styles.activitiesWrapper}>
+                    
+                  </div>
+                )}
+                {(!tokens || tokens.length === 0) && (
+                  <div className={styles.emptyTokens}>
+                    <Image src="/profile/Icon-Empty.svg" height={156} width={160} alt="no-items" />
+                    <span>No Items to display</span>
+                  </div>
+                )}
               </div>
             </div>
           )}
