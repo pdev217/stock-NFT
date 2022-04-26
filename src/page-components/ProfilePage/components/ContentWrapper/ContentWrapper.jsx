@@ -30,7 +30,6 @@ export const ContentWrapper = () => {
     const accessToken = localStorage.getItem("accessToken");
     const { sortOrder, sortBy } = readyFilterOption;
 
-    console.log("---readyFilterOption", readyFilterOption);
     const {
       data: { data },
     } = await axios.get(

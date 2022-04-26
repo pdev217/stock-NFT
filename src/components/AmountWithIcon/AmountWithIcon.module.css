@@ -1,7 +1,8 @@
 .span {
-	letter-spacing: 0.8px;
 	display: flex;
 	align-items: center;
+
+	letter-spacing: 0.8px;
 
 	font-family: 'Poppins', sans-serif;
 }
@@ -36,6 +37,7 @@
 
 .iconWrapper {
 	position: relative;
-	height: 19px;
+
 	width: 19px;
+	height: 19px;
 }
